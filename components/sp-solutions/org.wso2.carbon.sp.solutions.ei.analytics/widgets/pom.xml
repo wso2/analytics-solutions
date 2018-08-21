@@ -31,5 +31,6 @@
         <module>HorizontalBarChart</module>
         <module>MediatorProperties</module>
         <module>MessageFlow</module>
+        <module>StatsChart</module>
     </modules>
 </project>
