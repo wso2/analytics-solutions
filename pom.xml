@@ -37,6 +37,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Apim Analytics solution-->
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.sp.extension.siddhi.io.mgwfile</artifactId>
+                <type>jar</type>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- Analytics solutions -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
@@ -72,10 +80,46 @@
                 <version>${carbon.analytics-common.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.wso2.carbon.analytics-common</groupId>
+                <artifactId>org.wso2.carbon.databridge.core</artifactId>
+                <version>${carbon.analytics-common.version}</version>
+            </dependency>
+
             <!-- Siddhi -->
             <dependency>
                 <groupId>org.wso2.siddhi</groupId>
                 <artifactId>siddhi-core</artifactId>
+                <version>${siddhi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.extension.siddhi.map.wso2event</groupId>
+                <artifactId>siddhi-map-wso2event</artifactId>
+                <version>${siddhi.map.wso2event.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.extension.siddhi.map.json</groupId>
+                <artifactId>siddhi-map-json</artifactId>
+                <version>${siddhi.map.json.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.siddhi</groupId>
+                <artifactId>siddhi-query-api</artifactId>
+                <version>${siddhi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.siddhi</groupId>
+                <artifactId>siddhi-query-compiler</artifactId>
+                <version>${siddhi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.siddhi</groupId>
+                <artifactId>siddhi-annotations</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
 
@@ -91,6 +135,18 @@
                 <groupId>org.apache.log4j.wso2</groupId>
                 <artifactId>log4j</artifactId>
                 <version>1.2.17.wso2v1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons.logging.version}</version>
             </dependency>
 
             <!-- Testng -->
@@ -342,9 +398,14 @@
         <carbon.analytics-common.version>6.0.66</carbon.analytics-common.version>
 
         <siddhi.version>4.2.0</siddhi.version>
+        <siddhi.map.wso2event.version>4.0.13</siddhi.map.wso2event.version>
+        <siddhi.map.json.version>4.0.27</siddhi.map.json.version>
 
         <open.tracing.version>0.31.0</open.tracing.version>
         <org.wso2.json.version>3.0.0.wso2v1</org.wso2.json.version>
+
+        <commons-lang3.version>3.3.2</commons-lang3.version>
+        <commons.logging.version>1.2</commons.logging.version>
 
         <org.jacoco.version>0.7.9</org.jacoco.version>
         <carbon.feature.plugin.version>3.1.3</carbon.feature.plugin.version>
