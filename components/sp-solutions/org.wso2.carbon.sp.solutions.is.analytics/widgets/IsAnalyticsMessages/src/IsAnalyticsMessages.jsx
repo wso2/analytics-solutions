@@ -275,7 +275,7 @@ class IsAnalyticsMessages extends Widget {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
         let updatedQuery = dataProviderConfigs.configs.config.queryData.query;
-        let filterCondition = " on _timestamp > {{from}}L and _timestamp < {{to}}L ";
+        let filterCondition = " on timestamp > {{from}}L and timestamp < {{to}}L ";
         let additionalFilters = "";
         let doAdditionalFilter = false;
 
