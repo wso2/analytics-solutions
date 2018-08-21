@@ -33,7 +33,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>DateTimeRangePicker</module>
         <module>IsAnalyticsAreaChart</module>
         <module>IsAnalyticsAttemptsOverTime</module>
         <module>IsAnalyticsCompactSummary</module>

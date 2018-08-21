@@ -245,12 +245,6 @@
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.date.time.range.picker</artifactId>
-                <type>zip</type>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.area.chart</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>

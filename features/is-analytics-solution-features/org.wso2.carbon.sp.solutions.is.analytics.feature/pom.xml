@@ -90,15 +90,6 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.wso2.carbon.analytics</groupId>
-                                    <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.date.time.range.picker</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>zip</type>
-                                    <overWrite>true</overWrite>
-                                    <outputDirectory>${project.build.directory}/target/widgets/</outputDirectory>
-                                    <includes>DateTimeRangePicker/**</includes>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
                                     <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.area.chart</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
