@@ -33,5 +33,6 @@
         <module>MessageFlow</module>
         <module>StatsChart</module>
         <module>SearchBox</module>
+        <module>MessageTable</module>
     </modules>
 </project>
