@@ -14,7 +14,13 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<FindBugsFilter>
-
-</FindBugsFilter>
+<suite name="Siddhi-Execution-Tokenizer-Test-Suite">
+    <test name="Siddhi-execution-tokenizer-tests" enabled="true" preserve-order="true" parallel="false">
+        <classes>
+            <class name="org.wso2.extension.siddhi.execution.tokenizer.streamprocessor.TestCaseOfTweetTextTokenizer"/>
+            <class name="org.wso2.extension.siddhi.execution.tokenizer.streamprocessor.TestCaseOfEntityTokenizer"/>
+        </classes>
+    </test>
+</suite>

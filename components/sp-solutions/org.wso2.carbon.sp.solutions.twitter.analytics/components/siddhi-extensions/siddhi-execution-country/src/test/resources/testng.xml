@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   ~ Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
   ~
@@ -15,6 +16,12 @@
   ~ limitations under the License.
   -->
 
-<FindBugsFilter>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-</FindBugsFilter>
+<suite name="Siddhi-Execution-Country-Test-Suite">
+    <test name="Siddhi-execution-country-tests" enabled="true" preserve-order="true" parallel="false">
+        <classes>
+            <class name="org.wso2.extension.siddhi.execution.country.TestCaseOfCountryFunction"/>
+        </classes>
+    </test>
+</suite>
