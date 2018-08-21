@@ -21,7 +21,7 @@
     <artifactId>wso2sp-solutions.twitter-analytics.tweetcounter</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Carbon Dashboards - Samples - Widgets - TweetCounter</name>
+    <name>WSO2 Stream Processor Solutions - Twitter Analytics - Tweet Counter Widget</name>
     <url>http://wso2.org</url>
 
     <parent>

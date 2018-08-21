@@ -24,7 +24,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <name>WSO2 Stream Processor - Message Tracer</name>
+    <name>WSO2 Stream Processor Solutions - Message Tracer - Widgets</name>
     <description>WSO2 Stream Processor Message Tracer Solution</description>
     <artifactId>message-tracer-widgets</artifactId>
     <packaging>pom</packaging>

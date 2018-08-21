@@ -6,7 +6,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <name>WSO2 Stream Processor - Twitter Analytics Solution Feature</name>
+    <name>WSO2 Stream Processor Solutions - Twitter Analytics Feature</name>
     <artifactId>org.wso2.carbon.sp.solutions.twitter.analytics.feature</artifactId>
 
     <dependencies>

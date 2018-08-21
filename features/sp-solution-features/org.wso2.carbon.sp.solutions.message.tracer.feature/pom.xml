@@ -6,7 +6,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <name>WSO2 Stream Processor - Message Tracer Solution Feature</name>
+    <name>WSO2 Stream Processor Solutions - Message Tracer Feature</name>
     <artifactId>org.wso2.carbon.sp.solutions.message.tracer.feature</artifactId>
 
     <dependencies>

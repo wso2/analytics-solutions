@@ -12,6 +12,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>sp-solution-features</artifactId>
+    <name>WSO2 Stream Processor Solutions - Feature Aggregator Module</name>
     <packaging>pom</packaging>
 
     <modules>
