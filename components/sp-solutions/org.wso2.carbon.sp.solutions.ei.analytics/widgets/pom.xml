@@ -32,5 +32,6 @@
         <module>MediatorProperties</module>
         <module>MessageFlow</module>
         <module>StatsChart</module>
+        <module>SearchBox</module>
     </modules>
 </project>
