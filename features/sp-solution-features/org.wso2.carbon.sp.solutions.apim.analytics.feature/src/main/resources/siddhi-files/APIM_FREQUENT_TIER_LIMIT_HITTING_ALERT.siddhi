@@ -51,7 +51,6 @@ define table ApimTierLimitHittingAlert (subscriber string, apiCreator string, ap
 @sink(type="inMemory", topic="APIM_EMAIL_NOTIFICATION", @map(type='passThrough'))
 define stream EmailAlertStream (type string, message string, alertTimestamp	string, emails	string);
 
-@sink(type='log') 
 define stream TemporaryUserStream(username string, apiCreator string,apiName string, apiVersion string, applicationId string,applicationName string, apiCreatorTenantDomain string , userTenantDomain string, subscriber string, numHits long);
 
 --checks whether total throttled out count with the throttled out reson SUBSCRIPTION_LIMIT_EXCEEDED is higer than the specified value
