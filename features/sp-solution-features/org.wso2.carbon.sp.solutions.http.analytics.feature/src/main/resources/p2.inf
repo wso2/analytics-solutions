@@ -32,3 +32,5 @@ org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../../wso2/das
 org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../../wso2/dashboard/resources/businessRules/);\
 org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../../wso2/dashboard/resources/businessRules/templates/);\
 org.wso2.carbon.extensions.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.sp.solutions.http.analytics_${feature.version}/templates/,target:${installFolder}/../../wso2/dashboard/resources/businessRules/templates/,overwrite:true);\
+org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../../wso2/{runtime}/resources/dashboards/);\
+org.wso2.carbon.extensions.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.sp.solutions.http.analytics_${feature.version}/dashboards/,target:${installFolder}/../../wso2/{runtime}/resources/dashboards/,overwrite:true);\

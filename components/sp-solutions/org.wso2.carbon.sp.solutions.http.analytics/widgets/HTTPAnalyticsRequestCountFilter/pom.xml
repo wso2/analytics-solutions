@@ -27,7 +27,7 @@
 
     <artifactId>org.wso2.sp.solutions.widgets.http.analytics.request.count.filter</artifactId>
     <packaging>pom</packaging>
-    <name>WSO2 Stream Processor - Solutions - Widgets - HTTP Analytics - Request Count Filter</name>
+    <name>WSO2 Stream Processor Solutions - HTTP Analytics - Request Count Filter Widget</name>
     <url>http://wso2.org</url>
 
     <build>
