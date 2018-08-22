@@ -61,11 +61,6 @@
             <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.user.preferences</artifactId>
             <type>zip</type>
         </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
