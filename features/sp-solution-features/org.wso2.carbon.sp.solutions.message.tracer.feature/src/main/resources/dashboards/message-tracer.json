@@ -1,0 +1,115 @@
+{
+    "dashboard": {
+        "url": "message-tracer",
+        "owner": "admin",
+        "name": "Distributed Message Tracer",
+        "description": "This is a dashboard which is designed to view the event traces",
+        "landingPage": "home",
+        "parentId": "0",
+        "pages": [
+            {
+                "id": "home",
+                "name": "Home",
+                "content": [
+                    {
+                        "type": "column",
+                        "isClosable": true,
+                        "title": "",
+                        "content": [
+                            {
+                                "type": "stack",
+                                "isClosable": true,
+                                "title": "",
+                                "height": 30.108991825613074,
+                                "content": [
+                                    {
+                                        "title": "Tracing Search",
+                                        "type": "component",
+                                        "component": "OpenTracingSearch",
+                                        "props": {
+                                            "id": "167c9cde-0451-420b-b30a-df1800c857d9",
+                                            "configs": {
+                                                "pubsub": { "types": ["publisher"] },
+                                                "isGenerated": false,
+                                                "options": {}
+                                            },
+                                            "widgetID": "OpenTracingSearch"
+                                        },
+                                        "isClosable": false,
+                                        "header": { "show": true },
+                                        "componentName": "lm-react-component"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "stack",
+                                "isClosable": true,
+                                "title": "",
+                                "height": 69.89100817438691,
+                                "content": [
+                                    {
+                                        "title": "Tracing List",
+                                        "type": "component",
+                                        "component": "OpenTracingList",
+                                        "props": {
+                                            "id": "f72e1b9b-96b9-49f1-b214-3bdede4766ef",
+                                            "configs": {
+                                                "pubsub": {
+                                                    "types": ["subscriber", "publisher"],
+                                                    "publishers": ["167c9cde-0451-420b-b30a-df1800c857d9"]
+                                                },
+                                                "isGenerated": false,
+                                                "options": {}
+                                            },
+                                            "widgetID": "OpenTracingList"
+                                        },
+                                        "isClosable": false,
+                                        "header": { "show": true },
+                                        "componentName": "lm-react-component"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "timeline",
+                "name": "Timeline",
+                "content": [
+                    {
+                        "type": "stack",
+                        "isClosable": true,
+                        "title": "",
+                        "content": [
+                            {
+                                "title": "Tracing Timeline",
+                                "type": "component",
+                                "component": "OpenTracingVisTimeline",
+                                "props": {
+                                    "id": "264ac375-ba9e-4150-9d11-b3b05378f3bd",
+                                    "configs": {
+                                        "pubsub": { "types": ["publisher", "subscriber"] },
+                                        "isGenerated": false,
+                                        "options": {}
+                                    },
+                                    "widgetID": "OpenTracingVisTimeline"
+                                },
+                                "isClosable": false,
+                                "header": { "show": true },
+                                "componentName": "lm-react-component"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "hasOwnerPermission": false,
+        "hasDesignerPermission": false,
+        "hasViewerPermission": false
+    },
+    "widgets": {
+        "generated": [],
+        "custom": ["OpenTracingSearch", "OpenTracingVisTimeline", "OpenTracingList"]
+    }
+}
