@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
   ~
@@ -14,21 +15,23 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>sp-solutions</artifactId>
-        <groupId>org.wso2.analytics.solutions</groupId>
-        <version>1.0.0-SNAPSHOT</version>
-    </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.wso2.analytics.solutions</groupId>
+        <artifactId>org.wso2.carbon.sp.solutions.apim.analytics</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <name>WSO2 Stream Processor - Apim Analytics Widgets</name>
+    <description>WSO2 Stream Processor HTTP Analytics Solution Widgets</description>
+    <artifactId>org.wso2.carbon.sp.solutions.apim.analytics.widgets</artifactId>
     <packaging>pom</packaging>
-    <name>WSO2 Stream Processor - Apim analytics solution</name>
-    <artifactId>org.wso2.carbon.sp.solutions.apim.analytics</artifactId>
 
     <modules>
-        <module>components/org.wso2.sp.extension.siddhi.io.mgwfile</module>
-        <module>components/org.wso2.analytics.apim.rest.api.file</module>
-        <module>widgets</module>
+        <module>APIMApiSubscriberAlertConfiguration</module>
     </modules>
 
 </project>

@@ -26,6 +26,13 @@
     <artifactId>org.wso2.carbon.sp.solutions.apim.analytics.feature</artifactId>
 
     <dependencies>
+        <!-- Widgets-->
+        <dependency>
+            <groupId>org.wso2.analytics.solutions</groupId>
+            <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apisubscriber.alert.config</artifactId>
+            <type>zip</type>
+        </dependency>
+
         <dependency>
             <groupId>org.wso2.analytics.solutions</groupId>
             <artifactId>org.wso2.analytics.apim.rest.api.file</artifactId>
@@ -49,6 +56,33 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apisubscriber.alert.config</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/target/widgets/</outputDirectory>
+                                    <includes>APIMApiSubscriberAlertConfiguration/**</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
