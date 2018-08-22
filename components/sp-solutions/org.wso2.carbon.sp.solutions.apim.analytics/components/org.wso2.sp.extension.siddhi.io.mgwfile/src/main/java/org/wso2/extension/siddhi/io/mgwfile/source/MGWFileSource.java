@@ -65,10 +65,7 @@ import java.util.Timer;
  * examples = {
  * {@literal @}Example(syntax = "sample query with Source annotation that explain how extension use in Siddhi."
  *                              description =" The description of the given example's query."
- *                      ),
- * }
- * )
- * </code></pre>
+ *                      ),})
  */
 
 @Extension(
