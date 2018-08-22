@@ -27,7 +27,7 @@
 
     <artifactId>org.wso2.sp.solutions.widgets.http.analytics.latency</artifactId>
     <packaging>pom</packaging>
-    <name>WSO2 Stream Processor - Solutions - Widgets - HTTP Analytics - Latency Over Time</name>
+    <name>WSO2 Stream Processor Solutions - HTTP Analytics - Latency Over Time Widget</name>
     <url>http://wso2.org</url>
 
     <build>

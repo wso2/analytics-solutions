@@ -22,7 +22,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <name>WSO2 Stream Processor - Twitter Analytics</name>
+    <name>WSO2 Stream Processor Solutions - Twitter Analytics - Widgets</name>
     <description>WSO2 Stream Processor Twitter Analytics Solutions</description>
     <artifactId>twitter-analytics-widgets</artifactId>
     <packaging>pom</packaging>

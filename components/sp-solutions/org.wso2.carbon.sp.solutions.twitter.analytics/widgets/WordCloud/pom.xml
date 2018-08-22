@@ -21,7 +21,7 @@
     <artifactId>wso2sp-solutions.twitter-analytics.wordcloud</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - Solution - Widgets - WordCloud</name>
+    <name>WSO2 Stream Processor Solutions - Twitter Analytics - Word Cloud Widget</name>
     <url>http://wso2.org</url>
 
     <parent>

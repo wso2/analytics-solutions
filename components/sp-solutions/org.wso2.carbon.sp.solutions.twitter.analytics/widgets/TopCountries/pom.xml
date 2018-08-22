@@ -21,7 +21,7 @@
     <artifactId>wso2sp-solutions.twitter-analytics.topcountries</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - Solution - Widgets - TopCountries</name>
+    <name>WSO2 Stream Processor Solutions - Twitter Analytics - Top Countries Widget</name>
     <url>http://wso2.org</url>
 
     <parent>

@@ -27,7 +27,7 @@
 
     <artifactId>org.wso2.sp.solutions.widgets.http.analytics.response.code.filter</artifactId>
     <packaging>pom</packaging>
-    <name>WSO2 Stream Processor - Solutions - Widgets - HTTP Analytics - Response Code Filter</name>
+    <name>WSO2 Stream Processor Solutions - HTTP Analytics - Request Code Filter Widget</name>
     <url>http://wso2.org</url>
 
     <build>

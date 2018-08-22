@@ -28,7 +28,7 @@
 
     <artifactId>org.wso2.sp.solutions.widgets.http.server.request.count.comparison</artifactId>
     <packaging>pom</packaging>
-    <name>WSO2 Stream Processor - Solutions - Widgets - HTTP Analytics - Request Count Comparison</name>
+    <name>WSO2 Stream Processor Solutions - HTTP Analytics - Request Count Comparison Widget</name>
     <url>http://wso2.org</url>
 
     <build>

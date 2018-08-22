@@ -21,7 +21,7 @@
     <artifactId>wso2sp-solutions.twitter-analytics.populartweets</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - Solution - Widgets - PopularTweets</name>
+    <name>WSO2 Stream Processor Solutions - Twitter Analytics - Popular Tweets Widget</name>
     <url>http://wso2.org</url>
 
     <parent>

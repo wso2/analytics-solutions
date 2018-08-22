@@ -22,7 +22,7 @@
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
-    <name>WSO2 Carbon Dashboards - Samples - Widgets - Opentracing Search</name>
+    <name>WSO2 Stream Processor Solutions - Message Tracer - Open Tracing Search Widget</name>
     <url>http://wso2.org</url>
 
     <parent>
