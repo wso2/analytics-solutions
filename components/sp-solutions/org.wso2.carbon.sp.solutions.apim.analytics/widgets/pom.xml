@@ -32,6 +32,7 @@
 
     <modules>
         <module>APIMApiSubscriberAlertConfiguration</module>
+        <module>APIMApiCreatorAlertConfiguration</module>
     </modules>
 
 </project>
