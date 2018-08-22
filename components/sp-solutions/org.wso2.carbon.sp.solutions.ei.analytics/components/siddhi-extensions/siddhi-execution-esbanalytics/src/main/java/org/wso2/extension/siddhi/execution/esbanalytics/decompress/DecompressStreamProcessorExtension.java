@@ -68,7 +68,7 @@ import static org.wso2.extension.siddhi.execution.esbanalytics.decompress.util.E
 @Extension(
         name = "decompress",
         namespace = "esbAnalytics",
-        description = "This extension decompress any compressed analytics events coming from WSO2 Enterprice" +
+        description = "This extension decompress any compressed analytics events coming from WSO2 Enterprise" +
                 " Integrator",
         parameters = {
                 @Parameter(name = "meta.compressed",
@@ -89,7 +89,7 @@ import static org.wso2.extension.siddhi.execution.esbanalytics.decompress.util.E
                         description = "Statistic tracing id for the message flow",
                         type = {DataType.STRING}),
                 @ReturnAttribute(name = "host",
-                        description = "-",
+                        description = "Name of the host",
                         type = {DataType.STRING}),
                 @ReturnAttribute(name = "hashCode",
                         description = "HashCode of the reporting component",
@@ -101,7 +101,7 @@ import static org.wso2.extension.siddhi.execution.esbanalytics.decompress.util.E
                         description = "Component type of the component",
                         type = {DataType.STRING}),
                 @ReturnAttribute(name = "componentIndex",
-                        description = "-",
+                        description = "Index of the component",
                         type = {DataType.INT}),
                 @ReturnAttribute(name = "componentId",
                         description = "Unique Id of the reporting component",
@@ -113,7 +113,7 @@ import static org.wso2.extension.siddhi.execution.esbanalytics.decompress.util.E
                         description = "EndTime of the Event",
                         type = {DataType.LONG}),
                 @ReturnAttribute(name = "duration",
-                        description = "-",
+                        description = "Event duration",
                         type = {DataType.LONG}),
                 @ReturnAttribute(name = "beforePayload",
                         description = "Payload before mediation by the component",
@@ -125,25 +125,25 @@ import static org.wso2.extension.siddhi.execution.esbanalytics.decompress.util.E
                         description = "Message context properties for the component",
                         type = {DataType.STRING}),
                 @ReturnAttribute(name = "transportPropertyMap",
-                        description = "-Transport properties for the component",
+                        description = "Transport properties for the component",
                         type = {DataType.STRING}),
                 @ReturnAttribute(name = "children",
                         description = "Children List for the component",
                         type = {DataType.STRING}),
                 @ReturnAttribute(name = "entryPoint",
-                        description = "-",
+                        description = "Entry point for the flow",
                         type = {DataType.STRING}),
                 @ReturnAttribute(name = "entryPointHashcode",
-                        description = "-",
+                        description = "Hashcode for the entry point",
                         type = {DataType.STRING}),
                 @ReturnAttribute(name = "faultCount",
-                        description = "-",
+                        description = "Number of faults",
                         type = {DataType.INT}),
                 @ReturnAttribute(name = "metaTenantId",
-                        description = "-",
+                        description = "Id value of the meta tenant",
                         type = {DataType.INT}),
                 @ReturnAttribute(name = "timestamp",
-                        description = "-",
+                        description = "Event timestamp",
                         type = {DataType.LONG})
         },
         examples = {
@@ -169,6 +169,7 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
         return kryo;
     });
 
+    private String siddhiAppName;
     private Map<String, String> fields = new LinkedHashMap<>();
     private List<String> columns;
     private Map<String, VariableExpressionExecutor> compressedEventAttributes;
@@ -178,7 +179,7 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
      *
      * @return Name and type of decompressed fields as a Map
      */
-    private static Map<String, String> getOutputFields() {
+    private static Map<String, String> getOutputFields(String siddhiAppName) {
 
         Map<String, String> fields = new LinkedHashMap<>();
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -194,7 +195,7 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
                 }
             }
         } catch (IOException e) {
-            throw new SiddhiAppCreationException("Error occurred while reading decompressed event definitions: "
+            throw new SiddhiAppCreationException("Unable to read decompressed event definitions in " + siddhiAppName + ": "
                     + e.getMessage(), e);
         }
         return fields;
@@ -252,8 +253,7 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
                     decompressedStreamEventChunk.add(decompressedEvent);
                 }
             } else {
-                throw new SiddhiAppRuntimeException("Error occurred while decompressing events. No compressed" +
-                        " data found.");
+                throw new SiddhiAppRuntimeException("Empty message flow data event in " + this.siddhiAppName);
             }
         }
         nextProcessor.process(decompressedStreamEventChunk);
@@ -271,6 +271,7 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
                                    ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
                                    SiddhiAppContext siddhiAppContext) {
 
+        this.siddhiAppName = siddhiAppContext.getName();
         // Get attributes from the compressed event
         this.compressedEventAttributes = new HashMap<>();
         for (ExpressionExecutor expressionExecutor : attributeExpressionExecutors) {
@@ -293,32 +294,39 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
             }
         }
         if (this.compressedEventAttributes.get(AnalyticsConstants.DATA_COLUMN) == null
-                && this.compressedEventAttributes.get(AnalyticsConstants.META_FIELD_COMPRESSED) == null
-                && this.compressedEventAttributes.get(AnalyticsConstants.META_FIELD_TENANT_ID) == null) {
+                || this.compressedEventAttributes.get(AnalyticsConstants.META_FIELD_COMPRESSED) == null
+                || this.compressedEventAttributes.get(AnalyticsConstants.META_FIELD_TENANT_ID) == null) {
 
-            throw new SiddhiAppCreationException("Cannot find required attributes. " +
+            throw new SiddhiAppCreationException("Cannot find required attributes in " + this.siddhiAppName + ". " +
                     "Please provide flowData, meta_compressed, meta_tenantId attributes in exact names");
         }
 
         // Set uncompressed event attributes
-        this.fields = getOutputFields();
+        this.fields = getOutputFields(this.siddhiAppName);
         List<Attribute> outputAttributes = new ArrayList<>();
         for (Map.Entry<String, String> entry : this.fields.entrySet()) {
             String fieldName = entry.getKey();
             String fieldType = entry.getValue();
             Attribute.Type type = null;
-            if (fieldType.equalsIgnoreCase(TYPE_DOUBLE)) {
-                type = Attribute.Type.DOUBLE;
-            } else if (fieldType.equalsIgnoreCase(TYPE_FLOAT)) {
-                type = Attribute.Type.FLOAT;
-            } else if (fieldType.equalsIgnoreCase(TYPE_INTEGER)) {
-                type = Attribute.Type.INT;
-            } else if (fieldType.equalsIgnoreCase(TYPE_LONG)) {
-                type = Attribute.Type.LONG;
-            } else if (fieldType.equalsIgnoreCase(TYPE_BOOL)) {
-                type = Attribute.Type.BOOL;
-            } else if (fieldType.equalsIgnoreCase(TYPE_STRING)) {
-                type = Attribute.Type.STRING;
+            switch (fieldType.toLowerCase()) {
+                case TYPE_DOUBLE:
+                    type = Attribute.Type.DOUBLE;
+                    break;
+                case TYPE_FLOAT:
+                    type = Attribute.Type.FLOAT;
+                    break;
+                case TYPE_INTEGER:
+                    type = Attribute.Type.INT;
+                    break;
+                case TYPE_LONG:
+                    type = Attribute.Type.LONG;
+                    break;
+                case TYPE_BOOL:
+                    type = Attribute.Type.BOOL;
+                    break;
+                case TYPE_STRING:
+                    type = Attribute.Type.STRING;
+                    break;
             }
             outputAttributes.add(new Attribute(fieldName, type));
         }
@@ -351,7 +359,7 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
     @Override
     public Map<String, Object> currentState() {
 
-        return new HashMap<>();
+        return null;
     }
 
     /**

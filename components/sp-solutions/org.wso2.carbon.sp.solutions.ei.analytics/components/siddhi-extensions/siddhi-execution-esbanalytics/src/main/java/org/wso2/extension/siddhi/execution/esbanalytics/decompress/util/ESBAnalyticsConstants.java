@@ -22,6 +22,9 @@ package org.wso2.extension.siddhi.execution.esbanalytics.decompress.util;
  */
 public class ESBAnalyticsConstants {
 
+    // Message id for the event stream
+    public static final String MESSAGE_ID = "messageId";
+
     // Attribute for the tenant ID
     public static final String META_TENANT_ID_ATTRIBUTE = "metaTenantId";
 

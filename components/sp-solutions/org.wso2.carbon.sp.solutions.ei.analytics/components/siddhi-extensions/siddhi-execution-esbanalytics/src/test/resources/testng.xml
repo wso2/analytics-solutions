@@ -23,7 +23,7 @@
 <suite name="Siddhi-Execution-EsbAnalytics-Test-Suite">
     <test name="Siddhi-execution-esbanalytics-tests" enabled="true" preserve-order="true" parallel="false">
         <classes>
-            <class name="org.wso2.extension.siddhi.execution.esbanalytics.TestCaseOfDecompressStreamProcessorExtension"/>
+            <class name="org.wso2.extension.siddhi.execution.esbanalytics.DecompressStreamProcessorExtensionTestCase"/>
         </classes>
     </test>
 </suite>

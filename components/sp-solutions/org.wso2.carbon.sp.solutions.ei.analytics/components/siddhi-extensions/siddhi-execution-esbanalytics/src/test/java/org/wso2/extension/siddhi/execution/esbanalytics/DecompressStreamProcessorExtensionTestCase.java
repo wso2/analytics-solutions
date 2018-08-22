@@ -32,9 +32,9 @@ import org.wso2.siddhi.core.util.SiddhiTestHelper;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TestCaseOfDecompressStreamProcessorExtension {
+public class DecompressStreamProcessorExtensionTestCase {
 
-    private static Logger log = Logger.getLogger(TestCaseOfDecompressStreamProcessorExtension.class);
+    private static Logger log = Logger.getLogger(DecompressStreamProcessorExtensionTestCase.class);
     private AtomicInteger count = new AtomicInteger(0);
     private volatile boolean decompressedAttributesRetrieved;
 
@@ -50,7 +50,6 @@ public class TestCaseOfDecompressStreamProcessorExtension {
 
         log.info("DecompressSimpleMessage TestCase");
         SiddhiManager siddhiManager = new SiddhiManager();
-        //siddhiManager.setExtension("str:concat", ConcatFunctionExtension.class);
 
         String inStreamDefinition = "\ndefine stream inputStream(meta_compressed bool, meta_tenantId int," +
                 " messageId string, flowData string);";
