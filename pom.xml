@@ -278,7 +278,7 @@
                 <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.messages</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
-            </dependancy>
+            </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>siddhi-execution-country</artifactId>
@@ -289,6 +289,7 @@
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>siddhi-execution-tokenizer</artifactId>
                 <type>jar</type>
+            </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.summary</artifactId>

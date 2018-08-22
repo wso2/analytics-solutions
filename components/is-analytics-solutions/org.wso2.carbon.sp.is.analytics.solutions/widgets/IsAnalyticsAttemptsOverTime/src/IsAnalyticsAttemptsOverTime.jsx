@@ -150,9 +150,6 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             query = dataProviderConfigs.configs.config.queryData.queryLocal;
         } else if (this.state.options.widgetType === "Federated") {
             query = dataProviderConfigs.configs.config.queryData.queryFederated;
-        } else {
-            // Overall attempts - No idpType filter
-            filterCondition = filterCondition.replace(" and ", " on ");
         }
 
         query = query

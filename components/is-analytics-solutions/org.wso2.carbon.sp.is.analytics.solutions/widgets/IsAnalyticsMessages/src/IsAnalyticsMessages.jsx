@@ -124,7 +124,7 @@ let columnsLocal = [
         name: "authSuccess",
         title: "Local Authentication",
         colorBasedStyle: true,
-        colorScale: boolColorScale,
+        colorScale: [colorGreen, colorRed],
     },
     {
         name: "utcTime",

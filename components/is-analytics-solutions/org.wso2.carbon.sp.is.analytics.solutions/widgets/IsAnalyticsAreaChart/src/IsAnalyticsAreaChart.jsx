@@ -17,54 +17,54 @@
  *
  */
 
-import Widget from "@wso2-dashboards/widget";
+import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import _ from 'lodash';
 
-const colorWhite = "#FFFFFF";
-const colorGreen = "#6ED460";
-const colorRed = "#EC5D40";
+const colorWhite = '#FFFFFF';
+const colorGreen = '#6ED460';
+const colorRed = '#EC5D40';
 
-let darkTheme = createMuiTheme({
+const darkTheme = createMuiTheme({
     palette: {
         type: 'dark',
-    }
+    },
 });
 
-let lightTheme = createMuiTheme({
+const lightTheme = createMuiTheme({
     palette: {
         type: 'light',
-    }
+    },
 });
 
-let colorScaleSuccess = [
+const colorScaleSuccess = [
     colorWhite,
     colorGreen,
 ];
 
-let colorScaleFailure = [
+const colorScaleFailure = [
     colorWhite,
     colorRed,
 ];
 
-let metadata = {
+const metadata = {
     names: ['region', 'Count'],
     types: ['ordinal', 'linear'],
 };
 
-let chartConfig = {
-    type: "map",
-    x: "region",
+const chartConfig = {
+    type: 'map',
+    x: 'region',
     charts: [
         {
-            "type": "map",
-            "y": "Count",
-            "mapType": "world",
-            "colorScale": colorScaleSuccess,
-        }
+            type: 'map',
+            'y': 'Count',
+            'mapType': 'world',
+            'colorScale': colorScaleSuccess,
+        },
     ],
     chloropethRangeLowerBound: 0,
 };
@@ -77,24 +77,23 @@ class IsAnalyticsAreaChart extends Widget {
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
 
-            chartConfig: chartConfig,
+            chartConfig,
             data: [],
-            metadata: metadata,
-            faultyProviderConf: false,
+            metadata,
+            isDataProviderConfingFault: false,
             options: this.props.configs.options,
             isFailureMap: false,
-            switchLabel: "Success",
+            switchLabel: 'Success',
         };
 
         this.handleReceivedData = this.handleReceivedData.bind(this);
         this.onReceivingMessage = this.onReceivingMessage.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
 
-        this.props.glContainer.on('resize', () =>
-            this.setState({
+        this.props.glContainer.on('resize', () => this.setState({
                 width: this.props.glContainer.width,
-                height: this.props.glContainer.height
-            })
+                height: this.props.glContainer.height,
+            }),
         );
     }
 
@@ -102,15 +101,13 @@ class IsAnalyticsAreaChart extends Widget {
         super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
-
                 this.setState({
-                    dataProviderConf: message.data.configs.providerConfig
+                    dataProviderConf: message.data.configs.providerConfig,
                 });
             })
-            .catch((error) => {
-                console.error("[ERROR]: ", error);
+            .catch(() => {
                 this.setState({
-                    faultyProviderConf: true
+                    isDataProviderConfingFault: true,
                 });
             });
     }
@@ -120,130 +117,94 @@ class IsAnalyticsAreaChart extends Widget {
     }
 
     onReceivingMessage(message) {
-        if (message.header === "additionalFilterConditions") {
-            if (message.body === "") {
+        if (message.header === 'additionalFilterConditions') {
+            if (message.body === '') {
                 this.setState({
                     additionalFilterConditions: undefined,
                     data: [],
-                }, () => this.assembleQuery(null))
+                }, () => this.assembleQuery());
             } else {
                 this.setState({
                     additionalFilterConditions: message.body,
                     data: [],
-                }, () => this.assembleQuery(null));
+                }, () => this.assembleQuery());
             }
-        }
-        else {
+        } else {
             this.setState({
                 per: message.granularity,
                 fromDate: message.from,
                 toDate: message.to,
                 data: [],
-            }, () => this.assembleQuery(null));
+            }, () => this.assembleQuery());
         }
     }
 
-    assembleQuery(event) {
+    assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
 
-        let dataProviderConfig = _.cloneDeep(this.state.dataProviderConf);
-        let query = dataProviderConfig.configs.config.queryData.query;
+        const dataProviderConfig = _.cloneDeep(this.state.dataProviderConf);
+        const query = dataProviderConfig.configs.config.queryData.query;
         let filterCondition = " on identityProviderType=='{{idpType}}' ";
-        let additionalFilters = "";
-        let countType = "";
+        let additionalFilters = '';
+        let countType = '';
         let doFilter = false;
         let doAdditionalFilter = false;
 
         if (this.state.additionalFilterConditions !== undefined) {
-            let additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
+            const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
 
-            for (var key in additionalFilterConditionsClone) {
-                if (additionalFilterConditionsClone[key] !== "") {
-                    if (key === "role") {
-                        console.log("Role Found: ", key, "\nValue: ", additionalFilterConditionsClone[key]);
-                    } else if (key === "isFirstLogin") {
-                        additionalFilters = additionalFilters +
-                            " and " + key + "==" + additionalFilterConditionsClone[key] + " ";
+            for (let key in additionalFilterConditionsClone) {
+                if (additionalFilterConditionsClone[key] !== '') {
+                    if (key === 'role') {
+                        console.log('Role Found: ', key, '\nValue: ', additionalFilterConditionsClone[key]);
+                    } else if (key === 'isFirstLogin') {
+                        additionalFilters = additionalFilters
+                            + " and " + key + '==' + additionalFilterConditionsClone[key] + ' ';
                     } else {
-                        additionalFilters = additionalFilters +
-                            " and " + key + "==\'" + additionalFilterConditionsClone[key] + "\' ";
+                        additionalFilters = additionalFilters
+                            + " and " + key + "==\'" + additionalFilterConditionsClone[key] + "\' ";
                     }
                 }
             }
             doAdditionalFilter = true;
         }
 
-        if (event !== null) {
-            if (event.target.checked) {
-                countType = "authFailureCount";
-            } else if (this.state.options.widgetType === "Local") {
-                countType = "authSuccessCount";
-            } else {
-                countType = "authStepSuccessCount";
-            }
-        } else if (this.state.isFailureMap) {
-            countType = "authFailureCount";
-        }
-        else if (this.state.options.widgetType === "Local") {
-            countType = "authSuccessCount";
+        if (this.state.isFailureMap) {
+            countType = 'authFailureCount';
+        } else if (this.state.options.widgetType === 'Local') {
+            countType = 'authSuccessCount';
         } else {
-            countType = "authStepSuccessCount";
+            countType = 'authStepSuccessCount';
         }
 
-        if (this.state.options.widgetType === "Local") {
-            filterCondition = filterCondition.replace("{{idpType}}", "LOCAL");
+        if (this.state.options.widgetType === 'Local') {
+            filterCondition = filterCondition.replace('{{idpType}}', 'LOCAL');
             doFilter = true;
-        } else if (this.state.options.widgetType === "Federated") {
-            filterCondition = filterCondition.replace("{{idpType}}", "LOCAL");
+        } else if (this.state.options.widgetType === 'Federated') {
+            filterCondition = filterCondition.replace('{{idpType}}', 'FEDERATED');
             doFilter = true;
         }
 
         let updatedQuery = query
-            .replace("{{per}}", this.state.per)
-            .replace("{{from}}", this.state.fromDate)
-            .replace("{{to}}", this.state.toDate)
+            .replace('{{per}}', this.state.per)
+            .replace('{{from}}', this.state.fromDate)
+            .replace('{{to}}', this.state.toDate)
             .replace(/{{countType}}/g, countType);
 
         if (doFilter && doAdditionalFilter) {
-            filterCondition = filterCondition + additionalFilters;
-            updatedQuery = updatedQuery.replace("{{filterCondition}}", filterCondition);
+            filterCondition += additionalFilters;
+            updatedQuery = updatedQuery.replace('{{filterCondition}}', filterCondition);
         } else if (doFilter) {
-            updatedQuery = updatedQuery.replace("{{filterCondition}}", filterCondition);
+            updatedQuery = updatedQuery.replace('{{filterCondition}}', filterCondition);
         } else if (doAdditionalFilter) {
-            filterCondition = additionalFilters.replace(" and ", " on ");
-            updatedQuery = updatedQuery.replace("{{filterCondition}}", filterCondition);
+            filterCondition = additionalFilters.replace(' and ', ' on ');
+            updatedQuery = updatedQuery.replace('{{filterCondition}}', filterCondition);
         } else {
-            updatedQuery = updatedQuery.replace("{{filterCondition}}", "");
+            updatedQuery = updatedQuery.replace('{{filterCondition}}', '');
         }
 
         dataProviderConfig.configs.config.queryData.query = updatedQuery;
         super.getWidgetChannelManager().subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfig);
-
-        if (event !== null) {
-            let chartConfigClone = _.cloneDeep(chartConfig);
-            let doChangeToFailureMap = event.target.checked;
-            let switchLabelNew = "";
-
-            if (doChangeToFailureMap) {
-                chartConfigClone.charts[0].colorScale = colorScaleFailure;
-                switchLabelNew = "Failure";
-            } else {
-                chartConfigClone.charts[0].colorScale = colorScaleSuccess;
-                switchLabelNew = "Success";
-            }
-
-            this.setState({
-                    chartConfig: chartConfigClone,
-                    isFailureMap: doChangeToFailureMap,
-                    switchLabel: switchLabelNew,
-                    data: [],
-                }, super.getWidgetChannelManager()
-                    .subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfig)
-            );
-        } else {
-            super.getWidgetChannelManager()
-                .subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfig);
-        }
     }
 
     handleReceivedData(message) {
@@ -252,15 +213,60 @@ class IsAnalyticsAreaChart extends Widget {
         });
     }
 
+    onMapTypeChange(event) {
+        const chartConfigClone = _.cloneDeep(this.state.chartConfig);
+        let switchLabel = '';
+        let isFailureMap = false;
+
+        if (event.target.checked) {
+            chartConfigClone.charts[0].colorScale = colorScaleFailure;
+            switchLabel = 'Failure';
+            isFailureMap = true;
+        } else {
+            chartConfigClone.charts[0].colorScale = colorScaleSuccess;
+            switchLabel = 'Success';
+        }
+
+        this.setState({
+            isFailureMap,
+            chartConfig: chartConfigClone,
+            switchLabel,
+            data: [],
+        }, () => this.assembleQuery());
+    }
+
     render() {
-        let width = this.state.width;
-        let height = this.state.height;
+        const width = this.state.width;
+        const height = this.state.height;
         let theme = darkTheme;
 
-        if (this.props.muiTheme.appBar.color === "#eeeeee") {
+        if (this.props.muiTheme.appBar.color === '#313335') {
             theme = lightTheme;
         }
 
+        if (this.state.isDataProviderConfingFault) {
+            return (
+                <MuiThemeProvider theme={theme}>
+                    <div
+                        style={{
+                            paddingLeft: width * 0.05,
+                            paddingRight: width * 0.05,
+                            paddingTop: height * 0.05,
+                            paddingBottom: height * 0.05,
+                            height,
+                            width,
+                        }}
+                    >
+                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
+                            <h3> Area Chart </h3>
+                        </div>
+                        <div>
+                            <h5>Data Provider Configuration Error</h5>
+                        </div>
+                    </div>
+                </MuiThemeProvider>
+            );
+        }
         return (
             <MuiThemeProvider theme={theme}>
                 <div
@@ -269,28 +275,28 @@ class IsAnalyticsAreaChart extends Widget {
                         paddingRight: width * 0.05,
                         paddingTop: height * 0.05,
                         paddingBottom: height * 0.05,
-                        height: height,
-                        width: width,
+                        height,
+                        width,
                     }}
                 >
-                    <div style={{height: height * 0.1, width: width * 0.9}}>
+                    <div style={{ height: height * 0.1, width: width * 0.9 }}>
                         <h3> Area Chart </h3>
                     </div>
-                    <div style={{height: height * 0.6, width: width * 0.9}}>
+                    <div style={{ height: height * 0.6, width: width * 0.9 }}>
                         <VizG
                             config={this.state.chartConfig}
                             metadata={this.state.metadata}
                             data={this.state.data}
                         />
                     </div>
-                    <div style={{height: height * 0.2, width: width * 0.9}}>
+                    <div style={{ height: height * 0.2, width: width * 0.9 }}>
                         <FormControlLabel
-                            control={
+                            control={(
                                 <Switch
                                     checked={this.state.isFailureMap}
-                                    onChange={this.assembleQuery}
+                                    onChange={(event) => this.onMapTypeChange(event)}
                                 />
-                            }
+                            )}
                             label={this.state.switchLabel}
                         />
                     </div>
