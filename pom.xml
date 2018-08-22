@@ -32,8 +32,8 @@
     <name>WSO2 Analytics Solutions - Parent</name>
 
     <modules>
+        <module>components/analytics-solutions-common</module>
         <module>components/sp-solutions</module>
-        <module>components/common</module>
         <module>features/sp-solution-features</module>
     </modules>
 
