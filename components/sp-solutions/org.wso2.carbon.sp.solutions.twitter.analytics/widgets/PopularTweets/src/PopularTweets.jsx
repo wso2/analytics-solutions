@@ -37,17 +37,15 @@ class PopularTweets extends Widget {
             height: this.props.glContainer.height
         };
 
-        this.handleResize = this.handleResize.bind(this);
-        this.props.glContainer.on('resize', this.handleResize);
         this._handleDataReceived = this._handleDataReceived.bind(this);
         this.showUnreadTweets = this.showUnreadTweets.bind(this);
-    }
 
-    handleResize() {
-        this.setState({
-            width: this.props.glContainer.width,
-            height: this.props.glContainer.height
-        });
+        this.props.glContainer.on('resize', () =>
+            this.setState({
+                width: this.props.glContainer.width,
+                height: this.props.glContainer.height
+            })
+        );
     }
 
     componentDidMount() {
