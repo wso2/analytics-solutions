@@ -14,28 +14,27 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <parent>
         <groupId>org.wso2.analytics.solutions</groupId>
+        <artifactId>org.wso2.carbon.ei.solutions.ei.analytics</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <artifactId>org.wso2.analytics.solutions.parent</artifactId>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>sp-solutions</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <name>WSO2 Stream Processor Solutions - Aggregator Module</name>
+    <name>WSO2 Stream Processor - EI Analytics</name>
+    <description>WSO2 Stream Processor EI Analytics Solutions</description>
+    <artifactId>ei-analytics-widgets</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>org.wso2.carbon.sp.solutions.http.analytics</module>
-        <module>org.wso2.carbon.sp.solutions.message.tracer</module>
-        <module>org.wso2.carbon.sp.solutions.twitter.analytics</module>
+        <module>HorizontalBarChart</module>
+        <module>MediatorProperties</module>
+        <module>MessageFlow</module>
+        <module>StatsChart</module>
+        <module>SearchBox</module>
+        <module>MessageTable</module>
+        <module>TPS</module>
     </modules>
-    
 </project>
