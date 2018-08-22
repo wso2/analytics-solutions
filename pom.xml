@@ -40,14 +40,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Analytics solutions -->
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.sp.open.tracer.client</artifactId>
-                <type>jar</type>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- Open Tracing -->
             <dependency>
                 <groupId>io.opentracing</groupId>
@@ -178,6 +170,12 @@
                 <artifactId>wso2sp-solutions.message-tracer.open-tracing-vis-timeline</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.sp.open.tracer.client</artifactId>
+                <type>jar</type>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- Twitter Analytics solution dependencies -->

@@ -27,7 +27,7 @@
 
     <artifactId>org.wso2.sp.solutions.widgets.http.analytics.request.statistics</artifactId>
     <packaging>pom</packaging>
-    <name>WSO2 Stream Processor - Solutions - Widgets - HTTP Analytics - Request Statistics</name>
+    <name>WSO2 Stream Processor Solutions - HTTP Analytics - Request Statistics Widget</name>
     <url>http://wso2.org</url>
 
     <build>

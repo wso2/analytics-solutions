@@ -21,7 +21,7 @@
     <artifactId>wso2sp-solutions.twitter-analytics.hashtag</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - Solution - Widgets - Hashtags</name>
+    <name>WSO2 Stream Processor Solutions - Twitter Analytics - Hashtags Widget</name>
     <url>http://wso2.org</url>
 
     <parent>

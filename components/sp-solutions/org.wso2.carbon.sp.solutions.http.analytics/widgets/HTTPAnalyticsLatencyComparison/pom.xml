@@ -27,7 +27,7 @@
 
     <artifactId>org.wso2.sp.solutions.widgets.http.analytics.latency.comparison</artifactId>
     <packaging>pom</packaging>
-    <name>WSO2 Stream Processor - Solutions - Widgets - HTTP Analytics - Latency Comparison</name>
+    <name>WSO2 Stream Processor Solutions - HTTP Analytics - Latency Comparison Widget</name>
     <url>http://wso2.org</url>
 
     <build>
