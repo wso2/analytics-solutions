@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import Widget from '@wso2-dashboards/widget';
+import {MuiThemeProvider} from 'material-ui/styles/index';
+import {IconButton} from "material-ui";
+import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
 import Tweet from 'react-tweet-embed'
 import './resources/tweet.css';
 import {Scrollbars} from 'react-custom-scrollbars';
+
+const MAX_DISPLAYED_TWEET_COUNT = 5;
+const MAX_UNREAD_TWEET_COUNT = 15;
 
 class PopularTweets extends Widget {
     constructor(props) {
@@ -26,6 +32,7 @@ class PopularTweets extends Widget {
 
         this.state = {
             tweetData: [],
+            unreadTweets: [],
             width: this.props.glContainer.width,
             height: this.props.glContainer.height
         };
@@ -33,16 +40,21 @@ class PopularTweets extends Widget {
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this._handleDataReceived = this._handleDataReceived.bind(this);
+        this.showUnreadTweets = this.showUnreadTweets.bind(this);
     }
 
     handleResize() {
-        this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
+        this.setState({
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height
+        });
     }
 
     componentDidMount() {
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
-                super.getWidgetChannelManager().subscribeWidget(this.props.id, this._handleDataReceived, message.data.configs.providerConfig);
+                super.getWidgetChannelManager()
+                    .subscribeWidget(this.props.id, this._handleDataReceived, message.data.configs.providerConfig);
             })
     }
 
@@ -50,26 +62,101 @@ class PopularTweets extends Widget {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
     }
 
-    _handleDataReceived(setData) {
-        this.setState({
-            tweetData: setData.data,
-        });
+    _handleDataReceived(receivedData) {
+        let result = [];
+
+        if (this.state.tweetData.length === 0) {
+            receivedData.data.map(
+                tweet => {
+                    result.push({tweetID: tweet[0], id: tweet[1]})
+                }
+            );
+            //select 5 most recent tweets to display and the next 15(or less) tweets as unread tweets.
+            let numberOfRemovableTweets = result.length - MAX_DISPLAYED_TWEET_COUNT;
+            let removedTweets =
+                result.splice(MAX_DISPLAYED_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
+            numberOfRemovableTweets = removedTweets.length - MAX_UNREAD_TWEET_COUNT;
+            removedTweets.splice(MAX_UNREAD_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
+
+            this.setState({
+                tweetData: result,
+                unreadTweets: removedTweets
+            });
+        } else {
+            result = this.state.unreadTweets;
+            receivedData.data.map(
+                tweet => {
+                    result.push({tweetID: tweet[0], id: tweet[1]})
+                }
+            );
+            //sort by timestamp descending and select 15(or less) most recent tweets
+            result.sort(function (a, b) {
+                return b.id - a.id
+            });
+            let numberOfRemovableTweets = result.length - MAX_UNREAD_TWEET_COUNT;
+            result.splice(MAX_UNREAD_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
+
+            this.setState({
+                unreadTweets: result
+            });
+        }
+    }
+
+
+    showUnreadTweets() {
+        //refresh only if there are unread tweets
+        if (this.state.unreadTweets.length > 0) {
+            let result = this.state.unreadTweets;
+            let numberOfRemovableTweets = result.length - MAX_DISPLAYED_TWEET_COUNT;
+            let remainingUnread =
+                result.splice(MAX_DISPLAYED_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
+
+            this.setState({
+                tweetData: result,
+                unreadTweets: remainingUnread,
+            });
+        }
     }
 
     render() {
         return (
-            <Scrollbars style={{height: this.state.height}}>
-                <div className='tweet-stream'>
-                    {
-                        this.state.tweetData.map((t) => {
-                                return <Tweet id={t[0]} options={{height: "10%", width: "100%", cards: 'hidden'}}/>
+            <MuiThemeProvider
+                muiTheme={this.props.muiTheme}>
+                <section>
+                    <div
+                        style={{
+                            height: 36,
+                            textAlign: 'right'
+                        }}>
+                        <IconButton
+                            tooltip='Refresh Popular Tweets'
+                            onClick={this.showUnreadTweets}>
+                            <RefreshIcon/>
+                        </IconButton>
+                    </div>
+                    <Scrollbars
+                        style={{height: this.state.height}}>
+                        <div
+                            className='tweet-stream'>
+                            {
+                                this.state.tweetData.map(
+                                    (tweet) => {
+                                        return <Tweet
+                                            id={tweet.tweetID}
+                                            options={{
+                                                height: '10%',
+                                                width: '100%',
+                                                cards: 'hidden'
+                                            }}/>
+                                    }
+                                )
                             }
-                        )
-                    }
-                </div>
-            </Scrollbars>
+                        </div>
+                    </Scrollbars>
+                </section>
+            </MuiThemeProvider>
         );
     }
 }
 
-global.dashboard.registerWidget("PopularTweets", PopularTweets);
+global.dashboard.registerWidget('PopularTweets', PopularTweets);
