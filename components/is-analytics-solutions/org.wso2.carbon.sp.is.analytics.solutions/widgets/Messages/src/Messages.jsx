@@ -1,10 +1,28 @@
+/*
+ *  Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ *
+ */
 
 import Widget from "@wso2-dashboards/widget";
 import VizG from 'react-vizgrammar';
 import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
 import RaisedButton from 'material-ui/RaisedButton';
 
-class Messages extends Widget{
+class Messages extends Widget {
     constructor(props){
         super(props);
 
@@ -84,9 +102,11 @@ class Messages extends Widget{
         this.setReceivedMsg = this.setReceivedMsg.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
     }
+
     handleResize(){
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
     }
+
     componentDidMount(){
         console.log("Configs: ", super.getWidgetConfiguration(this.props.widgetID));
 
@@ -98,9 +118,11 @@ class Messages extends Widget{
                 });
             })
     }
+
     componentWillUnmount(){
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
     }
+
     handleDataReceived(message){
         message.data.map((number) =>
         {
@@ -140,12 +162,14 @@ class Messages extends Widget{
 
         
     }
+
     setReceivedMsg(message){
         this.setState({
             fromDate: message.from,
             toDate: message.to
         }, this.assembleQuery);
     }
+
     assembleQuery(){
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
@@ -157,6 +181,7 @@ class Messages extends Widget{
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
     }
+    
     render(){
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>

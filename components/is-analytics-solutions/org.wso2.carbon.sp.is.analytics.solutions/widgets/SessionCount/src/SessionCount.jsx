@@ -22,7 +22,7 @@ import Widget from '@wso2-dashboards/widget';
 import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
 import RaisedButton from 'material-ui/RaisedButton';
 
-class SessionCount extends Widget{
+class SessionCount extends Widget {
     constructor(props){
         super(props);
 
@@ -62,10 +62,12 @@ class SessionCount extends Widget{
         this.setReceivedMsg = this.setReceivedMsg.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
     }
+
     handleResize(){
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
 
     }
+
     componentDidMount() {
         console.log("Configs: ", super.getWidgetConfiguration(this.props.widgetID));
         super.subscribe(this.setReceivedMsg);
@@ -97,6 +99,7 @@ class SessionCount extends Widget{
           toDate: message.to,
         }, this.assembleQuery);
     }
+
     assembleQuery(){
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
@@ -121,6 +124,7 @@ class SessionCount extends Widget{
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
     }
+    
     render(){
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>

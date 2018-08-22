@@ -24,7 +24,7 @@ import Pagination from 'material-ui-pagination';
 
 const dataPerPage = 3;
 
-class AverageSessionDuration extends Widget{
+class AverageSessionDuration extends Widget {
     constructor(props){
         super(props);
 
@@ -70,6 +70,7 @@ class AverageSessionDuration extends Widget{
         this.assembleQuery = this.assembleQuery.bind(this);
         this.updateTable = this.updateTable.bind(this);
     }
+
     handleResize(){
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
 
@@ -94,6 +95,7 @@ class AverageSessionDuration extends Widget{
         message.data = message.data.reverse();
         this.updateTable(message.data, this.state.currentPageNumber, true);
     }
+
     updateTable(data, pageNumber, isAvailable) {
         let internalPageNumber = pageNumber - 1; // Internally pages are counted from 0, to make logic easy.
 
@@ -126,6 +128,7 @@ class AverageSessionDuration extends Widget{
 
         }
     }
+
     setReceivedMsg(message)
     {
         this.setState({
@@ -135,6 +138,7 @@ class AverageSessionDuration extends Widget{
             currentDataSet: [],
         }, this.assembleQuery);
     }
+
     assembleQuery(){
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
@@ -147,6 +151,7 @@ class AverageSessionDuration extends Widget{
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
     }
+    
     render(){
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>

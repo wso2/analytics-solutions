@@ -21,7 +21,7 @@ import VizG from 'react-vizgrammar';
 import Widget from '@wso2-dashboards/widget';
 import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
 
-class LineChart extends Widget{
+class LineChart extends Widget {
     constructor(props){
         super(props);
         this.ChartConfig =
@@ -72,9 +72,11 @@ class LineChart extends Widget{
         this.setReceivedMsg = this.setReceivedMsg.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
     }
+
     handleResize(){
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
     }
+
     componentDidMount(){
         console.log("Configs: ", super.getWidgetConfiguration(this.props.widgetID));
         super.subscribe(this.setReceivedMsg);
@@ -85,9 +87,11 @@ class LineChart extends Widget{
                 });
             })
     }
+
     componentWillUnmount(){
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
     }
+
     handleDataReceived(message){
         let ChartConfig = _.cloneDeep(this.state.ChartConfig);
         let {metadata, data} = message;      
@@ -108,6 +112,7 @@ class LineChart extends Widget{
         });
 
     }
+
     setReceivedMsg(message){
         this.setState({
            per: message.granularity,
@@ -115,6 +120,7 @@ class LineChart extends Widget{
             toDate: message.to
         }, this.assembleQuery);  
     }
+
     assembleQuery(){
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
@@ -128,6 +134,7 @@ class LineChart extends Widget{
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
     }
+    
     render(){
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>

@@ -24,7 +24,7 @@ import Pagination from 'material-ui-pagination';
 
 const dataPerPage = 3;
 
-class TopLongestSession extends Widget{
+class TopLongestSession extends Widget {
     constructor(props){
         super(props);
 
@@ -74,6 +74,7 @@ class TopLongestSession extends Widget{
     handleResize(){
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
     }
+
     componentDidMount(setData) {
         console.log("Configs: ", super.getWidgetConfiguration(this.props.widgetID));
 
@@ -94,6 +95,7 @@ class TopLongestSession extends Widget{
         message.data = message.data.reverse();
         this.updateTable(message.data, this.state.currentPageNumber, true);
     }
+
     updateTable(data, pageNumber, isAvailable) {
         let internalPageNumber = pageNumber - 1; 
         let startPoint = internalPageNumber * dataPerPage;
@@ -123,6 +125,7 @@ class TopLongestSession extends Widget{
             });
         }
     }
+
     setReceivedMsg(message)
     {
         this.setState({
@@ -132,6 +135,7 @@ class TopLongestSession extends Widget{
             currentDataSet: [],
         }, this.assembleQuery);
     }
+    
     assembleQuery(){
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
