@@ -5,15 +5,19 @@
   "configs": {
     "providerConfig": {
       "configs": {
-        "type": "RDBMSBatchDataProvider",
+        "type": "RDBMSStreamingDataProvider",
         "config": {
           "datasourceName": "Twitter_Analytics",
           "queryData": {
-            "query": "select distinct(TweetID) from PopularTweet"
+            "query": "select tweetid, max(timestamp) as timestamp from PopularTweet group by tweetid"
           },
           "tableName": "PopularTweet",
-          "incrementalColumn": "TweetID",
-          "publishingInterval": 60
+          "incrementalColumn": "timestamp",
+          "publishingInterval": 5,
+          "publishingLimit": 20,
+          "purgingInterval": 6,
+          "purgingLimit": 6,
+          "isPurgingEnable": false
         }
       }
     }

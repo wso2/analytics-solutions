@@ -21,7 +21,7 @@
     <artifactId>wso2sp-solutions.twitter-analytics.tweet-count-analysis</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - Solution - Widgets - TweetCountAnalysis</name>
+    <name>WSO2 Stream Processor Solutions - Twitter Analytics - Tweet Count Analysis Widget</name>
     <url>http://wso2.org</url>
 
     <parent>
