@@ -21,16 +21,17 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
 body {
     min-height: 100%;
-    cursor: -webkit-grab; 
+    cursor: -webkit-grab;
     cursor: grab;
 }
 
 body.grabbing {
     min-height: 100%;
     cursor: -webkit-grabbing;
-    cursor: grabbing; 
+    cursor: grabbing;
 }
 
 .page-content-wrapper {
@@ -38,24 +39,26 @@ body.grabbing {
     height: 100%;
     background-color: transparent;
     background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);
-    background-size:50px 50px;
+    background-size: 50px 50px;
 }
+
 a, a:visited, a:focus, a:active {
     text-decoration: none;
     color: #fff;
 }
+
 .cluster rect {
     stroke: #fff;
-    stroke-width: 1.5pxs;
+    stroke-width: 1.5 pxs;
     stroke-dasharray: 5;
     stroke-dashoffset: 20;
     opacity: 0.5;
     fill: #232C35;
-    transform: translate(3px,-7px);
+    transform: translate(3px, -7px);
 }
 
 .cluster > g.label > g {
-/*            transform: translate(-33px,-112px);*/
+    /*            transform: translate(-33px,-112px);*/
 }
 
 .node .label foreignobject h2 {
@@ -111,11 +114,11 @@ text {
 
 a:hover {
     color: #5fdbcc !important;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-label{
-    cursor:pointer;
+label {
+    cursor: pointer;
 }
 
 .selected {
@@ -128,10 +131,10 @@ label{
 
 .failed-node:hover {
     color: #5fdbcc !important;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.node rect .failed-node  {
+.node rect .failed-node {
     fill: transparent;
     stroke: #e26861;
     stroke-width: 2px;
@@ -139,7 +142,7 @@ label{
 
 .btn-zoom {
     width: 30px;
-    height:30px;
+    height: 30px;
     background: #636C7C;
     color: #fff;
     border-color: #353C48;
@@ -168,7 +171,7 @@ label{
 }
 
 .endpoint-icon {
-    font-size:40px;
+    font-size: 40px;
 }
 
 .mediator-icon {

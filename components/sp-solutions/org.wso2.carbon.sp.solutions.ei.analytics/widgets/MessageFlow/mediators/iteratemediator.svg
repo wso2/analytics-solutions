@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- ~   Copyright (c) 2017 WSO2 Inc. (http://wso2.com) All Rights Reserved.
+ ~   Copyright (c) 2018 WSO2 Inc. (http://wso2.com) All Rights Reserved.
  ~
  ~   Licensed under the Apache License, Version 2.0 (the "License");
  ~   you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  ~   See the License for the specific language governing permissions and
  ~   limitations under the License.
 -->
-<svg version="1.1" id="iteratemediator" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg version="1.1" id="iteratemediator" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
 	 viewBox="0 0 14 14" style="enable-background:new 0 0 14 14;" xml:space="preserve">
 <path d="M10.3800049,0v3.6199951H14V0H10.3800049z M13.25,2.8699951h-2.1199951V0.75H13.25V2.8699951z
 	 M10.3800049,8.7199707H14V5.0899658h-3.6199951V8.7199707z M11.1300049,5.8399658H13.25v2.1300049h-2.1199951V5.8399658z

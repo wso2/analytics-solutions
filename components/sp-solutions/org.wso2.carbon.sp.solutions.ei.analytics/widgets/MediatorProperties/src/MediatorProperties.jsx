@@ -23,7 +23,6 @@ import CodeMirror from 'codemirror/lib/codemirror';
 MergeView requires google's diff_match_patch library as a dependency. Use the one provided in utils by
 replacing node_modules/codemirror/addon/merge/merge.js with ../utils/codemirror/addon/merge/merge.js
  */
-import MergeView from 'codemirror/addon/merge/merge';
 import './ambiance.css';
 import './codemirror.css';
 import './merge.css';

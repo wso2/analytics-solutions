@@ -18,8 +18,9 @@
 
 import Widget from "@wso2-dashboards/widget";
 import VizG from 'react-vizgrammar';
-import { MuiThemeProvider, darkBaseTheme, getMuiTheme } from 'material-ui/styles';
+import {darkBaseTheme, getMuiTheme, MuiThemeProvider} from 'material-ui/styles';
 import moment from 'moment';
+
 let TENANT_ID = '-1234';
 let MESSAGE_PAGE = "message";
 let PARAM_ID = "id";
@@ -96,6 +97,10 @@ class MessageTable extends Widget {
 
     }
 
+    static getProviderConf(widgetConfiguration) {
+        return widgetConfiguration.configs.providerConfig;
+    }
+
     handleRowSelect(event) {
         //get the messageId from the selected row 
         let messageId = event.messageFlowId;
@@ -107,8 +112,9 @@ class MessageTable extends Widget {
         msgPageURL.searchParams.append(PARAM_ID, messageId);
         window.location.href = msgPageURL;
     }
+
     handleResize() {
-        this.setState({ width: this.props.glContainer.width, height: this.props.glContainer.height });
+        this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
     }
 
     componentWillMount() {
@@ -190,11 +196,6 @@ class MessageTable extends Widget {
             });
     }
 
-    static getProviderConf(widgetConfiguration) {
-        return widgetConfiguration.configs.providerConfig;
-    }
-
-
     handleStats(stats) {
         let dataArray = stats.data;
         dataArray.forEach(element => {
@@ -234,7 +235,7 @@ class MessageTable extends Widget {
     render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <section style={{ paddingTop: 50 }}>
+                <section style={{paddingTop: 50}}>
                     <VizG
                         config={this.chartConfig}
                         metadata={this.state.metadata}

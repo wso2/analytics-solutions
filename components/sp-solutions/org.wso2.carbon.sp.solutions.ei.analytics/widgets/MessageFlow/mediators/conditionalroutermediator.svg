@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- ~   Copyright (c) 2017 WSO2 Inc. (http://wso2.com) All Rights Reserved.
+ ~   Copyright (c) 2018 WSO2 Inc. (http://wso2.com) All Rights Reserved.
  ~
  ~   Licensed under the Apache License, Version 2.0 (the "License");
  ~   you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  ~   limitations under the License.
 -->
 <svg version="1.1" id="conditionalroutermediator"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 14 14"
+	 xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" viewBox="0 0 14 14"
 	 style="enable-background:new 0 0 14 14;" xml:space="preserve">
 <path d="M7.8800049,11.7799683H14V13H7.8800049c-0.25,0.5899658-0.8300171,1-1.5,1
 	c-0.9000244,0-1.6199951-0.7200317-1.6199951-1.6199951c0-0.8900146,0.7199707-1.6199951,1.6199951-1.6199951

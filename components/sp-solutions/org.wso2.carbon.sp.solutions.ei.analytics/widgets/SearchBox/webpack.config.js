@@ -18,8 +18,8 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
- 
+const copyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
@@ -67,18 +67,18 @@ module.exports = {
                 test: /\.scss$/,
                 use: [{loader: 'style-loader'}, {loader: 'css-loader'}, {loader: 'sass-loader'}]
             }
- 
+
         ]
     },
     plugins: [
-        new CopyWebpackPlugin([
+        new copyWebpackPlugin([
             {from: path.resolve(__dirname, './src/resources/')}
-    
+
         ])
     ],
-    
+
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.scss']
     },
-    externals: {"react":"React"}
+    externals: {"react": "React"}
 };

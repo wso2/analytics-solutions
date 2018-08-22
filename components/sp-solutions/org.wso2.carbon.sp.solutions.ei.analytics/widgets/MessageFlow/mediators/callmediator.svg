@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- ~   Copyright (c) 2017 WSO2 Inc. (http://wso2.com) All Rights Reserved.
+ ~   Copyright (c) 2018 WSO2 Inc. (http://wso2.com) All Rights Reserved.
  ~
  ~   Licensed under the Apache License, Version 2.0 (the "License");
  ~   you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  ~   See the License for the specific language governing permissions and
  ~   limitations under the License.
 -->
-<svg version="1.1" id="callmediator" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+<svg version="1.1" id="callmediator" xmlns="http://www.w3.org/2000/svg"  x="0px"
 	 y="0px" viewBox="0 0 14 14" style="enable-background:new 0 0 14 14;" xml:space="preserve">
 <path d="M14,8.7866821l-1.3328228,1.3849115l-0.2961674-0.2852201l0.8748283-0.9104643l-1.7194948,0.0109634
 	L7.4099884,9.0115442L7.4044981,8.6001835l4.1218452-0.0246725l1.7057695-0.0109634l-0.8172321-0.8830633l0.3016748-0.2797308

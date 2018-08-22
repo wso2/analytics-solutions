@@ -18,8 +18,8 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
- 
+const copyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
@@ -70,7 +70,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CopyWebpackPlugin([
+        new copyWebpackPlugin([
             {from: path.resolve(__dirname, './src/resources/')}
         ])
     ],

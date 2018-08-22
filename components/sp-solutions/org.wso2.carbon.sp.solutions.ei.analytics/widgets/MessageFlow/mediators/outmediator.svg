@@ -14,7 +14,7 @@
  ~   See the License for the specific language governing permissions and
  ~   limitations under the License.
 -->
-<svg version="1.1" id="outmediator" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+<svg version="1.1" id="outmediator" xmlns="http://www.w3.org/2000/svg"  x="0px"
 	 y="0px" viewBox="0 0 14 14" style="enable-background:new 0 0 14 14;" xml:space="preserve">
 <polygon points="8.2468262,2.9714355 11.2224731,6.1875 -0.0202637,6.3239746 -0.001709,7.8239746 11.2800293,7.6870117 
 	8.0866699,11.0080566 9.1687012,12.0480957 14.0202637,7.001709 9.3483887,1.9519043 "/>

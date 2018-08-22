@@ -91,6 +91,10 @@ class HorizontalBarChart extends Widget {
         this.handleStats = this.handleStats.bind(this);
     }
 
+    static getProviderConf(widgetConfiguration) {
+        return widgetConfiguration.configs.providerConfig;
+    }
+
     componentWillMount() {
         super.subscribe(this.handlePublisherParameters);
     }
@@ -103,8 +107,10 @@ class HorizontalBarChart extends Widget {
     handlePublisherParameters(message) {
         if (PUBLISHER_DATE_TIME_PICKER in message) {
             this.setState({
-                timeFromParameter: moment(message.from).format('YYYY-MM-DD HH:mm:ss'),
-                timeToParameter: moment(message.to).format('YYYY-MM-DD HH:mm:ss'),
+                timeFromParameter: moment(message.from)
+                    .format('YYYY-MM-DD HH:mm:ss'),
+                timeToParameter: moment(message.to)
+                    .format('YYYY-MM-DD HH:mm:ss'),
                 timeUnitParameter: message.granularity,
                 isLoading: true,
             }, this.handleGraphUpdate);
@@ -133,19 +139,16 @@ class HorizontalBarChart extends Widget {
                     .replace('{{timeFrom}}', this.state.timeFromParameter)
                     .replace('{{timeTo}}', this.state.timeToParameter);
                 /* Request data-store with the modified query. */
-                super.getWidgetChannelManager().subscribeWidget(
-                    this.props.id,
-                    this.handleStats,
-                    dataProviderConf
-                );
+                super.getWidgetChannelManager()
+                    .subscribeWidget(
+                        this.props.id,
+                        this.handleStats,
+                        dataProviderConf
+                    );
             })
             .catch(() => {
                 this.isConfLoadError = true;
             });
-    }
-
-    static getProviderConf(widgetConfiguration) {
-        return widgetConfiguration.configs.providerConfig;
     }
 
     /**
@@ -200,14 +203,18 @@ class HorizontalBarChart extends Widget {
      */
     renderEmptyRecordsMessage() {
         return (
-            <div className="status-message" style={{color: 'white', marginLeft: 'auto', marginRight: 'auto'}}>
+            <div className="status-message" style={{
+                color: 'white',
+                marginLeft: 'auto',
+                marginRight: 'auto'
+            }}>
                 <div className="message message-info">
                     <h4>
                         <i class="icon fw fw-info"/> No records found</h4>
                     <p>
                         {
-                            this.isConfLoadError ? "Error loading widget configuration file" :
-                                "Please select a valid date range to view stats."
+                            this.isConfLoadError ? 'Error loading widget configuration file' :
+                                'Please select a valid date range to view stats.'
                         }
                     </p>
                 </div>

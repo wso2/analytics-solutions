@@ -34,7 +34,7 @@ class TPS extends Widget {
 
         var config = {
             "x": 'Time',
-            "charts": [{ type: "line", y: "TPS" }],
+            "charts": [{type: "line", y: "TPS"}],
             "maxLength": 10,
             "width": 400,
             "height": 200,
@@ -78,7 +78,7 @@ class TPS extends Widget {
     }
 
     handleResize() {
-        this.setState({ width: this.props.glContainer.width, height: this.props.glContainer.height });
+        this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
     }
 
     componentWillMount() {
@@ -140,7 +140,6 @@ class TPS extends Widget {
         return widgetConfiguration.configs.providerConfig;
     }
 
-    
 
     /**
      * Draw the graph with the data retrieved from the data store
@@ -160,8 +159,8 @@ class TPS extends Widget {
             switch (this.state.timeUnitParameter) {
                 case "month":
                     divider = 3600 * 24 * 30;
-                    let timeStamp=new Date(e[labelMapper.AGG_TIMESTAMP]);
-                    divider=new Date(timeStamp.getFullYear(),(timeStamp.getMonth()+1),0).getDate()*3600*24;            
+                    let timeStamp = new Date(e[labelMapper.AGG_TIMESTAMP]);
+                    divider = new Date(timeStamp.getFullYear(), (timeStamp.getMonth() + 1), 0).getDate() * 3600 * 24;
                     break;
                 case "day":
                     divider = 3600 * 24;
@@ -173,7 +172,7 @@ class TPS extends Widget {
                     divider = 60;
                     break;
             }
-            e[labelMapper.noOfInvocation]=(e[labelMapper.noOfInvocation])/divider;
+            e[labelMapper.noOfInvocation] = (e[labelMapper.noOfInvocation]) / divider;
         });
 
 
@@ -203,7 +202,7 @@ class TPS extends Widget {
      */
     getEmptyRecordsText() {
         return (
-            <div class="status-message" style={{ color: 'white', marginLeft: 'auto', marginRight: 'auto' }}>
+            <div class="status-message" style={{color: 'white', marginLeft: 'auto', marginRight: 'auto'}}>
                 <div class="message message-info">
                     <h4><i class="icon fw fw-info"></i> No records found</h4>
                     <p>Please select a valid date range to view stats.</p>
@@ -211,7 +210,6 @@ class TPS extends Widget {
             </div>
         );
     };
-
 
 
     /**

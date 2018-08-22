@@ -18,7 +18,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+var copyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     context: path.resolve(__dirname, './src'),
@@ -33,7 +33,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.html$/,
-                use: [{ loader: 'html-loader' }],
+                use: [{loader: 'html-loader'}],
             },
             {
                 test: /\.js$/,
@@ -65,14 +65,14 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'sass-loader' }],
+                use: [{loader: 'style-loader'}, {loader: 'css-loader'}, {loader: 'sass-loader'}],
             },
 
         ],
     },
     plugins: [
-        new CopyWebpackPlugin([
-            { from: path.resolve(__dirname, './src/resources/') },
+        new copyWebpackPlugin([
+            {from: path.resolve(__dirname, './src/resources/')},
         ]),
     ],
     resolve: {
