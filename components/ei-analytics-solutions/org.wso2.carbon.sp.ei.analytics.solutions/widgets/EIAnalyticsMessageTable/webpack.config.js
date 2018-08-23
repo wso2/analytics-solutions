@@ -18,16 +18,16 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const copyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        index: './EIAnalyticsMessageTable.jsx'
+        index: './MessageTable.jsx'
     },
     output: {
-        path: path.resolve(__dirname, './dist/EIAnalyticsMessageTable/'),
-        filename: 'EIAnalyticsMessageTable.js'
+        path: path.resolve(__dirname, './dist/MessageTable/'),
+        filename: 'MessageTable.js'
     },
     module: {
         loaders: [
@@ -71,7 +71,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CopyWebpackPlugin([
+        new copyWebpackPlugin([
             {from: path.resolve(__dirname, './src/resources/')}
         ])
     ],

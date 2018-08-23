@@ -23,11 +23,11 @@ const copyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        index: './EIAnalyticsSearchBox.jsx'
+        index: './SearchBox.jsx'
     },
     output: {
-        path: path.resolve(__dirname, './dist/EIAnalyticsSearchBox/'),
-        filename: 'EIAnalyticsSearchBox.js'
+        path: path.resolve(__dirname, './dist/SearchBox/'),
+        filename: 'SearchBox.js'
     },
     module: {
         loaders: [
