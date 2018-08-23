@@ -76,5 +76,9 @@ module.exports = {
     ],
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.scss']
+    },
+    externals: {
+        // Use external version of React
+        "react": "React"
     }
 };
