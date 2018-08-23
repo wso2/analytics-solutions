@@ -19,10 +19,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>org.wso2.analytics.is.analytics.solutions.widgets..message.table</artifactId>
+    <artifactId>org.wso2.analytics.ei.analytics.solutions.widgets..message.table</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - IS Analytics Solutions - Widgets - Message Table</name>
+    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - Message Table</name>
     <url>http://wso2.org</url>
 
     <parent>
