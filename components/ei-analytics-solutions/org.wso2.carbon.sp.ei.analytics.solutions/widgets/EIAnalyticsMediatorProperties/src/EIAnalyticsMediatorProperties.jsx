@@ -45,7 +45,7 @@ const table = {
     overflowX: 'auto',
 };
 
-class MediatorProperties extends Widget {
+class EIAnalyticsMediatorProperties extends Widget {
     constructor(props) {
         super(props);
         this.state = {
@@ -487,4 +487,4 @@ function formatXML(xml) {
     return formatted;
 }
 
-global.dashboard.registerWidget('MediatorProperties', MediatorProperties);
+global.dashboard.registerWidget('EIAnalyticsMediatorProperties', EIAnalyticsMediatorProperties);

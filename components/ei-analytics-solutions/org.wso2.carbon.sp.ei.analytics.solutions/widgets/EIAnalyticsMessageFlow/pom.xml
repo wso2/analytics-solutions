@@ -22,7 +22,7 @@
     <artifactId>org.wso2.carbon.analytics.solutions.ei.analytics.message.flow</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - MessageFlow</name>
+    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - EIAnalyticsMessageFlow</name>
     <url>http://wso2.org</url>
 
     <parent>

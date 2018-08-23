@@ -23,11 +23,11 @@ const copyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        index: './MessageFlow.jsx'
+        index: './EIAnalyticsMessageFlow.jsx'
     },
     output: {
-        path: path.resolve(__dirname, './dist/MessageFlow/'),
-        filename: 'MessageFlow.js'
+        path: path.resolve(__dirname, './dist/EIAnalyticsMessageFlow/'),
+        filename: 'EIAnalyticsMessageFlow.js'
     },
     module: {
         loaders: [

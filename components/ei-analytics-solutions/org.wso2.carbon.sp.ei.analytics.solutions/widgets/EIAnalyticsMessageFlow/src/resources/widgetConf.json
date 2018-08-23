@@ -1,6 +1,6 @@
 {
-  "name": "MessageFlow",
-  "id": "MessageFlow",
+  "name": "EI Analytics Message Flow",
+  "id": "EIAnalyticsMessageFlow",
   "thumbnailURL": "",
   "configs": {
     "pubsub": {

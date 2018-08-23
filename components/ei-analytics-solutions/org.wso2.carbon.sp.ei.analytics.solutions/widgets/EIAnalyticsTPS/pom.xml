@@ -22,7 +22,7 @@
     <artifactId>org.wso2.carbon.analytics.solutions.ei.analytics.tps</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - TPS</name>
+    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - EIAnalyticsTPS</name>
     <url>http://wso2.org</url>
 
     <parent>

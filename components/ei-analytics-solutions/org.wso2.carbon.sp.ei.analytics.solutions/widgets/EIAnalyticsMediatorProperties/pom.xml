@@ -22,7 +22,7 @@
     <artifactId>org.wso2.carbon.analytics.solutions.ei.analytics.mediator.properties</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - MediatorProperties</name>
+    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - EIAnalyticsMediatorProperties</name>
     <url>http://wso2.org</url>
 
     <parent>

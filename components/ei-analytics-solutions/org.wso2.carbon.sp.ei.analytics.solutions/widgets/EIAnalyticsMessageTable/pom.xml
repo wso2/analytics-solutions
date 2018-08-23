@@ -22,7 +22,7 @@
     <artifactId>org.wso2.carbon.analytics.solutions.ei.analytics.message.table</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - MessageTable</name>
+    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - EIAnalyticsMessageTable</name>
     <url>http://wso2.org</url>
 
     <parent>

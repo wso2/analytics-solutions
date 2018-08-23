@@ -51,7 +51,7 @@ let svgCenter = {
     justifyContent: 'center'
 }
 
-class MessageFlow extends Widget {
+class EIAnalyticsMessageFlow extends Widget {
     constructor(props) {
         super(props);
         this.parameters = {
@@ -1356,4 +1356,4 @@ function getDashboardName() {
     return splittedBaseUrl[splittedBaseUrl.length - 2];
 };
 
-global.dashboard.registerWidget('MessageFlow', MessageFlow);
+global.dashboard.registerWidget('EIAnalyticsMessageFlow', EIAnalyticsMessageFlow);

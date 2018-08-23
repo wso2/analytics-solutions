@@ -23,11 +23,11 @@ const copyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        index: './MessageTable.jsx'
+        index: './EIAnalyticsMessageTable.jsx'
     },
     output: {
-        path: path.resolve(__dirname, './dist/MessageTable/'),
-        filename: 'MessageTable.js'
+        path: path.resolve(__dirname, './dist/EIAnalyticsMessageTable/'),
+        filename: 'EIAnalyticsMessageTable.js'
     },
     module: {
         loaders: [

@@ -34,7 +34,7 @@ const PUBLISHER_SEARCH_BOX = "selectedComponent";
 
 // console.log(JSON.stringify(this.bodyRef.current.parentNode.getAttribute("height")));
 
-class StatsChart extends Widget {
+class EIAnalyticsStatsChart extends Widget {
     constructor(props) {
         super(props);
 
@@ -392,4 +392,4 @@ class StatsChart extends Widget {
     }
 }
 
-global.dashboard.registerWidget('StatsChart', StatsChart);
+global.dashboard.registerWidget('EIAnalyticsStatsChart', EIAnalyticsStatsChart);

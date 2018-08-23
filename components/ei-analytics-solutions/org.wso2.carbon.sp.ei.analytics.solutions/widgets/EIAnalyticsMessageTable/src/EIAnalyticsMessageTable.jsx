@@ -25,7 +25,7 @@ let TENANT_ID = '-1234';
 let MESSAGE_PAGE = "message";
 let PARAM_ID = "id";
 
-class MessageTable extends Widget {
+class EIAnalyticsMessageTable extends Widget {
     constructor(props) {
         super(props);
 
@@ -142,7 +142,7 @@ class MessageTable extends Widget {
                 super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
 
                 // Get data provider sub json string from the widget configuration
-                let dataProviderConf = MessageTable.getProviderConf(message.data);
+                let dataProviderConf = EIAnalyticsMessageTable.getProviderConf(message.data);
                 let query = dataProviderConf.configs.config.queryData.query;
                 let pageName = this.getCurrentPage();
                 let componentName;
@@ -251,4 +251,4 @@ class MessageTable extends Widget {
     }
 }
 
-global.dashboard.registerWidget("MessageTable", MessageTable);
+global.dashboard.registerWidget("EIAnalyticsMessageTable", EIAnalyticsMessageTable);

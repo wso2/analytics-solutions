@@ -23,18 +23,18 @@ import moment from 'moment';
 var PUBLISHER_DATE_TIME_PICKER = 'granularity';
 var TENANT_ID = '-1234';
 
-class TPS extends Widget {
+class EIAnalyticsTPS extends Widget {
     constructor(props) {
         super(props);
 
         // Set title to 'OverallTPS'
         this.props.glContainer.setTitle(
-            "OVERALL TPS"
+            "OVERALL EIAnalyticsTPS"
         );
 
         var config = {
             "x": 'Time',
-            "charts": [{type: "line", y: "TPS"}],
+            "charts": [{type: "line", y: "EIAnalyticsTPS"}],
             "maxLength": 10,
             "width": 400,
             "height": 200,
@@ -48,7 +48,7 @@ class TPS extends Widget {
         let metadata = {
             "names": [
                 "Time",
-                "TPS"
+                "EIAnalyticsTPS"
             ],
             "types": [
                 "time",
@@ -238,4 +238,4 @@ class TPS extends Widget {
     }
 }
 
-global.dashboard.registerWidget('TPS', TPS);
+global.dashboard.registerWidget('EIAnalyticsTPS', EIAnalyticsTPS);

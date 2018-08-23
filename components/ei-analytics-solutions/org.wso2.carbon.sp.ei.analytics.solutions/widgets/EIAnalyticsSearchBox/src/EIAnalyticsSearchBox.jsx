@@ -20,7 +20,7 @@ import Widget from '@wso2-dashboards/widget';
 import Select from 'react-select';
 import './react-select.css';
 
-class SearchBox extends Widget {
+class EIAnalyticsSearchBox extends Widget {
 
     constructor(props) {
         super(props);
@@ -176,4 +176,4 @@ class SearchBox extends Widget {
     }
 }
 
-global.dashboard.registerWidget('SearchBox', SearchBox);
+global.dashboard.registerWidget('EIAnalyticsSearchBox', EIAnalyticsSearchBox);

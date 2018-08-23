@@ -23,11 +23,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        index: './MediatorProperties.jsx'
+        index: './EIAnalyticsMediatorProperties.jsx'
     },
     output: {
-        path: path.resolve(__dirname, './dist/MediatorProperties/'),
-        filename: 'MediatorProperties.js'
+        path: path.resolve(__dirname, './dist/EIAnalyticsMediatorProperties/'),
+        filename: 'EIAnalyticsMediatorProperties.js'
     },
     module: {
         loaders: [

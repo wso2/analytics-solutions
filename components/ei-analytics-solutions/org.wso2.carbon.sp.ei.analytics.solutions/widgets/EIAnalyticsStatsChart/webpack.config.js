@@ -23,11 +23,11 @@ const copyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        index: './StatsChart.jsx'
+        index: './EIAnalyticsStatsChart.jsx'
     },
     output: {
-        path: path.resolve(__dirname, './dist/StatsChart/'),
-        filename: 'StatsChart.js'
+        path: path.resolve(__dirname, './dist/EIAnalyticsStatsChart/'),
+        filename: 'EIAnalyticsStatsChart.js'
     },
     module: {
         loaders: [

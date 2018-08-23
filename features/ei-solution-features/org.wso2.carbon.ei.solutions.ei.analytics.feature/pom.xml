@@ -86,7 +86,7 @@
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
                                     </outputDirectory>
-                                    <includes>MediatorProperties/**</includes>
+                                    <includes>EIAnalyticsMediatorProperties/**</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.analytics.solutions</groupId>
@@ -96,7 +96,7 @@
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
                                     </outputDirectory>
-                                    <includes>MessageFlow/**</includes>
+                                    <includes>EIAnalyticsMessageFlow/**</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.analytics.solutions</groupId>
@@ -106,7 +106,7 @@
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
                                     </outputDirectory>
-                                    <includes>MessageTable/**</includes>
+                                    <includes>EIAnalyticsMessageTable/**</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.analytics.solutions</groupId>
@@ -116,7 +116,7 @@
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
                                     </outputDirectory>
-                                    <includes>SearchBox/**</includes>
+                                    <includes>EIAnalyticsSearchBox/**</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.analytics.solutions</groupId>
@@ -126,7 +126,7 @@
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
                                     </outputDirectory>
-                                    <includes>StatsChart/**</includes>
+                                    <includes>EIAnalyticsStatsChart/**</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.analytics.solutions</groupId>
@@ -136,7 +136,7 @@
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
                                     </outputDirectory>
-                                    <includes>TPS/**</includes>
+                                    <includes>EIAnalyticsTPS/**</includes>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

@@ -1,6 +1,6 @@
 {
-  "name": "MessageTable",
-  "id": "MessageTable",
+  "name": "EI Analytics Message Table",
+  "id": "EIAnalyticsMessageTable",
   "thumbnailURL": "",
   "configs": {
     "pubsub": {

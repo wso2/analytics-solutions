@@ -22,7 +22,7 @@
     <artifactId>org.wso2.carbon.analytics.solutions.ei.analytics.search.box</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - Solution - Widgets - SearchBox</name>
+    <name>WSO2 Stream Processor - Solution - Widgets - EIAnalyticsSearchBox</name>
     <url>http://wso2.org</url>
 
     <parent>

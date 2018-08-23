@@ -1,6 +1,6 @@
 {
-  "name": "TPS",
-  "id": "TPS",
+  "name": "EI Analytics TPS",
+  "id": "EIAnalyticsTPS",
   "thumbnailURL": "",
   "configs": {
     "pubsub": {
