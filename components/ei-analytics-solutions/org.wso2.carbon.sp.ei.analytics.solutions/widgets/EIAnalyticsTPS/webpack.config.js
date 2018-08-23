@@ -23,11 +23,11 @@ const copyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        index: './TPS.jsx'
+        index: './EIAnalyticsTPS.jsx'
     },
     output: {
-        path: path.resolve(__dirname, './dist/TPS/'),
-        filename: 'TPS.js'
+        path: path.resolve(__dirname, './dist/EIAnalyticsTPS/'),
+        filename: 'EIAnalyticsTPS.js'
     },
     module: {
         loaders: [
@@ -77,5 +77,6 @@ module.exports = {
     ],
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.scss']
-    }
+    },
+    externals: { react: 'React' },
 };
