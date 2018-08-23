@@ -17,6 +17,7 @@
  *
  */
 
+import React from 'react';
 import VizG from 'react-vizgrammar';
 import Widget from "@wso2-dashboards/widget";
 import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
