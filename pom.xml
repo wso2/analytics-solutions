@@ -32,12 +32,12 @@
     <name>WSO2 Analytics Solutions - Parent</name>
 
     <modules>
-       <!-- <module>components/analytics-solutions-common</module>
+        <module>components/analytics-solutions-common</module>
         <module>components/sp-solutions</module>
         <module>components/ei-analytics</module>
         <module>components/is-analytics</module>
         <module>features/analytics-solutions-common-features</module>
-        <module>features/sp-solution-features</module> -->
+        <module>features/sp-solution-features</module>
         <module>features/is-analytics-feature</module>
     </modules>
 
