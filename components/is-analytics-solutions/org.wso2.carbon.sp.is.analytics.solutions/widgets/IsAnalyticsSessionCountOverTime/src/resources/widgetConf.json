@@ -1,0 +1,30 @@
+{
+    "name": "IsAnalyticsSessionCountOverTime",
+    "id": "IsAnalyticsSessionCountOverTime",
+    "thumbnailURL": "",
+    "configs": {
+      "pubsub": {
+        "types": [
+          "subscriber"
+        ]
+      },
+      "providerConfig": {
+        "configs":{
+          "type":"SiddhiStoreDataProvider",
+          "config":{
+            "siddhiApp":"@App:name('IS_ANALYTICS_SESSION_DATA') @App:description('Receiving Streams from IS and executing and analyzing statistics for session') define stream SessionStatisticsPerSecond (meta_tenantId int, activeSessionCount long, newSessionCount long, terminatedSessionCount long, timestamp long); @Store(type=\"rdbms\",datasource=\"IS_ANALYTICS_DB\") define aggregation SessionCountAggregation from SessionStatisticsPerSecond select  meta_tenantId, activeSessionCount, sum(newSessionCount) as newSessionCount, sum(terminatedSessionCount) as terminatedSessionCount group by meta_tenantId aggregate by timestamp every sec...year;",
+            "queryData":{
+              "query":"from SessionCountAggregation within {{from}}L, {{to}}L per \"{{per}}s\" select AGG_TIMESTAMP as timestamp, activeSessionCount as Active, newSessionCount as New, terminatedSessionCount as Terminated"
+            },
+            "publishingInterval": 60
+          }
+        }
+      }
+    }
+  }
+  
+  
+  
+  
+  
+  
