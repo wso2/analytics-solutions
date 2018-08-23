@@ -73,12 +73,6 @@ import java.util.Timer;
         namespace = "source",
         description = " ",
         parameters = {
-                /*@Parameter(name = " ",
-                        description = " " ,
-                        dynamic = false/true,
-                        optional = true/false, defaultValue = " ",
-                        type = {DataType.INT, DataType.BOOL, DataType.STRING, DataType.DOUBLE, }),
-                        type = {DataType.INT, DataType.BOOL, DataType.STRING, DataType.DOUBLE, }),*/
         },
         examples = {
                 @Example(
