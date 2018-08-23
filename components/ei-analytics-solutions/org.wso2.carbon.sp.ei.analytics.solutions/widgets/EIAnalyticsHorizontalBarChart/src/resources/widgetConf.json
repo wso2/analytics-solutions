@@ -1,0 +1,43 @@
+{
+  "name": "EI Analytics Horizontal Bar Chart",
+  "id": "EIAnalyticsHorizontalBarChart",
+  "thumbnailURL": "",
+  "configs": {
+    "pubsub": {
+      "types": [
+        "subscriber"
+      ]
+    },
+    "providerConfig": {
+      "configs": {
+        "type": "SiddhiStoreDataProvider",
+        "config": {
+          "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int); define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long); @store(type = 'rdbms', datasource = 'EI_ANALYTICS') @info(name = 'ESBStatAgg') define aggregation ESBStatAgg from PreProcessedESBStatStream select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp group by metaTenantId, componentId, componentName, componentType, entryPoint aggregate by startTime every sec...years; @store(type = 'rdbms', datasource = 'EI_ANALYTICS') @info(name = 'MediatorStatAgg') define aggregation MediatorStatAgg from PreProcessedMediatorStatStream  select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime group by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode aggregate by startTime every sec...years;",
+          "queryData": {
+            "query": "from {{aggregator}} on componentType==\"{{componentType}}\" AND metaTenantId=={{tenantId}} within \"{{timeFrom}}\", \"{{timeTo}}\" per 'minutes' select sum(noOfInvocation) as totalInvocations, componentName group by componentName order by totalInvocations desc limit 5"
+          },
+          "publishingInterval": 60
+        }
+      }
+    },
+    "options": [
+      {
+        "id": "Component Type Selection",
+        "title": "Component Type",
+        "type": {
+          "name": "ENUM",
+          "possibleValues": [
+            "api",
+            "endpoint",
+            "sequence",
+            "mediator",
+            "api resource",
+            "proxy service",
+            "inbound endpoint"
+          ]
+        },
+        "defaultValue": "api"
+      }
+    ]
+  }
+}

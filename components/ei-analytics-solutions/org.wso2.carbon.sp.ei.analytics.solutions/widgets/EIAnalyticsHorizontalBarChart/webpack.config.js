@@ -23,11 +23,11 @@ var copyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        index: './HorizontalBarChart.jsx',
+        index: './EIAnalyticsHorizontalBarChart.jsx',
     },
     output: {
-        path: path.resolve(__dirname, './dist/HorizontalBarChart/'),
-        filename: 'HorizontalBarChart.js',
+        path: path.resolve(__dirname, './dist/EIAnalyticsHorizontalBarChart/'),
+        filename: 'EIAnalyticsHorizontalBarChart.js',
     },
     module: {
         loaders: [

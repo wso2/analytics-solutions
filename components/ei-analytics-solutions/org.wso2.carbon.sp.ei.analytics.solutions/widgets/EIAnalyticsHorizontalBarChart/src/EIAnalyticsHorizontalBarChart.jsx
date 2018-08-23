@@ -28,9 +28,9 @@ const PUBLISHER_DATE_TIME_PICKER = 'granularity';
 const TENANT_ID = '-1234';
 
 /**
- * Dashboard widget class for the HorizontalBarChart widget
+ * Dashboard widget class for the EIAnalyticsHorizontalBarChart widget
  */
-class HorizontalBarChart extends Widget {
+class EIAnalyticsHorizontalBarChart extends Widget {
     /**
      * Initialize graph parameters with the default values
      * @param props Props received from the dashboard
@@ -125,7 +125,7 @@ class HorizontalBarChart extends Widget {
             .then((message) => {
                 this.isConfLoadError = false;
                 /* Get data provider sub json string from the widget configuration. */
-                const dataProviderConf = HorizontalBarChart.getProviderConf(message.data);
+                const dataProviderConf = EIAnalyticsHorizontalBarChart.getProviderConf(message.data);
                 let query = dataProviderConf.configs.config.queryData.query;
                 const graphType = this.state.graphType;
                 const aggregator = (
@@ -285,4 +285,4 @@ class HorizontalBarChart extends Widget {
     }
 }
 
-global.dashboard.registerWidget('HorizontalBarChart', HorizontalBarChart);
+global.dashboard.registerWidget('EIAnalyticsHorizontalBarChart', EIAnalyticsHorizontalBarChart);

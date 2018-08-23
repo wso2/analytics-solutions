@@ -76,7 +76,7 @@
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
                                     </outputDirectory>
-                                    <includes>HorizontalBarChart/**</includes>
+                                    <includes>EIAnalyticsHorizontalBarChart/**</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.analytics.solutions</groupId>
