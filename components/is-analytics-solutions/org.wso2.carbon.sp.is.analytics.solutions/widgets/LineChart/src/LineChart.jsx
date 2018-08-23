@@ -17,15 +17,16 @@
  *
  */
 
+import React, {Component} from 'react';
 import VizG from 'react-vizgrammar';
 import Widget from '@wso2-dashboards/widget';
 import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
 
 class LineChart extends Widget {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.ChartConfig =
-        {
+
+        this.ChartConfig = {
             x: "timestamp",
             charts: [
                 {
@@ -57,14 +58,14 @@ class LineChart extends Widget {
                types: ['ordinal', 'linear', 'linear', 'linear']
         };
 
-        this.state ={
-                    data: [],
-                    metadata: this.metadata,
-                    ChartConfig: this.ChartConfig,
-                    width: this.props.glContainer.width,
-                    height: this.props.glContainer.height,
-                    btnGroupHeight: 50
-                };
+        this.state = {
+            data: [],
+            metadata: this.metadata,
+            ChartConfig: this.ChartConfig,
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height,
+            btnGroupHeight: 50
+        };
 
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
@@ -73,12 +74,11 @@ class LineChart extends Widget {
         this.assembleQuery = this.assembleQuery.bind(this);
     }
 
-    handleResize(){
+    handleResize() {
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
     }
 
-    componentDidMount(){
-        console.log("Configs: ", super.getWidgetConfiguration(this.props.widgetID));
+    componentDidMount() {
         super.subscribe(this.setReceivedMsg);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
@@ -88,11 +88,11 @@ class LineChart extends Widget {
             })
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
     }
 
-    handleDataReceived(message){
+    handleDataReceived(message) {
         let ChartConfig = _.cloneDeep(this.state.ChartConfig);
         let {metadata, data} = message;      
         metadata.types[0] = 'TIME';
@@ -113,15 +113,15 @@ class LineChart extends Widget {
 
     }
 
-    setReceivedMsg(message){
+    setReceivedMsg(message) {
         this.setState({
-           per: message.granularity,
+            per: message.granularity,
             fromDate: message.from,
             toDate: message.to
         }, this.assembleQuery);  
     }
 
-    assembleQuery(){
+    assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
         let query = dataProviderConfigs.configs.config.queryData.query;
@@ -130,12 +130,11 @@ class LineChart extends Widget {
             .replace("{{from}}", this.state.fromDate)
             .replace("{{to}}", this.state.toDate);
         dataProviderConfigs.configs.config.queryData.query = query;
-
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
     }
-    
-    render(){
+
+    render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <section style={{paddingTop: 50}}>

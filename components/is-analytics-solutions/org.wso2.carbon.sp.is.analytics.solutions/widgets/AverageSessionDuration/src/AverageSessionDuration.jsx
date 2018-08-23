@@ -25,11 +25,10 @@ import Pagination from 'material-ui-pagination';
 const dataPerPage = 3;
 
 class AverageSessionDuration extends Widget {
-    constructor(props){
+    constructor(props) {
         super(props);
 
-        this.ChartConfig =
-        {
+        this.ChartConfig = {
             x: "username",
             charts: [
                 {
@@ -47,13 +46,13 @@ class AverageSessionDuration extends Widget {
             legend: false,
             append: false,
         };
+
         this.metadata = {
                names: ['username', 'duration'],
                types: ['ordinal', 'linear']
-
         };
 
-        this.state ={
+        this.state = {
             data: [],
             metadata: this.metadata,
             width: this.props.glContainer.width,
@@ -71,13 +70,12 @@ class AverageSessionDuration extends Widget {
         this.updateTable = this.updateTable.bind(this);
     }
 
-    handleResize(){
+    handleResize() {
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
 
     }
-    componentDidMount() {
-        console.log("Configs: ", super.getWidgetConfiguration(this.props.widgetID));
 
+    componentDidMount() {
         super.subscribe(this.setReceivedMsg);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
@@ -124,13 +122,10 @@ class AverageSessionDuration extends Widget {
                 currentPageNumber: pageNumber,
                 pageCount: totalPageCount,
             });
-
-
         }
     }
 
-    setReceivedMsg(message)
-    {
+    setReceivedMsg(message) {
         this.setState({
             fromDate: message.from,
             toDate: message.to,
@@ -139,7 +134,7 @@ class AverageSessionDuration extends Widget {
         }, this.assembleQuery);
     }
 
-    assembleQuery(){
+    assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
         let query = dataProviderConfigs.configs.config.queryData.query;
@@ -151,8 +146,8 @@ class AverageSessionDuration extends Widget {
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
     }
-    
-    render(){
+
+    render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                     <section style={{ paddingTop: 25 }}>

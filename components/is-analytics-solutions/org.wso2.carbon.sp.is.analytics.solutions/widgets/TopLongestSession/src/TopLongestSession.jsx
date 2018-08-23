@@ -25,11 +25,10 @@ import Pagination from 'material-ui-pagination';
 const dataPerPage = 3;
 
 class TopLongestSession extends Widget {
-    constructor(props){
+    constructor(props) {
         super(props);
 
-        this.ChartConfig =
-        {
+        this.ChartConfig = {
             x: "username",
             charts: [
                 {
@@ -37,7 +36,7 @@ class TopLongestSession extends Widget {
                     y: "duration",
                     color: "sessionId",
                     colorScale: ["#00e600"],
-                    orientation: "left"
+                    orientation: "left",
                 }
             ],
             yAxisLabel: ' Duration (s)',
@@ -46,13 +45,13 @@ class TopLongestSession extends Widget {
             legend: false,
             append: false,
         };
+
         this.metadata = {
                names: ['sessionId','username', 'duration'],
                types: ['ordinal','ordinal', 'linear']
-
         };
 
-        this.state ={
+        this.state = {
             data: [],
             metadata: this.metadata,
             ChartConfig: this.ChartConfig,
@@ -68,16 +67,13 @@ class TopLongestSession extends Widget {
         this.setReceivedMsg = this.setReceivedMsg.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
         this.updateTable = this.updateTable.bind(this);
-
     }
 
-    handleResize(){
+    handleResize() {
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
     }
 
     componentDidMount(setData) {
-        console.log("Configs: ", super.getWidgetConfiguration(this.props.widgetID));
-
         super.subscribe(this.setReceivedMsg);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
@@ -126,8 +122,7 @@ class TopLongestSession extends Widget {
         }
     }
 
-    setReceivedMsg(message)
-    {
+    setReceivedMsg(message) {
         this.setState({
             fromDate: message.from,
             toDate: message.to,
@@ -135,8 +130,8 @@ class TopLongestSession extends Widget {
             currentDataSet: [],
         }, this.assembleQuery);
     }
-    
-    assembleQuery(){
+
+    assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
         let query = dataProviderConfigs.configs.config.queryData.query;
@@ -149,9 +144,9 @@ class TopLongestSession extends Widget {
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
     }
 
-    render(){
-            return (
-                <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+    render() {
+        return (
+            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <section style={{paddingTop: 25}}>
                         <VizG
                             config={this.state.ChartConfig}
@@ -162,14 +157,14 @@ class TopLongestSession extends Widget {
                             theme={this.props.muiTheme.name}
                         />
                 </section>
-                            <Pagination
+                        <Pagination
                               total={this.state.pageCount}
                               current={this.state.currentPageNumber}
                               display={3}
                               onChange={number => this.updateTable(this.state.data, number, true)}
-                            />
-                </MuiThemeProvider>
-            );
-        }
+                        />
+            </MuiThemeProvider>
+        );
+    }
 }
 global.dashboard.registerWidget("TopLongestSession", TopLongestSession);

@@ -23,11 +23,10 @@ import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
 import RaisedButton from 'material-ui/RaisedButton';
 
 class SessionCount extends Widget {
-    constructor(props){
+    constructor(props) {
         super(props);
 
-        this.ChartConfig =
-        {
+        this.ChartConfig = {
             x: "DURATION",
             charts: [
                 {
@@ -43,10 +42,10 @@ class SessionCount extends Widget {
             maxLength: 10,
             legend: false
         };
+
         this.metadata = {
                names: ['DURATION', 'COUNT1'],
                types: ['ordinal', 'linear']
-
         };
 
         this.state ={
@@ -62,14 +61,11 @@ class SessionCount extends Widget {
         this.setReceivedMsg = this.setReceivedMsg.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
     }
-
-    handleResize(){
+    handleResize() {
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
 
     }
-
     componentDidMount() {
-        console.log("Configs: ", super.getWidgetConfiguration(this.props.widgetID));
         super.subscribe(this.setReceivedMsg);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
@@ -92,15 +88,15 @@ class SessionCount extends Widget {
         });
 
     }
-    setReceivedMsg(message)
-    {
+
+    setReceivedMsg(message) {
         this.setState({
           fromDate: message.from,
           toDate: message.to,
         }, this.assembleQuery);
     }
 
-    assembleQuery(){
+    assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
         let query = dataProviderConfigs.configs.config.queryData.query;
@@ -124,8 +120,8 @@ class SessionCount extends Widget {
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
     }
-    
-    render(){
+
+    render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <section style={{paddingTop: 25}}>
