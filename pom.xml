@@ -257,43 +257,43 @@
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>wso2sp-solutions.ei-analytics.statschart</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>wso2sp-solutions.ei-analytics.horizontalbarchart</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>wso2sp-solutions.ei-analytics.messageflow</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>wso2sp-solutions.ei-analytics.mediatorproperties</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>wso2sp-solutions.ei-analytics.tps</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>wso2sp-solutions.ei-analytics.messagetable</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>wso2sp-solutions.ei-analytics.searchbox</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>

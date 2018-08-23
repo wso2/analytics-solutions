@@ -19,16 +19,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>wso2sp-solutions.ei-analytics.tps</artifactId>
+    <artifactId>org.wso2.carbon.analytics.solutions.ei.analytics.tps</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - Solution - Widgets - TPS</name>
+    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - TPS</name>
     <url>http://wso2.org</url>
 
     <parent>
         <groupId>org.wso2.analytics.solutions</groupId>
-        <artifactId>ei-analytics-widgets</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <artifactId>org.wso2.carbon.analytics.solutions.ei.analytics.widgets</artifactId>
+        <version>${project.version}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
