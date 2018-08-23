@@ -1,4 +1,4 @@
-@App:name('EIStatApp')
+@App:name('EI_Analytics_StatApp')
 @App:description('SiddhiApp for EI Analytics')
 
 -- Streams
