@@ -24,7 +24,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>siddhi-execution-country</artifactId>
     <packaging>bundle</packaging>
-    <name>WSO2 Stream Processor - Siddhi Execution Country</name>
+    <name>WSO2 Stream Processor Solutions - Twitter Analytics - Siddhi Execution Country</name>
 
     <dependencies>
         <dependency>

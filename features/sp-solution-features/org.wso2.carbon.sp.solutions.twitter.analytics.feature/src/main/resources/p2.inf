@@ -22,6 +22,7 @@ metaRequirements.0.optional = true
 
 instructions.configure = \
 org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/resources/);\
+org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/resources/businessRules/);\
 org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/resources/businessRules/templates/);\
 org.wso2.carbon.extensions.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.sp.solutions.twitter.analytics_${feature.version}/template/,target:${installFolder}/../{runtime}/resources/businessRules/templates/,overwrite:true);\
 org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/deployment/);\
@@ -30,4 +31,6 @@ org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/d
 org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/deployment/web-ui-apps/portal/extensions/);\
 org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/deployment/web-ui-apps/portal/extensions/widgets/);\
 org.wso2.carbon.extensions.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.sp.solutions.twitter.analytics_${feature.version}/portal/extensions/widgets/,target:${installFolder}/../{runtime}/deployment/web-ui-apps/portal/extensions/widgets/,overwrite:true);\
+org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/resources/dashboards/);\
+org.wso2.carbon.extensions.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.sp.solutions.twitter.analytics_${feature.version}/dashboards/,target:${installFolder}/../{runtime}/resources/dashboards/,overwrite:true);\
 org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/../lib/features/org.wso2.carbon.dashboards.samples_${feature.version}/widgets/);

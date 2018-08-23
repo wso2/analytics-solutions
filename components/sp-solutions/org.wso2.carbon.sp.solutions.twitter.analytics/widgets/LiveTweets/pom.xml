@@ -21,7 +21,7 @@
     <artifactId>wso2sp-solutions.twitter-analytics.livetweets</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - Solution - Widgets - LiveTweets</name>
+    <name>WSO2 Stream Processor Solutions - Twitter Analytics - Live Tweets Widget</name>
     <url>http://wso2.org</url>
 
     <parent>
