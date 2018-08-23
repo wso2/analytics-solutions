@@ -78,5 +78,6 @@ module.exports = {
     ],
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.scss']
-    }
+    },
+    externals: { react: 'React' },
 };
