@@ -67,7 +67,7 @@ const chartConfigTemplate = {
 class HTTPAnalyticsLatencyComparison extends Widget {
     /**
      * Constructor. Initialises the widget.
-     * @param props Props from Portal app.
+     * @param {JSON} props Props from Portal app.
      */
     constructor(props) {
         super(props);
@@ -119,7 +119,7 @@ class HTTPAnalyticsLatencyComparison extends Widget {
 
     /**
      * Set the state of the widget after metadata and data is received from SiddhiAppProvider
-     * @param message Received message
+     * @param {JSON} message Message received from data Provider
      */
     handleDataReceived(message) {
         const configClone = _.cloneDeep(chartConfigTemplate);
@@ -135,7 +135,7 @@ class HTTPAnalyticsLatencyComparison extends Widget {
 
     /**
      * Set state based on received user input from Filter widget and Date Range Picker widget
-     * @param receivedMsg
+     * @param {JSON} receivedMsg data received from publisher widget
      */
     setReceivedMsg(receivedMsg) {
         if (typeof receivedMsg.perspective === 'number') {
