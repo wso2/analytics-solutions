@@ -34,9 +34,11 @@
     <modules>
         <module>components/analytics-solutions-common</module>
         <module>components/sp-solutions</module>
+        <module>components/ei-analytics-solutions</module>
         <module>components/is-analytics-solutions</module>
         <module>features/analytics-solutions-common-features</module>
         <module>features/sp-solution-features</module>
+        <module>features/ei-solution-features</module>
     </modules>
 
     <dependencyManagement>
@@ -240,7 +242,7 @@
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
-            
+
             <!-- WSO2 IS Analytics -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
@@ -307,6 +309,66 @@
                 <type>jar</type>
                 <version>${project.version}</version>
             </dependency>
+
+            <!--Ei Analytics solution dependencies-->
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>wso2sp-solutions.ei-analytics.statschart</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>wso2sp-solutions.ei-analytics.horizontalbarchart</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>wso2sp-solutions.ei-analytics.messageflow</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>wso2sp-solutions.ei-analytics.mediatorproperties</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>wso2sp-solutions.ei-analytics.tps</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>wso2sp-solutions.ei-analytics.messagetable</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>wso2sp-solutions.ei-analytics.searchbox</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.esotericsoftware</groupId>
+                <artifactId>kryo-shaded</artifactId>
+                <version>${kryo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon.analytics</groupId>
+                <artifactId>org.wso2.carbon.analytics.spark.core</artifactId>
+                <version>${carbon.analytics.spark.core.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -531,6 +593,8 @@
 
     <properties>
         <carbon.analytics-common.version>6.0.66</carbon.analytics-common.version>
+        <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
+        <kryo.version>3.0.3</kryo.version>
 
         <siddhi.version>4.2.0</siddhi.version>
 
