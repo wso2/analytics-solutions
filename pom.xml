@@ -34,6 +34,7 @@
     <modules>
         <module>components/analytics-solutions-common</module>
         <module>components/sp-solutions</module>
+        <module>components/is-analytics-solutions</module>
         <module>features/analytics-solutions-common-features</module>
         <module>features/sp-solution-features</module>
     </modules>
@@ -239,6 +240,38 @@
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
+            
+            <!-- WSO2 IS Analytics -->
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.area.chart</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.attempts.over.time</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.compact.summary</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.horizontal.bar.chart</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.messages</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>siddhi-execution-country</artifactId>
@@ -249,6 +282,11 @@
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>siddhi-execution-tokenizer</artifactId>
                 <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.summary</artifactId>
+                <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -259,11 +297,16 @@
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.user.preferences</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>siddhi-execution-filterwords</artifactId>
                 <type>jar</type>
                 <version>${project.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
