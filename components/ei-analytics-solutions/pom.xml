@@ -33,7 +33,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>org.wso2.carbon.sp.ei.analytics.solutions</module>
+        <module>org.wso2.carbon.analytics.solutions.ei.analytics</module>
     </modules>
     
 </project>
