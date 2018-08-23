@@ -40,42 +40,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Apim Analytics solution-->
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.apim.analytics.feature</artifactId>
-                <version>${project.version}</version>
-                <type>zip</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apisubscriber.alert.config</artifactId>
-                <version>${project.version}</version>
-                <type>zip</type>
-            </dependency>
-
-
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apicreator.alert.config</artifactId>
-                <version>${project.version}</version>
-                <type>zip</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.sp.extension.siddhi.io.mgwfile</artifactId>
-                <type>jar</type>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.apim.rest.api.file</artifactId>
-                <type>jar</type>
-                <version>${project.version}</version>
-            </dependency>
 
             <!-- Micro services Interceptor -->
             <dependency>
@@ -256,6 +220,43 @@
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
+
+            <!-- Apim Analytics solution-->
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.carbon.sp.solutions.apim.analytics.feature</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apisubscriber.alert.config</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apicreator.alert.config</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.sp.extension.siddhi.io.mgwfile</artifactId>
+                <type>jar</type>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.apim.rest.api.file</artifactId>
+                <type>jar</type>
+                <version>${project.version}</version>
+            </dependency>
+
 
             <!-- HTTP analytics -->
             <dependency>
