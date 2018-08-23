@@ -18,16 +18,16 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const copyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        index: './MessageFlow.jsx'
+        index: './EIAnalyticsMessageFlow.jsx'
     },
     output: {
-        path: path.resolve(__dirname, './dist/MessageFlow/'),
-        filename: 'MessageFlow.js'
+        path: path.resolve(__dirname, './dist/EIAnalyticsMessageFlow/'),
+        filename: 'EIAnalyticsMessageFlow.js'
     },
     module: {
         loaders: [
@@ -70,11 +70,12 @@ module.exports = {
         ]
     },
     plugins: [
-        new copyWebpackPlugin([
+        new CopyWebpackPlugin([
             {from: path.resolve(__dirname, './src/resources/')}
         ])
     ],
     resolve: {
         extensions: ['.js', '.json', '.jsx', '.scss']
-    }
+    },
+    externals: { react: 'React' },
 };
