@@ -19,6 +19,8 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import CodeMirror from 'codemirror/lib/codemirror';
+import './diff_match_patch';
+import MergeView from 'codemirror/addon/merge/merge';
 /*
 MergeView requires google's diff_match_patch library as a dependency. Use the one provided in utils by
 replacing node_modules/codemirror/addon/merge/merge.js with ../utils/codemirror/addon/merge/merge.js
