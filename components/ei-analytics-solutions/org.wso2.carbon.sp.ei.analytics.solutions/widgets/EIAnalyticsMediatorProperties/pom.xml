@@ -19,15 +19,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>wso2sp-solutions.ei-analytics.mediatorproperties</artifactId>
+    <artifactId>org.wso2.analytics.ei.analytics.solutions.widgets.mediator.properties</artifactId>
     <packaging>pom</packaging>
 
-    <name>WSO2 Stream Processor - Solution - Widgets - MediatorProperties</name>
+    <name>WSO2 Stream Processor - EI Analytics Solutions - Widgets - Mediator Properties</name>
     <url>http://wso2.org</url>
 
     <parent>
         <groupId>org.wso2.analytics.solutions</groupId>
-        <artifactId>ei-analytics-widgets</artifactId>
+        <artifactId>org.wso2.analytics.ei.analytics.solutions.widgets</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
