@@ -645,7 +645,6 @@
         <carbon.analytics-common.version>6.0.66</carbon.analytics-common.version>
         <carbon.analytics.version>2.0.402</carbon.analytics.version>
 
-
         <siddhi.version>4.2.0</siddhi.version>
         <siddhi.map.wso2event.version>4.0.13</siddhi.map.wso2event.version>
         <siddhi.map.json.version>4.0.27</siddhi.map.json.version>
