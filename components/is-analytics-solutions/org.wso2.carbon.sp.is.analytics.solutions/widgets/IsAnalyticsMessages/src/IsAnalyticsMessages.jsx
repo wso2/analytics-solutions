@@ -17,6 +17,7 @@
  *
  */
 
+import React from 'react';
 import Widget from "@wso2-dashboards/widget";
 import VizG from 'react-vizgrammar';
 import {Scrollbars} from 'react-custom-scrollbars';

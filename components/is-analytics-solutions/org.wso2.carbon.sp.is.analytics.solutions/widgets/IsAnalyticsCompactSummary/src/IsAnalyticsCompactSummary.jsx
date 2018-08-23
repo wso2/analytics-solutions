@@ -17,7 +17,7 @@
  *
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
 import { MuiThemeProvider } from '@material-ui/core/styles';
