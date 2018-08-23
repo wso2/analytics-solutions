@@ -308,7 +308,7 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
             String fieldName = entry.getKey();
             String fieldType = entry.getValue();
             Attribute.Type type = null;
-            switch (fieldType.toLowerCase()) {
+            switch (fieldType.toLowerCase(Locale.ENGLISH)) {
                 case TYPE_DOUBLE:
                     type = Attribute.Type.DOUBLE;
                     break;
