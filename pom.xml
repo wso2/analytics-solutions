@@ -37,7 +37,6 @@
         <module>components/is-analytics-solutions</module>
         <module>features/analytics-solutions-common-features</module>
         <module>features/sp-solution-features</module>
-        <module>features/is-analytics-solution-features</module>
     </modules>
 
     <dependencyManagement>
@@ -243,12 +242,6 @@
             </dependency>
             
             <!-- WSO2 IS Analytics -->
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.is.analytics.feature</artifactId>
-                <version>${project.version}</version>
-                <type>zip</type>
-            </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.area.chart</artifactId>
