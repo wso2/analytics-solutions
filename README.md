@@ -1,5 +1,9 @@
-Analytics Solutions
--------------------
+# Analytics Solutions
+---
+|  Branch | Build Status |
+| :------------ |:-------------
+| master      | [![Build Status](https://wso2.org/jenkins/view/analytics/job/analytics-products/job/analytics-solutions/badge/icon)](https://wso2.org/jenkins/view/analytics/job/analytics-products/job/analytics-solutions/) |
+---
 
 This project contains components which implement solutions implemented on WSO2 Stream Processor.
 
