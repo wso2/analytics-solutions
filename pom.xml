@@ -38,7 +38,9 @@
         <module>components/is-analytics</module>
         <module>features/analytics-solutions-common-features</module>
         <module>features/sp-solution-features</module>
+<!--
         <module>features/is-analytics-feature</module>
+-->
     </modules>
 
     <dependencyManagement>
