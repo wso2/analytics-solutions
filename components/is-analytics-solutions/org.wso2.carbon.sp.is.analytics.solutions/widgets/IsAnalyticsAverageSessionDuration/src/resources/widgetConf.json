@@ -1,0 +1,29 @@
+{
+    "name": "IsAnalyticsAverageSessionDuration",
+    "id": "IsAnalyticsAverageSessionDuration",
+    "thumbnailURL": "",
+    "configs": {
+      "pubsub": {
+        "types": [
+          "subscriber"
+        ]
+      },
+      "providerConfig": {
+        "configs": {
+          "type": "RDBMSBatchDataProvider",
+          "config": {
+            "datasourceName": "IS_ANALYTICS_DB",
+            "queryData": {
+              "query": "select usernameWithTenantDomainAndUserstoreDomain as username, AVG(duration)/1000 as duration from SessionInformationTable where (startTimestamp >= 0 and startTimestamp<='finish') and ((endTimestamp>='begin' and endTimestamp<='now') or isActive=1)  GROUP BY username"
+            },
+            "incrementalColumn": "duration",
+            "publishingInterval": 60
+  
+          }
+        }
+      }
+    }
+  }
+
+  
+  

@@ -1,0 +1,29 @@
+{
+    "name": "IsAnalyticsSessionCount",
+    "id": "IsAnalyticsSessionCount",
+    "thumbnailURL": "",
+    "configs": {
+      "pubsub": {
+        "types": [
+          "subscriber"
+        ]
+      },
+      "providerConfig": {
+        "configs": {
+          "type": "RDBMSBatchDataProvider",
+          "config": {
+            "datasourceName": "IS_ANALYTICS_DB",
+            "queryData": {
+              "query": "select '1' as id,' < 15 mins' as duration, count(sessionId) as count1 from SessionInformationTable where duration >=0 and duration <=900001 and (startTimestamp >=0 and startTimestamp<='finish') and ((endTimestamp>='begin' and endTimestamp<= 'now') or isActive=1) union select '2' as id,' < 1 hr' as duration, count(sessionId) as count1 from SessionInformationTable where duration >=900001 and duration <=3600001 and (startTimestamp >=0 and startTimestamp<='finish1') and ((endTimestamp>='begin1' and endTimestamp<= 'now1') or isActive=1) union all select '3' as id, ' < 12 hrs' as duration, count(sessionId) as count1 from SessionInformationTable where duration >=3600001 and duration <=43200001 and (startTimestamp >=0 and startTimestamp<='finish2') and ((endTimestamp>='begin2' and endTimestamp<='now2') or isActive=1) union all select '4' as id, ' < 24 hrs' as duration, count(sessionId) as count1 from SessionInformationTable where duration >=43200001 and duration <=86400001 and (startTimestamp >=0 and startTimestamp<='finish3') and ((endTimestamp>='begin3' and endTimestamp<= 'now3') or isActive=1) union all select '5' as id, ' > 24 hrs' as duration, count(sessionId) as count1 from SessionInformationTable where duration >=86400001 and duration <=9223372036854775808 and (startTimestamp >=0 and startTimestamp<='finish4') and ((endTimestamp>='begin4' and endTimestamp<= 'now4') or isActive=1)"
+            },
+            "incrementalColumn": "id",
+            "publishingInterval": 60
+  
+          }
+        }
+      }
+    }
+  }
+  
+  
+  

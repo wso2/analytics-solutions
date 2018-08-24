@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types,react/no-access-state-in-setstate,import/prefer-default-export,
+react/forbid-prop-types,no-restricted-globals,no-nested-ternary,no-unused-vars */
 /*
  * Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
  *
@@ -17,8 +19,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Widget from '@wso2-dashboards/widget';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -29,24 +30,24 @@ import Chip from '@material-ui/core/Chip';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Select from 'react-select';
-import {Scrollbars} from 'react-custom-scrollbars';
+import { Scrollbars } from 'react-custom-scrollbars';
 import JssProvider from 'react-jss/lib/JssProvider';
 
 const darkTheme = createMuiTheme({
     palette: {
-        type: "dark"
-    }
+        type: 'dark',
+    },
 });
 
 const lightTheme = createMuiTheme({
     palette: {
-        type: "light"
-    }
+        type: 'light',
+    },
 });
 
 const customStyles = {
     input: () => ({
-        color: 'white'
+        color: 'white',
     }),
     multiValue: () => ({
         borderRadius: 15,
@@ -59,7 +60,7 @@ const customStyles = {
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         backgroundColor: 'darkgrey',
-        minWidth: '20'
+        minWidth: '20',
     }),
     singleValue: () => ({
         display: 'flex',
@@ -84,9 +85,9 @@ const customStyles = {
         outline: '0 !important',
         position: 'relative',
         transition: 'all 100ms',
-        paddingTop: 2
+        paddingTop: 2,
     }),
-    option: (styles, {data, isDisabled, isFocused}) => {
+    option: (styles, { data, isDisabled, isFocused }) => {
         return {
             ...styles,
             height: 30,
@@ -105,18 +106,16 @@ const customStyles = {
  * Options class passed to the react-select component
  */
 class Option extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-        const {children, isFocused, onFocus, isDisabled} = this.props;
+        const {
+            children, isFocused, onFocus, isDisabled, onSelect, option,
+        } = this.props;
         return (
             <MenuItem
                 onFocus={onFocus}
                 selected={isFocused}
                 disabled={isDisabled}
-                onClick={() => this.props.onSelect(this.props.option, event)}
+                onClick={() => onSelect(option, event)}
                 component="div"
             >
                 {children}
@@ -132,19 +131,19 @@ class Option extends React.Component {
  * @constructor
  */
 function SelectWrapped(props) {
-    const {classes, ...other} = props;
+    const { classes, muiTheme, ...other } = props;
     return (
         <Select
-            styles={props.muiTheme.name === 'dark' ? customStyles : {}}
+            styles={muiTheme.name === 'dark' ? customStyles : {}}
             optionComponent={Option}
-            noResultsText={<div>{'No results found'}</div>}
-            arrowRenderer={arrowProps => {
-                return arrowProps.isOpen ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>;
+            noResultsText={<div>No results found</div>}
+            arrowRenderer={(arrowProps) => {
+                return arrowProps.isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
             }}
-            clearRenderer={() => <ClearIcon/>}
-            valueComponent={valueProps => {
-                const {value, children, onRemove} = valueProps;
-                const onDelete = event => {
+            clearRenderer={() => <ClearIcon />}
+            valueComponent={(valueProps) => {
+                const { value, children, onRemove } = valueProps;
+                const onDelete = (event) => {
                     event.preventDefault();
                     event.stopPropagation();
                     onRemove(value);
@@ -155,7 +154,7 @@ function SelectWrapped(props) {
                             tabIndex={-1}
                             label={children}
                             className={classes.chip}
-                            deleteIcon={<CancelIcon onTouchEnd={onDelete}/>}
+                            deleteIcon={<CancelIcon onTouchEnd={onDelete} />}
                             onDelete={onDelete}
                         />
                     );
@@ -167,139 +166,7 @@ function SelectWrapped(props) {
     );
 }
 
-/**
- * HTTPAnalyticsResponseCodeFilter which renders the perspective and filter in response code analytics page
- */
-class HTTPAnalyticsResponseCodeFilter extends Widget {
-    constructor(props) {
-        super(props);
-        this.state = {
-            width: this.props.glContainer.width,
-            height: this.props.glContainer.height,
-            perspective: 3,
-            services: [],
-            serviceOptions: [],
-            selectedServiceValues: null,
-            faultyProviderConf: false
-        };
-        this.props.glContainer.on('resize', () =>
-            this.setState({
-                width: this.props.glContainer.width,
-                height: this.props.glContainer.height
-            })
-        );
-        this.handleChange = this.handleChange.bind(this);
-        this.handleDataReceived = this.handleDataReceived.bind(this);
-        this.publishUpdate = this.publishUpdate.bind(this);
-    }
-
-    /**
-     * Publish user selection to other widgets
-     */
-    publishUpdate() {
-        let filterOptions = {
-            perspective: this.state.perspective,
-            selectedServiceValues: this.state.selectedServiceValues,
-        };
-        super.publish(filterOptions);
-    }
-
-    /**
-     * Set the state of the widget after metadata and data is received from SiddhiAppProvider
-     * @param data
-     */
-    handleDataReceived(data) {
-        let services = [], serviceOptions;
-        data.data.map(dataUnit => {
-            services.push(dataUnit[1]);
-        });
-
-        services = services.filter((v, i, a) => a.indexOf(v) === i);
-        serviceOptions = services.map(service => ({
-            value: service,
-            label: service,
-            disabled: false
-        }));
-
-        this.setState({
-            services, serviceOptions
-        }, this.publishUpdate);
-    }
-
-    /**
-     * Publish user selection in filters
-     * @param values
-     */
-    handleChange(values){
-        let updatedOptions = this.state.services.map(option => ({
-            value: option,
-            label: option,
-            disabled: false
-        }));
-        this.setState({
-            selectedServiceValues: values,
-            serviceOptions: updatedOptions
-        }, this.publishUpdate);
-    };
-
-    componentDidMount() {
-        super.getWidgetConfiguration(this.props.widgetID)
-            .then((message) => {
-                super.getWidgetChannelManager()
-                    .subscribeWidget(this.props.id, this.handleDataReceived, message.data.configs.providerConfig);
-            })
-            .catch((error) => {
-                this.setState({
-                    faultyProviderConf: true
-                });
-            });
-    }
-
-    componentWillUnmount() {
-        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
-    }
-
-    render() {
-        const {classes} = this.props;
-        return (
-            <JssProvider generateClassName={generateClassName}>
-                <MuiThemeProvider theme={this.props.muiTheme.name === 'dark' ? darkTheme : lightTheme}>
-                    <Scrollbars style={{height: this.state.height}}>
-                        <div style={{paddingLeft: 24, paddingRight: 16}}>
-                            <Tabs
-                                value={this.state.perspective}
-                                onChange={(evt, value) => this.setState({perspective: value}, this.publishUpdate)}>
-                                <Tab value={3} label="Response Code"/>
-                            </Tabs>
-                            <TextField
-                                    fullWidth
-                                    value={this.state.selectedServiceValues}
-                                    onChange={this.handleChange}
-                                    placeholder="Filter by Service"
-                                    label=""
-                                    InputLabelProps={{
-                                        shrink: false,
-                                    }}
-                                    InputProps={{
-                                        inputComponent: SelectWrapped,
-                                        inputProps: {
-                                            classes,
-                                            isMulti: false,
-                                            simpleValue: true,
-                                            options: this.state.serviceOptions,
-                                            muiTheme: this.props.muiTheme,
-                                        }
-                                    }}
-                                />
-                            </div>
-                    </Scrollbars>
-                </MuiThemeProvider>
-            </JssProvider>
-        );
-    }
-}
-
-//This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
+// This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
 const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
 
@@ -325,7 +192,138 @@ export const generateClassName = (rule, styleSheet) => {
     return `${rule.key}-${classCounter}`;
 };
 
+/**
+ * HTTPAnalyticsResponseCodeFilter which renders the perspective and filter in response code analytics page
+ */
+class HTTPAnalyticsResponseCodeFilter extends Widget {
+    constructor(props) {
+        super(props);
+        this.state = {
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height,
+            perspective: 3,
+            services: [],
+            serviceOptions: [],
+            selectedServiceValues: null,
+            faultyProviderConf: false,
+        };
+        this.props.glContainer.on('resize', () => this.setState({
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height,
+        }));
+        this.handleChange = this.handleChange.bind(this);
+        this.handleDataReceived = this.handleDataReceived.bind(this);
+        this.publishUpdate = this.publishUpdate.bind(this);
+    }
+
+    /**
+     * Publish user selection to other widgets
+     */
+    publishUpdate() {
+        const filterOptions = {
+            perspective: this.state.perspective,
+            selectedServiceValues: this.state.selectedServiceValues,
+        };
+        super.publish(filterOptions);
+    }
+
+    /**
+     * Set the state of the widget after metadata and data is received from SiddhiAppProvider
+     * @param data
+     */
+    handleDataReceived(data) {
+        let services = [];
+        data.data.forEach((dataUnit) => {
+            services.push(dataUnit[1]);
+        });
+
+        services = services.filter((v, i, a) => a.indexOf(v) === i);
+        const serviceOptions = services.map(service => ({
+            value: service,
+            label: service,
+            disabled: false,
+        }));
+
+        this.setState({
+            services, serviceOptions,
+        }, this.publishUpdate);
+    }
+
+    /**
+     * Publish user selection in filters
+     * @param values
+     */
+    handleChange(values) {
+        const updatedOptions = this.state.services.forEach(option => ({
+            value: option,
+            label: option,
+            disabled: false,
+        }));
+        this.setState({
+            selectedServiceValues: values,
+            serviceOptions: updatedOptions,
+        }, this.publishUpdate);
+    }
+
+    componentDidMount() {
+        super.getWidgetConfiguration(this.props.widgetID)
+            .then((message) => {
+                super.getWidgetChannelManager()
+                    .subscribeWidget(this.props.id, this.handleDataReceived, message.data.configs.providerConfig);
+            })
+            .catch(() => {
+                this.setState({
+                    faultyProviderConf: true,
+                });
+            });
+    }
+
+    componentWillUnmount() {
+        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+    }
+
+    render() {
+        const { classes } = this.props;
+        return (
+            <JssProvider generateClassName={generateClassName}>
+                <MuiThemeProvider theme={this.props.muiTheme.name === 'dark' ? darkTheme : lightTheme}>
+                    <Scrollbars style={{ height: this.state.height }}>
+                        <div style={{ paddingLeft: 24, paddingRight: 16 }}>
+                            <Tabs
+                                value={this.state.perspective}
+                                onChange={(evt, value) => this.setState({ perspective: value }, this.publishUpdate)}
+                            >
+                                <Tab value={3} label="Response Code" />
+                            </Tabs>
+                            <TextField
+                                fullWidth
+                                value={this.state.selectedServiceValues}
+                                onChange={this.handleChange}
+                                placeholder="Filter by Service"
+                                label=""
+                                InputLabelProps={{
+                                    shrink: false,
+                                }}
+                                InputProps={{
+                                    inputComponent: SelectWrapped,
+                                    inputProps: {
+                                        classes,
+                                        isMulti: false,
+                                        simpleValue: true,
+                                        options: this.state.serviceOptions,
+                                        muiTheme: this.props.muiTheme,
+                                    },
+                                }}
+                            />
+                        </div>
+                    </Scrollbars>
+                </MuiThemeProvider>
+            </JssProvider>
+        );
+    }
+}
+
 HTTPAnalyticsResponseCodeFilter.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-global.dashboard.registerWidget("HTTPAnalyticsResponseCodeFilter", HTTPAnalyticsResponseCodeFilter);
+global.dashboard.registerWidget('HTTPAnalyticsResponseCodeFilter', HTTPAnalyticsResponseCodeFilter);
