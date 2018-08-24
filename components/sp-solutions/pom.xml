@@ -33,9 +33,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>org.wso2.carbon.sp.solutions.http.analytics</module>
-        <module>org.wso2.carbon.sp.solutions.message.tracer</module>
-        <module>org.wso2.carbon.sp.solutions.twitter.analytics</module>
+        <module>org.wso2.analytics.solutions.sp.http.analytics</module>
+        <module>org.wso2.analytics.solutions.sp.message.tracer</module>
+        <module>org.wso2.analytics.solutions.sp.twitter.analytics</module>
     </modules>
     
 </project>
