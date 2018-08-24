@@ -25,7 +25,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>org.wso2.analytics.is.analytics.widgets.horizontal.bar.chart</artifactId>
+    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.horizontal.bar.chart</artifactId>
     <packaging>pom</packaging>
     <name>WSO2 Stream Processor - IS Analytics Solutions - Widgets - Horizontal Bar Chart</name>
     <url>http://wso2.org</url>
