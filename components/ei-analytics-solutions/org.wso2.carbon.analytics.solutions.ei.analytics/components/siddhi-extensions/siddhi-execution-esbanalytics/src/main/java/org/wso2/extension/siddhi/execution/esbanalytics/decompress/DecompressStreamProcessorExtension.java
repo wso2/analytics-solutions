@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.xml.bind.DatatypeConverter;
 
@@ -195,8 +196,8 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
                 }
             }
         } catch (IOException e) {
-            throw new SiddhiAppCreationException("Unable to read decompressed event definitions in " + siddhiAppName + ": "
-                    + e.getMessage(), e);
+            throw new SiddhiAppCreationException("Unable to read decompressed event definitions in "
+                    + siddhiAppName + ": " + e.getMessage(), e);
         }
         return fields;
     }
@@ -308,7 +309,7 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
             String fieldName = entry.getKey();
             String fieldType = entry.getValue();
             Attribute.Type type = null;
-            switch (fieldType.toLowerCase()) {
+            switch (fieldType.toLowerCase(Locale.ENGLISH)) {
                 case TYPE_DOUBLE:
                     type = Attribute.Type.DOUBLE;
                     break;
