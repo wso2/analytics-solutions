@@ -27,7 +27,7 @@
 
     <artifactId>org.wso2.analytics.is.analytics.session.count.overtime</artifactId>
     <packaging>pom</packaging>
-    <name>WSO2 Stream Processor - IS Analytics Solutions - Widgets - Line Chart</name>
+    <name>WSO2 Stream Processor - IS Analytics Solutions - Widgets - Session Count Over Time</name>
     <url>http://wso2.org</url>
 
     <build>

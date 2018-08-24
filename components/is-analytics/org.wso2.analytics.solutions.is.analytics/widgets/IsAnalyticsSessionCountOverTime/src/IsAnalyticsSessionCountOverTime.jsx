@@ -18,7 +18,6 @@
  */
 
 import React from 'react';
-import React, {Component} from 'react';
 import VizG from 'react-vizgrammar';
 import Widget from '@wso2-dashboards/widget';
 import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
@@ -95,19 +94,19 @@ class IsAnalyticsSessionCountOverTime extends Widget {
 
     handleDataReceived(message) {
         let ChartConfig = _.cloneDeep(this.state.ChartConfig);
-        let {metadata, data} = message;      
+        let {metadata, data} = message;
         metadata.types[0] = 'TIME';
-       
+
         switch(this.state.per)
         {
-            case "minute": 
-                ChartConfig.tipTimeFormat= '%d/%m/%Y %H:%M:%S'; 
+            case "minute":
+                ChartConfig.tipTimeFormat= '%d/%m/%Y %H:%M:%S';
                 break;
-            case "hour": 
-                ChartConfig.tipTimeFormat= '%d/%m/%Y %H:%M:%S'; 
+            case "hour":
+                ChartConfig.tipTimeFormat= '%d/%m/%Y %H:%M:%S';
                 break;
-            case "day": 
-                ChartConfig.tipTimeFormat= '%d/%m/%Y'; 
+            case "day":
+                ChartConfig.tipTimeFormat= '%d/%m/%Y';
                 break;
         }
         this.setState({
@@ -122,7 +121,7 @@ class IsAnalyticsSessionCountOverTime extends Widget {
             per: message.granularity,
             fromDate: message.from,
             toDate: message.to
-        }, this.assembleQuery);  
+        }, this.assembleQuery);
     }
 
     assembleQuery() {
