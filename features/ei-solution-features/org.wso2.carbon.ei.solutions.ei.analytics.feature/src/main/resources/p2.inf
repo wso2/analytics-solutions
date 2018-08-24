@@ -35,11 +35,8 @@ org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../../wso2/das
 org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../../wso2/dashboard/deployment/web-ui-apps/portal/);\
 org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../../wso2/dashboard/deployment/web-ui-apps/portal/public/);\
 org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../../wso2/dashboard/deployment/web-ui-apps/portal/public/images/);\
-org.wso2.carbon.extensions.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.ei.solutions.ei.analytics_${feature.version}/mediator-icons/,target:${installFolder}/../../wso2/dashboard/deployment/web-ui-apps/portal/public/images,overwrite:true);\
-org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/deployment/);\
-org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/deployment/web-ui-apps/);\
-org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/deployment/web-ui-apps/portal/);\
-org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/deployment/web-ui-apps/portal/extensions/);\
-org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../{runtime}/deployment/web-ui-apps/portal/extensions/widgets/);\
-org.wso2.carbon.extensions.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.ei.solutions.ei.analytics_${feature.version}/portal/extensions/widgets/,target:${installFolder}/../{runtime}/deployment/web-ui-apps/portal/extensions/widgets/,overwrite:true);\
+org.wso2.carbon.extensions.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.ei.solutions.ei.analytics_${feature.version}/mediator-icons/,target:${installFolder}/../../wso2/dashboard/deployment/web-ui-apps/portal/public/images/,overwrite:true);\
+org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../../wso2/dashboard/deployment/web-ui-apps/portal/extensions/);\
+org.wso2.carbon.extensions.touchpoint.mkdir(path:${installFolder}/../../wso2/dashboard/deployment/web-ui-apps/portal/extensions/widgets/);\
+org.wso2.carbon.extensions.touchpoint.copy(source:${installFolder}/../lib/features/org.wso2.carbon.ei.solutions.ei.analytics_${feature.version}/portal/extensions/widgets/,target:${installFolder}/../../wso2/dashboard/deployment/web-ui-apps/portal/extensions/widgets/,overwrite:true);\
 org.eclipse.equinox.p2.touchpoint.natives.remove(path:${installFolder}/../lib/features/org.wso2.carbon.dashboards.samples_${feature.version}/widgets/);
