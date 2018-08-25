@@ -18,13 +18,13 @@
 
     <parent>
         <groupId>org.wso2.analytics.solutions</groupId>
-        <artifactId>org.wso2.carbon.sp.solutions.message.tracer</artifactId>
+        <artifactId>org.wso2.analytics.solutions.sp.message.tracer</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>org.wso2.sp.open.tracer.client</artifactId>
+    <artifactId>org.wso2.analytics.solutions.sp.open.tracer.client</artifactId>
     <packaging>bundle</packaging>
     <name>WSO2 Stream Processor Solutions - Message Tracer - Open Tracer Client</name>
     <description>This is the WSO2 Stream Processor client implementation for the open tracing</description>
