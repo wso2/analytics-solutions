@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+  ~ Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -45,6 +45,77 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- Micro services Interceptor -->
+            <dependency>
+                <groupId>org.wso2.msf4j</groupId>
+                <artifactId>msf4j-core</artifactId>
+                <version>${msf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.carbon.analytics</groupId>
+                <artifactId>org.wso2.carbon.analytics.msf4j.interceptor.common.feature</artifactId>
+                <version>${carbon.analytics.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.carbon.analytics</groupId>
+                <artifactId>org.wso2.carbon.analytics.msf4j.interceptor.common</artifactId>
+                <version>${carbon.analytics.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database.wso2</groupId>
+                <artifactId>h2-database-engine</artifactId>
+                <version>${h2.database.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${io.swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.ws.rs</groupId>
+                <artifactId>javax.ws.rs-api</artifactId>
+                <version>${javax.ws.rs-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                <artifactId>jackson-jaxrs-json-provider</artifactId>
+                <version>${com.fasterxml.jackson.core.version}</version>
+            </dependency>
+
+            <!-- Analytics solutions -->
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.sp.open.tracer.client</artifactId>
+                <type>jar</type>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- Open Tracing -->
             <dependency>
                 <groupId>io.opentracing</groupId>
@@ -64,10 +135,46 @@
                 <version>${carbon.analytics-common.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.wso2.carbon.analytics-common</groupId>
+                <artifactId>org.wso2.carbon.databridge.core</artifactId>
+                <version>${carbon.analytics-common.version}</version>
+            </dependency>
+
             <!-- Siddhi -->
             <dependency>
                 <groupId>org.wso2.siddhi</groupId>
                 <artifactId>siddhi-core</artifactId>
+                <version>${siddhi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.extension.siddhi.map.wso2event</groupId>
+                <artifactId>siddhi-map-wso2event</artifactId>
+                <version>${siddhi.map.wso2event.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.extension.siddhi.map.json</groupId>
+                <artifactId>siddhi-map-json</artifactId>
+                <version>${siddhi.map.json.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.siddhi</groupId>
+                <artifactId>siddhi-query-api</artifactId>
+                <version>${siddhi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.siddhi</groupId>
+                <artifactId>siddhi-query-compiler</artifactId>
+                <version>${siddhi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.siddhi</groupId>
+                <artifactId>siddhi-annotations</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
 
@@ -82,7 +189,19 @@
             <dependency>
                 <groupId>org.apache.log4j.wso2</groupId>
                 <artifactId>log4j</artifactId>
-                <version>1.2.17.wso2v1</version>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons.logging.version}</version>
             </dependency>
 
             <!-- Testng -->
@@ -106,6 +225,43 @@
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
+
+            <!-- Apim Analytics solution-->
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.carbon.sp.solutions.apim.analytics.feature</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apisubscriber.alert.config</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apicreator.alert.config</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.sp.extension.siddhi.io.mgwfile</artifactId>
+                <type>jar</type>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.apim.rest.api.file</artifactId>
+                <type>jar</type>
+                <version>${project.version}</version>
+            </dependency>
+
 
             <!-- HTTP analytics -->
             <dependency>
@@ -633,13 +789,28 @@
 
     <properties>
         <carbon.analytics-common.version>6.0.66</carbon.analytics-common.version>
+        <carbon.analytics.version>2.0.402</carbon.analytics.version>
         <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
         <kryo.version>3.0.3</kryo.version>
 
         <siddhi.version>4.2.0</siddhi.version>
+        <siddhi.map.wso2event.version>4.0.13</siddhi.map.wso2event.version>
+        <siddhi.map.json.version>4.0.27</siddhi.map.json.version>
 
         <open.tracing.version>0.31.0</open.tracing.version>
         <org.wso2.json.version>3.0.0.wso2v1</org.wso2.json.version>
+
+        <commons-lang3.version>3.3.2</commons-lang3.version>
+        <commons.logging.version>1.2</commons.logging.version>
+
+        <javax.servlet.version>3.1.0</javax.servlet.version>
+        <io.swagger.version>1.5.16</io.swagger.version>
+        <msf4j.version>2.6.2</msf4j.version>
+        <javax.ws.rs-api.version>2.0</javax.ws.rs-api.version>
+        <slf4j.version>1.7.5</slf4j.version>
+        <com.fasterxml.jackson.core.version>2.8.9</com.fasterxml.jackson.core.version>
+        <log4j.version>1.2.17.wso2v1</log4j.version>
+        <h2.database.version>1.2.140.wso2v3</h2.database.version>
 
         <org.jacoco.version>0.7.9</org.jacoco.version>
         <carbon.feature.plugin.version>3.1.3</carbon.feature.plugin.version>
