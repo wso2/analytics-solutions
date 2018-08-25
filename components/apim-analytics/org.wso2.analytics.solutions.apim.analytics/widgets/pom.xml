@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
   ~
@@ -15,27 +15,24 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.wso2.analytics.solutions</groupId>
+        <artifactId>org.wso2.analytics.solutions.apim.analytics</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <artifactId>org.wso2.analytics.solutions.parent</artifactId>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sp-solutions</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <name>WSO2 Stream Processor Solutions - Aggregator Module</name>
+    <name>WSO2 Analytics - Apim Analytics Widgets</name>
+    <description>WSO2 Analytics Solutions - APIM Analytics - Widgets</description>
+    <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>org.wso2.analytics.solutions.sp.http.analytics</module>
-        <module>org.wso2.analytics.solutions.sp.message.tracer</module>
-        <module>org.wso2.analytics.solutions.sp.twitter.analytics</module>
+        <module>APIMApiSubscriberAlertConfiguration</module>
+        <module>APIMApiCreatorAlertConfiguration</module>
     </modules>
-    
+
 </project>

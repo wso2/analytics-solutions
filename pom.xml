@@ -34,10 +34,12 @@
     <modules>
         <module>components/analytics-solutions-common</module>
         <module>components/sp-solutions</module>
+        <module>components/apim-analytics</module>
         <module>components/ei-analytics</module>
         <module>components/is-analytics</module>
         <module>features/analytics-solutions-common-features</module>
         <module>features/sp-solution-features</module>
+        <module>features/apim-analytics-feature</module>
 <!--
         <module>features/is-analytics-feature</module>
 -->
@@ -229,21 +231,21 @@
             <!-- Apim Analytics solution-->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.apim.analytics.feature</artifactId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.feature</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
 
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apisubscriber.alert.config</artifactId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.apisubscriber.alert.config</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
 
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apicreator.alert.config</artifactId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.apicreator.alert.config</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
@@ -257,7 +259,7 @@
 
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.apim.rest.api.file</artifactId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.rest.api.file</artifactId>
                 <type>jar</type>
                 <version>${project.version}</version>
             </dependency>
