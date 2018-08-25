@@ -1,6 +1,6 @@
 {
-  "name": "Is Analytics Area Chart",
-  "id": "IsAnalyticsAreaChart",
+  "name": "Is Analytics Login Attempts Map",
+  "id": "IsAnalyticsLoginAttemptsMap",
   "thumbnailURL": "",
   "configs": {
     "pubsub": {

@@ -29,7 +29,7 @@
         <!-- Widgets-->
         <dependency>
             <groupId>org.wso2.analytics.solutions</groupId>
-            <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.area.chart</artifactId>
+            <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.login.attempts.map</artifactId>
             <type>zip</type>
         </dependency>
         <dependency>
@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>org.wso2.analytics.solutions</groupId>
-            <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.horizontal.bar.chart</artifactId>
+            <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.attempts.by.type</artifactId>
             <type>zip</type>
         </dependency>
         <dependency>
@@ -106,12 +106,12 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.wso2.analytics.solutions</groupId>
-                                    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.area.chart</artifactId>
+                                    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.login.attempts.map</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/widgets/</outputDirectory>
-                                    <includes>IsAnalyticsAreaChart/**</includes>
+                                    <includes>IsAnalyticsLoginAttemptsMap/**</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.analytics.solutions</groupId>
@@ -133,12 +133,12 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.analytics.solutions</groupId>
-                                    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.horizontal.bar.chart</artifactId>
+                                    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.attempts.by.type</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/widgets/</outputDirectory>
-                                    <includes>IsAnalyticsHorizontalBarChart/**</includes>
+                                    <includes>IsAnalyticsAttemptsByType/**</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.analytics.solutions</groupId>

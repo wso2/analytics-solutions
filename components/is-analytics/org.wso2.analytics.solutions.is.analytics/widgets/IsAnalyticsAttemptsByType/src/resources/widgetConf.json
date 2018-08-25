@@ -1,6 +1,6 @@
 {
-  "name": "IS Analytics Horizontal Bar Chart",
-  "id": "IsAnalyticsHorizontalBarChart",
+  "name": "IS Analytics Attempts By Type",
+  "id": "IsAnalyticsAttemptsByType",
   "thumbnailURL": "",
   "configs": {
     "pubsub": {
