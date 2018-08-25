@@ -25,9 +25,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.horizontal.bar.chart</artifactId>
+    <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.login.map</artifactId>
     <packaging>pom</packaging>
-    <name>WSO2 Stream Processor - IS Analytics Solutions - Widgets - Horizontal Bar Chart</name>
+    <name>WSO2 Stream Processor - IS Analytics Solutions - Widgets - Login Map</name>
     <url>http://wso2.org</url>
 
     <build>
