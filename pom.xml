@@ -40,6 +40,7 @@
         <module>features/analytics-solutions-common-features</module>
         <module>features/sp-solution-features</module>
         <module>features/apim-analytics-feature</module>
+        <module>features/ei-analytics-feature</module>
 <!--
         <module>features/is-analytics-feature</module>
 -->
@@ -113,7 +114,7 @@
             <!-- Analytics solutions -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.sp.open.tracer.client</artifactId>
+                <artifactId>org.wso2.analytics.solutions.open.tracer.client</artifactId>
                 <type>jar</type>
                 <version>${project.version}</version>
             </dependency>
@@ -510,25 +511,25 @@
             <!--Ei Analytics solution dependencies-->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.statschart</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.stats.chart</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.horizontalbarchart</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.horizontal.bar.chart</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.messageflow</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.message.flow</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.mediatorproperties</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.mediator.properties</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
@@ -540,13 +541,19 @@
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.messagetable</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.message.table</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.searchbox</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.search.box</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.feature</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
