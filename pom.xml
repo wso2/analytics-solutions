@@ -40,9 +40,7 @@
         <module>features/analytics-solutions-common-features</module>
         <module>features/sp-solution-features</module>
         <module>features/apim-analytics-feature</module>
-<!--
-        <module>features/is-analytics-feature</module>
--->
+        <module>features/is-analytics-features</module>
     </modules>
 
     <dependencyManagement>
