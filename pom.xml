@@ -34,11 +34,15 @@
     <modules>
         <module>components/analytics-solutions-common</module>
         <module>components/sp-solutions</module>
-        <module>components/ei-analytics-solutions</module>
-        <module>components/is-analytics-solutions</module>
+        <module>components/apim-analytics</module>
+        <module>components/ei-analytics</module>
+        <module>components/is-analytics</module>
         <module>features/analytics-solutions-common-features</module>
         <module>features/sp-solution-features</module>
-        <module>features/ei-solution-features</module>
+        <module>features/apim-analytics-feature</module>
+<!--
+        <module>features/is-analytics-feature</module>
+-->
     </modules>
 
     <dependencyManagement>
@@ -213,13 +217,13 @@
             <!-- Analytics common -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.analytics.solutions.common.date-time-range-picker</artifactId>
+                <artifactId>org.wso2.analytics.solutions.common.widgets.date-time-range-picker</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.analytics.solutions.common.feature</artifactId>
+                <artifactId>org.wso2.analytics.solutions.common.feature</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
@@ -227,21 +231,21 @@
             <!-- Apim Analytics solution-->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.apim.analytics.feature</artifactId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.feature</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
 
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apisubscriber.alert.config</artifactId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.apisubscriber.alert.config</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
 
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.widgets.apim.apicreator.alert.config</artifactId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.apicreator.alert.config</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
@@ -255,7 +259,7 @@
 
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.apim.rest.api.file</artifactId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.rest.api.file</artifactId>
                 <type>jar</type>
                 <version>${project.version}</version>
             </dependency>
@@ -264,49 +268,49 @@
             <!-- HTTP analytics -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.carbon.sp.solutions.http.analytics.feature</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.http.analytics.feature</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.sp.solutions.widgets.http.analytics.latency.comparison</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.http.analytics.widgets.latency.comparison</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.sp.solutions.widgets.http.analytics.latency</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.http.analytics.widgets.latency</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.sp.solutions.widgets.http.server.request.count.comparison</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.http.analytics.widgets.server.request.count.comparison</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.sp.solutions.widgets.http.server.request.count</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.http.analytics.widgets.server.request.count</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.sp.solutions.widgets.http.analytics.request.statistics</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.http.analytics.widgets.request.statistics</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.sp.solutions.widgets.http.analytics.request.count.filter</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.http.analytics.widgets.request.count.filter</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.sp.solutions.widgets.http.analytics.response.code.filter</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.http.analytics.widgets.response.code.filter</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
@@ -314,19 +318,19 @@
             <!-- Message tracer -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.message-tracer.open-tracing-list</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.message.tracer.widgets.open-tracing-list</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.message-tracer.open-tracing-search</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.message.tracer.widgets.open-tracing-search</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.message-tracer.open-tracing-vis-timeline</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.message.tracer.widgets.open-tracing-vis-timeline</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
@@ -340,61 +344,61 @@
             <!-- Twitter Analytics solution dependencies -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.twitter-analytics.emotions</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.emotions</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.twitter-analytics.emotions-analysis</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.emotions-analysis</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.twitter-analytics.hashtag</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.hashtag</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.twitter-analytics.livetweets</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.livetweets</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.twitter-analytics.populartweets</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.populartweets</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.twitter-analytics.topcountries</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.topcountries</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.twitter-analytics.topsentiment</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.topsentiment</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.twitter-analytics.tweet-count-analysis</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.tweet-count-analysis</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.twitter-analytics.tweetcounter</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.tweetcounter</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.twitter-analytics.wordcloud</artifactId>
+                <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.wordcloud</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
@@ -402,31 +406,79 @@
             <!-- WSO2 IS Analytics -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.area.chart</artifactId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.area.chart</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.attempts.over.time</artifactId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.attempts.over.time</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.compact.summary</artifactId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.compact.summary</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.horizontal.bar.chart</artifactId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.horizontal.bar.chart</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.messages</artifactId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.summary</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.messages</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.user.preferences</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.attempts.over.time</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.session.count</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.session.count.overtime</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.session.messages</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.long.session</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.average.session</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
@@ -439,24 +491,13 @@
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>siddhi-execution-tokenizer</artifactId>
-                <type>jar</type>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.summary</artifactId>
-                <type>zip</type>
                 <version>${project.version}</version>
+                <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>siddhi-execution-word</artifactId>
                 <type>jar</type>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.user.preferences</artifactId>
-                <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -469,49 +510,50 @@
             <!--Ei Analytics solution dependencies-->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.ei-analytics.statschart</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.statschart</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.ei-analytics.horizontalbarchart</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.horizontalbarchart</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.ei-analytics.messageflow</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.messageflow</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.ei-analytics.mediatorproperties</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.mediatorproperties</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.ei-analytics.tps</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.tps</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.ei-analytics.messagetable</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.messagetable</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>wso2sp-solutions.ei-analytics.searchbox</artifactId>
+                <artifactId>org.wso2.analytics.solutions.ei.analytics.widgets.searchbox</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
+                <version>${testng.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
