@@ -23,11 +23,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: {
-        index: './IsAnalyticsHorizontalBarChart.jsx'
+        index: './IsAnalyticsLoginAttemptsMap.jsx'
     },
     output: {
-        path: path.resolve(__dirname, './dist/IsAnalyticsHorizontalBarChart/'),
-        filename: 'IsAnalyticsHorizontalBarChart.js'
+        path: path.resolve(__dirname, './dist/IsAnalyticsLoginAttemptsMap/'),
+        filename: 'IsAnalyticsLoginAttemptsMap.js'
     },
     module: {
         loaders: [
@@ -48,7 +48,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpg|svg|cur|gif|eot|svg|ttf|woff|woff2)$/,
+                test: /\.(png|jpg|svg|cur|gif|eot|ttf|woff|woff2)$/,
                 use: ['url-loader']
             },
             {

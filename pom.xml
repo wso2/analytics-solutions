@@ -403,10 +403,10 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- WSO2 IS Analytics -->
+            <!-- WSO2 IS Analytics solution dependencies -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.area.chart</artifactId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.login.attempts.map</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
@@ -424,7 +424,7 @@
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.horizontal.bar.chart</artifactId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.attempts.by.type</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
