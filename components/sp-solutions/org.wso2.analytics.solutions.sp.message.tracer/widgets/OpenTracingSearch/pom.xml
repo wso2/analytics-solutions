@@ -20,7 +20,6 @@
 
     <artifactId>org.wso2.analytics.solutions.sp.message.tracer.widgets.open-tracing-search</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
 
     <name>WSO2 Stream Processor Solutions - Message Tracer - Open Tracing Search Widget</name>
     <url>http://wso2.org</url>

@@ -20,7 +20,6 @@
 
     <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets.emotions</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
 
 
     <name>WSO2 Stream Processor Solutions - Twitter Analytics - Emotions Widget</name>
