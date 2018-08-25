@@ -27,7 +27,7 @@
     <artifactId>org.wso2.analytics.solutions.sp.message.tracer</artifactId>
 
     <modules>
-        <module>components/open-tracer-client/org.wso2.analytics.solutions.sp.open.tracer.client</module>
+        <module>components/open-tracer-client/org.wso2.sp.open.tracer.client</module>
         <module>widgets</module>
     </modules>
 

@@ -335,7 +335,7 @@
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.sp.open.tracer.client</artifactId>
+                <artifactId>org.wso2.sp.open.tracer.client</artifactId>
                 <type>jar</type>
                 <version>${project.version}</version>
             </dependency>
