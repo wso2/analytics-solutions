@@ -251,7 +251,7 @@
 
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.apim.analytics.rest.api.file</artifactId>
+                <artifactId>org.wso2.analytics.apim.rest.api.file</artifactId>
                 <type>jar</type>
                 <version>${project.version}</version>
             </dependency>
