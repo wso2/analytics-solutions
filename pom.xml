@@ -110,13 +110,6 @@
             </dependency>
 
             <!-- Analytics solutions -->
-            <dependency>
-                <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.solutions.open.tracer.client</artifactId>
-                <type>jar</type>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- Open Tracing -->
             <dependency>
                 <groupId>io.opentracing</groupId>
