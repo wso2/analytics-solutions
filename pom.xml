@@ -40,7 +40,7 @@
         <module>features/analytics-solutions-common-features</module>
         <module>features/sp-solution-features</module>
         <module>features/apim-analytics-feature</module>
-        <module>features/is-analytics-features</module>
+        <module>features/is-analytics-feature</module>
     </modules>
 
     <dependencyManagement>
@@ -402,6 +402,12 @@
             </dependency>
 
             <!-- WSO2 IS Analytics solution dependencies -->
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.is.analytics.feature</artifactId>
+                <type>zip</type>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.login.attempts.map</artifactId>
