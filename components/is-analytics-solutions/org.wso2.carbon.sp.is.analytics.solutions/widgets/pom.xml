@@ -33,11 +33,11 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>IsAnalyticsLoginMap</module>
+        <module>IsAnalyticsAreaChart</module>
         <module>IsAnalyticsAttemptsOverTime</module>
         <module>IsAnalyticsCompactSummary</module>
         <module>IsAnalyticsSummary</module>
-        <module>IsAnalyticsAttemptsByType</module>
+        <module>IsAnalyticsHorizontalBarChart</module>
         <module>IsAnalyticsMessages</module>
         <module>IsAnalyticsUserPreferences</module>
     </modules>

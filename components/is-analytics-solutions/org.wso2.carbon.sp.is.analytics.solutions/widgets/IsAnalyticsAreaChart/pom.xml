@@ -25,9 +25,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.attempts.by.type</artifactId>
+    <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.area.chart</artifactId>
     <packaging>pom</packaging>
-    <name>WSO2 Stream Processor - IS Analytics Solutions - Widgets - Attempts By Type</name>
+    <name>WSO2 Stream Processor - IS Analytics Solutions - Widgets - Area Chart</name>
     <url>http://wso2.org</url>
 
     <build>

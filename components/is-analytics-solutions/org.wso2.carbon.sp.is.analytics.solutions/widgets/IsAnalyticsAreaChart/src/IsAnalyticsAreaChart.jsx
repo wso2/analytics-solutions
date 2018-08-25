@@ -70,7 +70,7 @@ const chartConfig = {
     chloropethRangeLowerBound: 0,
 };
 
-class IsAnalyticsLoginMap extends Widget {
+class IsAnalyticsAreaChart extends Widget {
     constructor(props) {
         super(props);
 
@@ -307,4 +307,4 @@ class IsAnalyticsLoginMap extends Widget {
     }
 }
 
-global.dashboard.registerWidget('IsAnalyticsLoginMap', IsAnalyticsLoginMap);
+global.dashboard.registerWidget('IsAnalyticsAreaChart', IsAnalyticsAreaChart);

@@ -110,7 +110,7 @@
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/widgets/</outputDirectory>
-                                    <includes>IsAnalyticsLoginMap/**</includes>
+                                    <includes>IsAnalyticsAreaChart/**</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.carbon.analytics</groupId>
@@ -137,7 +137,7 @@
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/widgets/</outputDirectory>
-                                    <includes>IsAnalyticsAttemptsByType/**</includes>
+                                    <includes>IsAnalyticsHorizontalBarChart/**</includes>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.wso2.carbon.analytics</groupId>
