@@ -77,7 +77,7 @@ let chartConfigFailure = {
     append: false,
 };
 
-class IsAnalyticsHorizontalBarChart extends Widget {
+class IsAnalyticsAttemptsByType extends Widget {
     constructor(props) {
         super(props);
 
@@ -586,4 +586,4 @@ class IsAnalyticsHorizontalBarChart extends Widget {
     }
 }
 
-global.dashboard.registerWidget('IsAnalyticsHorizontalBarChart', IsAnalyticsHorizontalBarChart);
+global.dashboard.registerWidget('IsAnalyticsAttemptsByType', IsAnalyticsAttemptsByType);

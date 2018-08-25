@@ -38,7 +38,6 @@
         <module>components/is-analytics-solutions</module>
         <module>features/analytics-solutions-common-features</module>
         <module>features/sp-solution-features</module>
-        <module>features/ei-solution-features</module>
     </modules>
 
     <dependencyManagement>
@@ -399,10 +398,10 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- WSO2 IS Analytics -->
+            <!-- WSO2 IS Analytics solution dependencies -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.area.chart</artifactId>
+                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.login.map</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>
@@ -420,7 +419,7 @@
             </dependency>
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
-                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.horizontal.bar.chart</artifactId>
+                <artifactId>org.wso2.analytics.is.analytics.solutions.widgets.attempts.by.type</artifactId>
                 <type>zip</type>
                 <version>${project.version}</version>
             </dependency>

@@ -1,0 +1,1687 @@
+{
+  "dashboard": {
+    "url": "is-analytics",
+    "owner": "admin",
+    "name": "IS-Analytics",
+    "description": "WSO2 Identity Server Analytics Dashboard",
+    "landingPage": "login_attempts",
+    "parentId": "0",
+    "pages": [
+      {
+        "id": "login_attempts",
+        "name": "Login Attempts",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 24.93765586034913,
+                "content": [
+                  {
+                    "title": "Date Time Range",
+                    "type": "component",
+                    "component": "DateRangePicker",
+                    "props": {
+                      "id": "f0b6e053-7bcf-4300-953a-782a81d3d284",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "granularity",
+                            "from",
+                            "to"
+                          ],
+                          "publishers": []
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "defaultValue": "3 Months"
+                        }
+                      },
+                      "widgetID": "DateRangePicker"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 75.06234413965088,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 75.06234413965088,
+                    "width": 33.62199243135568,
+                    "content": [
+                      {
+                        "title": "IS Analytics Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsSummary",
+                        "props": {
+                          "id": "077748ae-a654-4310-af1f-6bfefff32739",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "f0b6e053-7bcf-4300-953a-782a81d3d284"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 33.68436204975981,
+                    "content": [
+                      {
+                        "title": "IS Analytics Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsSummary",
+                        "props": {
+                          "id": "f0199ab6-f0a1-410f-9957-70edba57935b",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "f0b6e053-7bcf-4300-953a-782a81d3d284"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 32.69364551888452,
+                    "content": [
+                      {
+                        "title": "IS Analytics Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsSummary",
+                        "props": {
+                          "id": "bb738dc4-9fe2-4040-ad5f-59f2f8c7ca23",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "f0b6e053-7bcf-4300-953a-782a81d3d284"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 1357.0
+      },
+      {
+        "id": "overall",
+        "name": "Overall",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 17.362299810355346,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "height": 16.64099743310581,
+                    "content": [
+                      {
+                        "title": "Date Time Range",
+                        "type": "component",
+                        "component": "DateRangePicker",
+                        "props": {
+                          "id": "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "granularity",
+                                "from",
+                                "to"
+                              ],
+                              "publishers": []
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "defaultValue": "6 Months"
+                            }
+                          },
+                          "widgetID": "DateRangePicker"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics User Preferences",
+                        "type": "component",
+                        "component": "IsAnalyticsUserPreferences",
+                        "props": {
+                          "id": "991fe684-de68-4bdb-915e-d66104ae2e3d",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher",
+                                "subscriber"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "62c21368-4159-43e4-a581-b24869d764f5",
+                                "b732437c-b3ad-41e3-9388-7cf4adc6d811"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsUserPreferences"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 28.92041507535325,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 35.47359914234055,
+                    "content": [
+                      {
+                        "title": "Is Analytics Attempts Over Time",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsOverTime",
+                        "props": {
+                          "id": "69518c78-d795-4bc2-b72a-5e33c0c9809e",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
+                                "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsOverTime"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 19.816169169338796,
+                    "content": [
+                      {
+                        "title": "IS Analytics Compact Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsCompactSummary",
+                        "props": {
+                          "id": "34320e2b-efde-48af-8349-886f97654c99",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
+                                "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsCompactSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 44.71023168832066,
+                    "content": [
+                      {
+                        "title": "Is Analytics Login Map",
+                        "type": "component",
+                        "component": "IsAnalyticsLoginMap",
+                        "props": {
+                          "id": "ea782ad2-6353-4483-b0aa-ab5d8a707043",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
+                                "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsLoginMap"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 33.653776857228515,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 51.9753086419753,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "a527a6a8-bd45-494c-8891-8ba4b60ff45e",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
+                                "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall",
+                              "xAxis": "Service Provider"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 48.0246913580247,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "fe11e836-69d2-462f-91bf-5594be96fbcd",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
+                                "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall",
+                              "xAxis": "Username"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 20.063508257062896,
+                "content": [
+                  {
+                    "title": "IS Analytics Messages",
+                    "type": "component",
+                    "component": "IsAnalyticsMessages",
+                    "props": {
+                      "id": "402f8d1d-4392-4c34-8b63-7dc35e4c4996",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
+                            "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "widgetType": "Overall"
+                        }
+                      },
+                      "widgetID": "IsAnalyticsMessages"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 2044.0
+      },
+      {
+        "id": "local",
+        "name": "Local",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 16.111828584800925,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 16.111828584800925,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "Date Time Range",
+                        "type": "component",
+                        "component": "DateRangePicker",
+                        "props": {
+                          "id": "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "granularity",
+                                "from",
+                                "to"
+                              ],
+                              "publishers": []
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "defaultValue": "6 Months"
+                            }
+                          },
+                          "widgetID": "DateRangePicker"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics User Preferences",
+                        "type": "component",
+                        "component": "IsAnalyticsUserPreferences",
+                        "props": {
+                          "id": "78d9b683-8e4f-4f76-9d24-ad81c7141f70",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher",
+                                "subscriber"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "da3c57ea-8c6a-49da-b22f-b469d033863a",
+                                "423a905e-9e5b-4e9a-b289-dcebedcf6ace",
+                                "7fb904c1-6e72-4df1-89af-0d6ccfc8e8e2",
+                                "6c936050-69fa-4a54-acb4-a16bffb8fe22"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsUserPreferences"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 29.189337843292623,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 33.74413126456802,
+                    "content": [
+                      {
+                        "title": "Is Analytics Attempts Over Time",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsOverTime",
+                        "props": {
+                          "id": "5488164c-3b72-430c-8a05-47ba717ff792",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsOverTime"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 22.59928057168317,
+                    "content": [
+                      {
+                        "title": "IS Analytics Compact Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsCompactSummary",
+                        "props": {
+                          "id": "8d292d55-e64d-4451-8bc8-ccd400df0094",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsCompactSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 43.65658816374884,
+                    "content": [
+                      {
+                        "title": "Is Analytics Login Map",
+                        "type": "component",
+                        "component": "IsAnalyticsLoginMap",
+                        "props": {
+                          "id": "8abe8682-1b5f-48e1-8d33-4804f936bffc",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsLoginMap"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 34.45092752372545,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 24.712871130295074,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "f3d0b87b-d8b3-4e71-9642-9e2a99aa346a",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "xAxis": "Service Provider"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 24.412099161709257,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "700c4232-0908-4df1-aa04-b97694cafa9f",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "xAxis": "User Store Domain"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 24.846920266370745,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "394ae9e2-dd46-4502-9871-58775a284288",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "xAxis": "Role"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 26.028109441624917,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "f493337f-f9e4-4ae4-a8a4-7027e286b7d9",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "xAxis": "Username"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 20.247906048181008,
+                "content": [
+                  {
+                    "title": "IS Analytics Messages",
+                    "type": "component",
+                    "component": "IsAnalyticsMessages",
+                    "props": {
+                      "id": "faf729a9-5191-4a24-8255-1cdd214e2c09",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
+                            "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "widgetType": "Local"
+                        }
+                      },
+                      "widgetID": "IsAnalyticsMessages"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": "2044"
+      },
+      {
+        "id": "federated",
+        "name": "Federated",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 16.092266851027624,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 16.092266851027624,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "Date Time Range",
+                        "type": "component",
+                        "component": "DateRangePicker",
+                        "props": {
+                          "id": "1aa54392-3c12-4309-af0d-23f3388f8e51",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "granularity",
+                                "from",
+                                "to"
+                              ],
+                              "publishers": []
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "defaultValue": "6 Months"
+                            }
+                          },
+                          "widgetID": "DateRangePicker"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics User Preferences",
+                        "type": "component",
+                        "component": "IsAnalyticsUserPreferences",
+                        "props": {
+                          "id": "90cda862-33ba-4c3f-a08c-5b5e6df4ff22",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher",
+                                "subscriber"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "d11cd73e-2cc3-4bed-8f68-15c443f191fc",
+                                "7405eecf-96ea-400a-87fa-44d866fd85f4",
+                                "e691297b-c586-4518-b301-c5f753d5ba51"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsUserPreferences"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 28.11413577169615,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 35.58594397077199,
+                    "content": [
+                      {
+                        "title": "Is Analytics Attempts Over Time",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsOverTime",
+                        "props": {
+                          "id": "40da8798-5855-4563-8d83-0a937ef1e1c6",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsOverTime"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 21.042123391413,
+                    "content": [
+                      {
+                        "title": "IS Analytics Compact Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsCompactSummary",
+                        "props": {
+                          "id": "8f4dff1a-3ec0-410e-80bf-7a8c45afcda7",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsCompactSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 43.37193263781498,
+                    "content": [
+                      {
+                        "title": "Is Analytics Login Map",
+                        "type": "component",
+                        "component": "IsAnalyticsLoginMap",
+                        "props": {
+                          "id": "5c0fe00a-1e33-4a0d-bebe-8ded3794ca5b",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsLoginMap"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 34.145287989267814,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 31.57773326834375,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "e78f48bf-1da7-47ed-bd4c-d92b16eb8e32",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated",
+                              "xAxis": "Service Provider"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 34.85934084328928,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "6a23daf1-965a-44dd-89b3-9df56e683ccb",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated",
+                              "xAxis": "Identity Provider"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 33.562925888366976,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "1b3b5322-d241-45b1-8509-4e930fd15fdd",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated",
+                              "xAxis": "Username"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 21.648309388008414,
+                "content": [
+                  {
+                    "title": "IS Analytics Messages",
+                    "type": "component",
+                    "component": "IsAnalyticsMessages",
+                    "props": {
+                      "id": "4c43fad4-413d-4920-8508-89a7b1d84771",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "1aa54392-3c12-4309-af0d-23f3388f8e51",
+                            "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "widgetType": "Federated"
+                        }
+                      },
+                      "widgetID": "IsAnalyticsMessages"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": "2044"
+      },
+      {
+        "id":"login_sessions",
+        "name":"Login Session",
+        "content":
+        [
+          {
+            "type":"row",
+            "isClosable":true,
+            "title":"",
+            "content":
+            [
+              {
+                "type":"column",
+                "isClosable":true,
+                "title":"",
+                "width":50.0,
+                "content":
+                [
+                  {
+                    "type":"stack",
+                    "isClosable":true,
+                    "title":"",
+                    "width":50.0,
+                    "height":33.333333333333336,
+                    "content":
+                    [
+                      {
+                        "title":"Date Time Range",
+                        "type":"component",
+                        "component":"DateRangePicker",
+                        "props":
+                        {
+                          "id":"c9ff785c-6c54-4606-a432-415dff431167",
+                          "configs":
+                          {
+                            "pubsub":
+                            {
+                              "types":
+                              [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs":
+                              [
+                                "granularity",
+                                "from",
+                                "to"
+                              ]
+                            },
+                            "isGenerated":false,
+                            "options":
+                            {
+                              "defaultValue":"3 Months"
+                            }
+                          },
+                          "widgetID":"DateRangePicker"
+                        },
+                        "isClosable":false,
+                        "header":
+                        {
+                          "show":true
+                        },
+                        "componentName":"lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type":"stack",
+                    "isClosable":true,
+                    "title":"",
+                    "height":33.333333333333336,
+                    "content":
+                    [
+                      {
+                        "title":"IsAnalyticsTopLongestSession",
+                        "type":"component",
+                        "component":"IsAnalyticsTopLongestSession",
+                        "props":
+                        {
+                          "id":"04ea85a8-5ecd-45fa-ae97-e7ac257d3d7b",
+                          "configs":
+                          {
+                            "pubsub":
+                            {
+                              "types":
+                              [
+                                "subscriber"
+                              ],
+                              "publishers":
+                              [
+                                "c9ff785c-6c54-4606-a432-415dff431167"
+                              ]
+                            },
+                            "isGenerated":false,
+                            "options": {}
+                          },
+                          "widgetID":"IsAnalyticsTopLongestSession"
+                        },
+                        "isClosable":false,
+                        "header":
+                        {
+                          "show":true
+                        },
+                        "componentName":"lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type":"stack",
+                    "isClosable":true,
+                    "title":"",
+                    "height":33.333333333333336,
+                    "content":
+                    [
+                      {
+                        "title":"IsAnalyticsSessionCountOverTime",
+                        "type":"component",
+                        "component":"IsAnalyticsSessionCountOverTime",
+                        "props":
+                        {
+                          "id":"7e7f0e71-8b91-4960-9d55-96fcc7a24936",
+                          "configs":
+                          {
+                            "pubsub":
+                            {
+                              "types":
+                              [
+                                "subscriber"
+                              ],
+                              "publishers":
+                              [
+                                "c9ff785c-6c54-4606-a432-415dff431167"
+                              ]
+                            },
+                            "isGenerated":false,
+                            "options": {}
+                          },
+                          "widgetID":"IsAnalyticsSessionCountOverTime"
+                        },
+                        "isClosable":false,
+                        "header":
+                        {
+                          "show":true
+                        },
+                        "componentName":"lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type":"column",
+                "isClosable":true,
+                "title":"",
+                "width":50.0,
+                "content":
+                [
+                  {
+                    "type":"stack",
+                    "isClosable":true,
+                    "title":"",
+                    "width":50.0,
+                    "height":50.0,
+                    "content":
+                    [
+                      {
+                        "title":"IsAnalyticsAverageSessionDuration",
+                        "type":"component",
+                        "component":"IsAnalyticsAverageSessionDuration",
+                        "props":
+                        {
+                          "id":"324db59b-5c32-49f0-b38c-8cf5af8ee358",
+                          "configs":
+                          {
+                            "pubsub":
+                            {
+                              "types":
+                              [
+                                "subscriber"
+                              ],
+                              "publishers":
+                              [
+                                "c9ff785c-6c54-4606-a432-415dff431167"
+                              ]
+                            },
+                            "isGenerated":false,
+                            "options":{}
+                          },
+                          "widgetID":"IsAnalyticsAverageSessionDuration"
+                        },
+                        "isClosable":false,
+                        "header":
+                        {
+                          "show":true
+                        },
+                        "componentName":"lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type":"stack",
+                    "isClosable":true,
+                    "title":"",
+                    "height":25.0,
+                    "content":
+                    [
+                      {
+                        "title":"IsAnalyticsSessionCount",
+                        "type":"component",
+                        "component":"IsAnalyticsSessionCount",
+                        "props":
+                        {
+                          "id":"7f7e2d41-ceff-41a3-894c-518fd6fe0619",
+                          "configs":
+                          {
+                            "pubsub":
+                            {
+                              "types":
+                              [
+                                "subscriber"
+                              ],
+                              "publishers":
+                              [
+                                "c9ff785c-6c54-4606-a432-415dff431167"
+                              ]
+                            },
+                            "isGenerated":false,"options":{}
+                          },
+                          "widgetID":"IsAnalyticsSessionCount"
+                        },
+                        "isClosable":false,
+                        "header":
+                        {
+                          "show":true
+                        },
+                        "componentName":"lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type":"stack",
+                    "isClosable":true,
+                    "title":"",
+                    "height":25.0,
+                    "content":
+                    [
+                      {
+                        "title":"IsAnalyticsSessionMessages",
+                        "type":"component",
+                        "component":"IsAnalyticsSessionMessages",
+                        "props":
+                        {
+                          "id":"b83cb673-236c-44ea-9efa-fb12325393c7",
+                          "configs":
+                          {
+                            "pubsub":
+                            {
+                              "types":
+                              [
+                                "subscriber"
+                              ],
+                              "publishers":
+                              [
+                                "c9ff785c-6c54-4606-a432-415dff431167"
+                              ]
+                            },
+                            "isGenerated":false,"options":{}
+                          },
+                          "widgetID":"IsAnalyticsSessionMessages"
+                        },
+                        "isClosable":false,
+                        "header":
+                        {
+                          "show":true
+                        },
+                        "componentName":"lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "hasOwnerPermission": false,
+    "hasDesignerPermission": false,
+    "hasViewerPermission": false
+  },
+  "widgets": {
+    "generated": [],
+    "custom": [
+      "IsAnalyticsUserPreferences",
+      "DateRangePicker",
+      "IsAnalyticsAttemptsOverTime",
+      "IsAnalyticsSummary",
+      "IsAnalyticsLoginMap",
+      "IsAnalyticsCompactSummary",
+      "IsAnalyticsMessages",
+      "IsAnalyticsAttemptsByType",
+      "IsAnalyticsAverageSessionDuration",
+      "IsAnalyticsTopLongestSession",
+      "IsAnalyticsSessionMessages",
+      "IsAnalyticsSessionCount",
+      "IsAnalyticsSessionCountOverTime"
+    ]
+  }
+}
