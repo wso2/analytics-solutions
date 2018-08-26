@@ -24,6 +24,7 @@ import * as d3 from 'd3';
 import './custom.css';
 import moment from 'moment';
 import {Scrollbars} from 'react-custom-scrollbars';
+import nanoScrollerSelector from 'nanoscroller';
 
 const TYPE_MEDIATOR = 'mediator';
 const TYPE_SEQUENCE = 'sequence';
