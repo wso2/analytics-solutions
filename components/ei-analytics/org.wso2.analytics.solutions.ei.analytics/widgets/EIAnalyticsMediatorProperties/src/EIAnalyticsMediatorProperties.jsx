@@ -19,7 +19,14 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import CodeMirror from 'codemirror/lib/codemirror';
-import './diff_match_patch';
+import {diff_match_patch, DIFF_DELETE, DIFF_EQUAL, DIFF_INSERT} from './diff_match_patch';
+/*
+Define diff_match_patch module export globally for merge library
+ */
+window.diff_match_patch = diff_match_patch;
+window.DIFF_EQUAL = DIFF_EQUAL;
+window.DIFF_INSERT = DIFF_INSERT;
+window.DIFF_DELETE = DIFF_DELETE;
 import MergeView from 'codemirror/addon/merge/merge';
 
 import './ambiance.css';
