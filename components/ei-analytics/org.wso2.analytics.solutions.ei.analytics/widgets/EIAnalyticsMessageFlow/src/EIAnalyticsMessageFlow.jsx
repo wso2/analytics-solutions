@@ -24,6 +24,7 @@ import * as d3 from 'd3';
 import './custom.css';
 import moment from 'moment';
 import {Scrollbars} from 'react-custom-scrollbars';
+import nanoScrollerSelector from 'nanoscroller';
 
 const TYPE_MEDIATOR = 'mediator';
 const TYPE_SEQUENCE = 'sequence';
@@ -35,13 +36,13 @@ const TYPE_INBOUND_ENDPOINT = "inbound";
 const TYPE_MESSAGE = "message";
 const DEFAULT_META_TENANT_ID = '-1234';
 
-var BASE_URL = getDashboardBaseUrl();
+let BASE_URL = getDashboardBaseUrl();
 
-var MEDIATOR_PAGE_URL = BASE_URL + TYPE_MEDIATOR;
-var SEQUENCE_PAGE_URL = BASE_URL + TYPE_SEQUENCE;
-var ENDPOINT_PAGE_URL = BASE_URL + TYPE_ENDPOINT;
+let MEDIATOR_PAGE_URL = BASE_URL + TYPE_MEDIATOR;
+let SEQUENCE_PAGE_URL = BASE_URL + TYPE_SEQUENCE;
+let ENDPOINT_PAGE_URL = BASE_URL + TYPE_ENDPOINT;
 
-var centerDiv = {
+let centerDiv = {
     textAlign: 'center',
     verticalAlign: 'middle'
 };
@@ -49,7 +50,7 @@ let svgCenter = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
-}
+};
 
 class EIAnalyticsMessageFlow extends Widget {
     constructor(props) {
@@ -230,7 +231,14 @@ class EIAnalyticsMessageFlow extends Widget {
             return;
         }
         let zoomScale = Math.min(width / graphWidth, height / graphHeight);
-        svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity.scale(zoomScale));
+        svg.transition().duration(750).call(
+            zoom.transform,
+            d3.zoomIdentity
+            .scale(zoomScale)
+            .translate(
+                (this.state.width - g.graph().width * zoomScale)/2, 
+                (this.state.height - g.graph().height * zoomScale)/2)
+        );
         svg.attr('width', width);
         svg.attr('height', height);
 
