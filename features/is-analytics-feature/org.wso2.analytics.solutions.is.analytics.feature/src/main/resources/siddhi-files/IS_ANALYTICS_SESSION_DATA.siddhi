@@ -1,0 +1,287 @@
+/*
+ * Copyright (c) 2018 WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+@App:name("IS_ANALYTICS_SESSION_DATA")
+@App:description("Receiving Streams from IS and executing and analyzing statistics for session")
+
+-- Receving streams from IS
+--Defining Input Stream for receving streams from IS
+@source(type = "wso2event", wso2.stream.id = "org.wso2.is.analytics.stream.OverallSession:1.0.0", @map(type = 'wso2event'))
+@source(type='inMemory',topic='IsAnalytics.Session.Common.Stream', @map(type='passThrough'))
+define stream OverallSessionStream (
+        meta_tenantId int, 
+        sessionId string, 
+        startTimestamp long, 
+        renewTimestamp long, 
+        terminationTimestamp long, 
+        action int, username string, 
+        userstoreDomain string, 
+        remoteIp string, 
+        region string, 
+        tenantDomain string, 
+        serviceProvider string, 
+        identityProviders string, 
+        rememberMeFlag bool, 
+        userAgent string, 
+        _timestamp long);
+        
+-- Defining streams to handle session data
+@source(type='inMemory',topic='IsAnalytics.Session.Information.Stream', @map(type='passThrough'))
+define stream HandleSessionInformation (
+        meta_tenantId int, 
+        sessionId string, 
+        startTimestamp long, 
+        renewTimestamp long, 
+        terminationTimestamp long, 
+        endTimestamp long, 
+        duration long, 
+        isActive bool, 
+        username string, 
+        userstoreDomain string, 
+        remoteIp string, 
+        region string, 
+        tenantDomain string, 
+        serviceProvider string, 
+        identityProviders string, 
+        rememberMeFlag bool,
+        userAgent string, 
+        usernameWithTenantDomainAndUserstoreDomain string,
+        timestamp long);
+
+define stream CountingNewTerminatedSessionsStream ( 
+        meta_tenantId int,
+        newSessionCount long, 
+        terminatedSessionCount long, 
+        net long, 
+        timestamp long);
+
+define stream SessionStatisticsPerSecond (
+        meta_tenantId int, 
+        activeSessionCount long, 
+        newSessionCount long, 
+        terminatedSessionCount long,
+        timestamp long);      
+
+--Defining Databases
+
+@primaryKey('meta_tenantId') 
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table ActiveSessionCountTable(
+        meta_tenantId int, 
+        activeCount long);
+
+@primaryKey('meta_tenantId', 'sessionId') 
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table ActiveSessionsTable (
+        meta_tenantId int, 
+        sessionId string, 
+        startTimestamp long, 
+        renewTimestamp long, 
+        terminationTimestamp long, 
+        action int, 
+        username string, 
+        userstoreDomain string, 
+        remoteIp string, 
+        region string, 
+        tenantDomain string, 
+        serviceProvider string, 
+        identityProviders string, 
+        rememberMeFlag bool, 
+        userAgent string, 
+        usernameWithTenantDomainAndUserstoreDomain string, 
+        timestamp long);
+
+@primaryKey('meta_tenantId', 'sessionId') 
+@Index('username','userstoreDomain','tenantDomain')
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table SessionInformationTable(
+        meta_tenantId int, 
+        sessionId string, 
+        startTime string,
+        terminateTime string,
+        endTime string,
+        duration long, 
+        isActive bool, 
+        username string, 
+        userstoreDomain string, 
+        remoteIp string, 
+        region string, 
+        tenantDomain string, 
+        serviceProvider string, 
+        identityProviders string, 
+        rememberMeFlag bool,
+        userAgent string, 
+        usernameWithTenantDomainAndUserstoreDomain string,
+        currentTime string,
+        startTimestamp long, 
+        renewTimestamp long, 
+        terminationTimestamp long, 
+        endTimestamp long, 
+        timestamp long);
+
+-- Aggregating active, new, terminated session counts for sec-year
+
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define aggregation SessionCountAggregation
+from    SessionStatisticsPerSecond
+select  meta_tenantId, 
+        activeSessionCount, 
+        sum(newSessionCount) as newSessionCount, 
+        sum(terminatedSessionCount) as terminatedSessionCount
+group by meta_tenantId
+aggregate by timestamp every sec...year;
+
+--Queries
+-- Storing active and new sessions in ActiveSessionsTable
+from OverallSessionStream [action == 1 OR action == 2]#window.timeBatch(1 sec)
+select  meta_tenantId, 
+        sessionId, 
+        startTimestamp, 
+        renewTimestamp, 
+        terminationTimestamp, 
+        action, 
+        username, 
+        userstoreDomain, 
+        remoteIp, 
+        region, 
+        tenantDomain, 
+        serviceProvider, 
+        identityProviders, 
+        rememberMeFlag,
+        userAgent, 
+        ifThenElse(userstoreDomain is null OR userstoreDomain == "" OR userstoreDomain == "NOT_AVAILABLE" OR tenantDomain is null OR tenantDomain == "" OR tenantDomain == "NOT_AVAILABLE", username, str:concat(userstoreDomain, '/', username, '@', tenantDomain)) as usernameWithTenantDomainAndUserstoreDomain,
+        _timestamp as timestamp
+update or insert into 
+        ActiveSessionsTable
+on      ActiveSessionsTable.meta_tenantId==meta_tenantId and 
+        ActiveSessionsTable.sessionId==sessionId;
+
+-- capturing active and new sessions in a stream 'HandleSessionInformation'
+from OverallSessionStream [action == 1 OR action == 2]
+select  meta_tenantId, 
+        sessionId, 
+        startTimestamp, 
+        renewTimestamp, 
+        terminationTimestamp, 
+        -1L as endTimestamp, 
+        (_timestamp - startTimestamp) as duration, 
+        true as isActive, 
+        username, 
+        userstoreDomain, 
+        remoteIp, 
+        region, 
+        tenantDomain, 
+        serviceProvider, 
+        identityProviders, 
+        rememberMeFlag, 
+        userAgent, 
+        ifThenElse(userstoreDomain is null OR userstoreDomain == "" OR userstoreDomain == "NOT_AVAILABLE" OR tenantDomain is null OR tenantDomain == "" OR tenantDomain == "NOT_AVAILABLE", username, str:concat(userstoreDomain, '/', username, '@', tenantDomain)) as usernameWithTenantDomainAndUserstoreDomain,
+        _timestamp as timestamp
+insert into HandleSessionInformation;
+
+-- capturing active and new sessions in a stream 'HandleSessionInformation'
+from OverallSessionStream [action == 0]
+select  meta_tenantId, 
+        sessionId, 
+        startTimestamp, 
+        renewTimestamp, 
+        terminationTimestamp, 
+        terminationTimestamp as endTimestamp, 
+        (terminationTimestamp - startTimestamp) as duration,  
+        false as isActive, 
+        username, 
+        userstoreDomain, 
+        remoteIp, 
+        region, 
+        tenantDomain, 
+        serviceProvider, 
+        identityProviders, 
+        rememberMeFlag, 
+        userAgent, 
+        ifThenElse(userstoreDomain is null OR userstoreDomain == "" OR userstoreDomain == "NOT_AVAILABLE" OR tenantDomain is null OR tenantDomain == "" OR tenantDomain == "NOT_AVAILABLE", username, str:concat(userstoreDomain, '/', username, '@', tenantDomain)) as usernameWithTenantDomainAndUserstoreDomain,
+        _timestamp as timestamp
+insert into HandleSessionInformation;
+
+-- Storing session information in a table
+from HandleSessionInformation
+select  meta_tenantId, 
+        sessionId,  
+        str:concat( time: dateFormat(startTimestamp, 'MMMM d,yyyy HH:mm:ss'), ' IST') as startTime,
+        str:concat( time: dateFormat(terminationTimestamp, 'MMMM d,yyyy HH:mm:ss'), ' IST') as terminateTime,
+        str:concat( time: dateFormat(endTimestamp, 'MMMM d,yyyy HH:mm:ss'), ' IST') as endTime,
+        duration,  
+        isActive, 
+        username,
+        userstoreDomain, 
+        remoteIp, 
+        region, 
+        tenantDomain, 
+        serviceProvider, 
+        identityProviders, 
+        rememberMeFlag, 
+        userAgent, 
+        usernameWithTenantDomainAndUserstoreDomain,
+        str:concat( time: dateFormat(timestamp, 'MMMM d,yyyy HH:mm:ss'), ' IST') as currentTime,
+        startTimestamp, 
+        renewTimestamp, 
+        terminationTimestamp, 
+        endTimestamp,
+        timestamp
+update or insert into 
+        SessionInformationTable
+on      SessionInformationTable.meta_tenantId==meta_tenantId and  
+        SessionInformationTable.sessionId==sessionId;
+
+
+-- Removing inactive sessions from 'ActiveSessionsTable'
+from    HandleSessionInformation[isActive == false]#window.timeBatch(1 sec)
+delete  ActiveSessionsTable
+on      ActiveSessionsTable.sessionId == sessionId AND 
+        ActiveSessionsTable.meta_tenantId == meta_tenantId;
+        
+--Counting new and termnated sessions every 1 second for each meta_tenantId
+from OverallSessionStream[action == 1 OR action == 0]#window.externalTimeBatch(_timestamp, 1 sec, 0, 2 sec)
+select  meta_tenantId, 
+        sum(action) as newSessionCount, 
+        sum(1 - action) as terminatedSessionCount, 
+        (2*sum(action)-count()) as net, 
+        _timestamp as timestamp
+group by meta_tenantId
+insert into 
+        CountingNewTerminatedSessionsStream;
+        
+-- Getting active session counts using ActiveSessionCountTable
+
+from    CountingNewTerminatedSessionsStream as s left outer join ActiveSessionCountTable as t
+on      s.meta_tenantId == t.meta_tenantId
+select  s.meta_tenantId,  
+        (s.net  + ifThenElse(t.activeCount is null, 0L, t.activeCount) ) as activeSessionCount, 
+        s.newSessionCount, 
+        s.terminatedSessionCount,
+        timestamp
+group by s.meta_tenantId
+insert into 
+        SessionStatisticsPerSecond;
+
+-- Storing active session counts in a table 'ActiveSessionCountTable'
+from    SessionStatisticsPerSecond
+select  meta_tenantId, 
+        activeSessionCount as activeCount
+update or insert into 
+        ActiveSessionCountTable
+on      ActiveSessionCountTable.meta_tenantId==meta_tenantId;

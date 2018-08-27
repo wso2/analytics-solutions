@@ -1,0 +1,163 @@
+/*
+ * Copyright (c) 2018 WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+@App:name("IS_ANALYTICS_IDLE_SESSION_TERMINATION")
+@App:description("Terminating Idle Sessions")
+
+-- Please refer to https://docs.wso2.com/display/SP400/Quick+Start+Guide on getting started with SP editor. 
+
+@sink(type='inMemory',topic='IsAnalytics.Session.Common.Stream', @map(type='passThrough'))
+define stream SesssionEventsNotificationStream(
+        meta_tenantId int, 
+        sessionId string, 
+        startTimestamp long, 
+        renewTimestamp long, 
+        terminationTimestamp long, 
+        action int, 
+        username string, 
+        userstoreDomain string, 
+        remoteIp string, 
+        region string, 
+        tenantDomain string, 
+        serviceProvider string, 
+        identityProviders string, 
+        rememberMeFlag bool, 
+        userAgent string, 
+        _timestamp long);
+
+@sink(type='inMemory',topic='IsAnalytics.Session.Information.Stream', @map(type='passThrough'))
+define stream RawSessionStream(
+        meta_tenantId int, 
+        sessionId string, 
+        startTimestamp long, 
+        renewTimestamp long, 
+        terminationTimestamp long, 
+        endTimestamp long, 
+        duration long, 
+        isActive bool, 
+        username string, 
+        userstoreDomain string, 
+        remoteIp string, 
+        region string, 
+        tenantDomain string, 
+        serviceProvider string, 
+        identityProviders string, 
+        rememberMeFlag bool,
+        userAgent string, 
+        usernameWithTenantDomainAndUserstoreDomain string,
+        timestamp long);
+
+define trigger TriggerStream at every 5 min;
+
+--Defining Databases
+
+@primaryKey('meta_tenantId', 'sessionId') 
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table ActiveSessionsTable (
+        meta_tenantId int, 
+        sessionId string, 
+        startTimestamp long, 
+        renewTimestamp long, 
+        terminationTimestamp long, 
+        action int, 
+        username string, 
+        userstoreDomain string, 
+        remoteIp string, 
+        region string, 
+        tenantDomain string, 
+        serviceProvider string, 
+        identityProviders string, 
+        rememberMeFlag bool, 
+        userAgent string, 
+        usernameWithTenantDomainAndUserstoreDomain string, 
+        timestamp long);
+
+@primaryKey('meta_tenantId', 'sessionId') 
+@Index('username','userstoreDomain','tenantDomain')
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table SessionInformationTable(
+        meta_tenantId int, 
+        sessionId string, 
+        startTime string,
+        terminateTime string,
+        endTime string,
+        duration long, 
+        isActive bool, 
+        username string, 
+        userstoreDomain string, 
+        remoteIp string, 
+        region string, 
+        tenantDomain string, 
+        serviceProvider string, 
+        identityProviders string, 
+        rememberMeFlag bool,
+        userAgent string, 
+        usernameWithTenantDomainAndUserstoreDomain string,
+        currentTime string,
+        startTimestamp long, 
+        renewTimestamp long, 
+        terminationTimestamp long, 
+        endTimestamp long, 
+        timestamp long);
+
+-- Queries
+-- Updating the last time checked in database for every 5 minutes.
+from TriggerStream as T join ActiveSessionsTable as A
+on      A.terminationTimestamp > T.triggered_time
+select  meta_tenantId, 
+        sessionId, 
+        startTimestamp,
+        renewTimestamp, 
+        terminationTimestamp, 
+        -1L as endTimestamp , 
+        (currentTimeMillis()- startTimestamp) as duration, 
+        true as isActive, 
+        username, 
+        userstoreDomain, 
+        remoteIp, 
+        region, 
+        tenantDomain, 
+        serviceProvider, 
+        identityProviders, 
+        rememberMeFlag, 
+        userAgent, 
+        usernameWithTenantDomainAndUserstoreDomain, 
+        currentTimeMillis() as timestamp
+insert into 
+        RawSessionStream;
+
+-- Terminating Idle sessions if the termination time is less than current time.
+from TriggerStream as T join ActiveSessionsTable as A
+on       A.terminationTimestamp < T.triggered_time and A.terminationTimestamp > 0
+select  meta_tenantId, 
+        sessionId, 
+        startTimestamp, 
+        renewTimestamp, 
+        terminationTimestamp, 
+        0 as action, 
+        username, 
+        userstoreDomain, 
+        remoteIp, 
+        region, 
+        tenantDomain, 
+        serviceProvider, 
+        identityProviders, 
+        rememberMeFlag, 
+        userAgent, 
+        currentTimeMillis() as _timestamp
+insert into 
+        SesssionEventsNotificationStream;

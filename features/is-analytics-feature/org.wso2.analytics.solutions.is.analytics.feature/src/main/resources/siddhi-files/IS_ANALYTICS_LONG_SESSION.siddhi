@@ -1,0 +1,206 @@
+/*
+ * Copyright (c) 2018 WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+@App:name("IS_ANALYTICS_LONG_SESSION")
+@App:description("Identifying Long Sessions and storing in a table")
+
+-- Defining streams to handle Long Sessions
+
+define trigger PeriodicalTriggerStream at every 2 min;
+define trigger TriggerStream at every 30 min;
+
+define stream FilterLongSessionsStreams (
+            meta_tenantId int,
+            sessionId string,
+            startTimestamp long,
+            renewTimestamp long,
+            terminationTimestamp long,
+            endTimestamp long,
+            duration long,
+            username string,
+            userstoreDomain string,
+            tenantDomain string,
+            timestamp long);
+
+define stream AlertLongSessionsStream (
+            timestamp long,
+            meta_tenantId int,
+            tenantDomain string,
+            sessionId string,
+            username string,
+            duration long,
+            avgDuration double);
+
+define stream LastSevenDays( lastSeventimestamp long);
+
+-- Defining Databases
+
+@primaryKey('meta_tenantId', 'sessionId')
+@Index('username','userstoreDomain','tenantDomain')
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table SessionInformationTable(
+            meta_tenantId int,
+            sessionId string,
+            startTime string,
+            terminateTime string,
+            endTime string,
+            duration long,
+            isActive bool,
+            username string,
+            userstoreDomain string,
+            remoteIp string,
+            region string,
+            tenantDomain string,
+            serviceProvider string,
+            identityProviders string,
+            rememberMeFlag bool,
+            userAgent string,
+            usernameWithTenantDomainAndUserstoreDomain string,
+            currentTime string,
+            startTimestamp long,
+            renewTimestamp long,
+            terminationTimestamp long,
+            endTimestamp long,
+            timestamp long);
+
+@primaryKey('meta_tenantId', 'sessionId')
+@index('username')
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table AlertLongSessionsTable(
+            timestamp long,
+            currentTime string,
+            meta_tenantId int,
+            tenantDomain string,
+            sessionId string,
+            username string,
+            duration long,
+            avgDuration double);
+
+@primaryKey('meta_tenantId', 'type', 'tenantDomain','msg')
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table SecurityAlertTypeTable(
+            meta_tenantId int,
+            type string,
+            tenantDomain string,
+            msg string,
+            severity int,
+            alertTimestamp long,
+            userReadableTime string);
+
+@primaryKey('meta_tenantId', 'username', 'userstoreDomain')
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table AverageSessionDurationTable(
+            meta_tenantId int,
+            tenantDomain string,
+            username string,
+            userstoreDomain string,
+            avgDuration double);
+
+@primaryKey('meta_tenantId', 'username', 'userstoreDomain')
+define table AverageSession(
+            meta_tenantId int,
+            tenantDomain string,
+            username string,
+            userstoreDomain string,
+            avgDuration double);
+
+-- Queries
+
+from TriggerStream
+select convert(time:dateSub(triggered_time,7,'DAY'), 'long') as lastSeventimestamp
+insert into LastSevenDays;
+
+from        PeriodicalTriggerStream as P join SessionInformationTable as S
+on          S.duration > 400000 and
+            S.rememberMeFlag == false and
+            S.isActive == true
+select      meta_tenantId,
+            sessionId,
+            startTimestamp,
+            renewTimestamp,
+            terminationTimestamp,
+            endTimestamp,
+            duration,
+            username,
+            userstoreDomain,
+            tenantDomain,
+            timestamp
+insert into FilterLongSessionsStreams;
+
+from        LastSevenDays join SessionInformationTable
+on          startTimestamp>= lastSeventimestamp
+select      meta_tenantId,
+            tenantDomain,
+            username,
+            userstoreDomain,
+            avg(duration) as avgDuration
+group by    meta_tenantId,
+            tenantDomain,
+            username,
+            userstoreDomain
+update or insert into
+            AverageSession
+on          AverageSession.meta_tenantId==meta_tenantId and
+            AverageSession.username==username and
+            AverageSession.userstoreDomain==userstoreDomain ;
+
+from        FilterLongSessionsStreams as s join AverageSession as t
+on          s.meta_tenantId == t.meta_tenantId and
+            s.tenantDomain == t.tenantDomain and
+            s.username == t.username and
+            s.userstoreDomain == t.userstoreDomain and
+            (s.duration > t.avgDuration * (50.0 + 100.0) / 100.0)
+select      s.timestamp,
+            s.meta_tenantId,
+            s.tenantDomain,
+            s.sessionId,
+            s.username,
+            s.duration,
+            t.avgDuration
+insert into AlertLongSessionsStream;
+
+--Storing Login alert type in 'SecurityAlertTypeTable'
+from        AlertLongSessionsStream
+select      meta_tenantId,
+            "AbnormalLongSessionAlert" as type,
+            tenantDomain,
+            str:concat('Abnormal long session session of ', duration, ' milliseconds detected by user: ', username,' on session id: ', sessionId, '.') as msg,
+            3 as severity,
+            (time:timestampInMilliseconds()) as alertTimestamp,
+            time:dateFormat((time:timestampInMilliseconds()),'yyyy-MM-dd HH:mm:ss') as userReadableTime
+update or insert into
+            SecurityAlertTypeTable
+on          SecurityAlertTypeTable.meta_tenantId==meta_tenantId and
+            SecurityAlertTypeTable.type==type and
+            SecurityAlertTypeTable.tenantDomain==tenantDomain and
+            SecurityAlertTypeTable.msg==msg;
+
+--Storing abnormal long sessions in 'AlertLongSessionsTable'
+from AlertLongSessionsStream
+select      timestamp,
+            time: dateFormat(timestamp, 'yyyy-MM-dd HH:mm:ss') as currentTime,
+            meta_tenantId,
+            tenantDomain,
+            sessionId,
+            username,
+            duration,
+            avgDuration
+update or insert into
+            AlertLongSessionsTable
+on          AlertLongSessionsTable.meta_tenantId==meta_tenantId and
+            AlertLongSessionsTable.sessionId==sessionId;

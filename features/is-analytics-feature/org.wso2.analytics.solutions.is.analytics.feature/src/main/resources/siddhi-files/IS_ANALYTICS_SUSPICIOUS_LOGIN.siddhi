@@ -1,0 +1,159 @@
+/*
+ * Copyright (c) 2018 WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+@App:name("IS_ANALYTICS_SUSPICIOUS_LOGIN")
+@App:description("Alerting suspicious logins of users")
+
+@source(type = "wso2event", wso2.stream.id = "org.wso2.is.analytics.stream.OverallAuthentication:1.0.0", @map(type = 'wso2event'))
+define stream OverallAuthenticationStream (
+        meta_tenantId int, 
+        contextId string, 
+        eventId string, 
+        eventType string, 
+        authenticationSuccess bool, 
+        username string, 
+        localUsername string, 
+        userStoreDomain string, 
+        tenantDomain string, 
+        remoteIp string, 
+        region string, 
+        inboundAuthType string, 
+        serviceProvider string, 
+        rememberMeEnabled bool, 
+        forceAuthEnabled bool, 
+        passiveAuthEnabled bool, 
+        rolesCommaSeparated string, 
+        authenticationStep string, 
+        identityProvider string, 
+        authStepSuccess bool, 
+        stepAuthenticator string, 
+        isFirstLogin bool, 
+        identityProviderType string,
+        _timestamp long);
+
+define stream LoginAlertStreamSameUsername (
+        meta_tenantId int, 
+        username string, 
+        severity int, 
+        msg string, 
+        tenantDomain string, 
+        timestamp long, 
+        serviceProvider string);
+
+define stream SuspiciousLoginAlertStream (
+        meta_tenantId int, 
+        username string, 
+        severity int, 
+        msg string, 
+        tenantDomain string, 
+        timestamp long);
+
+-- Defining Databases
+
+@primaryKey('meta_tenantId','username','msg') 
+@index('username') 
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table SuspiciousLoginAlertTable(
+        meta_tenantId int, 
+        username string, 
+        severity int, 
+        msg string, 
+        tenantDomain string, 
+        timestamp long,
+        currentTime string);
+
+@primaryKey('meta_tenantId', 'type', 'tenantDomain','msg') 
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+define table SecurityAlertTypeTable(
+        meta_tenantId int, 
+        type string, 
+        tenantDomain string, 
+        msg string, 
+        severity int, 
+        alertTimestamp long, 
+        userReadableTime string);
+
+-- Detecting events from same user. An alert is generated when we make more than five failure login attempts followed by a success
+from every  
+        (e1=OverallAuthenticationStream[
+            authStepSuccess == false]) -> 
+        e2=OverallAuthenticationStream[
+            authStepSuccess == false AND 
+            e1.username == e2.username AND 
+            e1.userStoreDomain == e2.userStoreDomain AND 
+            e1.tenantDomain == e2.tenantDomain]<4:>  -> 
+        e3=OverallAuthenticationStream[
+            authStepSuccess == true AND 
+            e2.username == e3.username AND 
+            e2.userStoreDomain == e3.userStoreDomain AND 
+            e2.tenantDomain == e3.tenantDomain]
+within 5 min
+select  e2[last].meta_tenantId, 
+        e2[last].username, 
+        1 as severity, 
+        str:concat('Successful login attempt after multiple login failures with same username detected at: ', time:dateFormat(e3[last]._timestamp,'yyyy-MM-dd HH:mm:ss'), '.') as msg,
+        e2[last].tenantDomain, 
+        e3[last]._timestamp as timestamp, 
+        e2[last].serviceProvider
+group by    
+        e1.username, 
+        e1.userStoreDomain, 
+        e1.tenantDomain
+output first every 1 min
+insert into LoginAlertStreamSameUsername;
+
+-- Sending multiple login failures to SuspiciousLoginAlertStream
+from    LoginAlertStreamSameUsername
+select  meta_tenantId,
+        username, 
+        severity, 
+        msg, 
+        tenantDomain, 
+        timestamp
+insert into 
+        SuspiciousLoginAlertStream;
+
+-- Sending alert type and storing in 'SecurityAlertTypeTable'
+from    LoginAlertStreamSameUsername
+select  meta_tenantId, 
+        "SuspiciousLoginAlert" as type, 
+        tenantDomain, 
+        str:concat('Successful login attempt after multiple login failures from same username: ', username, ' detected at: ', time:dateFormat(e3[last].timestamp,'yyyy-MM-dd HH:mm:ss'), '.') as msg, 
+        severity, 
+        (time:timestampInMilliseconds()) as alertTimestamp, 
+        time:dateFormat((time:timestampInMilliseconds()),'yyyy-MM-dd HH:mm:ss') as userReadableTime
+update or insert into SecurityAlertTypeTable
+on      SecurityAlertTypeTable.meta_tenantId==meta_tenantId and 
+        SecurityAlertTypeTable.type==type and 
+        SecurityAlertTypeTable.tenantDomain==tenantDomain and 
+        SecurityAlertTypeTable.msg==msg;
+
+-- Storing Multiple login failures in 'SuspiciousLoginAlertTable'
+from SuspiciousLoginAlertStream
+select  meta_tenantId,
+        username,
+        severity,
+        msg,
+        tenantDomain,
+        timestamp,
+        time: dateFormat(timestamp, 'yyyy-MM-dd HH:mm:ss') as currentTime
+update or insert into 
+        SuspiciousLoginAlertTable
+on      SuspiciousLoginAlertTable.meta_tenantId==meta_tenantId and 
+        SuspiciousLoginAlertTable.username==username and  
+    SuspiciousLoginAlertTable.msg==msg;
