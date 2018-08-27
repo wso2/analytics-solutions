@@ -29,7 +29,7 @@
         <!-- Widgets-->
         <dependency>
             <groupId>org.wso2.analytics.solutions</groupId>
-            <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.area.chart</artifactId>
+            <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.login.attempts.map</artifactId>
             <type>zip</type>
         </dependency>
         <dependency>
@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>org.wso2.analytics.solutions</groupId>
-            <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.horizontal.bar.chart</artifactId>
+            <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.attempts.by.type</artifactId>
             <type>zip</type>
         </dependency>
         <dependency>
@@ -105,16 +105,16 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
-                                    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.area.chart</artifactId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.login.attempts.map</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/widgets/</outputDirectory>
-                                    <includes>IsAnalyticsAreaChart/**</includes>
+                                    <includes>IsAnalyticsLoginAttemptsMap/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
                                     <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.attempts.over.time</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
@@ -123,7 +123,7 @@
                                     <includes>IsAnalyticsAttemptsOverTime/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
                                     <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.compact.summary</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
@@ -132,16 +132,16 @@
                                     <includes>IsAnalyticsCompactSummary/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
-                                    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.horizontal.bar.chart</artifactId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.attempts.by.type</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/widgets/</outputDirectory>
-                                    <includes>IsAnalyticsHorizontalBarChart/**</includes>
+                                    <includes>IsAnalyticsAttemptsByType/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
                                     <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.messages</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
@@ -150,7 +150,7 @@
                                     <includes>IsAnalyticsMessages/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
                                     <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.summary</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
@@ -159,7 +159,7 @@
                                     <includes>IsAnalyticsSummary/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
                                     <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.user.preferences</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
@@ -168,7 +168,7 @@
                                     <includes>IsAnalyticsUserPreferences/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
                                     <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.average.session</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
@@ -177,7 +177,7 @@
                                     <includes>IsAnalyticsAverageSessionDuration/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
                                     <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.session.count</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
@@ -186,8 +186,8 @@
                                     <includes>IsAnalyticsSessionCount/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
-                                    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.line.chart</artifactId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.session.count.overtime</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
@@ -195,7 +195,7 @@
                                     <includes>IsAnalyticsSessionCountOverTime/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
                                     <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.session.messages</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
@@ -204,7 +204,7 @@
                                     <includes>IsAnalyticsSessionMessages/**</includes>
                                 </artifactItem>
                                 <artifactItem>
-                                    <groupId>org.wso2.carbon.analytics</groupId>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
                                     <artifactId>org.wso2.analytics.solutions.is.analytics.widgets.long.session</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
