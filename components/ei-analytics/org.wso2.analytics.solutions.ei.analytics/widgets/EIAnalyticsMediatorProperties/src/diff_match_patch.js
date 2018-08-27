@@ -665,8 +665,13 @@
         return a.join("")
             .replace(/%20/g, " ")
     };
-    this.diff_match_patch = diff_match_patch;
-    this.DIFF_DELETE = -1;
-    this.DIFF_INSERT = 1;
-    this.DIFF_EQUAL = 0;
-})()
+
+    let DIFF_DELETE = -1;
+    let DIFF_INSERT = 1;
+    let DIFF_EQUAL = 0;
+
+    module.exports.diff_match_patch = diff_match_patch;
+    module.exports.DIFF_EQUAL = DIFF_EQUAL;
+    module.exports.DIFF_INSERT = DIFF_INSERT;
+    module.exports.DIFF_DELETE = DIFF_DELETE;
+})();
