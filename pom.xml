@@ -44,6 +44,13 @@
         <module>features/is-analytics-feature</module>
     </modules>
 
+    <scm>
+        <connection>scm:git:https://github.com/wso2/analytics-solutions.git</connection>
+        <url>https://github.com/wso2/analytics-solutions.git</url>
+        <developerConnection>scm:git:https://github.com/wso2/analytics-solutions.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <dependencyManagement>
         <dependencies>
 
