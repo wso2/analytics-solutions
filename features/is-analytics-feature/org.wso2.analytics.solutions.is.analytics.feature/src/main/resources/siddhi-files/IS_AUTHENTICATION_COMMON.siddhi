@@ -104,7 +104,7 @@ select
     rememberMeEnabled, 
     forceAuthEnabled, 
     passiveAuthEnabled, 
-    rolesCommaSeparated, 
+    str:concat(',', rolesCommaSeparated, ',') as rolesCommaSeparated,
     authenticationStep, 
     identityProvider,
     authenticationSuccess,
@@ -115,6 +115,7 @@ select
     _timestamp as timestamp
 insert into OverallAuthenticationProcessedStream;
 
+-- Adding commas to the start and the end of roles comma separated as to use 'contains' keyword on it.
 from OverallAuthenticationProcessedStream
 select 
     meta_tenantId,
@@ -123,7 +124,7 @@ select
     localUsername, 
     userStoreDomain,
     tenantDomain,
-    rolesCommaSeparated,
+    str:concat(',', rolesCommaSeparated, ',') as rolesCommaSeparated,
     remoteIp,
     region,
     inboundAuthType,
