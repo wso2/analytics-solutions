@@ -133,8 +133,8 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             for (let key in additionalFilterConditionsClone) {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
-                        filterCondition = filterCondition
-                            + " and str:regexp(rolesCommaSeparated, \"" + additionalFilterConditionsClone[key] + ',")';
+                        filterCondition = filterCondition +
+                            " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
                     } else if (key === 'isFirstLogin') {
                         filterCondition = filterCondition
                             + " and " + key + '==' + additionalFilterConditionsClone[key] + ' ';

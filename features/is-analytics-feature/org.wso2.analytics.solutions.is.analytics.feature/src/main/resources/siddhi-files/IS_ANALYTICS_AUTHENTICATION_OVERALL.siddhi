@@ -16,7 +16,7 @@
  * under the License.
  */
 
-@App:name("IS_AUTHENTICATION_OVERALL")
+@App:name("IS_ANALYTICS_AUTHENTICATION_OVERALL")
 @App:description("Handle Event from IS and save data in a table for Overall Authentication")
 
 -- Read data from OverallAuthenticationProcessedStream (Sinked from IsAnalytics_Auth_Common)
@@ -54,7 +54,6 @@ define stream OverallAuthenticationProcessedStream (
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
 @primaryKey('meta_tenantId', 'contextId', 'eventId', 'eventType')
 @index('meta_tenantId', 'username', 'identityProviderType', 'identityProvider', 'userStoreDomain', 'serviceProvider', 'region', 'timestamp')
-@purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
 define table OverallAuthenticationTable (
     meta_tenantId int,
     contextId string,
