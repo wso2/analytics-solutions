@@ -1,0 +1,147 @@
+/*
+ * Copyright (c) 2018 WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+@App:name("IS_AUTHENTICATION_AGGREGATIONS")
+@App:description("Handle Event from IS and save data in a table for Overall Authentication")
+
+-- STREAM DEFINITIONS
+
+-- Stream from the Common 
+@source(type='inMemory', topic='IsAnalytics.Authentication.Common.OutputSinkFromProcessedAuthenticationDataStream', @map(type='passThrough'))
+define stream ProcessedAuthenticationDataStream (
+    meta_tenantId int, 
+    eventId string, 
+    username string, 
+    localUsername string, 
+    userStoreDomain string, 
+    tenantDomain string, 
+    remoteIp string, 
+    region string, 
+    inboundAuthType string, 
+    serviceProvider string, 
+    rememberMeEnabled bool, 
+    forceAuthEnabled bool, 
+    passiveAuthEnabled bool, 
+    rolesCommaSeparated string, 
+    authenticationStep string, 
+    identityProvider string, 
+    authStepSuccess bool, 
+    stepAuthenticator string, 
+    isFirstLogin bool, 
+    successValue int, 
+    failureValue int, 
+    stepSuccessValue int, 
+    firstLoginValue int, 
+    identityProviderType string,
+    timestamp long
+);
+
+-- Duplicate stream for tokenize the comma separated roles
+define stream PerUserRolesDuplicateEventStream (
+    meta_tenantId int,
+    eventId string, 
+    username string, 
+    localUsername string, 
+    userStoreDomain string, 
+    tenantDomain string, 
+    remoteIp string, 
+    region string, 
+    inboundAuthType string, 
+    serviceProvider string, 
+    rememberMeEnabled bool, 
+    forceAuthEnabled bool, 
+    passiveAuthEnabled bool, 
+    rolesCommaSeparated string, 
+    authenticationStep string, 
+    identityProvider string, 
+    authStepSuccess bool, 
+    stepAuthenticator string, 
+    isFirstLogin bool, 
+    successValue int, 
+    failureValue int, 
+    stepSuccessValue int, 
+    firstLoginValue int, 
+    identityProviderType string,
+    timestamp long,
+    token string
+);
+
+-- QUERIES
+
+-- Role Aggreagation from Duplicate Stream
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+@purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
+@index('meta_tenantId', 'username', 'identityProviderType', 'identityProvider', 'userStoreDomain', 'serviceProvider', 'region')
+define aggregation RoleAggregation
+from PerUserRolesDuplicateEventStream
+select 
+    meta_tenantId, 
+    username, 
+    serviceProvider, 
+    identityProvider, 
+    token as role, 
+    remoteIp, 
+    region, 
+    userStoreDomain,
+    isFirstLogin,
+    sum(successValue) as authSuccessCount, 
+    sum(failureValue) as authFailureCount, 
+    sum(stepSuccessValue) as authStepSuccessCount,
+    sum(firstLoginValue) as  authFirstSuccessCount,
+    identityProviderType,
+    timestamp
+group by 
+    meta_tenantId, 
+    username, 
+    serviceProvider, 
+    token
+aggregate by timestamp every second ... year;
+
+-- Authentication Stat Stream for Store everything
+@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+@purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
+@index('meta_tenantId', 'username', 'identityProviderType', 'identityProvider', 'userStoreDomain', 'serviceProvider', 'region')
+define aggregation AuthenticationStatAggregation
+from ProcessedAuthenticationDataStream
+select 
+    meta_tenantId, 
+    username, 
+    localUsername, 
+    rolesCommaSeparated, 
+    serviceProvider, 
+    identityProvider, 
+    remoteIp, 
+    region, 
+    userStoreDomain, 
+    isFirstLogin,
+    sum(successValue) as authSuccessCount, 
+    sum(failureValue) as authFailureCount, 
+    sum(stepSuccessValue) as authStepSuccessCount, 
+    sum(firstLoginValue) as  authFirstSuccessCount, 
+    identityProviderType,
+    timestamp
+group by 
+    meta_tenantId, 
+    username, 
+    localUsername,
+    remoteIp,
+    rolesCommaSeparated
+aggregate by timestamp every second ... year;
+
+from ProcessedAuthenticationDataStream#str:tokenize(rolesCommaSeparated, ',')
+insert into PerUserRolesDuplicateEventStream;

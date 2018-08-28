@@ -1,0 +1,25 @@
+{
+  "name": "Popular Tweets",
+  "id": "PopularTweets",
+  "thumbnailURL": "",
+  "configs": {
+    "providerConfig": {
+      "configs": {
+        "type": "RDBMSStreamingDataProvider",
+        "config": {
+          "datasourceName": "Twitter_Analytics",
+          "queryData": {
+            "query": "select tweetid, max(timestamp) as timestamp from PopularTweet group by tweetid"
+          },
+          "tableName": "PopularTweet",
+          "incrementalColumn": "timestamp",
+          "publishingInterval": 5,
+          "publishingLimit": 20,
+          "purgingInterval": 6,
+          "purgingLimit": 6,
+          "isPurgingEnable": false
+        }
+      }
+    }
+  }
+}
