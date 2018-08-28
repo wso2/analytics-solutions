@@ -16,7 +16,7 @@
  * under the License.
  */
 
-@App:name("IS_AUTHENTICATION_AGGREGATIONS")
+@App:name("IS_ANALYTICS_AUTHENTICATION_AGGREGATIONS")
 @App:description("Handle Event from IS and save data in a table for Overall Authentication")
 
 -- STREAM DEFINITIONS
