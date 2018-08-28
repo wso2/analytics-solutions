@@ -299,25 +299,6 @@ class IsAnalyticsAttemptsByType extends Widget {
         let aggregationName = "AuthenticationStatAggregation";
         let doAdditionalFilter = false;
 
-        if (this.state.additionalFilterConditions !== undefined) {
-            let additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
-
-            for (var key in additionalFilterConditionsClone) {
-                if (additionalFilterConditionsClone[key] !== "") {
-                    if (key === "role") {
-                        console.log("Role Found: ", key, "\nValue: ", additionalFilterConditionsClone[key]);
-                    } else if (key === "isFirstLogin") {
-                        additionalFilters = additionalFilters +
-                            " and " + key + "==" + additionalFilterConditionsClone[key] + " ";
-                    } else {
-                        additionalFilters = additionalFilters +
-                            " and " + key + "==\'" + additionalFilterConditionsClone[key] + "\' ";
-                    }
-                }
-            }
-            doAdditionalFilter = true;
-        }
-
         switch (this.state.options.xAxis) {
             case "Service Provider":
                 xAxisValue = "serviceProvider";
@@ -334,6 +315,33 @@ class IsAnalyticsAttemptsByType extends Widget {
                 break;
             default:
                 xAxisValue = "username";
+        }
+
+        if (this.state.additionalFilterConditions !== undefined) {
+            let additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
+
+            for (var key in additionalFilterConditionsClone) {
+                if (additionalFilterConditionsClone[key] !== "") {
+                    if (key === "role") {
+                        if (this.state.options.xAxis === "Role") {
+                            additionalFilters = additionalFilters
+                                + " and " + key + "==" + additionalFilterConditionsClone[key] + " ";
+                        } else {
+                            additionalFilters = additionalFilters
+                                + " and str:contains('"
+                                + additionalFilterConditionsClone[key]
+                                + "', rolesCommaSeparated) ";
+                        }
+                    } else if (key === "isFirstLogin") {
+                        additionalFilters = additionalFilters +
+                            " and " + key + "==" + additionalFilterConditionsClone[key] + " ";
+                    } else {
+                        additionalFilters = additionalFilters +
+                            " and " + key + "==\'" + additionalFilterConditionsClone[key] + "\' ";
+                    }
+                }
+            }
+            doAdditionalFilter = true;
         }
 
         if (this.state.options.widgetType === "Local") {
