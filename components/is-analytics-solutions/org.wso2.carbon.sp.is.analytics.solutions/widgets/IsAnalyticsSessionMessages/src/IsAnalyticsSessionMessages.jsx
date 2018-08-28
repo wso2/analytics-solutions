@@ -21,7 +21,6 @@ import React from 'react';
 import VizG from 'react-vizgrammar';
 import Widget from "@wso2-dashboards/widget";
 import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
-import RaisedButton from 'material-ui/RaisedButton';
 
 class IsAnalyticsSessionMessages extends Widget {
     constructor(props) {
@@ -93,14 +92,13 @@ class IsAnalyticsSessionMessages extends Widget {
             data: [],
             metadata: this.metadata,
             width: this.props.glContainer.width,
-            height: this.props.glContainer.height,
-            btnGroupHeight: 100
+            height: this.props.glContainer.height
         };
 
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this.handleDataReceived = this.handleDataReceived.bind(this);
-        this.setReceivedMsg = this.setReceivedMsg.bind(this);
+        this.handleUserSelection = this.handleUserSelection.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
     }
 
@@ -109,7 +107,7 @@ class IsAnalyticsSessionMessages extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.setReceivedMsg);
+        super.subscribe(this.handleUserSelection);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
@@ -123,37 +121,28 @@ class IsAnalyticsSessionMessages extends Widget {
     }
 
     handleDataReceived(message) {
+        const date = 'January 1,1970 05:29:59 IST';
         message.data.map((number) => {
-            for(let j=0;j<message.data.length;j++) { 
-                for(let i=0;i<10;i++) {
-                    if (i==5) {
-                        switch(message.data[j][i]) {
-                            case 0: 
-                                message.data[j][i]='False';
-                                break;
-                            case 1: 
-                                message.data[j][i]='True';
-                                break;
-                        }
-                    }
-
-                    if (i==3) {
-                        if (message.data[j][i]=='January 1,1970 05:29:59 IST') {
-                            message.data[j][i]='Live';
-                        }
-                    }
-
-                    if(i==9) {
-                        switch(message.data[j][i]) {
-                            case 0: 
-                                message.data[j][i]='False';
-                                break;
-                            case 1: 
-                                message.data[j][i]='True';
-                                break;
-                        }
-                    }
+            for(let j=0;j<message.data.length;j++) {
+                switch(message.data[j][5]) {
+                    case 0: 
+                        message.data[j][5]='False';
+                        break;
+                    case 1: 
+                        message.data[j][5]='True';
+                        break;
                 }
+                if (message.data[j][3]==date) {
+                    message.data[j][3]='Live';
+                }
+                switch(message.data[j][9]) {
+                    case 0: 
+                        message.data[j][9]='False';
+                        break;
+                    case 1: 
+                        message.data[j][9]='True';
+                        break;
+                }   
             }
         });
 
@@ -163,7 +152,7 @@ class IsAnalyticsSessionMessages extends Widget {
         });   
     }
 
-    setReceivedMsg(message) {
+    handleUserSelection(message) {
         this.setState({
             fromDate: message.from,
             toDate: message.to
@@ -175,8 +164,8 @@ class IsAnalyticsSessionMessages extends Widget {
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
         let query = dataProviderConfigs.configs.config.queryData.query;
         query = query
-            .replace('begin', this.state.fromDate)
-            .replace('finish', this.state.toDate);
+            .replace("{{from}}", this.state.fromDate)
+            .replace("{{to}}", this.state.toDate);
         dataProviderConfigs.configs.config.queryData.query = query;
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
@@ -184,13 +173,13 @@ class IsAnalyticsSessionMessages extends Widget {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <section style={{paddingTop: 50}}>
+            <MuiThemeProvider muiTheme={this.props.muiTheme}>
+                <section style={{paddingTop: 10}}>
                     <VizG
                         config={this.ChartConfig}
                         metadata={this.state.metadata}
                         data={this.state.data}
-                        height={this.state.height - this.state.btnGroupHeight}
+                        height={this.state.height}
                         width={this.state.width}
                         theme={this.props.muiTheme.name}
                     />

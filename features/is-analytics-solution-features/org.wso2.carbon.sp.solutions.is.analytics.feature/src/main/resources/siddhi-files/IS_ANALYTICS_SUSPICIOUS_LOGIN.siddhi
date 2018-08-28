@@ -1,5 +1,25 @@
-@App:name("IS_ANALYTICS_SUSPICIOUS_LOGIN")
+@App:name("IS_ANALYTICS_SUSPICIOUS_LOGIN")/*
+ * Copyright (c) 2018 WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * WSO2 Inc. licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+
 @App:description("Alerting suspicious logins of users")
+
+define trigger TriggerStream at '0 0 12 * * ?';
 
 @source(type = "wso2event", wso2.stream.id = "org.wso2.is.analytics.stream.OverallAuthentication:1.0.0", @map(type = 'wso2event'))
 define stream OverallAuthenticationStream (
@@ -44,6 +64,9 @@ define stream SuspiciousLoginAlertStream (
         msg string, 
         tenantDomain string, 
         timestamp long);
+        
+define stream LastYearTimestamp( 
+        lastYearTimestamp long);          
 
 -- Defining Databases
 
@@ -139,3 +162,17 @@ update or insert into
 on      SuspiciousLoginAlertTable.meta_tenantId==meta_tenantId and 
         SuspiciousLoginAlertTable.username==username and  
     SuspiciousLoginAlertTable.msg==msg;
+    
+-- Retain last one year data in the SecurityAlertTypeTable
+
+from TriggerStream
+select convert(time:dateSub(triggered_time,1,'YEAR'), 'long') as lastYearTimestamp
+insert into LastYearTimestamp;
+
+from TriggerStream join SecurityAlertTypeTable
+on      timestamp <= LastYearTimestamp
+delete  SecurityAlertTypeTable
+on      SecurityAlertTypeTable.meta_tenantId == meta_tenantId and
+        SecurityAlertTypeTable.type == type and
+        SecurityAlertTypeTable.tenantDomain == tenantDomain and
+        SecurityAlertTypeTable.msg == msg;

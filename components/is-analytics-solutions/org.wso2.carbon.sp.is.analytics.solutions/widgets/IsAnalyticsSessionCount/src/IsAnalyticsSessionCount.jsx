@@ -21,7 +21,6 @@ import React from 'react';
 import VizG from 'react-vizgrammar';
 import Widget from '@wso2-dashboards/widget';
 import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
-import RaisedButton from 'material-ui/RaisedButton';
 
 class IsAnalyticsSessionCount extends Widget {
     constructor(props) {
@@ -59,7 +58,7 @@ class IsAnalyticsSessionCount extends Widget {
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this.handleDataReceived = this.handleDataReceived.bind(this);
-        this.setReceivedMsg = this.setReceivedMsg.bind(this);
+        this.handleUserSelection = this.handleUserSelection.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
     }
     handleResize() {
@@ -67,7 +66,7 @@ class IsAnalyticsSessionCount extends Widget {
 
     }
     componentDidMount() {
-        super.subscribe(this.setReceivedMsg);
+        super.subscribe(this.handleUserSelection);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
@@ -90,7 +89,7 @@ class IsAnalyticsSessionCount extends Widget {
 
     }
 
-    setReceivedMsg(message) {
+    handleUserSelection(message) {
         this.setState({
           fromDate: message.from,
           toDate: message.to,
@@ -101,22 +100,12 @@ class IsAnalyticsSessionCount extends Widget {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
         let query = dataProviderConfigs.configs.config.queryData.query;
+        for(let i=0; i<5; i++) {
         query = query
-            .replace('begin', this.state.fromDate)
-            .replace('finish', this.state.toDate)
-            .replace('begin1', this.state.fromDate)
-            .replace('finish1', this.state.toDate)
-            .replace('begin2', this.state.fromDate)
-            .replace('finish2', this.state.toDate)
-            .replace('begin3', this.state.fromDate)
-            .replace('finish3', this.state.toDate)
-            .replace('begin4', this.state.fromDate)
-            .replace('finish4', this.state.toDate)
-            .replace('now', new Date().getTime())
-            .replace('now1', new Date().getTime())
-            .replace('now2', new Date().getTime())
-            .replace('now3', new Date().getTime())
-            .replace('now4', new Date().getTime());
+            .replace("{{from}}", this.state.fromDate)
+            .replace("{{to}}", this.state.toDate)
+            .replace("{{now}}", new Date().getTime());
+        }
         dataProviderConfigs.configs.config.queryData.query = query;
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
@@ -124,14 +113,14 @@ class IsAnalyticsSessionCount extends Widget {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <section style={{paddingTop: 25}}>
+            <MuiThemeProvider muiTheme={this.props.muiTheme}>
+                <section >
                     <VizG
                         config={this.ChartConfig}
                         metadata={this.state.metadata}
                         data={this.state.data}
-                        height={this.state.height * .8}
-                        width={this.state.width*1.2}
+                        height={this.state.height}
+                        width={this.state.width}
                         theme={this.props.muiTheme.name}
                     />
                 </section>
