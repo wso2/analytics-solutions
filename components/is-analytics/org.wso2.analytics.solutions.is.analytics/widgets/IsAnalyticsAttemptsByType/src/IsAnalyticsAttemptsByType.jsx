@@ -212,14 +212,6 @@ class IsAnalyticsAttemptsByType extends Widget {
         let endPoint = startPoint + dataPerPage;
         let totalPageCount = Math.ceil(data.length / dataPerPage);
 
-        if (pageNumber < 1) {
-            console.error("[ERROR]: Wrong page number", pageNumber,
-                "Provided. Page number should be positive integer.");
-        } else if (pageNumber > totalPageCount) {
-            console.error("[ERROR]: Wrong page number", pageNumber,
-                "Provided. Page number exceeds total page count, ", totalPageCount);
-        }
-
         if (isSuccess) {
             let dataLength = data.length;
 
