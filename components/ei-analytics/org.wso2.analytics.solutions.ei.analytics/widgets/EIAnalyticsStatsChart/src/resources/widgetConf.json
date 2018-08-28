@@ -1,6 +1,6 @@
 {
   "name": "EIAnalyticsStatsChart",
-  "id": "EI Analytics Stats Chart",
+  "id": "EIAnalyticsStatsChart",
   "thumbnailURL": "",
   "configs": {
     "pubsub": {
