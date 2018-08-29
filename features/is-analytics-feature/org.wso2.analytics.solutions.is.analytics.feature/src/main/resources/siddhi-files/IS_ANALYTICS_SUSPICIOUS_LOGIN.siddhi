@@ -165,14 +165,10 @@ on      SuspiciousLoginAlertTable.meta_tenantId==meta_tenantId and
 
 -- Retain last one year data in the SecurityAlertTypeTable
 
-from TriggerStream
-select convert(time:dateSub(triggered_time,1,'YEAR'), 'long') as lastYearTimestamp
+from    TriggerStream
+select  convert(time:dateSub(triggered_time,1,'year'), 'long') as lastYearTimestamp
 insert into LastYearTimestamp;
 
-from TriggerStream join SecurityAlertTypeTable
-on      timestamp <= LastYearTimestamp
+from    LastYearTimestamp
 delete  SecurityAlertTypeTable
-on      SecurityAlertTypeTable.meta_tenantId == meta_tenantId and
-        SecurityAlertTypeTable.type == type and
-        SecurityAlertTypeTable.tenantDomain == tenantDomain and
-        SecurityAlertTypeTable.msg == msg;
+on      SecurityAlertTypeTable.alertTimestamp <= lastYearTimestamp;
