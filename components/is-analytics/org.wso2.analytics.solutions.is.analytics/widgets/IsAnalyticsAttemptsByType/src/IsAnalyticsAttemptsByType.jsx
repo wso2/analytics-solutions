@@ -422,7 +422,16 @@ class IsAnalyticsAttemptsByType extends Widget {
         if (this.state.faultyProviderConf) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div style={{ height: this.state.height, width: this.state.width }}>
+                    <div
+                        style={{
+                            paddingLeft: width * 0.05,
+                            paddingRight: width * 0.05,
+                            paddingTop: height * 0.05,
+                            paddingBottom: height * 0.05,
+                            height,
+                            width,
+                        }}
+                    >
                         <Typography variant="title" gutterBottom align="center">
                             {this.state.header}
                         </Typography>

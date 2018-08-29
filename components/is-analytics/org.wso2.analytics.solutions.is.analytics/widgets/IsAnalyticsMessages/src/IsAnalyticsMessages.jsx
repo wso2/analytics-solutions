@@ -21,7 +21,7 @@ import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import _ from 'lodash';
 import Typography from '@material-ui/core/Typography';
 
@@ -344,7 +344,8 @@ class IsAnalyticsMessages extends Widget {
     }
 
     assembleQuery() {
-        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+        super.getWidgetChannelManager()
+            .unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
         let updatedQuery = dataProviderConfigs.configs.config.queryData.query;
         let filterCondition = ' on timestamp > {{from}}L and timestamp < {{to}}L ';
@@ -369,13 +370,13 @@ class IsAnalyticsMessages extends Widget {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
                         additionalFilters = additionalFilters
-                            + " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
+                            + ' and str:contains(\'' + additionalFilterConditionsClone[key] + '\', rolesCommaSeparated) ';
                     } else if (key === 'isFirstLogin') {
                         additionalFilters = additionalFilters
                             + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                     } else {
                         additionalFilters = additionalFilters
-                            + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
+                            + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
                     }
                 }
             }
@@ -389,10 +390,13 @@ class IsAnalyticsMessages extends Widget {
         updatedQuery = updatedQuery.replace('{{filterCondition}}', filterCondition);
         dataProviderConfigs.configs.config.queryData.query = updatedQuery;
 
-        super.getWidgetChannelManager().subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfigs);
+        super.getWidgetChannelManager()
+            .subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfigs);
     }
 
     render() {
+        const { width } = this.state;
+        const { height } = this.state;
         let theme = darkTheme;
 
         if (this.props.muiTheme.name === 'light') {
@@ -401,20 +405,28 @@ class IsAnalyticsMessages extends Widget {
         if (this.state.isProviderConfigsFaulty) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <Scrollbars style={{ height: this.state.height }}>
+                    <Scrollbars style={{
+                        height,
+                        width,
+                    }}>
                         <div
                             style={{
-                                width: this.props.glContainer.width,
-                                height: this.props.glContainer.height,
+                                paddingLeft: width * 0.05,
+                                paddingRight: width * 0.05,
+                                paddingTop: height * 0.05,
+                                paddingBottom: height * 0.05,
+                                height,
+                                width,
                             }}
-                            className="list-table-wrapper"
                         >
-                            <Typography variant="title" gutterBottom align="center">
-                                Messages
-                            </Typography>
-                            <Typography variant="title" gutterBottom align="center">
-                                [ERROR]: Cannot connect with the data provider
-                            </Typography>
+                            <div>
+                                <Typography variant="title" gutterBottom align="center">
+                                    Messages
+                                </Typography>
+                                <Typography variant="title" gutterBottom align="center">
+                                    [ERROR]: Cannot connect with the data provider
+                                </Typography>
+                            </div>
                         </div>
                     </Scrollbars>
                 </MuiThemeProvider>
@@ -422,24 +434,39 @@ class IsAnalyticsMessages extends Widget {
         }
         return (
             <MuiThemeProvider theme={theme}>
-                <Scrollbars style={{ height: this.state.height }}>
+                <Scrollbars style={{
+                    height,
+                    width,
+                }}>
                     <div
                         style={{
-                            width: this.props.glContainer.width,
-                            height: this.props.glContainer.height,
+                            paddingLeft: width * 0.05,
+                            paddingRight: width * 0.05,
+                            paddingTop: height * 0.05,
+                            paddingBottom: height * 0.05,
+                            height,
+                            width,
                         }}
-                        className="list-table-wrapper"
                     >
-                        <Typography variant="title" gutterBottom align="center">
-                            Messages
-                        </Typography>
-                        <VizG
-                            config={this.state.tableConfig}
-                            metadata={this.state.metadata}
-                            data={this.state.data}
-                            append={false}
-                            theme={this.props.muiTheme.name}
-                        />
+                        <div
+                            style={{
+                                height: height * 0.1,
+                                width: width * 0.9,
+                            }}
+                        >
+                            <Typography variant="title" gutterBottom align="center">
+                                Messages
+                            </Typography>
+                        </div>
+                        <div style={{ height: height * 0.8, width: width * 0.9 }}>
+                            <VizG
+                                config={this.state.tableConfig}
+                                metadata={this.state.metadata}
+                                data={this.state.data}
+                                append={false}
+                                theme={this.props.muiTheme.name}
+                            />
+                        </div>
                     </div>
                 </Scrollbars>
             </MuiThemeProvider>

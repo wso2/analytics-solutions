@@ -293,7 +293,11 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
                             }}
                         >
                             <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                                <Typography variant="title" gutterBottom>
+                                <Typography
+                                    variant="title"
+                                    gutterBottom
+                                    align="center"
+                                >
                                     Login Attempts Map
                                 </Typography>
                             </div>
@@ -319,7 +323,11 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
                         }}
                     >
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <Typography variant="title" gutterBottom>
+                            <Typography
+                                variant="title"
+                                gutterBottom
+                                align="center"
+                            >
                                 Login Attempts Map
                             </Typography>
                         </div>
