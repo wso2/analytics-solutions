@@ -16,7 +16,7 @@
  * under the License.
  */
 
-@App:name("IS_AUTHENTICATION_COMMON")
+@App:name("IS_ANALYTICS_AUTHENTICATION_COMMON")
 @App:description("Handle Event from IS and save data in a table for Overall Authentication")
 
 -- Read data from IS

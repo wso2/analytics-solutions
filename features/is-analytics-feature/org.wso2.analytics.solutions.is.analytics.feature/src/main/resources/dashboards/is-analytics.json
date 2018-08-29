@@ -20,14 +20,15 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 24.93765586034913,
+                "width": 100.0,
+                "height": 25,
                 "content": [
                   {
                     "title": "Date Time Range",
                     "type": "component",
                     "component": "DateRangePicker",
                     "props": {
-                      "id": "f0b6e053-7bcf-4300-953a-782a81d3d284",
+                      "id": "649fdf71-bd85-49a5-818f-5412ad1082fb",
                       "configs": {
                         "pubsub": {
                           "types": [
@@ -42,7 +43,9 @@
                         },
                         "isGenerated": false,
                         "options": {
-                          "defaultValue": "3 Months"
+                          "defaultValue": "3 Months",
+                          "availableGranularities": "From Second",
+                          "autoSyncInterval": "10"
                         }
                       },
                       "widgetID": "DateRangePicker"
@@ -59,13 +62,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 75.06234413965088,
+                "height": 75,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 75.06234413965088,
+                    "height": 75,
                     "width": 33.62199243135568,
                     "content": [
                       {
@@ -80,7 +83,7 @@
                                 "subscriber"
                               ],
                               "publishers": [
-                                "f0b6e053-7bcf-4300-953a-782a81d3d284"
+                                "649fdf71-bd85-49a5-818f-5412ad1082fb"
                               ]
                             },
                             "isGenerated": false,
@@ -116,7 +119,7 @@
                                 "subscriber"
                               ],
                               "publishers": [
-                                "f0b6e053-7bcf-4300-953a-782a81d3d284"
+                                "649fdf71-bd85-49a5-818f-5412ad1082fb"
                               ]
                             },
                             "isGenerated": false,
@@ -152,7 +155,7 @@
                                 "subscriber"
                               ],
                               "publishers": [
-                                "f0b6e053-7bcf-4300-953a-782a81d3d284"
+                                "649fdf71-bd85-49a5-818f-5412ad1082fb"
                               ]
                             },
                             "isGenerated": false,
@@ -190,21 +193,21 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 17.362299810355346,
+                "height": 16,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
+                    "height": 100.0,
                     "width": 50.0,
-                    "height": 16.64099743310581,
                     "content": [
                       {
                         "title": "Date Time Range",
                         "type": "component",
                         "component": "DateRangePicker",
                         "props": {
-                          "id": "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
+                          "id": "e5608400-6403-41e4-95f6-3a32ac1eb548",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -219,7 +222,9 @@
                             },
                             "isGenerated": false,
                             "options": {
-                              "defaultValue": "6 Months"
+                              "defaultValue": "3 Months",
+                              "availableGranularities": "From Second",
+                              "autoSyncInterval": "10"
                             }
                           },
                           "widgetID": "DateRangePicker"
@@ -255,8 +260,8 @@
                                 "body"
                               ],
                               "publishers": [
-                                "62c21368-4159-43e4-a581-b24869d764f5",
-                                "b732437c-b3ad-41e3-9388-7cf4adc6d811"
+                                "a527a6a8-bd45-494c-8891-8ba4b60ff45e",
+                                "fe11e836-69d2-462f-91bf-5594be96fbcd"
                               ]
                             },
                             "isGenerated": false,
@@ -280,13 +285,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 28.92041507535325,
+                "height": 30,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 35.47359914234055,
+                    "width": 34,
                     "content": [
                       {
                         "title": "Is Analytics Attempts Over Time",
@@ -301,8 +306,8 @@
                                 null
                               ],
                               "publishers": [
-                                "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
-                                "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                                "991fe684-de68-4bdb-915e-d66104ae2e3d",
+                                "e5608400-6403-41e4-95f6-3a32ac1eb548"
                               ]
                             },
                             "isGenerated": false,
@@ -324,7 +329,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 19.816169169338796,
+                    "width": 22,
                     "content": [
                       {
                         "title": "IS Analytics Compact Summary",
@@ -338,8 +343,8 @@
                                 "subscriber"
                               ],
                               "publishers": [
-                                "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
-                                "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                                "991fe684-de68-4bdb-915e-d66104ae2e3d",
+                                "e5608400-6403-41e4-95f6-3a32ac1eb548"
                               ]
                             },
                             "isGenerated": false,
@@ -361,7 +366,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 44.71023168832066,
+                    "width": 44,
                     "content": [
                       {
                         "title": "Is Analytics Login Attempts Map",
@@ -376,8 +381,8 @@
                                 null
                               ],
                               "publishers": [
-                                "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
-                                "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                                "991fe684-de68-4bdb-915e-d66104ae2e3d",
+                                "e5608400-6403-41e4-95f6-3a32ac1eb548"
                               ]
                             },
                             "isGenerated": false,
@@ -401,13 +406,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 33.653776857228515,
+                "height": 35,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 51.9753086419753,
+                    "width": 50,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -426,8 +431,8 @@
                                 "body"
                               ],
                               "publishers": [
-                                "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
-                                "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                                "991fe684-de68-4bdb-915e-d66104ae2e3d",
+                                "e5608400-6403-41e4-95f6-3a32ac1eb548"
                               ]
                             },
                             "isGenerated": false,
@@ -450,7 +455,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 48.0246913580247,
+                    "width": 50,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -469,8 +474,8 @@
                                 "body"
                               ],
                               "publishers": [
-                                "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
-                                "991fe684-de68-4bdb-915e-d66104ae2e3d"
+                                "991fe684-de68-4bdb-915e-d66104ae2e3d",
+                                "e5608400-6403-41e4-95f6-3a32ac1eb548"
                               ]
                             },
                             "isGenerated": false,
@@ -495,21 +500,21 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 20.063508257062896,
+                "height": 19,
                 "content": [
                   {
                     "title": "IS Analytics Messages",
                     "type": "component",
                     "component": "IsAnalyticsMessages",
                     "props": {
-                      "id": "402f8d1d-4392-4c34-8b63-7dc35e4c4996",
+                      "id": "c8f7984f-eb3f-4d06-8aae-1da4fdce1710",
                       "configs": {
                         "pubsub": {
                           "types": [
                             "subscriber"
                           ],
                           "publishers": [
-                            "fffb8a8b-bd74-4f9a-b960-4c8aaec68a0f",
+                            "e5608400-6403-41e4-95f6-3a32ac1eb548",
                             "991fe684-de68-4bdb-915e-d66104ae2e3d"
                           ]
                         },
@@ -546,13 +551,12 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 16.111828584800925,
+                "height": 16,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 16.111828584800925,
                     "width": 50.0,
                     "content": [
                       {
@@ -560,7 +564,7 @@
                         "type": "component",
                         "component": "DateRangePicker",
                         "props": {
-                          "id": "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
+                          "id": "5d4779d3-2097-4c37-9151-dede2072f103",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -575,7 +579,9 @@
                             },
                             "isGenerated": false,
                             "options": {
-                              "defaultValue": "6 Months"
+                              "defaultValue": "3 Months",
+                              "availableGranularities": "From Second",
+                              "autoSyncInterval": "10"
                             }
                           },
                           "widgetID": "DateRangePicker"
@@ -593,6 +599,7 @@
                     "isClosable": true,
                     "title": "",
                     "width": 50.0,
+                    "height": 16.111828584800925,
                     "content": [
                       {
                         "title": "IS Analytics User Preferences",
@@ -611,10 +618,10 @@
                                 "body"
                               ],
                               "publishers": [
-                                "da3c57ea-8c6a-49da-b22f-b469d033863a",
-                                "423a905e-9e5b-4e9a-b289-dcebedcf6ace",
-                                "7fb904c1-6e72-4df1-89af-0d6ccfc8e8e2",
-                                "6c936050-69fa-4a54-acb4-a16bffb8fe22"
+                                "700c4232-0908-4df1-aa04-b97694cafa9f",
+                                "f3d0b87b-d8b3-4e71-9642-9e2a99aa346a",
+                                "394ae9e2-dd46-4502-9871-58775a284288",
+                                "f493337f-f9e4-4ae4-a8a4-7027e286b7d9"
                               ]
                             },
                             "isGenerated": false,
@@ -638,13 +645,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 29.189337843292623,
+                "height": 30,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 33.74413126456802,
+                    "width": 34,
                     "content": [
                       {
                         "title": "Is Analytics Attempts Over Time",
@@ -659,8 +666,8 @@
                                 null
                               ],
                               "publishers": [
-                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
-                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70",
+                                "5d4779d3-2097-4c37-9151-dede2072f103"
                               ]
                             },
                             "isGenerated": false,
@@ -682,7 +689,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 22.59928057168317,
+                    "width": 22,
                     "content": [
                       {
                         "title": "IS Analytics Compact Summary",
@@ -696,8 +703,8 @@
                                 "subscriber"
                               ],
                               "publishers": [
-                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
-                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70",
+                                "5d4779d3-2097-4c37-9151-dede2072f103"
                               ]
                             },
                             "isGenerated": false,
@@ -719,7 +726,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 43.65658816374884,
+                    "width": 44,
                     "content": [
                       {
                         "title": "Is Analytics Login Attempts Map",
@@ -734,8 +741,8 @@
                                 null
                               ],
                               "publishers": [
-                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
-                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70",
+                                "5d4779d3-2097-4c37-9151-dede2072f103"
                               ]
                             },
                             "isGenerated": false,
@@ -759,13 +766,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 34.45092752372545,
+                "height": 35,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 24.712871130295074,
+                    "width": 25,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -784,8 +791,8 @@
                                 "body"
                               ],
                               "publishers": [
-                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
-                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70",
+                                "5d4779d3-2097-4c37-9151-dede2072f103"
                               ]
                             },
                             "isGenerated": false,
@@ -808,7 +815,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 24.412099161709257,
+                    "width": 25,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -827,8 +834,8 @@
                                 "body"
                               ],
                               "publishers": [
-                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
-                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70",
+                                "5d4779d3-2097-4c37-9151-dede2072f103"
                               ]
                             },
                             "isGenerated": false,
@@ -851,7 +858,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 24.846920266370745,
+                    "width": 25,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -870,8 +877,8 @@
                                 "body"
                               ],
                               "publishers": [
-                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
-                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70",
+                                "5d4779d3-2097-4c37-9151-dede2072f103"
                               ]
                             },
                             "isGenerated": false,
@@ -894,7 +901,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 26.028109441624917,
+                    "width": 25,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -913,8 +920,8 @@
                                 "body"
                               ],
                               "publishers": [
-                                "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
-                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                                "78d9b683-8e4f-4f76-9d24-ad81c7141f70",
+                                "5d4779d3-2097-4c37-9151-dede2072f103"
                               ]
                             },
                             "isGenerated": false,
@@ -939,7 +946,7 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 20.247906048181008,
+                "height": 19,
                 "content": [
                   {
                     "title": "IS Analytics Messages",
@@ -953,8 +960,8 @@
                             "subscriber"
                           ],
                           "publishers": [
-                            "4d5511ad-82f2-4e63-8e84-9336ab885b7d",
-                            "78d9b683-8e4f-4f76-9d24-ad81c7141f70"
+                            "78d9b683-8e4f-4f76-9d24-ad81c7141f70",
+                            "5d4779d3-2097-4c37-9151-dede2072f103"
                           ]
                         },
                         "isGenerated": false,
@@ -990,13 +997,12 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 16.092266851027624,
+                "height": 16,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 16.092266851027624,
                     "width": 50.0,
                     "content": [
                       {
@@ -1004,7 +1010,7 @@
                         "type": "component",
                         "component": "DateRangePicker",
                         "props": {
-                          "id": "1aa54392-3c12-4309-af0d-23f3388f8e51",
+                          "id": "165cefad-1f2a-4da6-a9ee-3617c41e781c",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -1019,7 +1025,9 @@
                             },
                             "isGenerated": false,
                             "options": {
-                              "defaultValue": "6 Months"
+                              "defaultValue": "3 Months",
+                              "availableGranularities": "From Second",
+                              "autoSyncInterval": "10"
                             }
                           },
                           "widgetID": "DateRangePicker"
@@ -1037,6 +1045,7 @@
                     "isClosable": true,
                     "title": "",
                     "width": 50.0,
+                    "height": 16.092266851027624,
                     "content": [
                       {
                         "title": "IS Analytics User Preferences",
@@ -1055,9 +1064,9 @@
                                 "body"
                               ],
                               "publishers": [
-                                "d11cd73e-2cc3-4bed-8f68-15c443f191fc",
-                                "7405eecf-96ea-400a-87fa-44d866fd85f4",
-                                "e691297b-c586-4518-b301-c5f753d5ba51"
+                                "e78f48bf-1da7-47ed-bd4c-d92b16eb8e32",
+                                "6a23daf1-965a-44dd-89b3-9df56e683ccb",
+                                "1b3b5322-d241-45b1-8509-4e930fd15fdd"
                               ]
                             },
                             "isGenerated": false,
@@ -1081,13 +1090,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 28.11413577169615,
+                "height": 30,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 35.58594397077199,
+                    "width": 34,
                     "content": [
                       {
                         "title": "Is Analytics Attempts Over Time",
@@ -1102,8 +1111,8 @@
                                 null
                               ],
                               "publishers": [
-                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
-                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22",
+                                "165cefad-1f2a-4da6-a9ee-3617c41e781c"
                               ]
                             },
                             "isGenerated": false,
@@ -1125,7 +1134,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 21.042123391413,
+                    "width": 22,
                     "content": [
                       {
                         "title": "IS Analytics Compact Summary",
@@ -1139,8 +1148,8 @@
                                 "subscriber"
                               ],
                               "publishers": [
-                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
-                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22",
+                                "165cefad-1f2a-4da6-a9ee-3617c41e781c"
                               ]
                             },
                             "isGenerated": false,
@@ -1162,7 +1171,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 43.37193263781498,
+                    "width": 44,
                     "content": [
                       {
                         "title": "Is Analytics Login Attempts Map",
@@ -1177,8 +1186,8 @@
                                 null
                               ],
                               "publishers": [
-                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
-                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22",
+                                "165cefad-1f2a-4da6-a9ee-3617c41e781c"
                               ]
                             },
                             "isGenerated": false,
@@ -1202,13 +1211,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 34.145287989267814,
+                "height": 35,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 31.57773326834375,
+                    "width": 33.333334,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -1227,8 +1236,8 @@
                                 "body"
                               ],
                               "publishers": [
-                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
-                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22",
+                                "165cefad-1f2a-4da6-a9ee-3617c41e781c"
                               ]
                             },
                             "isGenerated": false,
@@ -1251,7 +1260,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 34.85934084328928,
+                    "width": 33.333333,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -1270,8 +1279,8 @@
                                 "body"
                               ],
                               "publishers": [
-                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
-                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22",
+                                "165cefad-1f2a-4da6-a9ee-3617c41e781c"
                               ]
                             },
                             "isGenerated": false,
@@ -1294,7 +1303,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 33.562925888366976,
+                    "width": 33.333333,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -1313,8 +1322,8 @@
                                 "body"
                               ],
                               "publishers": [
-                                "1aa54392-3c12-4309-af0d-23f3388f8e51",
-                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                                "90cda862-33ba-4c3f-a08c-5b5e6df4ff22",
+                                "165cefad-1f2a-4da6-a9ee-3617c41e781c"
                               ]
                             },
                             "isGenerated": false,
@@ -1339,7 +1348,7 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 21.648309388008414,
+                "height": 19,
                 "content": [
                   {
                     "title": "IS Analytics Messages",
@@ -1353,8 +1362,8 @@
                             "subscriber"
                           ],
                           "publishers": [
-                            "1aa54392-3c12-4309-af0d-23f3388f8e51",
-                            "90cda862-33ba-4c3f-a08c-5b5e6df4ff22"
+                            "90cda862-33ba-4c3f-a08c-5b5e6df4ff22",
+                            "165cefad-1f2a-4da6-a9ee-3617c41e781c"
                           ]
                         },
                         "isGenerated": false,
@@ -1378,280 +1387,237 @@
         "height": "2044"
       },
       {
-        "id":"login_sessions",
-        "name":"Login Session",
-        "content":
-        [
+        "id": "login_sessions",
+        "name": "Login Session",
+        "content": [
           {
-            "type":"row",
-            "isClosable":true,
-            "title":"",
-            "content":
-            [
+            "type": "row",
+            "isClosable": true,
+            "title": "",
+            "content": [
               {
-                "type":"column",
-                "isClosable":true,
-                "title":"",
-                "width":50.0,
-                "content":
-                [
+                "type": "column",
+                "isClosable": true,
+                "title": "",
+                "width": 50.0,
+                "content": [
                   {
-                    "type":"stack",
-                    "isClosable":true,
-                    "title":"",
-                    "width":50.0,
-                    "height":33.333333333333336,
-                    "content":
-                    [
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 100.0,
+                    "height": 33.333333333333336,
+                    "content": [
                       {
-                        "title":"Date Time Range",
-                        "type":"component",
-                        "component":"DateRangePicker",
-                        "props":
-                        {
-                          "id":"c9ff785c-6c54-4606-a432-415dff431167",
-                          "configs":
-                          {
-                            "pubsub":
-                            {
-                              "types":
-                              [
+                        "title": "Date Time Range",
+                        "type": "component",
+                        "component": "DateRangePicker",
+                        "props": {
+                          "id": "e6a00212-b9ad-4ae8-81b5-f9d7a8a531fe",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
                                 "publisher"
                               ],
-                              "publisherWidgetOutputs":
-                              [
+                              "publisherWidgetOutputs": [
                                 "granularity",
                                 "from",
                                 "to"
                               ]
                             },
-                            "isGenerated":false,
-                            "options":
-                            {
-                              "defaultValue":"3 Months"
+                            "isGenerated": false,
+                            "options": {
+                              "defaultValue": "3 Months",
+                              "availableGranularities": "From Second",
+                              "autoSyncInterval": "10"
                             }
                           },
-                          "widgetID":"DateRangePicker"
+                          "widgetID": "DateRangePicker"
                         },
-                        "isClosable":false,
-                        "header":
-                        {
-                          "show":true
+                        "isClosable": false,
+                        "header": {
+                          "show": true
                         },
-                        "componentName":"lm-react-component"
+                        "componentName": "lm-react-component"
                       }
                     ]
                   },
                   {
-                    "type":"stack",
-                    "isClosable":true,
-                    "title":"",
-                    "height":33.333333333333336,
-                    "content":
-                    [
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 33.333333333333336,
+                    "content": [
                       {
-                        "title":"IsAnalyticsTopLongestSession",
-                        "type":"component",
-                        "component":"IsAnalyticsTopLongestSession",
-                        "props":
-                        {
-                          "id":"04ea85a8-5ecd-45fa-ae97-e7ac257d3d7b",
-                          "configs":
-                          {
-                            "pubsub":
-                            {
-                              "types":
-                              [
+                        "title": "IsAnalyticsTopLongestSession",
+                        "type": "component",
+                        "component": "IsAnalyticsTopLongestSession",
+                        "props": {
+                          "id": "04ea85a8-5ecd-45fa-ae97-e7ac257d3d7b",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
                                 "subscriber"
                               ],
-                              "publishers":
-                              [
-                                "c9ff785c-6c54-4606-a432-415dff431167"
+                              "publishers": [
+                                "e6a00212-b9ad-4ae8-81b5-f9d7a8a531fe"
                               ]
                             },
-                            "isGenerated":false,
+                            "isGenerated": false,
                             "options": {}
                           },
-                          "widgetID":"IsAnalyticsTopLongestSession"
+                          "widgetID": "IsAnalyticsTopLongestSession"
                         },
-                        "isClosable":false,
-                        "header":
-                        {
-                          "show":true
+                        "isClosable": false,
+                        "header": {
+                          "show": true
                         },
-                        "componentName":"lm-react-component"
+                        "componentName": "lm-react-component"
                       }
                     ]
                   },
                   {
-                    "type":"stack",
-                    "isClosable":true,
-                    "title":"",
-                    "height":33.333333333333336,
-                    "content":
-                    [
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 33.333333333333336,
+                    "content": [
                       {
-                        "title":"IsAnalyticsSessionCountOverTime",
-                        "type":"component",
-                        "component":"IsAnalyticsSessionCountOverTime",
-                        "props":
-                        {
-                          "id":"7e7f0e71-8b91-4960-9d55-96fcc7a24936",
-                          "configs":
-                          {
-                            "pubsub":
-                            {
-                              "types":
-                              [
+                        "title": "IsAnalyticsSessionCountOverTime",
+                        "type": "component",
+                        "component": "IsAnalyticsSessionCountOverTime",
+                        "props": {
+                          "id": "7e7f0e71-8b91-4960-9d55-96fcc7a24936",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
                                 "subscriber"
                               ],
-                              "publishers":
-                              [
-                                "c9ff785c-6c54-4606-a432-415dff431167"
+                              "publishers": [
+                                "e6a00212-b9ad-4ae8-81b5-f9d7a8a531fe"
                               ]
                             },
-                            "isGenerated":false,
+                            "isGenerated": false,
                             "options": {}
                           },
-                          "widgetID":"IsAnalyticsSessionCountOverTime"
+                          "widgetID": "IsAnalyticsSessionCountOverTime"
                         },
-                        "isClosable":false,
-                        "header":
-                        {
-                          "show":true
+                        "isClosable": false,
+                        "header": {
+                          "show": true
                         },
-                        "componentName":"lm-react-component"
+                        "componentName": "lm-react-component"
                       }
                     ]
                   }
                 ]
               },
               {
-                "type":"column",
-                "isClosable":true,
-                "title":"",
-                "width":50.0,
-                "content":
-                [
+                "type": "column",
+                "isClosable": true,
+                "title": "",
+                "width": 50.0,
+                "content": [
                   {
-                    "type":"stack",
-                    "isClosable":true,
-                    "title":"",
-                    "width":50.0,
-                    "height":50.0,
-                    "content":
-                    [
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "height": 50.0,
+                    "content": [
                       {
-                        "title":"IsAnalyticsAverageSessionDuration",
-                        "type":"component",
-                        "component":"IsAnalyticsAverageSessionDuration",
-                        "props":
-                        {
-                          "id":"324db59b-5c32-49f0-b38c-8cf5af8ee358",
-                          "configs":
-                          {
-                            "pubsub":
-                            {
-                              "types":
-                              [
+                        "title": "IsAnalyticsAverageSessionDuration",
+                        "type": "component",
+                        "component": "IsAnalyticsAverageSessionDuration",
+                        "props": {
+                          "id": "324db59b-5c32-49f0-b38c-8cf5af8ee358",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
                                 "subscriber"
                               ],
-                              "publishers":
-                              [
-                                "c9ff785c-6c54-4606-a432-415dff431167"
+                              "publishers": [
+                                "e6a00212-b9ad-4ae8-81b5-f9d7a8a531fe"
                               ]
                             },
-                            "isGenerated":false,
-                            "options":{}
+                            "isGenerated": false,
+                            "options": {}
                           },
-                          "widgetID":"IsAnalyticsAverageSessionDuration"
+                          "widgetID": "IsAnalyticsAverageSessionDuration"
                         },
-                        "isClosable":false,
-                        "header":
-                        {
-                          "show":true
+                        "isClosable": false,
+                        "header": {
+                          "show": true
                         },
-                        "componentName":"lm-react-component"
+                        "componentName": "lm-react-component"
                       }
                     ]
                   },
                   {
-                    "type":"stack",
-                    "isClosable":true,
-                    "title":"",
-                    "height":25.0,
-                    "content":
-                    [
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 25.0,
+                    "content": [
                       {
-                        "title":"IsAnalyticsSessionCount",
-                        "type":"component",
-                        "component":"IsAnalyticsSessionCount",
-                        "props":
-                        {
-                          "id":"7f7e2d41-ceff-41a3-894c-518fd6fe0619",
-                          "configs":
-                          {
-                            "pubsub":
-                            {
-                              "types":
-                              [
+                        "title": "IsAnalyticsSessionCount",
+                        "type": "component",
+                        "component": "IsAnalyticsSessionCount",
+                        "props": {
+                          "id": "7f7e2d41-ceff-41a3-894c-518fd6fe0619",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
                                 "subscriber"
                               ],
-                              "publishers":
-                              [
-                                "c9ff785c-6c54-4606-a432-415dff431167"
+                              "publishers": [
+                                "e6a00212-b9ad-4ae8-81b5-f9d7a8a531fe"
                               ]
                             },
-                            "isGenerated":false,"options":{}
+                            "isGenerated": false,
+                            "options": {}
                           },
-                          "widgetID":"IsAnalyticsSessionCount"
+                          "widgetID": "IsAnalyticsSessionCount"
                         },
-                        "isClosable":false,
-                        "header":
-                        {
-                          "show":true
+                        "isClosable": false,
+                        "header": {
+                          "show": true
                         },
-                        "componentName":"lm-react-component"
+                        "componentName": "lm-react-component"
                       }
                     ]
                   },
                   {
-                    "type":"stack",
-                    "isClosable":true,
-                    "title":"",
-                    "height":25.0,
-                    "content":
-                    [
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 25.0,
+                    "content": [
                       {
-                        "title":"IsAnalyticsSessionMessages",
-                        "type":"component",
-                        "component":"IsAnalyticsSessionMessages",
-                        "props":
-                        {
-                          "id":"b83cb673-236c-44ea-9efa-fb12325393c7",
-                          "configs":
-                          {
-                            "pubsub":
-                            {
-                              "types":
-                              [
+                        "title": "IsAnalyticsSessionMessages",
+                        "type": "component",
+                        "component": "IsAnalyticsSessionMessages",
+                        "props": {
+                          "id": "b83cb673-236c-44ea-9efa-fb12325393c7",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
                                 "subscriber"
                               ],
-                              "publishers":
-                              [
-                                "c9ff785c-6c54-4606-a432-415dff431167"
+                              "publishers": [
+                                "e6a00212-b9ad-4ae8-81b5-f9d7a8a531fe"
                               ]
                             },
-                            "isGenerated":false,"options":{}
+                            "isGenerated": false,
+                            "options": {}
                           },
-                          "widgetID":"IsAnalyticsSessionMessages"
+                          "widgetID": "IsAnalyticsSessionMessages"
                         },
-                        "isClosable":false,
-                        "header":
-                        {
-                          "show":true
+                        "isClosable": false,
+                        "header": {
+                          "show": true
                         },
-                        "componentName":"lm-react-component"
+                        "componentName": "lm-react-component"
                       }
                     ]
                   }
@@ -1669,19 +1635,19 @@
   "widgets": {
     "generated": [],
     "custom": [
-      "IsAnalyticsUserPreferences",
-      "DateRangePicker",
       "IsAnalyticsAttemptsOverTime",
-      "IsAnalyticsSummary",
       "IsAnalyticsLoginAttemptsMap",
-      "IsAnalyticsCompactSummary",
       "IsAnalyticsMessages",
-      "IsAnalyticsAttemptsByType",
       "IsAnalyticsAverageSessionDuration",
       "IsAnalyticsTopLongestSession",
+      "IsAnalyticsSessionCountOverTime",
+      "IsAnalyticsUserPreferences",
+      "DateRangePicker",
+      "IsAnalyticsSummary",
+      "IsAnalyticsCompactSummary",
       "IsAnalyticsSessionMessages",
-      "IsAnalyticsSessionCount",
-      "IsAnalyticsSessionCountOverTime"
+      "IsAnalyticsAttemptsByType",
+      "IsAnalyticsSessionCount"
     ]
   }
 }
