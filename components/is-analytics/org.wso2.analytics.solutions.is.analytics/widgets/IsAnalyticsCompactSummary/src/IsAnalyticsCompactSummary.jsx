@@ -34,10 +34,10 @@ const pieChartMetadata = {
 
 const numChartMetadata = {
     names: [
-        'totalLoginAttempts'
+        'totalLoginAttempts',
     ],
     types: [
-        'linear'
+        'linear',
     ],
 };
 
@@ -63,7 +63,7 @@ const numChartConfig = {
     title: 'Total Login Attempts',
     charts: [
         {
-            type: 'number'
+            type: 'number',
         },
     ],
     showDifference: false,
@@ -98,10 +98,9 @@ class IsAnalyticsCompactSummary extends Widget {
         this.onReceivingMessage = this.onReceivingMessage.bind(this);
 
         this.props.glContainer.on('resize', () => this.setState({
-                width: this.props.glContainer.width,
-                height: this.props.glContainer.height,
-            }),
-        );
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height,
+        }));
     }
 
     componentDidMount() {
@@ -122,9 +121,9 @@ class IsAnalyticsCompactSummary extends Widget {
     handleDataReceived(message) {
         const totalAttempts = message.data[0][0] + message.data[0][1];
 
-        const successPercentage = parseFloat(parseInt(message.data[0][1]) * 100 / totalAttempts)
+        const successPercentage = parseFloat(parseInt(message.data[0][1], 10) * 100 / totalAttempts)
             .toFixed(2);
-        const failurePercentage = parseFloat(parseInt(message.data[0][0]) * 100 / totalAttempts)
+        const failurePercentage = parseFloat(parseInt(message.data[0][0], 10) * 100 / totalAttempts)
             .toFixed(2);
 
         this.setState({
@@ -192,23 +191,23 @@ class IsAnalyticsCompactSummary extends Widget {
     assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
-        let query = dataProviderConfigs.configs.config.queryData.query;
+        let { query } = dataProviderConfigs.configs.config.queryData;
         let filterCondition = ' ';
         let doAdditionalFilter = false;
 
         if (this.state.additionalFilterConditions !== undefined) {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
-            for (let key in additionalFilterConditionsClone) {
+            for (const key in additionalFilterConditionsClone) {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
-                        filterCondition = filterCondition +
-                            " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
+                        filterCondition = filterCondition
+                            + " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
                     } else if (key === 'isFirstLogin') {
                         filterCondition = filterCondition
-                            + " and " + key + '==' + additionalFilterConditionsClone[key] + ' ';
+                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                     } else {
                         filterCondition = filterCondition
-                            + " and " + key + "==\'" + additionalFilterConditionsClone[key] + "\' ";
+                            + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
                     }
                 }
             }
@@ -239,8 +238,8 @@ class IsAnalyticsCompactSummary extends Widget {
     }
 
     render() {
-        const height = this.state.height;
-        const width = this.state.width;
+        const { height } = this.state;
+        const { width } = this.state;
 
         if (this.state.faultyProviderConf) {
             return (
@@ -255,7 +254,7 @@ class IsAnalyticsCompactSummary extends Widget {
         }
         return (
             <MuiThemeProvider theme={this.props.muiTheme}>
-                <div style={{ height: height, width}}>
+                <div style={{ height, width }}>
                     <div style={{ height: height * 0.45 }}>
                         <VizG
                             config={numChartConfig}
@@ -266,24 +265,38 @@ class IsAnalyticsCompactSummary extends Widget {
                     </div>
                     {
                         (this.state.totalAttempts !== 0)
-                        && <div style={{ padding: 24, height: height * 0.55 }}>
-                            <div style={{ height: height * 0.05, width: width * 0.9, 'text-align':'center'}}>
-                                <Typography variant="body1" gutterBottom align="center" style={{color: colorGreen}}>
-                                    Success:{this.state.successPercentage}
-                                </Typography>
-                                <Typography variant="body1" gutterBottom align="center" style={{color: colorGreen}}>
-                                    Failure:{this.state.failurePercentage}
-                                </Typography>
+                        && (
+                            <div style={{ padding: 24, height: height * 0.55 }}>
+                                <div style={{ height: height * 0.05, width: width * 0.9, 'text-align': 'center' }}>
+                                    <Typography
+                                        variant="body1"
+                                        gutterBottom
+                                        align="center"
+                                        style={{ color: colorGreen }}
+                                    >
+                                    Success:
+                                        {this.state.successPercentage}
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        gutterBottom
+                                        align="center"
+                                        style={{ color: colorGreen }}
+                                    >
+                                    Failure:
+                                        {this.state.failurePercentage}
+                                    </Typography>
+                                </div>
+                                <div style={{ height: height * 0.5, width: width * 0.9 }}>
+                                    <VizG
+                                        config={this.state.pieChartConfig}
+                                        metadata={this.state.pieChartMetadata}
+                                        data={this.state.pieChartData}
+                                        theme={this.props.muiTheme.name}
+                                    />
+                                </div>
                             </div>
-                            <div style={{ height: height * 0.5, width: width * 0.9 }}>
-                                <VizG
-                                    config={this.state.pieChartConfig}
-                                    metadata={this.state.pieChartMetadata}
-                                    data={this.state.pieChartData}
-                                    theme={this.props.muiTheme.name}
-                                />
-                            </div>
-                        </div>
+                        )
                     }
                 </div>
             </MuiThemeProvider>

@@ -20,7 +20,7 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
-import {MuiThemeProvider} from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import _ from 'lodash';
 import Typography from '@material-ui/core/Typography';
 
@@ -74,10 +74,9 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         this.assembleQuery = this.assembleQuery.bind(this);
 
         this.props.glContainer.on('resize', () => this.setState({
-                width: this.props.glContainer.width,
-                height: this.props.glContainer.height,
-            }),
-        );
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height,
+        }));
     }
 
     componentDidMount() {
@@ -125,23 +124,23 @@ class IsAnalyticsAttemptsOverTime extends Widget {
     assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
-        let query = dataProviderConfigs.configs.config.queryData.query;
+        let { query } = dataProviderConfigs.configs.config.queryData;
         let filterCondition = ' ';
         let doAdditionalFilter = false;
 
         if (this.state.additionalFilterConditions !== undefined) {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
-            for (let key in additionalFilterConditionsClone) {
+            for (const key in additionalFilterConditionsClone) {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
-                        filterCondition = filterCondition +
-                            " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
+                        filterCondition = filterCondition
+                            + " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
                     } else if (key === 'isFirstLogin') {
                         filterCondition = filterCondition
-                            + " and " + key + '==' + additionalFilterConditionsClone[key] + ' ';
+                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                     } else {
                         filterCondition = filterCondition
-                            + " and " + key + "==\'" + additionalFilterConditionsClone[key] + "\' ";
+                            + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
                     }
                 }
             }
@@ -150,14 +149,14 @@ class IsAnalyticsAttemptsOverTime extends Widget {
 
         if (this.state.options.widgetType === 'Local') {
             query = dataProviderConfigs.configs.config.queryData.queryLocal;
-        } else if (this.state.options.widgetType === "Federated") {
+        } else if (this.state.options.widgetType === 'Federated') {
             query = dataProviderConfigs.configs.config.queryData.queryFederated;
         }
 
         query = query
-            .replace("{{per}}", this.state.per)
-            .replace("{{from}}", this.state.fromDate)
-            .replace("{{to}}", this.state.toDate);
+            .replace('{{per}}', this.state.per)
+            .replace('{{from}}', this.state.fromDate)
+            .replace('{{to}}', this.state.toDate);
 
         if (doAdditionalFilter) {
             query = query.replace('{{filterCondition}}', filterCondition);
@@ -179,7 +178,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         if (this.state.isProviderConfigFault) {
             return (
                 <MuiThemeProvider theme={this.props.muiTheme}>
-                    <div style={{height: this.state.height}}>
+                    <div style={{ height: this.state.height }}>
                         <Typography variant="title" gutterBottom align="center">
                             Login Attempts Over Time
                         </Typography>
@@ -189,16 +188,16 @@ class IsAnalyticsAttemptsOverTime extends Widget {
                     </div>
                 </MuiThemeProvider>
             );
-        } 
+        }
         return (
             <MuiThemeProvider theme={this.props.muiTheme}>
-                <div style={{height: this.state.height}}>
-                    <div style={{height: this.state.height * 0.1}}>
+                <div style={{ height: this.state.height }}>
+                    <div style={{ height: this.state.height * 0.1 }}>
                         <Typography variant="title" gutterBottom align="center">
                             Login Attempts Over Time
                         </Typography>
                     </div>
-                    <div style={{height: this.state.height * 0.9}}>
+                    <div style={{ height: this.state.height * 0.9 }}>
                         <VizG
                             config={this.state.chartConfig}
                             metadata={this.state.metadata}

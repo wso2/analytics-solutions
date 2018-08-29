@@ -20,24 +20,29 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import _ from 'lodash';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const widgetTexts = {
     Overall: {
-        bodyText: 'Analyze overall login attempts made via WSO2 Identity Server. This includes information about overall flows of authentication took place through Identity Server. A collection of authentication steps is considered as an overall attempt',
+        bodyText: 'Analyze overall login attempts made via WSO2 Identity Server. '
+        + 'This includes information about overall flows of authentication took place through Identity Server.'
+        + 'A collection of authentication steps is considered as an overall attempt',
         heading: 'Overall Login Attempts',
-        seeMoreLink: window.location.href + '/../overall',
+        seeMoreLink: window.location.href.split('?')[0] + '/../overall',
     },
     Local: {
-        bodyText: 'Analyze local login attempts made via WSO2 Identity Server. Local login attempts include all login attempts which are done through resident IDP. These statistics will give an idea on the involvement of resident IDP in an authentication flow.',
+        bodyText: 'Analyze local login attempts made via WSO2 Identity Server. '
+        + 'Local login attempts include all login attempts which are done through resident IDP.'
+        + 'These statistics will give an idea on the involvement of resident IDP in an authentication flow.',
         heading: 'Local Login Attempts',
         seeMoreLink: window.location.href + '/../local',
     },
     Federated: {
-        bodyText: 'Analyze federated login attempts made via WSO2 Identity Server. This will give an idea about the authentication steps took place via federated identity providers.',
+        bodyText: 'Analyze federated login attempts made via WSO2 Identity Server.'
+        + 'This will give an idea about the authentication steps took place via federated identity providers.',
         heading: 'Federated Login Attempts',
         seeMoreLink: window.location.href + '/../federated',
     },
@@ -46,16 +51,16 @@ const widgetTexts = {
 const colorGreen = '#6ED460';
 const colorRed = '#EC5D40';
 
-let darkTheme = createMuiTheme({
+const darkTheme = createMuiTheme({
     palette: {
         type: 'dark',
-    }
+    },
 });
 
-let lightTheme = createMuiTheme({
+const lightTheme = createMuiTheme({
     palette: {
         type: 'light',
-    }
+    },
 });
 
 const pieChartMetadata = {
@@ -90,7 +95,7 @@ const numChartConfig = {
     title: 'Total Login Attempts',
     charts: [
         {
-            'type': 'number'
+            type: 'number',
         },
     ],
     showDifference: false,
@@ -123,10 +128,9 @@ class IsAnalyticsSummary extends Widget {
         this.onReceivingMessage = this.onReceivingMessage.bind(this);
 
         this.props.glContainer.on('resize', () => this.setState({
-                width: this.props.glContainer.width,
-                height: this.props.glContainer.height,
-            }),
-        );
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height,
+        }));
     }
 
     componentDidMount() {
@@ -145,14 +149,15 @@ class IsAnalyticsSummary extends Widget {
     }
 
     componentWillUnmount() {
-        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+        super.getWidgetChannelManager()
+            .unsubscribeWidget(this.props.id);
     }
 
     handleReceivedData(message) {
-        const totalAttempts = parseInt(message.data[0][0]) + parseInt(message.data[0][1]);
-        const successPercentage = parseFloat(parseInt(message.data[0][1]) * 100 / totalAttempts)
+        const totalAttempts = parseInt(message.data[0][0], 10) + parseInt(message.data[0][1], 10);
+        const successPercentage = parseFloat(parseInt(message.data[0][1], 10) * 100 / totalAttempts)
             .toFixed(2);
-        const failurePercentage = parseFloat(parseInt(message.data[0][1]) * 100 / totalAttempts)
+        const failurePercentage = parseFloat(parseInt(message.data[0][1], 10) * 100 / totalAttempts)
             .toFixed(2);
 
         this.setState({
@@ -195,9 +200,10 @@ class IsAnalyticsSummary extends Widget {
     }
 
     assembleQuery() {
-        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+        super.getWidgetChannelManager()
+            .unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
-        let query = dataProviderConfigs.configs.config.queryData.query;
+        let { query } = dataProviderConfigs.configs.config.queryData;
 
         if (this.state.options.widgetType === 'Local') {
             query = dataProviderConfigs.configs.config.queryData.queryLocal;
@@ -210,23 +216,31 @@ class IsAnalyticsSummary extends Widget {
             .replace('{{to}}', this.state.toDate);
 
         dataProviderConfigs.configs.config.queryData.query = query;
-        super.getWidgetChannelManager().subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfigs);
+        super.getWidgetChannelManager()
+            .subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfigs);
     }
 
     render() {
-        const height = this.state.height;
-        const width = this.state.width;
-        const padding = this.state.width * 0.05;
+        const { height } = this.state;
+        const { width } = this.state;
         let theme = darkTheme;
 
-        if (this.props.muiTheme.appBar.color === "#eeeeee") {
+        if (this.props.muiTheme.appBar.color === '#eeeeee') {
             theme = lightTheme;
         }
 
         if (this.state.isProviderConfigFault) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div style={{padding: padding, height, width}}>
+                    <div style={{
+                        paddingLeft: width * 0.05,
+                        paddingRight: width * 0.05,
+                        paddingTop: height * 0.05,
+                        paddingBottom: height * 0.05,
+                        height,
+                        width,
+                    }}
+                    >
                         <Typography variant="title" gutterBottom align="center">
                             {this.state.widgetTexts.heading}
                         </Typography>
@@ -239,19 +253,38 @@ class IsAnalyticsSummary extends Widget {
         }
         return (
             <MuiThemeProvider theme={theme}>
-                <div style={{paddingLeft: padding, paddingRight: padding, height, width}}>
-
-                    <div style={{height: this.state.height * 0.05}}>
+                <div style={{
+                    paddingLeft: width * 0.05,
+                    paddingRight: width * 0.05,
+                    paddingTop: height * 0.05,
+                    paddingBottom: height * 0.05,
+                    height,
+                    width,
+                }}
+                >
+                    <div style={{
+                        height: height * 0.05,
+                        width: width * 0.9,
+                    }}
+                    >
                         <Typography variant="title" gutterBottom align="center">
                             {this.state.widgetTexts.heading}
                         </Typography>
                     </div>
-                    <div style={{height: height * 0.10, width: width * 0.9}}>
+                    <div style={{
+                        height: height * 0.1,
+                        width: width * 0.9,
+                    }}
+                    >
                         <Typography variant="body1" gutterBottom align="center">
                             {this.state.widgetTexts.bodyText}
                         </Typography>
                     </div>
-                    <div style={{height: height * 0.25, width: width * 0.9}}>
+                    <div style={{
+                        height: height * 0.25,
+                        width: width * 0.9,
+                    }}
+                    >
                         <VizG
                             config={numChartConfig}
                             metadata={this.state.numChartMetadata}
@@ -259,34 +292,70 @@ class IsAnalyticsSummary extends Widget {
                             theme={this.props.muiTheme.name}
                         />
                     </div>
-                    <div style={{height: height * 0.25, width: width * 0.9}}>
+                    <div style={{
+                        height: height * 0.25,
+                        width: width * 0.9,
+                    }}
+                    >
                         {
                             this.state.totalAttempts > 0
-                            &&
-                            <div>
-                                <div style={{height: height * 0.05, width: width * 0.9, 'text-align': 'center'}}>
-                                    <Typography variant="body1" gutterBottom align="center" style={{color: colorGreen}}>
-                                        Success:{this.state.successPercentage}
-                                    </Typography>
-                                    <Typography variant="body1" gutterBottom align="center" style={{color: colorGreen}}>
-                                        Failure:{this.state.failurePercentage}
-                                    </Typography>
+                            && (
+                                <div>
+                                    <div style={{
+                                        height: height * 0.05,
+                                        width: width * 0.9,
+                                        'text-align': 'center',
+                                    }}
+                                    >
+                                        <Typography
+                                            variant="body1"
+                                            gutterBottom
+                                            align="center"
+                                            style={{ color: colorGreen }}
+                                        >
+                                            Success:
+                                            {this.state.successPercentage}
+                                        </Typography>
+                                        <Typography
+                                            variant="body1"
+                                            gutterBottom
+                                            align="center"
+                                            style={{ color: colorGreen }}
+                                        >
+                                            Failure:
+                                            {this.state.failurePercentage}
+                                        </Typography>
+                                    </div>
+                                    <div
+                                        style={{
+                                            height: height * 0.2,
+                                            width: width * 0.9,
+                                        }}
+                                    >
+                                        <VizG
+                                            config={this.state.pieChartConfig}
+                                            metadata={this.state.pieChartMetadata}
+                                            data={this.state.pieChartData}
+                                            theme={this.props.muiTheme.name}
+                                        />
+                                    </div>
                                 </div>
-                                <div style={{height: height * 0.2, width: width * 0.9}}>
-                                    <VizG
-                                        config={this.state.pieChartConfig}
-                                        metadata={this.state.pieChartMetadata}
-                                        data={this.state.pieChartData}
-                                        theme={this.props.muiTheme.name}
-                                    />
-                                </div>
-                            </div>
+                            )
                         }
                     </div>
-                    <div style={{height: height * 0.1, width: width * 0.9}}>
+                    <div style={{
+                        height: height * 0.1,
+                        width: width * 0.9,
+                    }}
+                    >
                         <a href={this.state.widgetTexts.seeMoreLink}>
-                            <Button color="primary" variant="contained" component="span">
-                                See More >>
+                            <Button color="primary" variant="outlined" component="span">
+                                <Typography
+                                    variant="button"
+                                    gutterBottom
+                                >
+                                    See More >>
+                                </Typography>
                             </Button>
                         </a>
                     </div>

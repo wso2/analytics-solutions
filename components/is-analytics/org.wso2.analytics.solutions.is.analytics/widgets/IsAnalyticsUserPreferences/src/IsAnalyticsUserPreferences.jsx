@@ -1,3 +1,4 @@
+/* eslint-disable react/no-access-state-in-setstate,array-callback-return,consistent-return */
 /*
  *  Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
@@ -18,63 +19,63 @@
  */
 
 import React from 'react';
-import Widget from "@wso2-dashboards/widget";
+import Widget from '@wso2-dashboards/widget';
 import Button from '@material-ui/core/Button';
-import TextField from "@material-ui/core/TextField";
+import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import _ from 'lodash';
 import JssProvider from 'react-jss/lib/JssProvider';
 import Typography from '@material-ui/core/Typography';
 
-let darkTheme = createMuiTheme({
+const darkTheme = createMuiTheme({
     palette: {
         type: 'dark',
-    }
+    },
 });
 
-let lightTheme = createMuiTheme({
+const lightTheme = createMuiTheme({
     palette: {
         type: 'light',
-    }
+    },
 });
 
-let inputFields = [
+const inputFields = [
     {
-        name: "serviceProvider",
-        label: "Service Provider",
+        name: 'serviceProvider',
+        label: 'Service Provider',
         doDisplay: true,
     },
     {
-        name: "userStoreDomain",
-        label: "User Store Domain",
+        name: 'userStoreDomain',
+        label: 'User Store Domain',
         doDisplay: true,
     },
     {
-        name: "role",
-        label: "Role",
+        name: 'role',
+        label: 'Role',
         doDisplay: true,
     },
     {
-        name: "identityProvider",
-        label: "Identity Provider",
+        name: 'identityProvider',
+        label: 'Identity Provider',
         doDisplay: true,
     },
     {
-        name: "username",
-        label: "Username",
+        name: 'username',
+        label: 'Username',
         doDisplay: true,
     },
 ];
 
-const messageHeader = "additionalFilterConditions";
+const messageHeader = 'additionalFilterConditions';
 
-let filterConditions = {
-    serviceProvider: "",
-    userStoreDomain: "",
-    role: "",
-    identityProvider: "",
-    username: "",
+const filterConditions = {
+    serviceProvider: '',
+    userStoreDomain: '',
+    role: '',
+    identityProvider: '',
+    username: '',
 };
 
 // This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
@@ -82,6 +83,7 @@ let filterConditions = {
 const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
 
+// eslint-disable-next-line import/prefer-default-export
 export const generateClassName = (rule, styleSheet) => {
     classCounter += 1;
 
@@ -114,11 +116,11 @@ class IsAnalyticsUserPreferences extends Widget {
 
             faultyProviderConf: false,
             options: this.props.configs.options,
-            filterValue: "",
-            inputFields: inputFields,
-            filterConditions: filterConditions,
+            filterValue: '',
+            inputFields,
+            filterConditions,
             byFirstLogins: false,
-            isPublished: true
+            isPublished: true,
         };
 
         this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
@@ -127,12 +129,10 @@ class IsAnalyticsUserPreferences extends Widget {
         this.handleRadioButtonChange = this.handleRadioButtonChange.bind(this);
         this.onReceivingMessage = this.onReceivingMessage.bind(this);
 
-        this.props.glContainer.on('resize', () =>
-            this.setState({
-                width: this.props.glContainer.width,
-                height: this.props.glContainer.height,
-            })
-        );
+        this.props.glContainer.on('resize', () => this.setState({
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height,
+        }));
     }
 
     componentDidMount() {
@@ -140,26 +140,26 @@ class IsAnalyticsUserPreferences extends Widget {
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
-                    dataProviderConf: message.data.configs.providerConfig
+                    dataProviderConf: message.data.configs.providerConfig,
                 });
             })
             .catch(() => {
                 this.setState({
-                    faultyProviderConf: true
+                    faultyProviderConf: true,
                 });
             });
 
-        let inputFieldsClone = _.cloneDeep(inputFields);
+        const inputFieldsClone = _.cloneDeep(inputFields);
 
         switch (this.state.options.widgetType) {
-            case ("Local"):
+            case ('Local'):
                 inputFieldsClone[3].doDisplay = false;
                 break;
-            case ("Federated"):
+            case ('Federated'):
                 inputFieldsClone[1].doDisplay = false;
                 inputFieldsClone[2].doDisplay = false;
                 break;
-            case ("Overall"):
+            default:
                 inputFieldsClone[1].doDisplay = false;
                 inputFieldsClone[2].doDisplay = false;
                 inputFieldsClone[3].doDisplay = false;
@@ -168,11 +168,11 @@ class IsAnalyticsUserPreferences extends Widget {
 
         this.setState({
             inputFields: inputFieldsClone,
-        })
+        });
     }
 
     handleTextFieldChange(event, fieldName) {
-        let filterConditionClone = _.cloneDeep(this.state.filterConditions);
+        const filterConditionClone = _.cloneDeep(this.state.filterConditions);
 
         filterConditionClone[fieldName] = event.target.value;
         this.setState({
@@ -182,68 +182,68 @@ class IsAnalyticsUserPreferences extends Widget {
     }
 
     handleRadioButtonChange(event) {
-        let filterConditionClone = _.cloneDeep(this.state.filterConditions);
+        const filterConditionClone = _.cloneDeep(this.state.filterConditions);
 
-        if (event.target.value === "byFirstLogins" && !this.state.byFirstLogins) {
+        if (event.target.value === 'byFirstLogins' && !this.state.byFirstLogins) {
             filterConditionClone.isFirstLogin = true;
             this.setState({
                 filterConditions: filterConditionClone,
                 byFirstLogins: true,
                 isPublished: false,
-            })
-        } else if (event.target.value === "byAll" && this.state.byFirstLogins) {
+            });
+        } else if (event.target.value === 'byAll' && this.state.byFirstLogins) {
             filterConditionClone.isFirstLogin = undefined;
             this.setState({
                 filterConditions: filterConditionClone,
                 byFirstLogins: false,
                 isPublished: false,
-            })
+            });
         }
     }
 
     publishFilterConditions() {
         if (!this.state.isPublished) {
-            let message = {
+            const message = {
                 header: messageHeader,
                 body: this.state.filterConditions,
             };
             super.publish(message);
 
             this.setState({
-                isPublished: true
-            })
+                isPublished: true,
+            });
         }
     }
 
     clearFilterConditions() {
-        let message = {
+        const message = {
             header: messageHeader,
-            body: "",
+            body: '',
         };
 
         this.setState({
-            filterConditions: filterConditions,
+            filterConditions,
             byFirstLogins: false,
         }, super.publish(message));
     }
 
     onReceivingMessage(message) {
-        if (message.header === "barChartFilter") {
-            let filterConditionsClone = _.cloneDeep(this.state.filterConditions);
+        if (message.header === 'barChartFilter') {
+            const filterConditionsClone = _.cloneDeep(this.state.filterConditions);
             filterConditionsClone[message.title] = message.value;
             this.setState({
                 filterConditions: filterConditionsClone,
                 isPublished: false,
-            }, () => this.publishFilterConditions())
+            }, () => this.publishFilterConditions());
         }
     }
 
     render() {
         let theme = lightTheme;
-        const width = this.state.width;
-        const height = this.state.height;
+        const { width } = this.state;
+        const { height } = this.state;
 
-        if (this.props.muiTheme.name === "dark") {
+        if (this.props.muiTheme.name === 'dark') {
             theme = darkTheme;
         }
 
@@ -257,61 +257,64 @@ class IsAnalyticsUserPreferences extends Widget {
                         paddingBottom: height * 0.05,
                         height,
                         width,
-                    }}>
-                        <div style={{height: height * 0.2, width: width * 0.9}}>
+                    }}
+                    >
+                        <div style={{ height: height * 0.2, width: width * 0.9 }}>
                             <Typography variant="title" gutterBottom>
                                 User Preferences
                             </Typography>
                         </div>
-                        <div style={{height: height * 0.4, width: width * 0.9}}>
+                        <div style={{ height: height * 0.4, width: width * 0.9 }}>
                             <tr>
                                 {this.state.inputFields.map(function (field, i) {
                                     if (field.doDisplay) {
                                         return (
-                                            <td style={{padding: 10}}>
+                                            <td style={{ padding: 10 }}>
                                                 <TextField
                                                     value={this.state.filterConditions[field.name]}
                                                     id={field.name}
                                                     label={field.label}
-                                                    onChange={(event) => this.handleTextFieldChange(event, field.name)}
+                                                    onChange={event => this.handleTextFieldChange(event, field.name)}
                                                 />
                                             </td>
                                         );
                                     }
                                 }, this)}
                                 {
-                                    this.state.options.widgetType === 'Overall' &&
-                                    <div>
-                                        <td>
-                                            <Radio
-                                                color="primary"
-                                                value="byAll"
-                                                checked={!(this.state.byFirstLogins)}
-                                                onChange={(event) => this.handleRadioButtonChange(event)}
-                                            />
-                                        </td>
-                                        <td>
+                                    this.state.options.widgetType === 'Overall'
+                                    && (
+                                        <div>
+                                            <td>
+                                                <Radio
+                                                    color="primary"
+                                                    value="byAll"
+                                                    checked={!(this.state.byFirstLogins)}
+                                                    onChange={event => this.handleRadioButtonChange(event)}
+                                                />
+                                            </td>
+                                            <td>
                                             By All
-                                        </td>
-                                        <td>
-                                            <Radio
-                                                color="secondary"
-                                                value="byFirstLogins"
-                                                checked={this.state.byFirstLogins}
-                                                onChange={(event) => this.handleRadioButtonChange(event)}
-                                            />
-                                        </td>
-                                        <td>
+                                            </td>
+                                            <td>
+                                                <Radio
+                                                    color="secondary"
+                                                    value="byFirstLogins"
+                                                    checked={this.state.byFirstLogins}
+                                                    onChange={event => this.handleRadioButtonChange(event)}
+                                                />
+                                            </td>
+                                            <td>
                                             By First Logins
-                                        </td>
-                                    </div>
+                                            </td>
+                                        </div>
+                                    )
                                 }
                             </tr>
                         </div>
-                        <div style={{height: height * 0.3, width: width * 0.9}}>
+                        <div style={{ height: height * 0.3, width: width * 0.9 }}>
                             <table>
                                 <tr>
-                                    <td style={{padding: 15}}>
+                                    <td style={{ padding: 15 }}>
                                         <Button
                                             color="primary"
                                             variant="outlined"
@@ -321,7 +324,7 @@ class IsAnalyticsUserPreferences extends Widget {
                                             Filter
                                         </Button>
                                     </td>
-                                    <td style={{padding: 15}}>
+                                    <td style={{ padding: 15 }}>
                                         <Button
                                             color="secondary"
                                             variant="outlined"
@@ -337,7 +340,7 @@ class IsAnalyticsUserPreferences extends Widget {
                     </div>
                 </MuiThemeProvider>
             </JssProvider>
-        )
+        );
     }
 }
 
