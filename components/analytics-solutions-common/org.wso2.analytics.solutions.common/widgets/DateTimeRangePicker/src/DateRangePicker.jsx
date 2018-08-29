@@ -52,7 +52,6 @@ export default class DateRangePicker extends Widget {
         this.onChangeForFixedTimeRange = this.onChangeForFixedTimeRange.bind(this);
         this.onChangeForCustomTimeRange = this.onChangeForCustomTimeRange.bind(this);
         this.getStartTimeAndGranularity = this.getStartTimeAndGranularity.bind(this);
-        this.lowerCaseFirstChar = this.lowerCaseFirstChar.bind(this);
         this.capitalizeCaseFirstChar = this.capitalizeCaseFirstChar.bind(this);
         this.generateGranularityMenuItems = this.generateGranularityMenuItems.bind(this);
         this.getAvailableGranularities = this.getAvailableGranularities.bind(this);
@@ -175,13 +174,19 @@ export default class DateRangePicker extends Widget {
         if (availableGranularities.indexOf(this.capitalizeCaseFirstChar(granularity)) > -1) {
             return granularity;
         } else {
-            return this.lowerCaseFirstChar(availableGranularities[0]);
+            return availableGranularities[0].toLowerCase;
         }
     }
 
     getDefaultTimeRange() {
-        let defaultTimeRange = this.state.options.defaultValue;
-        let minGranularity = this.state.options.availableGranularities;
+        let defaultTimeRange = '3 Months';
+        if (this.state.options.defaultValue) {
+            defaultTimeRange = this.state.options.defaultValue;
+        }
+        let minGranularity = 'From Second';
+        if (this.state.options.availableGranularities) {
+            minGranularity = this.state.options.availableGranularities;
+        }
         let availableViews = [];
         switch (minGranularity) {
             case 'From Second':
@@ -259,7 +264,7 @@ export default class DateRangePicker extends Widget {
             if (granularity.length === 0
                 || this.getSupportedGranularitiesForCustom(
                     startAndEndTime.startTime, startAndEndTime.endTime).indexOf(granularity) === -1) {
-                granularity = this.lowerCaseFirstChar(this.getAvailableGranularities()[0]);
+                granularity = this.getAvailableGranularities()[0].toLowerCase();
             }
             this.publishTimeRange({
                 granularity: granularity,
@@ -289,10 +294,10 @@ export default class DateRangePicker extends Widget {
                     let availableGranularities = this.getAvailableGranularities();
                     if (availableGranularities.indexOf(
                         this.capitalizeCaseFirstChar(granularity)) === -1) {
-                        granularity = this.lowerCaseFirstChar(availableGranularities[0])
+                        granularity = availableGranularities[0].toLowerCase()
                     }
                 } else {
-                    granularity = this.lowerCaseFirstChar(supportedGranularities[supportedGranularities.length - 1]);
+                    granularity = supportedGranularities[supportedGranularities.length - 1].toLowerCase();
                 }
                 let startTimeAndDefaultGranularity = this.getStartTimeAndGranularity(timeRange);
                 this.publishTimeRange({
@@ -662,25 +667,26 @@ export default class DateRangePicker extends Widget {
         return (this.getAvailableGranularities()).map((view) =>
             supportedGranularities.indexOf(view) > -1 ?
                 <MenuItem
-                    value={this.lowerCaseFirstChar(view)}
+                    value={view.toLowerCase()}
                     primaryText={view}/> :
                 <MenuItem
-                    value={this.lowerCaseFirstChar(view)}
+                    value={view.toLowerCase()}
                     primaryText={view}
                     disabled={true}/>
         );
     }
 
-    lowerCaseFirstChar(str) {
-        return str.charAt(0).toLowerCase() + str.slice(1);
-    }
-
     capitalizeCaseFirstChar(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        if (str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
     }
 
     getAvailableGranularities() {
-        let minGranularity = this.state.options.availableGranularities;
+        let minGranularity = 'From Second';
+        if (this.state.options.availableGranularities) {
+            minGranularity = this.state.options.availableGranularities;
+        }
         let granularities = [];
         switch (minGranularity) {
             case 'From Second':
@@ -775,7 +781,10 @@ export default class DateRangePicker extends Widget {
 
     setRefreshInterval() {
         if (this.state.enableSync) {
-            let refreshInterval = this.state.options.autoSyncInterval * 1000;
+            let refreshInterval = 10000;
+            if (this.state.options.autoSyncInterval) {
+                refreshInterval = this.state.options.autoSyncInterval * 1000;
+            }
             let refresh = () => {
                 let startTimeAndGranularity = this.getStartTimeAndGranularity(this.state.granularityMode);
                 this.publishTimeRange({
