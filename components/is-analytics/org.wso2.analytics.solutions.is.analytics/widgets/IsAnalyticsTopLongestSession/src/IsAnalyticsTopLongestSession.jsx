@@ -65,7 +65,7 @@ class IsAnalyticsTopLongestSession extends Widget {
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this.handleDataReceived = this.handleDataReceived.bind(this);
-        this.setReceivedMsg = this.setReceivedMsg.bind(this);
+        this.handleUserSelection = this.handleUserSelection.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
         this.updateTable = this.updateTable.bind(this);
     }
@@ -74,8 +74,8 @@ class IsAnalyticsTopLongestSession extends Widget {
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
     }
 
-    componentDidMount(setData) {
-        super.subscribe(this.setReceivedMsg);
+    componentDidMount() {
+        super.subscribe(this.handleUserSelection);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
@@ -90,29 +90,19 @@ class IsAnalyticsTopLongestSession extends Widget {
 
     handleDataReceived(message) {
         message.data = message.data.reverse();
-        this.updateTable(message.data, this.state.currentPageNumber, true);
+        this.updateTable(message.data, this.state.currentPageNumber);
     }
 
-    updateTable(data, pageNumber, isAvailable) {
+    updateTable(data, pageNumber) {
         let internalPageNumber = pageNumber - 1; 
         let startPoint = internalPageNumber * dataPerPage;
         let endPoint = startPoint + dataPerPage;
         let totalPageCount = Math.ceil(data.length / dataPerPage);
-
-        if (pageNumber < 1) {
-            console.error("[ERROR]: Wrong page number", pageNumber,
-                "Provided. Page number should be positive integer.");
-        } else if (pageNumber > totalPageCount) {
-            console.error("[ERROR]: Wrong page number", pageNumber,
-                "Provided. Page number exceeds total page count, ", totalPageCount);
-        }
-
-        if (isAvailable) {
-            let dataLength = data.length;
-            if (endPoint > dataLength) {
+        let dataLength = data.length;
+        if (endPoint > dataLength) {
                 endPoint = dataLength;
-            }
-            let dataSet = data.slice(startPoint, endPoint);
+        }
+        let dataSet = data.slice(startPoint, endPoint);
 
             this.setState({
                 data: data,
@@ -120,10 +110,9 @@ class IsAnalyticsTopLongestSession extends Widget {
                 currentPageNumber: pageNumber,
                 pageCount: totalPageCount,
             });
-        }
     }
 
-    setReceivedMsg(message) {
+    handleUserSelection(message) {
         this.setState({
             fromDate: message.from,
             toDate: message.to,
@@ -137,9 +126,9 @@ class IsAnalyticsTopLongestSession extends Widget {
         let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
         let query = dataProviderConfigs.configs.config.queryData.query;
         query = query
-            .replace('begin', this.state.fromDate)
-            .replace('finish', this.state.toDate)
-            .replace('now', new Date().getTime() );
+            .replace("{{from}}", this.state.fromDate)
+            .replace("{{to}}", this.state.toDate)
+            .replace("{{now}}", new Date().getTime());
         dataProviderConfigs.configs.config.queryData.query = query;
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
@@ -147,23 +136,21 @@ class IsAnalyticsTopLongestSession extends Widget {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <section style={{paddingTop: 25}}>
-                        <VizG
-                            config={this.state.ChartConfig}
-                            metadata={this.state.metadata}
-                            data={this.state.currentDataSet}
-                            height={this.state.height * .8}
-                            width={this.state.width*1.2}
-                            theme={this.props.muiTheme.name}
-                        />
-                </section>
-                        <Pagination
-                              total={this.state.pageCount}
-                              current={this.state.currentPageNumber}
-                              display={3}
-                              onChange={number => this.updateTable(this.state.data, number, true)}
-                        />
+            <MuiThemeProvider muiTheme={this.props.muiTheme}>
+                <VizG
+                    config={this.state.ChartConfig}
+                    metadata={this.state.metadata}
+                    data={this.state.currentDataSet}
+                    height={this.state.height}
+                    width={this.state.width * 1.1}
+                    theme={this.props.muiTheme.name}
+                />
+                <Pagination
+                    total={this.state.pageCount}
+                    current={this.state.currentPageNumber}
+                    display={3}
+                    onChange={number => this.updateTable(this.state.data, number)}
+                />
             </MuiThemeProvider>
         );
     }

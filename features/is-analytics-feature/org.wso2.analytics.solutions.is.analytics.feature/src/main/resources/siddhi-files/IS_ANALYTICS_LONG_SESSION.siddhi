@@ -126,7 +126,7 @@ select convert(time:dateSub(triggered_time,7,'DAY'), 'long') as lastSeventimesta
 insert into LastSevenDays;
 
 from        PeriodicalTriggerStream as P join SessionInformationTable as S
-on          S.duration > 400000 and
+on          S.duration > 900000 and
             S.rememberMeFlag == false and
             S.isActive == true
 select      meta_tenantId,

@@ -14,10 +14,10 @@
           "config": {
             "datasourceName": "IS_ANALYTICS_DB",
             "queryData": {
-              "query": "select username, startTime, terminateTime, endTime, duration, isActive, userstoreDomain, tenantDomain, remoteIp, rememberMeFlag, currentTime from SessionInformationTable WHERE timestamp >= 'begin' AND timestamp <= 'finish'"
+              "query": "select username, startTime, terminateTime, endTime, duration, isActive, userstoreDomain, tenantDomain, remoteIp, rememberMeFlag, currentTime from SessionInformationTable WHERE timestamp >= {{from}}L AND timestamp <= {{to}}L "
             },
             "incrementalColumn": "meta_tenantId",
-            "publishingInterval": 60
+            "publishingLimit": 100
   
           }
         }

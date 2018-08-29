@@ -19,6 +19,8 @@
 @App:name("IS_ANALYTICS_SUSPICIOUS_LOGIN")
 @App:description("Alerting suspicious logins of users")
 
+define trigger TriggerStream at '0 0 12 * * ?';
+
 @source(type = "wso2event", wso2.stream.id = "org.wso2.is.analytics.stream.OverallAuthentication:1.0.0", @map(type = 'wso2event'))
 define stream OverallAuthenticationStream (
         meta_tenantId int, 
@@ -62,6 +64,9 @@ define stream SuspiciousLoginAlertStream (
         msg string, 
         tenantDomain string, 
         timestamp long);
+
+define stream LastYearTimestampStream(
+        lastYearTimestamp long);
 
 -- Defining Databases
 
@@ -157,3 +162,13 @@ update or insert into
 on      SuspiciousLoginAlertTable.meta_tenantId==meta_tenantId and 
         SuspiciousLoginAlertTable.username==username and  
     SuspiciousLoginAlertTable.msg==msg;
+
+-- Retain last one year data in the SecurityAlertTypeTable
+
+from    TriggerStream
+select  convert(time:dateSub(triggered_time,1,'year'), 'long') as lastYearTimestamp
+insert into LastYearTimestampStream;
+
+from    LastYearTimestampStream
+delete  SecurityAlertTypeTable
+on      SecurityAlertTypeTable.alertTimestamp <= lastYearTimestamp;

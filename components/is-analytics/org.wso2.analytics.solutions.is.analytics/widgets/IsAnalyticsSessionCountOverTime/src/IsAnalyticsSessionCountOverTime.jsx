@@ -63,14 +63,13 @@ class IsAnalyticsSessionCountOverTime extends Widget {
             metadata: this.metadata,
             ChartConfig: this.ChartConfig,
             width: this.props.glContainer.width,
-            height: this.props.glContainer.height,
-            btnGroupHeight: 50
+            height: this.props.glContainer.height
         };
 
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this.handleDataReceived = this.handleDataReceived.bind(this);
-        this.setReceivedMsg = this.setReceivedMsg.bind(this);
+        this.handleUserSelection = this.handleUserSelection.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
     }
 
@@ -79,7 +78,7 @@ class IsAnalyticsSessionCountOverTime extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.setReceivedMsg);
+        super.subscribe(this.handleUserSelection);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
@@ -116,7 +115,7 @@ class IsAnalyticsSessionCountOverTime extends Widget {
         });
     }
 
-    setReceivedMsg(message) {
+    handleUserSelection(message) {
         this.setState({
             per: message.granularity,
             fromDate: message.from,
@@ -139,17 +138,15 @@ class IsAnalyticsSessionCountOverTime extends Widget {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <section style={{paddingTop: 50}}>
-                    <VizG
-                        config={this.state.ChartConfig}
-                        metadata={this.state.metadata}
-                        data={this.state.data}
-                        height={this.state.height -this.state.btnGroupHeight}
-                        width={this.state.width}
-                        theme={this.props.muiTheme.name}
-                    />
-                </section>
+            <MuiThemeProvider muiTheme={this.props.muiTheme}>
+                <VizG
+                    config={this.state.ChartConfig}
+                    metadata={this.state.metadata}
+                    data={this.state.data}
+                    height={this.state.height}
+                    width={this.state.width}
+                    theme={this.props.muiTheme.name}
+                />
             </MuiThemeProvider>
         );
     }
