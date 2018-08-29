@@ -65,7 +65,7 @@ define stream SuspiciousLoginAlertStream (
         tenantDomain string, 
         timestamp long);
 
-define stream LastYearTimestamp(
+define stream LastYearTimestampStream(
         lastYearTimestamp long);
 
 -- Defining Databases
@@ -167,8 +167,8 @@ on      SuspiciousLoginAlertTable.meta_tenantId==meta_tenantId and
 
 from    TriggerStream
 select  convert(time:dateSub(triggered_time,1,'year'), 'long') as lastYearTimestamp
-insert into LastYearTimestamp;
+insert into LastYearTimestampStream;
 
-from    LastYearTimestamp
+from    LastYearTimestampStream
 delete  SecurityAlertTypeTable
 on      SecurityAlertTypeTable.alertTimestamp <= lastYearTimestamp;
