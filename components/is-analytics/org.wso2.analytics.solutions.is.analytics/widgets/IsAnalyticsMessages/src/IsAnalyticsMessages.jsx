@@ -21,13 +21,25 @@ import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import _ from 'lodash';
 import Typography from '@material-ui/core/Typography';
 
 const colorGreen = '#6ED460';
 const colorRed = '#EC5D40';
 const boolColorScale = [colorRed, colorGreen];
+
+const darkTheme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    },
+});
+
+const lightTheme = createMuiTheme({
+    palette: {
+        type: 'light',
+    },
+});
 
 const metadataOverall = {
     names: [
@@ -381,9 +393,14 @@ class IsAnalyticsMessages extends Widget {
     }
 
     render() {
+        let theme = darkTheme;
+
+        if (this.props.muiTheme.name === 'light') {
+            theme = lightTheme;
+        }
         if (this.state.isProviderConfigsFaulty) {
             return (
-                <MuiThemeProvider theme={this.props.muiTheme}>
+                <MuiThemeProvider theme={theme}>
                     <Scrollbars style={{ height: this.state.height }}>
                         <div
                             style={{
@@ -404,7 +421,7 @@ class IsAnalyticsMessages extends Widget {
             );
         }
         return (
-            <MuiThemeProvider theme={this.props.muiTheme}>
+            <MuiThemeProvider theme={theme}>
                 <Scrollbars style={{ height: this.state.height }}>
                     <div
                         style={{
@@ -421,8 +438,6 @@ class IsAnalyticsMessages extends Widget {
                             metadata={this.state.metadata}
                             data={this.state.data}
                             append={false}
-                            height={this.props.glContainer.height}
-                            width={this.props.glContainer.width}
                             theme={this.props.muiTheme.name}
                         />
                     </div>

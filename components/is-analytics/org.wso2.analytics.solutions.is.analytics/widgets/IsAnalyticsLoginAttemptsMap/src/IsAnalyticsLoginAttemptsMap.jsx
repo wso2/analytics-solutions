@@ -274,7 +274,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
         const { height } = this.state;
         let theme = darkTheme;
 
-        if (this.props.muiTheme.appBar.color === '#313335') {
+        if (this.props.muiTheme.name === 'light') {
             theme = lightTheme;
         }
 

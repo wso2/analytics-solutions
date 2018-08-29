@@ -20,7 +20,7 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { MuiThemeProvider as V0MuiThemeProvider } from 'material-ui';
 import _ from 'lodash';
 import Pagination from 'material-ui-pagination';
@@ -28,6 +28,19 @@ import Typography from '@material-ui/core/Typography';
 
 const colorGreen = '#6ED460';
 const colorRed = '#EC5D40';
+
+const darkTheme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    },
+});
+
+const lightTheme = createMuiTheme({
+    palette: {
+        type: 'light',
+    },
+});
+
 const messageHeading = 'barChartFilter';
 const dataPerPage = 10;
 const noOfPagesInPaginationNavigation = 5;
@@ -400,10 +413,15 @@ class IsAnalyticsAttemptsByType extends Widget {
     render() {
         const { width } = this.state;
         const { height } = this.state;
+        let theme = darkTheme;
+
+        if (this.props.muiTheme.name === 'light') {
+            theme = lightTheme;
+        }
 
         if (this.state.faultyProviderConf) {
             return (
-                <MuiThemeProvider theme={this.props.muiTheme}>
+                <MuiThemeProvider theme={theme}>
                     <div style={{ height: this.state.height, width: this.state.width }}>
                         <Typography variant="title" gutterBottom align="center">
                             {this.state.header}
@@ -416,7 +434,7 @@ class IsAnalyticsAttemptsByType extends Widget {
             );
         } else if (this.state.currentSuccessDataSet.length === 0 && this.state.currentFailureDataSet.length > 0) {
             return (
-                <MuiThemeProvider theme={this.props.muiTheme}>
+                <MuiThemeProvider theme={theme}>
                     <div
                         style={{
                             height,
@@ -438,7 +456,6 @@ class IsAnalyticsAttemptsByType extends Widget {
                                     config={this.state.chartConfigFailure}
                                     metadata={this.state.failureMetadata}
                                     data={this.state.currentFailureDataSet}
-                                    theme={this.props.muiTheme.name}
                                     onClick={data => this.onChartClick(data)}
                                 />
                             </div>
@@ -471,7 +488,7 @@ class IsAnalyticsAttemptsByType extends Widget {
             );
         } else if (this.state.currentFailureDataSet.length === 0 && this.state.currentSuccessDataSet.length > 0) {
             return (
-                <MuiThemeProvider theme={this.props.muiTheme}>
+                <MuiThemeProvider theme={theme}>
                     <div
                         style={{
                             height,
@@ -493,7 +510,6 @@ class IsAnalyticsAttemptsByType extends Widget {
                                     config={this.state.chartConfigSuccess}
                                     metadata={this.state.successMetadata}
                                     data={this.state.currentSuccessDataSet}
-                                    theme={this.props.muiTheme.name}
                                     onClick={data => this.onChartClick(data)}
                                 />
                             </div>
@@ -520,7 +536,7 @@ class IsAnalyticsAttemptsByType extends Widget {
             );
         } else {
             return (
-                <MuiThemeProvider theme={this.props.muiTheme}>
+                <MuiThemeProvider theme={theme}>
                     <div
                         style={{
                             height,
@@ -542,7 +558,6 @@ class IsAnalyticsAttemptsByType extends Widget {
                                     config={this.state.chartConfigSuccess}
                                     metadata={this.state.successMetadata}
                                     data={this.state.currentSuccessDataSet}
-                                    theme={this.props.muiTheme.name}
                                     onClick={data => this.onChartClick(data)}
                                 />
                             </div>
@@ -576,7 +591,6 @@ class IsAnalyticsAttemptsByType extends Widget {
                                     config={this.state.chartConfigFailure}
                                     metadata={this.state.failureMetadata}
                                     data={this.state.currentFailureDataSet}
-                                    theme={this.props.muiTheme.name}
                                     onClick={data => this.onChartClick(data)}
                                 />
                             </div>

@@ -20,12 +20,24 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import _ from 'lodash';
 import Typography from '@material-ui/core/Typography';
 
 const colorGreen = '#6ED460';
 const colorRed = '#EC5D40';
+
+const darkTheme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    },
+});
+
+const lightTheme = createMuiTheme({
+    palette: {
+        type: 'light',
+    },
+});
 
 const pieChartMetadata = {
     names: ['attemptType', 'attemptCount'],
@@ -240,10 +252,15 @@ class IsAnalyticsCompactSummary extends Widget {
     render() {
         const { height } = this.state;
         const { width } = this.state;
+        let theme = darkTheme;
+
+        if (this.props.muiTheme.name === 'light') {
+            theme = lightTheme;
+        }
 
         if (this.state.faultyProviderConf) {
             return (
-                <MuiThemeProvider theme={this.props.muiTheme}>
+                <MuiThemeProvider theme={theme}>
                     <div style={{ padding: 24 }}>
                         <Typography variant="body1" gutterBottom align="center">
                             Data Provider Connection Error - Please check the provider configs
@@ -253,7 +270,7 @@ class IsAnalyticsCompactSummary extends Widget {
             );
         }
         return (
-            <MuiThemeProvider theme={this.props.muiTheme}>
+            <MuiThemeProvider theme={theme}>
                 <div style={{ height, width }}>
                     <div style={{ height: height * 0.45 }}>
                         <VizG

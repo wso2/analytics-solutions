@@ -38,13 +38,13 @@ const widgetTexts = {
         + 'Local login attempts include all login attempts which are done through resident IDP.'
         + 'These statistics will give an idea on the involvement of resident IDP in an authentication flow.',
         heading: 'Local Login Attempts',
-        seeMoreLink: window.location.href + '/../local',
+        seeMoreLink: window.location.href.split('?')[0] + '/../local',
     },
     Federated: {
         bodyText: 'Analyze federated login attempts made via WSO2 Identity Server.'
         + 'This will give an idea about the authentication steps took place via federated identity providers.',
         heading: 'Federated Login Attempts',
-        seeMoreLink: window.location.href + '/../federated',
+        seeMoreLink: window.location.href.split('?')[0] + '/../federated',
     },
 };
 
@@ -225,7 +225,7 @@ class IsAnalyticsSummary extends Widget {
         const { width } = this.state;
         let theme = darkTheme;
 
-        if (this.props.muiTheme.appBar.color === '#eeeeee') {
+        if (this.props.muiTheme.name === 'light') {
             theme = lightTheme;
         }
 

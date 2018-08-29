@@ -239,12 +239,12 @@ class IsAnalyticsUserPreferences extends Widget {
     }
 
     render() {
-        let theme = lightTheme;
         const { width } = this.state;
         const { height } = this.state;
+        let theme = darkTheme;
 
-        if (this.props.muiTheme.name === 'dark') {
-            theme = darkTheme;
+        if (this.props.muiTheme.name === 'light') {
+            theme = lightTheme;
         }
 
         return (

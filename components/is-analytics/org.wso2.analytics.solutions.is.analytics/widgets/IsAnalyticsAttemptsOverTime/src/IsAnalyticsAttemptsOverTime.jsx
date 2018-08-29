@@ -20,12 +20,24 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import _ from 'lodash';
 import Typography from '@material-ui/core/Typography';
 
 const colorGreen = '#6ED460';
 const colorRed = '#EC5D40';
+
+const darkTheme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    },
+});
+
+const lightTheme = createMuiTheme({
+    palette: {
+        type: 'light',
+    },
+});
 
 const metadata = {
     names: ['timestamp', 'SuccessCount', 'FailureCount'],
@@ -175,9 +187,14 @@ class IsAnalyticsAttemptsOverTime extends Widget {
     }
 
     render() {
+        let theme = darkTheme;
+
+        if (this.props.muiTheme.name === 'light') {
+            theme = lightTheme;
+        }
         if (this.state.isProviderConfigFault) {
             return (
-                <MuiThemeProvider theme={this.props.muiTheme}>
+                <MuiThemeProvider theme={theme}>
                     <div style={{ height: this.state.height }}>
                         <Typography variant="title" gutterBottom align="center">
                             Login Attempts Over Time
@@ -190,7 +207,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             );
         }
         return (
-            <MuiThemeProvider theme={this.props.muiTheme}>
+            <MuiThemeProvider theme={theme}>
                 <div style={{ height: this.state.height }}>
                     <div style={{ height: this.state.height * 0.1 }}>
                         <Typography variant="title" gutterBottom align="center">
