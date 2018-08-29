@@ -22,6 +22,7 @@ import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import _ from 'lodash';
+import Typography from '@material-ui/core/Typography';
 
 const colorGreen = '#6ED460';
 const colorRed = '#EC5D40';
@@ -179,8 +180,12 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             return (
                 <MuiThemeProvider theme={this.props.muiTheme}>
                     <div style={{height: this.state.height}}>
-                        <h3> Login Attempts Over Time </h3>
-                        <h5>No data found</h5>
+                        <Typography variant="title" gutterBottom align="center">
+                            Login Attempts Over Time
+                        </Typography>
+                        <Typography variant="body1" gutterBottom align="center">
+                            No data found
+                        </Typography>
                     </div>
                 </MuiThemeProvider>
             );
@@ -189,7 +194,9 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             <MuiThemeProvider theme={this.props.muiTheme}>
                 <div style={{height: this.state.height}}>
                     <div style={{height: this.state.height * 0.1}}>
-                        <h3> Login Attempts Over Time </h3>
+                        <Typography variant="title" gutterBottom align="center">
+                            Login Attempts Over Time
+                        </Typography>
                     </div>
                     <div style={{height: this.state.height * 0.9}}>
                         <VizG

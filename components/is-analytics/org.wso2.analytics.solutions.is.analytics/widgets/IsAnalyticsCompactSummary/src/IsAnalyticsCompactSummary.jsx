@@ -22,19 +22,10 @@ import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import _ from 'lodash';
+import Typography from '@material-ui/core/Typography';
 
 const colorGreen = '#6ED460';
 const colorRed = '#EC5D40';
-
-const successStyle = {
-    color: colorGreen,
-    margin: "0px auto",
-};
-
-const failureStyle = {
-    color: colorRed,
-    margin: "0px auto",
-};
 
 const pieChartMetadata = {
     names: ['attemptType', 'attemptCount'],
@@ -255,7 +246,9 @@ class IsAnalyticsCompactSummary extends Widget {
             return (
                 <MuiThemeProvider theme={this.props.muiTheme}>
                     <div style={{ padding: 24 }}>
-                        <h5>Data Provider Connection Error - Please check the provider configs</h5>
+                        <Typography variant="body1" gutterBottom align="center">
+                            Data Provider Connection Error - Please check the provider configs
+                        </Typography>
                     </div>
                 </MuiThemeProvider>
             );
@@ -275,12 +268,12 @@ class IsAnalyticsCompactSummary extends Widget {
                         (this.state.totalAttempts !== 0)
                         && <div style={{ padding: 24, height: height * 0.55 }}>
                             <div style={{ height: height * 0.05, width: width * 0.9, 'text-align':'center'}}>
-                                <h5 style={successStyle}>
-                                    Success: {this.state.successPercentage}
-                                </h5>
-                                <h5 style={failureStyle}>
-                                    Failure: {this.state.failurePercentage}
-                                </h5>
+                                <Typography variant="body1" gutterBottom align="center" style={{color: colorGreen}}>
+                                    Success:{this.state.successPercentage}
+                                </Typography>
+                                <Typography variant="body1" gutterBottom align="center" style={{color: colorGreen}}>
+                                    Failure:{this.state.failurePercentage}
+                                </Typography>
                             </div>
                             <div style={{ height: height * 0.5, width: width * 0.9 }}>
                                 <VizG

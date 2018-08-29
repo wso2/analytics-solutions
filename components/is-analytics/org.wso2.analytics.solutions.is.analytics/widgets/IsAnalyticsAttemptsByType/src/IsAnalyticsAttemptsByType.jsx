@@ -24,6 +24,7 @@ import {MuiThemeProvider} from '@material-ui/core/styles';
 import {MuiThemeProvider as V0MuiThemeProvider} from 'material-ui';
 import _ from 'lodash';
 import Pagination from 'material-ui-pagination';
+import Typography from '@material-ui/core/Typography';
 
 let widgetPseudoId = "BarChardWidget_1_1_1";
 
@@ -412,8 +413,12 @@ class IsAnalyticsAttemptsByType extends Widget {
             return (
                 <MuiThemeProvider theme={this.props.muiTheme}>
                     <div style={{height: this.state.height, width: this.state.width}}>
-                        <h3>{this.state.header}</h3>
-                        Unable to fetch data, please check the data provider configurations.
+                        <Typography variant="title" gutterBottom align="center">
+                            {this.state.header}
+                        </Typography>
+                        <Typography variant="body1" gutterBottom align="center">
+                            Unable to fetch data, please check the data provider configurations.
+                        </Typography>
                     </div>
                 </MuiThemeProvider>
             );
@@ -431,7 +436,9 @@ class IsAnalyticsAttemptsByType extends Widget {
                             paddingBottom: height * 0.05,
                         }}>
                         <div style={{height: height * 0.1, width: width * 0.9}}>
-                            <h3>{this.state.header}</h3>
+                            <Typography variant="title" gutterBottom align="center">
+                                {this.state.header}
+                            </Typography>
                         </div>
                         <div style={{height: height * 0.8, width: width * 0.9}}>
                             <div style={{height: height * 0.7, width: width * 0.9}}>
@@ -480,7 +487,9 @@ class IsAnalyticsAttemptsByType extends Widget {
                             paddingBottom: height * 0.05,
                         }}>
                         <div style={{height: height * 0.1, width: width * 0.9}}>
-                            <h3>{this.state.header}</h3>
+                            <Typography variant="title" gutterBottom align="center">
+                                {this.state.header}
+                            </Typography>
                         </div>
                         <div style={{height: height * 0.8, width: width * 0.9}}>
                             <div style={{height: height * 0.7, width: width * 0.9}}>
@@ -523,7 +532,9 @@ class IsAnalyticsAttemptsByType extends Widget {
                             paddingBottom: height * 0.05,
                         }}>
                         <div style={{height: height * 0.1, width: width * 0.9}}>
-                            <h3>{this.state.header}</h3>
+                            <Typography variant="title" gutterBottom align="center">
+                                {this.state.header}
+                            </Typography>
                         </div>
                         <div style={{height: height * 0.4, width: width * 0.9}}>
                             <div style={{height: height * 0.3, width: width * 0.9}}>

@@ -20,10 +20,12 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import _ from 'lodash';
+import JssProvider from 'react-jss/lib/JssProvider';
+import Typography from '@material-ui/core/Typography';
 
 const colorWhite = '#FFFFFF';
 const colorGreen = '#6ED460';
@@ -68,6 +70,33 @@ const chartConfig = {
         },
     ],
     chloropethRangeLowerBound: 0,
+};
+
+// This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
+
+const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
+let classCounter = 0;
+
+export const generateClassName = (rule, styleSheet) => {
+    classCounter += 1;
+
+    if (process.env.NODE_ENV === 'production') {
+        return `c${classCounter}`;
+    }
+
+    if (styleSheet && styleSheet.options.classNamePrefix) {
+        let prefix = styleSheet.options.classNamePrefix;
+        // Sanitize the string as will be used to prefix the generated class name.
+        prefix = prefix.replace(escapeRegex, '-');
+
+        if (prefix.match(/^Mui/)) {
+            return `${prefix}-${rule.key}`;
+        }
+
+        return `${prefix}-${rule.key}-${classCounter}`;
+    }
+
+    return `${rule.key}-${classCounter}`;
 };
 
 class IsAnalyticsLoginAttemptsMap extends Widget {
@@ -248,6 +277,33 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
 
         if (this.state.isDataProviderConfingFault) {
             return (
+                <JssProvider generateClassName={generateClassName}>
+                    <MuiThemeProvider theme={theme}>
+                        <div
+                            style={{
+                                paddingLeft: width * 0.05,
+                                paddingRight: width * 0.05,
+                                paddingTop: height * 0.05,
+                                paddingBottom: height * 0.05,
+                                height,
+                                width,
+                            }}
+                        >
+                            <div style={{height: height * 0.1, width: width * 0.9}}>
+                                <Typography variant="title" gutterBottom>
+                                    Login Attempts Map
+                                </Typography>
+                            </div>
+                            <div>
+                                <h5>Data Provider Configuration Error</h5>
+                            </div>
+                        </div>
+                    </MuiThemeProvider>
+                </JssProvider>
+            );
+        }
+        return (
+            <JssProvider generateClassName={generateClassName}>
                 <MuiThemeProvider theme={theme}>
                     <div
                         style={{
@@ -259,51 +315,32 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
                             width,
                         }}
                     >
-                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <h3> Area Chart </h3>
+                        <div style={{height: height * 0.1, width: width * 0.9}}>
+                            <Typography variant="title" gutterBottom>
+                                Login Attempts Map
+                            </Typography>
                         </div>
-                        <div>
-                            <h5>Data Provider Configuration Error</h5>
+                        <div style={{height: height * 0.6, width: width * 0.9}}>
+                            <VizG
+                                config={this.state.chartConfig}
+                                metadata={this.state.metadata}
+                                data={this.state.data}
+                            />
+                        </div>
+                        <div style={{height: height * 0.2, width: width * 0.9}}>
+                            <FormControlLabel
+                                control={(
+                                    <Switch
+                                        checked={this.state.isFailureMap}
+                                        onChange={(event) => this.onMapTypeChange(event)}
+                                    />
+                                )}
+                                label={this.state.switchLabel}
+                            />
                         </div>
                     </div>
                 </MuiThemeProvider>
-            );
-        }
-        return (
-            <MuiThemeProvider theme={theme}>
-                <div
-                    style={{
-                        paddingLeft: width * 0.05,
-                        paddingRight: width * 0.05,
-                        paddingTop: height * 0.05,
-                        paddingBottom: height * 0.05,
-                        height,
-                        width,
-                    }}
-                >
-                    <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                        <h3> Area Chart </h3>
-                    </div>
-                    <div style={{ height: height * 0.6, width: width * 0.9 }}>
-                        <VizG
-                            config={this.state.chartConfig}
-                            metadata={this.state.metadata}
-                            data={this.state.data}
-                        />
-                    </div>
-                    <div style={{ height: height * 0.2, width: width * 0.9 }}>
-                        <FormControlLabel
-                            control={(
-                                <Switch
-                                    checked={this.state.isFailureMap}
-                                    onChange={(event) => this.onMapTypeChange(event)}
-                                />
-                            )}
-                            label={this.state.switchLabel}
-                        />
-                    </div>
-                </div>
-            </MuiThemeProvider>
+            </JssProvider>
         );
     }
 }

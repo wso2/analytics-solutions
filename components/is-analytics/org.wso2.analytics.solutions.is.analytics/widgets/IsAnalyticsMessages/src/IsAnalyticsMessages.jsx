@@ -23,6 +23,7 @@ import VizG from 'react-vizgrammar';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import _ from 'lodash';
+import Typography from '@material-ui/core/Typography';
 
 const colorGreen = "#6ED460";
 const colorRed = "#EC5D40";
@@ -333,8 +334,12 @@ class IsAnalyticsMessages extends Widget {
                             }}
                             className="list-table-wrapper"
                         >
-                            <h1> Messages </h1>
-                            <h5>[ERROR]: Cannot connect with the data provider</h5>
+                            <Typography variant="title" gutterBottom align="center">
+                                Messages
+                            </Typography>
+                            <Typography variant="title" gutterBottom align="center">
+                                [ERROR]: Cannot connect with the data provider
+                            </Typography>
                         </div>
                     </Scrollbars>
                 </MuiThemeProvider>
@@ -350,7 +355,9 @@ class IsAnalyticsMessages extends Widget {
                         }}
                         className="list-table-wrapper"
                     >
-                        <h1> Messages </h1>
+                        <Typography variant="title" gutterBottom align="center">
+                            Messages
+                        </Typography>
                         <VizG
                             config={this.state.tableConfig}
                             metadata={this.state.metadata}

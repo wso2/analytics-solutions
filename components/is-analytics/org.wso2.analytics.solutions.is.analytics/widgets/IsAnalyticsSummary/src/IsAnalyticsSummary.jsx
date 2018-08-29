@@ -23,6 +23,7 @@ import VizG from 'react-vizgrammar';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import _ from 'lodash';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 const widgetTexts = {
     Overall: {
@@ -56,16 +57,6 @@ let lightTheme = createMuiTheme({
         type: 'light',
     }
 });
-
-const successStyle = {
-    color: colorGreen,
-    margin: "0px auto",
-};
-
-const failureStyle = {
-    color: colorRed,
-    margin: "0px auto",
-};
 
 const pieChartMetadata = {
     names: ['attemptType', 'attemptCount'],
@@ -236,8 +227,12 @@ class IsAnalyticsSummary extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={{padding: padding, height, width}}>
-                        <h3>{this.state.widgetTexts.heading}</h3>
-                        <h5>[ERROR]: Cannot connect to the data provider</h5>
+                        <Typography variant="title" gutterBottom align="center">
+                            {this.state.widgetTexts.heading}
+                        </Typography>
+                        <Typography variant="body1" gutterBottom align="center">
+                            [ERROR]: Cannot connect to the data provider
+                        </Typography>
                     </div>
                 </MuiThemeProvider>
             );
@@ -247,10 +242,14 @@ class IsAnalyticsSummary extends Widget {
                 <div style={{paddingLeft: padding, paddingRight: padding, height, width}}>
 
                     <div style={{height: this.state.height * 0.05}}>
-                        <h2>{this.state.widgetTexts.heading}</h2>
+                        <Typography variant="title" gutterBottom align="center">
+                            {this.state.widgetTexts.heading}
+                        </Typography>
                     </div>
                     <div style={{height: height * 0.10, width: width * 0.9}}>
-                        <p>{this.state.widgetTexts.bodyText}</p>
+                        <Typography variant="body1" gutterBottom align="center">
+                            {this.state.widgetTexts.bodyText}
+                        </Typography>
                     </div>
                     <div style={{height: height * 0.25, width: width * 0.9}}>
                         <VizG
@@ -266,12 +265,12 @@ class IsAnalyticsSummary extends Widget {
                             &&
                             <div>
                                 <div style={{height: height * 0.05, width: width * 0.9, 'text-align': 'center'}}>
-                                    <h5 style={successStyle}>
+                                    <Typography variant="body1" gutterBottom align="center" style={{color: colorGreen}}>
                                         Success:{this.state.successPercentage}
-                                    </h5>
-                                    <h5 style={failureStyle}>
+                                    </Typography>
+                                    <Typography variant="body1" gutterBottom align="center" style={{color: colorGreen}}>
                                         Failure:{this.state.failurePercentage}
-                                    </h5>
+                                    </Typography>
                                 </div>
                                 <div style={{height: height * 0.2, width: width * 0.9}}>
                                     <VizG

@@ -24,6 +24,8 @@ import TextField from "@material-ui/core/TextField";
 import Radio from '@material-ui/core/Radio';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import _ from 'lodash';
+import JssProvider from 'react-jss/lib/JssProvider';
+import Typography from '@material-ui/core/Typography';
 
 let darkTheme = createMuiTheme({
     palette: {
@@ -73,6 +75,33 @@ let filterConditions = {
     role: "",
     identityProvider: "",
     username: "",
+};
+
+// This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
+
+const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
+let classCounter = 0;
+
+export const generateClassName = (rule, styleSheet) => {
+    classCounter += 1;
+
+    if (process.env.NODE_ENV === 'production') {
+        return `c${classCounter}`;
+    }
+
+    if (styleSheet && styleSheet.options.classNamePrefix) {
+        let prefix = styleSheet.options.classNamePrefix;
+        // Sanitize the string as will be used to prefix the generated class name.
+        prefix = prefix.replace(escapeRegex, '-');
+
+        if (prefix.match(/^Mui/)) {
+            return `${prefix}-${rule.key}`;
+        }
+
+        return `${prefix}-${rule.key}-${classCounter}`;
+    }
+
+    return `${rule.key}-${classCounter}`;
 };
 
 class IsAnalyticsUserPreferences extends Widget {
@@ -210,91 +239,104 @@ class IsAnalyticsUserPreferences extends Widget {
     }
 
     render() {
-        let theme = darkTheme;
+        let theme = lightTheme;
+        const width = this.state.width;
+        const height = this.state.height;
 
-        if (this.props.muiTheme.appBar.color === "#eeeeee") {
-            theme = lightTheme;
+        if (this.props.muiTheme.name === "dark") {
+            theme = darkTheme;
         }
 
         return (
-            <MuiThemeProvider theme={theme}>
-                <div style={{height: this.state.height, width: this.state.width}}>
-                    <div style={{padding: 24}}>
-                        <h3>User Preferences</h3>
-                    </div>
-                    <div>
-                        <tr>
-                            {this.state.inputFields.map(function (field, i) {
-                                if (field.doDisplay) {
-                                    return (
-                                        <td style={{padding: 10}}>
-                                            <TextField
-                                                value={this.state.filterConditions[field.name]}
-                                                id={field.name}
-                                                label={field.label}
-                                                onChange={(event) => this.handleTextFieldChange(event, field.name)}
+            <JssProvider generateClassName={generateClassName}>
+                <MuiThemeProvider theme={theme}>
+                    <div style={{
+                        paddingLeft: width * 0.05,
+                        paddingRight: width * 0.05,
+                        paddingTop: height * 0.05,
+                        paddingBottom: height * 0.05,
+                        height,
+                        width,
+                    }}>
+                        <div style={{height: height * 0.2, width: width * 0.9}}>
+                            <Typography variant="title" gutterBottom>
+                                User Preferences
+                            </Typography>
+                        </div>
+                        <div style={{height: height * 0.4, width: width * 0.9}}>
+                            <tr>
+                                {this.state.inputFields.map(function (field, i) {
+                                    if (field.doDisplay) {
+                                        return (
+                                            <td style={{padding: 10}}>
+                                                <TextField
+                                                    value={this.state.filterConditions[field.name]}
+                                                    id={field.name}
+                                                    label={field.label}
+                                                    onChange={(event) => this.handleTextFieldChange(event, field.name)}
+                                                />
+                                            </td>
+                                        );
+                                    }
+                                }, this)}
+                                {
+                                    this.state.options.widgetType === 'Overall' &&
+                                    <div>
+                                        <td>
+                                            <Radio
+                                                color="primary"
+                                                value="byAll"
+                                                checked={!(this.state.byFirstLogins)}
+                                                onChange={(event) => this.handleRadioButtonChange(event)}
                                             />
                                         </td>
-                                    );
+                                        <td>
+                                            By All
+                                        </td>
+                                        <td>
+                                            <Radio
+                                                color="secondary"
+                                                value="byFirstLogins"
+                                                checked={this.state.byFirstLogins}
+                                                onChange={(event) => this.handleRadioButtonChange(event)}
+                                            />
+                                        </td>
+                                        <td>
+                                            By First Logins
+                                        </td>
+                                    </div>
                                 }
-                            }, this)}
-                        </tr>
-                        <tr>
-                            {
-                                this.state.options.widgetType === 'Overall' &&
-                                <div>
-                                    <td>
-                                        <Radio
+                            </tr>
+                        </div>
+                        <div style={{height: height * 0.3, width: width * 0.9}}>
+                            <table>
+                                <tr>
+                                    <td style={{padding: 15}}>
+                                        <Button
                                             color="primary"
-                                            value="byAll"
-                                            checked={!(this.state.byFirstLogins)}
-                                            onChange={(event) => this.handleRadioButtonChange(event)}
-                                        />
+                                            variant="outlined"
+                                            component="span"
+                                            onClick={() => this.publishFilterConditions()}
+                                        >
+                                            Filter
+                                        </Button>
                                     </td>
-                                    <td>
-                                        By All
-                                    </td>
-                                    <td>
-                                        <Radio
+                                    <td style={{padding: 15}}>
+                                        <Button
                                             color="secondary"
-                                            value="byFirstLogins"
-                                            checked={this.state.byFirstLogins}
-                                            onChange={(event) => this.handleRadioButtonChange(event)}
-                                        />
+                                            variant="outlined"
+                                            component="span"
+                                            onClick={() => this.clearFilterConditions()}
+                                        >
+                                            Clear All
+                                        </Button>
                                     </td>
-                                    <td>
-                                        By First Logins
-                                    </td>
-                                </div>
-                            }
-                        </tr>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                    <table>
-                        <tr>
-                            <td style={{padding: 15}}>
-                                <Button
-                                    color="primary"
-                                    variant="contained"
-                                    component="span"
-                                    onClick={() => this.publishFilterConditions()}
-                                >
-                                    Filter
-                                </Button>
-                            </td>
-                            <td style={{padding: 15}}>
-                                <Button
-                                    color="secondary"
-                                    variant="contained"
-                                    component="span"
-                                    onClick={() => this.clearFilterConditions()}
-                                >
-                                    Clear All
-                                </Button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </MuiThemeProvider>
+                </MuiThemeProvider>
+            </JssProvider>
         )
     }
 }
