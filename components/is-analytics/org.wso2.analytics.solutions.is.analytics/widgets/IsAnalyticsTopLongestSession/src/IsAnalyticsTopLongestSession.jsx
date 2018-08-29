@@ -137,22 +137,20 @@ class IsAnalyticsTopLongestSession extends Widget {
     render() {
         return (
             <MuiThemeProvider muiTheme={this.props.muiTheme}>
-                <section>
-                        <VizG
-                            config={this.state.ChartConfig}
-                            metadata={this.state.metadata}
-                            data={this.state.currentDataSet}
-                            height={this.state.height}
-                            width={this.state.width * 1.1}
-                            theme={this.props.muiTheme.name}
-                        />
-                </section>
-                        <Pagination
-                              total={this.state.pageCount}
-                              current={this.state.currentPageNumber}
-                              display={3}
-                              onChange={number => this.updateTable(this.state.data, number)}
-                        />
+                <VizG
+                    config={this.state.ChartConfig}
+                    metadata={this.state.metadata}
+                    data={this.state.currentDataSet}
+                    height={this.state.height}
+                    width={this.state.width * 1.1}
+                    theme={this.props.muiTheme.name}
+                />
+                <Pagination
+                    total={this.state.pageCount}
+                    current={this.state.currentPageNumber}
+                    display={3}
+                    onChange={number => this.updateTable(this.state.data, number)}
+                />
             </MuiThemeProvider>
         );
     }

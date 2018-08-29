@@ -253,7 +253,7 @@ update or insert into
         SessionInformationTable
 on      SessionInformationTable.meta_tenantId==meta_tenantId and  
         SessionInformationTable.sessionId==sessionId;
-        
+
 -- Retain last one year data in the SessionInformationTable and active session table and delete the rest by sending trigger at 12.00 pm every day
 
 from    TriggerStream

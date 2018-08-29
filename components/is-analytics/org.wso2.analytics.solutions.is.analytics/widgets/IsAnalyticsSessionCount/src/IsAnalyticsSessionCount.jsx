@@ -114,16 +114,14 @@ class IsAnalyticsSessionCount extends Widget {
     render() {
         return (
             <MuiThemeProvider muiTheme={this.props.muiTheme}>
-                <section >
-                    <VizG
-                        config={this.ChartConfig}
-                        metadata={this.state.metadata}
-                        data={this.state.data}
-                        height={this.state.height}
-                        width={this.state.width}
-                        theme={this.props.muiTheme.name}
-                    />
-                </section>
+                <VizG
+                    config={this.ChartConfig}
+                    metadata={this.state.metadata}
+                    data={this.state.data}
+                    height={this.state.height}
+                    width={this.state.width}
+                    theme={this.props.muiTheme.name}
+                />
             </MuiThemeProvider>
         );
     }
