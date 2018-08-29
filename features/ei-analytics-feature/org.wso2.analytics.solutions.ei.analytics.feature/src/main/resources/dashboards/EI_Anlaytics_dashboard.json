@@ -20,7 +20,8 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 12.120222137381749,
+                                "height": 9.617115517728845,
+                                "width": 100.0,
                                 "content": [
                                     {
                                         "title": "Date Time Range",
@@ -60,15 +61,14 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 21.50384399057025,
-                                "width": 100.0,
+                                "height": 26.17743030460856,
                                 "content": [
                                     {
                                         "title": "REQUEST SUMMARY",
                                         "type": "component",
                                         "component": "EIAnalyticsStatsChart",
                                         "props": {
-                                            "id": "bd991de0-36a3-4c30-8f05-5a9dd794f22f",
+                                            "id": "caa21446-1300-480b-af06-7eef4570414f",
                                             "configs": {
                                                 "pubsub": {
                                                     "types": [
@@ -76,8 +76,7 @@
                                                     ],
                                                     "publishers": [
                                                         "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
-                                                    ],
-                                                    "widgetInputOutputMapping": []
+                                                    ]
                                                 },
                                                 "isGenerated": false,
                                                 "options": {}
@@ -96,14 +95,14 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 20.5329861484119,
+                                "height": 18.341535813462194,
                                 "content": [
                                     {
                                         "type": "stack",
                                         "isClosable": true,
                                         "title": "",
                                         "height": 20.5329861484119,
-                                        "width": 50.0,
+                                        "width": 49.858356940509914,
                                         "content": [
                                             {
                                                 "title": "OVERALL EIAnalyticsTPS",
@@ -138,7 +137,7 @@
                                         "type": "stack",
                                         "isClosable": true,
                                         "title": "",
-                                        "width": 50.0,
+                                        "width": 50.14164305949009,
                                         "content": [
                                             {
                                                 "title": "Overall Message Count",
@@ -196,14 +195,14 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 24.304305008874714,
+                                "height": 18.633598485651085,
                                 "content": [
                                     {
                                         "type": "stack",
                                         "isClosable": true,
                                         "title": "",
                                         "height": 25.0,
-                                        "width": 50.07142857142857,
+                                        "width": 49.92917847025496,
                                         "content": [
                                             {
                                                 "title": "Top proxy services by Request Count",
@@ -239,7 +238,7 @@
                                         "type": "stack",
                                         "isClosable": true,
                                         "title": "",
-                                        "width": 49.92857142857143,
+                                        "width": 50.07082152974505,
                                         "content": [
                                             {
                                                 "title": "Top apis by Request Count",
@@ -277,7 +276,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 21.538642714761387,
+                                "height": 27.23031987854933,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -393,7 +392,7 @@
                         ]
                     }
                 ],
-                "height": 1211.0
+                "height": 1733.4000244140625
             },
             {
                 "id": "proxy",
@@ -491,7 +490,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 10.666928342414991,
+                                "height": 16.69214052016117,
                                 "content": [
                                     {
                                         "title": "PROXY  REQUEST COUNT",
@@ -527,7 +526,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 12.017262620880963,
+                                "height": 14.779570407068913,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -662,7 +661,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 19.274269090941537,
+                                "height": 20.842746883142773,
                                 "content": [
                                     {
                                         "title": "Messages",
@@ -697,7 +696,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 47.627733358931856,
+                                "height": 37.27173560279648,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Flow",
@@ -732,7 +731,7 @@
                         ]
                     }
                 ],
-                "height": 1652.0
+                "height": 1893.5999755859375
             },
             {
                 "id": "api",
@@ -747,7 +746,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 10.733698754340134,
+                                "height": 17.398664057415534,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -830,7 +829,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 11.782641091518633,
+                                "height": 18.447606394594033,
                                 "content": [
                                     {
                                         "title": "API  REQUEST COUNT",
@@ -866,7 +865,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 14.129780751183697,
+                                "height": 20.794746054259097,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1001,23 +1000,23 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 26.6598612123016,
+                                "height": 21.67949174686567,
                                 "content": [
                                     {
                                         "title": "Messages",
                                         "type": "component",
                                         "component": "EIAnalyticsMessageTable",
                                         "props": {
-                                            "id": "068a30e1-1e49-4b51-9d4a-5fb3cbdbe5a9",
+                                            "id": "af4587aa-8113-40d0-9cec-0df46f53c9cc",
                                             "configs": {
                                                 "pubsub": {
                                                     "types": [
                                                         "subscriber"
                                                     ],
                                                     "publishers": [
+                                                        "f4fea18c-d358-431e-81ad-49ae24bd7c90",
                                                         "cd941660-27d6-42eb-acbe-9e92de5fd144"
-                                                    ],
-                                                    "widgetInputOutputMapping": []
+                                                    ]
                                                 },
                                                 "isGenerated": false,
                                                 "options": {}
@@ -1036,7 +1035,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 36.69401819065594,
+                                "height": 21.67949174686567,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Flow",
@@ -1735,14 +1734,13 @@
                                         "isClosable": true,
                                         "title": "",
                                         "width": 50.0,
-                                        "height": 8.482229276903983,
                                         "content": [
                                             {
                                                 "title": "EI Analytics Search Box",
                                                 "type": "component",
                                                 "component": "EIAnalyticsSearchBox",
                                                 "props": {
-                                                    "id": "c553d13a-9168-45f4-b6c2-a4fc2bbec9fa",
+                                                    "id": "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a",
                                                     "configs": {
                                                         "pubsub": {
                                                             "types": [
@@ -1770,6 +1768,7 @@
                                         "isClosable": true,
                                         "title": "",
                                         "width": 50.0,
+                                        "height": 9.090802872124586,
                                         "content": [
                                             {
                                                 "title": "Date Time Range",
@@ -1826,8 +1825,8 @@
                                                         "subscriber"
                                                     ],
                                                     "publishers": [
-                                                        "c553d13a-9168-45f4-b6c2-a4fc2bbec9fa",
-                                                        "fb49be68-14e3-472b-b371-daf6bfef58cb"
+                                                        "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                                                        "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
                                                     ],
                                                     "widgetInputOutputMapping": []
                                                 },
@@ -1875,8 +1874,8 @@
                                                                 "componentName"
                                                             ],
                                                             "publishers": [
-                                                                "c553d13a-9168-45f4-b6c2-a4fc2bbec9fa",
-                                                                "fb49be68-14e3-472b-b371-daf6bfef58cb"
+                                                                "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                                                                "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
                                                             ],
                                                             "widgetInputOutputMapping": [
                                                                 {
@@ -1896,7 +1895,7 @@
                                                                 },
                                                                 {
                                                                     "subscriberWidgetInput": "componentName",
-                                                                    "publisherId": "c553d13a-9168-45f4-b6c2-a4fc2bbec9fa",
+                                                                    "publisherId": "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a",
                                                                     "publisherWidgetOutput": "selectedComponent"
                                                                 }
                                                             ]
@@ -1939,7 +1938,7 @@
                                                             ],
                                                             "publishers": [
                                                                 "fb49be68-14e3-472b-b371-daf6bfef58cb",
-                                                                "c553d13a-9168-45f4-b6c2-a4fc2bbec9fa"
+                                                                "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
                                                             ],
                                                             "widgetInputOutputMapping": [
                                                                 {
@@ -1959,7 +1958,7 @@
                                                                 },
                                                                 {
                                                                     "subscriberWidgetInput": "componentName",
-                                                                    "publisherId": "c553d13a-9168-45f4-b6c2-a4fc2bbec9fa",
+                                                                    "publisherId": "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a",
                                                                     "publisherWidgetOutput": "selectedComponent"
                                                                 }
                                                             ]
@@ -2033,8 +2032,8 @@
                                                         "publisher"
                                                     ],
                                                     "publishers": [
-                                                        "c553d13a-9168-45f4-b6c2-a4fc2bbec9fa",
-                                                        "fb49be68-14e3-472b-b371-daf6bfef58cb"
+                                                        "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                                                        "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
                                                     ],
                                                     "widgetInputOutputMapping": []
                                                 },
@@ -2173,7 +2172,7 @@
                                                             ],
                                                             "widgetInputOutputMapping": [],
                                                             "publishers": [
-                                                                "f5d34c09-7372-4b8a-b881-092cbe0bcad2"
+                                                                "afb5839d-3770-4f79-a00a-37d4d5e5821c"
                                                             ]
                                                         },
                                                         "isGenerated": false,
@@ -2212,22 +2211,22 @@
                                                                 "timeUnit"
                                                             ],
                                                             "publishers": [
-                                                                "f5d34c09-7372-4b8a-b881-092cbe0bcad2"
+                                                                "afb5839d-3770-4f79-a00a-37d4d5e5821c"
                                                             ],
                                                             "widgetInputOutputMapping": [
                                                                 {
                                                                     "subscriberWidgetInput": "timeFrom",
-                                                                    "publisherId": "f5d34c09-7372-4b8a-b881-092cbe0bcad2",
+                                                                    "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
                                                                     "publisherWidgetOutput": "from"
                                                                 },
                                                                 {
                                                                     "subscriberWidgetInput": "timeTo",
-                                                                    "publisherId": "f5d34c09-7372-4b8a-b881-092cbe0bcad2",
+                                                                    "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
                                                                     "publisherWidgetOutput": "to"
                                                                 },
                                                                 {
                                                                     "subscriberWidgetInput": "timeUnit",
-                                                                    "publisherId": "f5d34c09-7372-4b8a-b881-092cbe0bcad2",
+                                                                    "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
                                                                     "publisherWidgetOutput": "granularity"
                                                                 }
                                                             ]
@@ -2264,7 +2263,7 @@
                                                 "type": "component",
                                                 "component": "DateRangePicker",
                                                 "props": {
-                                                    "id": "f5d34c09-7372-4b8a-b881-092cbe0bcad2",
+                                                    "id": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
                                                     "configs": {
                                                         "pubsub": {
                                                             "types": [
@@ -2274,8 +2273,7 @@
                                                                 "granularity",
                                                                 "from",
                                                                 "to"
-                                                            ],
-                                                            "publishers": []
+                                                            ]
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
@@ -2318,22 +2316,22 @@
                                                                 "timeUnit"
                                                             ],
                                                             "publishers": [
-                                                                "f5d34c09-7372-4b8a-b881-092cbe0bcad2"
+                                                                "afb5839d-3770-4f79-a00a-37d4d5e5821c"
                                                             ],
                                                             "widgetInputOutputMapping": [
                                                                 {
                                                                     "subscriberWidgetInput": "timeFrom",
-                                                                    "publisherId": "f5d34c09-7372-4b8a-b881-092cbe0bcad2",
+                                                                    "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
                                                                     "publisherWidgetOutput": "from"
                                                                 },
                                                                 {
                                                                     "subscriberWidgetInput": "timeTo",
-                                                                    "publisherId": "f5d34c09-7372-4b8a-b881-092cbe0bcad2",
+                                                                    "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
                                                                     "publisherWidgetOutput": "to"
                                                                 },
                                                                 {
                                                                     "subscriberWidgetInput": "timeUnit",
-                                                                    "publisherId": "f5d34c09-7372-4b8a-b881-092cbe0bcad2",
+                                                                    "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
                                                                     "publisherWidgetOutput": "granularity"
                                                                 }
                                                             ]
@@ -2365,6 +2363,192 @@
     },
     "widgets": {
         "generated": [
+            {
+                "name": "Sequence Message Count",
+                "id": "Sequence-Message-Count",
+                "chartConfig": {
+                    "x": "date",
+                    "charts": [
+                        {
+                            "type": "bar",
+                            "y": "Success",
+                            "fill": "#5CB85C ",
+                            "mode": "stacked"
+                        },
+                        {
+                            "type": "bar",
+                            "y": "Faults",
+                            "fill": "#D9534F",
+                            "mode": "stacked"
+                        }
+                    ],
+                    "legend": true,
+                    "maxLength": 20,
+                    "append": false
+                },
+                "providerConfig": {
+                    "configs": {
+                        "type": "SiddhiStoreDataProvider",
+                        "config": {
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "queryData": {
+                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let queryStringKeyValue \u003d window.location.search.replace(\u0027?\u0027, \u0027\u0027).split(\u0027\u0026\u0027);\nlet qsJsonObject \u003d {};\nif (queryStringKeyValue !\u003d \u0027\u0027) {\n    for (let i \u003d 0; i \u003c queryStringKeyValue.length; i++) {\n        qsJsonObject[queryStringKeyValue[i].split(\u0027\u003d\u0027)[0]] \u003d queryStringKeyValue[i].split(\u0027\u003d\u0027)[1];\n    }\n}\nlet entryPoint \u003d \u0027true\u0027;\nif (qsJsonObject.entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + qsJsonObject.entryPoint + \u0027\\\u0027\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "customWidgetInputs": [
+                                    {
+                                        "name": "timeFrom",
+                                        "defaultValue": "331237800000"
+                                    },
+                                    {
+                                        "name": "timeTo",
+                                        "defaultValue": "394309800000"
+                                    },
+                                    {
+                                        "name": "timeUnit",
+                                        "defaultValue": "minute"
+                                    },
+                                    {
+                                        "name": "componentName",
+                                        "defaultValue": "test"
+                                    }
+                                ],
+                                "systemWidgetInputs": [
+                                    {
+                                        "name": "username",
+                                        "defaultValue": "admin"
+                                    }
+                                ],
+                                "query": "from MediatorStatAgg on true AND componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
+                            },
+                            "publishingInterval": 60,
+                            "timeColumns": "Time"
+                        }
+                    }
+                },
+                "metadata": {
+                    "names": [
+                        "Count",
+                        "Faults",
+                        "Success",
+                        "Time",
+                        "date"
+                    ],
+                    "types": [
+                        "LINEAR",
+                        "LINEAR",
+                        "LINEAR",
+                        "LINEAR",
+                        "ORDINAL"
+                    ]
+                },
+                "version": "1.0.0",
+                "pubsub": {
+                    "types": [
+                        "subscriber"
+                    ],
+                    "subscriberWidgetInputs": [
+                        "timeFrom",
+                        "timeTo",
+                        "timeUnit",
+                        "componentName"
+                    ]
+                }
+            },
+            {
+                "name": "Endpoint Message Latency",
+                "id": "Endpoint-Message-Latency",
+                "chartConfig": {
+                    "x": "date",
+                    "charts": [
+                        {
+                            "type": "bar",
+                            "y": "Minimum",
+                            "fill": "#D2691E",
+                            "mode": "stacked"
+                        },
+                        {
+                            "type": "bar",
+                            "y": "Average",
+                            "fill": "#FFA500",
+                            "mode": "stacked"
+                        },
+                        {
+                            "type": "bar",
+                            "y": "Maximum",
+                            "fill": "#0000FF",
+                            "mode": "stacked"
+                        }
+                    ],
+                    "legend": true,
+                    "maxLength": 20,
+                    "append": false
+                },
+                "providerConfig": {
+                    "configs": {
+                        "type": "SiddhiStoreDataProvider",
+                        "config": {
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "queryData": {
+                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let queryStringKeyValue \u003d window.location.search.replace(\u0027?\u0027, \u0027\u0027).split(\u0027\u0026\u0027);\nlet qsJsonObject \u003d {};\nif (queryStringKeyValue !\u003d \u0027\u0027) {\n    for (let i \u003d 0; i \u003c queryStringKeyValue.length; i++) {\n        qsJsonObject[queryStringKeyValue[i].split(\u0027\u003d\u0027)[0]] \u003d queryStringKeyValue[i].split(\u0027\u003d\u0027)[1];\n    }\n}\nlet entryPoint \u003d qsJsonObject.entryPoint;\nlet query \u003d \u0027\u0027;\nif (entryPoint \u003d\u003d \u0027undefined\u0027 || entryPoint \u003d\u003d null) {\n    query \u003d \"from MediatorStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\n}\nelse {\n    query \u003d \"from MediatorStatAgg on entryPoint\u003d\u003d\u0027\" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\n}\nconsole.log(query);\nreturn query;}",
+                                "customWidgetInputs": [
+                                    {
+                                        "name": "timeFrom",
+                                        "defaultValue": "331237800000"
+                                    },
+                                    {
+                                        "name": "timeTo",
+                                        "defaultValue": "394309800000"
+                                    },
+                                    {
+                                        "name": "timeUnit",
+                                        "defaultValue": "minute"
+                                    },
+                                    {
+                                        "name": "componentName",
+                                        "defaultValue": "test"
+                                    }
+                                ],
+                                "systemWidgetInputs": [
+                                    {
+                                        "name": "username",
+                                        "defaultValue": "admin"
+                                    }
+                                ],
+                                "query": "from MediatorStatAgg on componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
+                            },
+                            "publishingInterval": 60,
+                            "timeColumns": ""
+                        }
+                    }
+                },
+                "metadata": {
+                    "names": [
+                        "Minimum",
+                        "Maximum",
+                        "Average",
+                        "Time",
+                        "date"
+                    ],
+                    "types": [
+                        "LINEAR",
+                        "LINEAR",
+                        "LINEAR",
+                        "LINEAR",
+                        "ORDINAL"
+                    ]
+                },
+                "version": "1.0.0",
+                "pubsub": {
+                    "types": [
+                        "subscriber"
+                    ],
+                    "subscriberWidgetInputs": [
+                        "timeFrom",
+                        "timeTo",
+                        "timeUnit",
+                        "componentName"
+                    ]
+                }
+            },
             {
                 "name": "Overall Message Count",
                 "id": "Overall-Message-Count",
@@ -2451,8 +2635,8 @@
                 }
             },
             {
-                "name": "Endpoint Message Latency",
-                "id": "Endpoint-Message-Latency",
+                "name": "API Message Latency",
+                "id": "API-Message-Latency",
                 "chartConfig": {
                     "x": "date",
                     "charts": [
@@ -2483,9 +2667,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let queryStringKeyValue \u003d window.location.search.replace(\u0027?\u0027, \u0027\u0027).split(\u0027\u0026\u0027);\nlet qsJsonObject \u003d {};\nif (queryStringKeyValue !\u003d \u0027\u0027) {\n    for (let i \u003d 0; i \u003c queryStringKeyValue.length; i++) {\n        qsJsonObject[queryStringKeyValue[i].split(\u0027\u003d\u0027)[0]] \u003d queryStringKeyValue[i].split(\u0027\u003d\u0027)[1];\n    }\n}\nlet entryPoint \u003d qsJsonObject.entryPoint;\nlet query \u003d \u0027\u0027;\nif (entryPoint \u003d\u003d \u0027undefined\u0027 || entryPoint \u003d\u003d null) {\n    query \u003d \"from MediatorStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\n}\nelse {\n    query \u003d \"from MediatorStatAgg on entryPoint\u003d\u003d\u0027\" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\n}\nconsole.log(query);\nreturn query;}",
+                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2510,7 +2694,193 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
+                            },
+                            "publishingInterval": 60,
+                            "timeColumns": ""
+                        }
+                    }
+                },
+                "metadata": {
+                    "names": [
+                        "Minimum",
+                        "Maximum",
+                        "Average",
+                        "Time",
+                        "date"
+                    ],
+                    "types": [
+                        "LINEAR",
+                        "LINEAR",
+                        "LINEAR",
+                        "LINEAR",
+                        "ORDINAL"
+                    ]
+                },
+                "version": "1.0.0",
+                "pubsub": {
+                    "types": [
+                        "subscriber"
+                    ],
+                    "subscriberWidgetInputs": [
+                        "timeFrom",
+                        "timeTo",
+                        "timeUnit",
+                        "componentName"
+                    ]
+                }
+            },
+            {
+                "name": "API Message Count",
+                "id": "API-Message-Count",
+                "chartConfig": {
+                    "x": "date",
+                    "charts": [
+                        {
+                            "type": "bar",
+                            "y": "Success",
+                            "fill": "#5CB85C",
+                            "mode": "stacked"
+                        },
+                        {
+                            "type": "bar",
+                            "y": "Faults",
+                            "fill": "#D9534F",
+                            "mode": "stacked"
+                        }
+                    ],
+                    "legend": true,
+                    "maxLength": 20,
+                    "append": false
+                },
+                "providerConfig": {
+                    "configs": {
+                        "type": "SiddhiStoreDataProvider",
+                        "config": {
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "queryData": {
+                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "customWidgetInputs": [
+                                    {
+                                        "name": "timeFrom",
+                                        "defaultValue": "331237800000"
+                                    },
+                                    {
+                                        "name": "timeTo",
+                                        "defaultValue": "394309800000"
+                                    },
+                                    {
+                                        "name": "timeUnit",
+                                        "defaultValue": "minute"
+                                    },
+                                    {
+                                        "name": "componentName",
+                                        "defaultValue": "test"
+                                    }
+                                ],
+                                "systemWidgetInputs": [
+                                    {
+                                        "name": "username",
+                                        "defaultValue": "admin"
+                                    }
+                                ],
+                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
+                            },
+                            "publishingInterval": 60,
+                            "timeColumns": ""
+                        }
+                    }
+                },
+                "metadata": {
+                    "names": [
+                        "Count",
+                        "Faults",
+                        "Success",
+                        "Time",
+                        "date"
+                    ],
+                    "types": [
+                        "LINEAR",
+                        "LINEAR",
+                        "LINEAR",
+                        "LINEAR",
+                        "ORDINAL"
+                    ]
+                },
+                "version": "1.0.0",
+                "pubsub": {
+                    "types": [
+                        "subscriber"
+                    ],
+                    "subscriberWidgetInputs": [
+                        "timeFrom",
+                        "timeTo",
+                        "timeUnit",
+                        "componentName"
+                    ]
+                }
+            },
+            {
+                "name": "Inbound Endpoint Message Latency",
+                "id": "Inbound-Endpoint-Message-Latency",
+                "chartConfig": {
+                    "x": "date",
+                    "charts": [
+                        {
+                            "type": "bar",
+                            "y": "Minimum",
+                            "fill": "#D2691E",
+                            "mode": "stacked"
+                        },
+                        {
+                            "type": "bar",
+                            "y": "Average",
+                            "fill": "#FFA500",
+                            "mode": "stacked"
+                        },
+                        {
+                            "type": "bar",
+                            "y": "Maximum",
+                            "fill": "#0000FF",
+                            "mode": "stacked"
+                        }
+                    ],
+                    "legend": true,
+                    "maxLength": 20,
+                    "append": false
+                },
+                "providerConfig": {
+                    "configs": {
+                        "type": "SiddhiStoreDataProvider",
+                        "config": {
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "queryData": {
+                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "customWidgetInputs": [
+                                    {
+                                        "name": "timeFrom",
+                                        "defaultValue": "331237800000"
+                                    },
+                                    {
+                                        "name": "timeTo",
+                                        "defaultValue": "394309800000"
+                                    },
+                                    {
+                                        "name": "timeUnit",
+                                        "defaultValue": "minute"
+                                    },
+                                    {
+                                        "name": "componentName",
+                                        "defaultValue": "test"
+                                    }
+                                ],
+                                "systemWidgetInputs": [
+                                    {
+                                        "name": "username",
+                                        "defaultValue": "admin"
+                                    }
+                                ],
+                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": ""
@@ -2637,8 +3007,104 @@
                 }
             },
             {
-                "name": "API Message Latency",
-                "id": "API-Message-Latency",
+                "name": "Sequence Message Latency",
+                "id": "Sequence-Message-Latency",
+                "chartConfig": {
+                    "x": "date",
+                    "charts": [
+                        {
+                            "type": "bar",
+                            "y": "Minimum",
+                            "fill": "#D2691E",
+                            "mode": "stacked"
+                        },
+                        {
+                            "type": "bar",
+                            "y": "Average",
+                            "fill": "#FFA500",
+                            "mode": "stacked"
+                        },
+                        {
+                            "type": "bar",
+                            "y": "Maximum",
+                            "fill": "#0000FF",
+                            "mode": "stacked"
+                        }
+                    ],
+                    "legend": true,
+                    "maxLength": 20,
+                    "append": false
+                },
+                "providerConfig": {
+                    "configs": {
+                        "type": "SiddhiStoreDataProvider",
+                        "config": {
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "queryData": {
+                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let queryStringKeyValue \u003d window.location.search.replace(\u0027?\u0027, \u0027\u0027).split(\u0027\u0026\u0027);\nlet qsJsonObject \u003d {};\nif (queryStringKeyValue !\u003d \u0027\u0027) {\n    for (let i \u003d 0; i \u003c queryStringKeyValue.length; i++) {\n        qsJsonObject[queryStringKeyValue[i].split(\u0027\u003d\u0027)[0]] \u003d queryStringKeyValue[i].split(\u0027\u003d\u0027)[1];\n    }\n}\nlet entryPoint \u003d \u0027true\u0027;\nif (qsJsonObject.entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + qsJsonObject.entryPoint + \u0027\\\u0027\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "customWidgetInputs": [
+                                    {
+                                        "name": "timeFrom",
+                                        "defaultValue": "331237800000"
+                                    },
+                                    {
+                                        "name": "timeTo",
+                                        "defaultValue": "394309800000"
+                                    },
+                                    {
+                                        "name": "timeUnit",
+                                        "defaultValue": "minute"
+                                    },
+                                    {
+                                        "name": "componentName",
+                                        "defaultValue": "test"
+                                    }
+                                ],
+                                "systemWidgetInputs": [
+                                    {
+                                        "name": "username",
+                                        "defaultValue": "admin"
+                                    }
+                                ],
+                                "query": "from MediatorStatAgg on true AND componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
+                            },
+                            "publishingInterval": 60,
+                            "timeColumns": "Time"
+                        }
+                    }
+                },
+                "metadata": {
+                    "names": [
+                        "Minimum",
+                        "Maximum",
+                        "Average",
+                        "Time",
+                        "date"
+                    ],
+                    "types": [
+                        "LINEAR",
+                        "LINEAR",
+                        "LINEAR",
+                        "LINEAR",
+                        "ORDINAL"
+                    ]
+                },
+                "version": "1.0.0",
+                "pubsub": {
+                    "types": [
+                        "subscriber"
+                    ],
+                    "subscriberWidgetInputs": [
+                        "timeFrom",
+                        "timeTo",
+                        "timeUnit",
+                        "componentName"
+                    ]
+                }
+            },
+            {
+                "name": "Proxy Message Latency",
+                "id": "Proxy-Message-Latency",
                 "chartConfig": {
                     "x": "date",
                     "charts": [
@@ -2823,96 +3289,6 @@
                 }
             },
             {
-                "name": "Endpoint Message Count",
-                "id": "Endpoint-Message-Count",
-                "chartConfig": {
-                    "x": "date",
-                    "charts": [
-                        {
-                            "type": "bar",
-                            "y": "Success",
-                            "fill": "#5CB85C",
-                            "mode": "stacked"
-                        },
-                        {
-                            "type": "bar",
-                            "y": "Faults",
-                            "fill": "#D9534F",
-                            "mode": "stacked"
-                        }
-                    ],
-                    "legend": true,
-                    "maxLength": 20,
-                    "append": false
-                },
-                "providerConfig": {
-                    "configs": {
-                        "type": "SiddhiStoreDataProvider",
-                        "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
-                            "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let queryStringKeyValue \u003d window.location.search.replace(\u0027?\u0027, \u0027\u0027).split(\u0027\u0026\u0027);\nlet qsJsonObject \u003d {};\nif (queryStringKeyValue !\u003d \u0027\u0027) {\n    for (let i \u003d 0; i \u003c queryStringKeyValue.length; i++) {\n        qsJsonObject[queryStringKeyValue[i].split(\u0027\u003d\u0027)[0]] \u003d queryStringKeyValue[i].split(\u0027\u003d\u0027)[1];\n    }\n}\nlet entryPoint \u003d qsJsonObject.entryPoint;\nlet query \u003d \u0027\u0027;\n\nif (entryPoint \u003d\u003d \u0027undefined\u0027 || entryPoint \u003d\u003d null) {\n    query \u003d \"from MediatorStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027) + \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\n}\nelse {\n    query \u003d \"from MediatorStatAgg on entryPoint\u003d\u003d\u0027\" + entryPoint + \"\u0027 AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027) + \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\n}\nconsole.log(query);\nreturn query;}",
-                                "customWidgetInputs": [
-                                    {
-                                        "name": "timeFrom",
-                                        "defaultValue": "331237800000"
-                                    },
-                                    {
-                                        "name": "timeTo",
-                                        "defaultValue": "394309800000"
-                                    },
-                                    {
-                                        "name": "timeUnit",
-                                        "defaultValue": "minute"
-                                    },
-                                    {
-                                        "name": "componentName",
-                                        "defaultValue": "test"
-                                    }
-                                ],
-                                "systemWidgetInputs": [
-                                    {
-                                        "name": "username",
-                                        "defaultValue": "admin"
-                                    }
-                                ],
-                                "query": "from MediatorStatAgg on componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
-                            },
-                            "publishingInterval": 60,
-                            "timeColumns": ""
-                        }
-                    }
-                },
-                "metadata": {
-                    "names": [
-                        "Count",
-                        "Faults",
-                        "Success",
-                        "Time",
-                        "date"
-                    ],
-                    "types": [
-                        "LINEAR",
-                        "LINEAR",
-                        "LINEAR",
-                        "LINEAR",
-                        "ORDINAL"
-                    ]
-                },
-                "version": "1.0.0",
-                "pubsub": {
-                    "types": [
-                        "subscriber"
-                    ],
-                    "subscriberWidgetInputs": [
-                        "timeFrom",
-                        "timeTo",
-                        "timeUnit",
-                        "componentName"
-                    ]
-                }
-            },
-            {
                 "name": "Mediator Message Latency",
                 "id": "Mediator-Message-Latency",
                 "chartConfig": {
@@ -3004,192 +3380,6 @@
                 }
             },
             {
-                "name": "Sequence Message Latency",
-                "id": "Sequence-Message-Latency",
-                "chartConfig": {
-                    "x": "date",
-                    "charts": [
-                        {
-                            "type": "bar",
-                            "y": "Minimum",
-                            "fill": "#D2691E",
-                            "mode": "stacked"
-                        },
-                        {
-                            "type": "bar",
-                            "y": "Average",
-                            "fill": "#FFA500",
-                            "mode": "stacked"
-                        },
-                        {
-                            "type": "bar",
-                            "y": "Maximum",
-                            "fill": "#0000FF",
-                            "mode": "stacked"
-                        }
-                    ],
-                    "legend": true,
-                    "maxLength": 20,
-                    "append": false
-                },
-                "providerConfig": {
-                    "configs": {
-                        "type": "SiddhiStoreDataProvider",
-                        "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
-                            "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let queryStringKeyValue \u003d window.location.search.replace(\u0027?\u0027, \u0027\u0027).split(\u0027\u0026\u0027);\nlet qsJsonObject \u003d {};\nif (queryStringKeyValue !\u003d \u0027\u0027) {\n    for (let i \u003d 0; i \u003c queryStringKeyValue.length; i++) {\n        qsJsonObject[queryStringKeyValue[i].split(\u0027\u003d\u0027)[0]] \u003d queryStringKeyValue[i].split(\u0027\u003d\u0027)[1];\n    }\n}\nlet entryPoint \u003d \u0027true\u0027;\nif (qsJsonObject.entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + qsJsonObject.entryPoint + \u0027\\\u0027\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\nreturn query;}",
-                                "customWidgetInputs": [
-                                    {
-                                        "name": "timeFrom",
-                                        "defaultValue": "331237800000"
-                                    },
-                                    {
-                                        "name": "timeTo",
-                                        "defaultValue": "394309800000"
-                                    },
-                                    {
-                                        "name": "timeUnit",
-                                        "defaultValue": "minute"
-                                    },
-                                    {
-                                        "name": "componentName",
-                                        "defaultValue": "test"
-                                    }
-                                ],
-                                "systemWidgetInputs": [
-                                    {
-                                        "name": "username",
-                                        "defaultValue": "admin"
-                                    }
-                                ],
-                                "query": "from MediatorStatAgg on true AND componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
-                            },
-                            "publishingInterval": 60,
-                            "timeColumns": "Time"
-                        }
-                    }
-                },
-                "metadata": {
-                    "names": [
-                        "Minimum",
-                        "Maximum",
-                        "Average",
-                        "Time",
-                        "date"
-                    ],
-                    "types": [
-                        "LINEAR",
-                        "LINEAR",
-                        "LINEAR",
-                        "LINEAR",
-                        "ORDINAL"
-                    ]
-                },
-                "version": "1.0.0",
-                "pubsub": {
-                    "types": [
-                        "subscriber"
-                    ],
-                    "subscriberWidgetInputs": [
-                        "timeFrom",
-                        "timeTo",
-                        "timeUnit",
-                        "componentName"
-                    ]
-                }
-            },
-            {
-                "name": "API Message Count",
-                "id": "API-Message-Count",
-                "chartConfig": {
-                    "x": "date",
-                    "charts": [
-                        {
-                            "type": "bar",
-                            "y": "Success",
-                            "fill": "#5CB85C",
-                            "mode": "stacked"
-                        },
-                        {
-                            "type": "bar",
-                            "y": "Faults",
-                            "fill": "#D9534F",
-                            "mode": "stacked"
-                        }
-                    ],
-                    "legend": true,
-                    "maxLength": 20,
-                    "append": false
-                },
-                "providerConfig": {
-                    "configs": {
-                        "type": "SiddhiStoreDataProvider",
-                        "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
-                            "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\nreturn query;}",
-                                "customWidgetInputs": [
-                                    {
-                                        "name": "timeFrom",
-                                        "defaultValue": "331237800000"
-                                    },
-                                    {
-                                        "name": "timeTo",
-                                        "defaultValue": "394309800000"
-                                    },
-                                    {
-                                        "name": "timeUnit",
-                                        "defaultValue": "minute"
-                                    },
-                                    {
-                                        "name": "componentName",
-                                        "defaultValue": "test"
-                                    }
-                                ],
-                                "systemWidgetInputs": [
-                                    {
-                                        "name": "username",
-                                        "defaultValue": "admin"
-                                    }
-                                ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
-                            },
-                            "publishingInterval": 60,
-                            "timeColumns": ""
-                        }
-                    }
-                },
-                "metadata": {
-                    "names": [
-                        "Count",
-                        "Faults",
-                        "Success",
-                        "Time",
-                        "date"
-                    ],
-                    "types": [
-                        "LINEAR",
-                        "LINEAR",
-                        "LINEAR",
-                        "LINEAR",
-                        "ORDINAL"
-                    ]
-                },
-                "version": "1.0.0",
-                "pubsub": {
-                    "types": [
-                        "subscriber"
-                    ],
-                    "subscriberWidgetInputs": [
-                        "timeFrom",
-                        "timeTo",
-                        "timeUnit",
-                        "componentName"
-                    ]
-                }
-            },
-            {
                 "name": "Mediator Message Count",
                 "id": "Mediator-Message-Count",
                 "chartConfig": {
@@ -3275,207 +3465,15 @@
                 }
             },
             {
-                "name": "Proxy Message Latency",
-                "id": "Proxy-Message-Latency",
-                "chartConfig": {
-                    "x": "date",
-                    "charts": [
-                        {
-                            "type": "bar",
-                            "y": "Minimum",
-                            "fill": "#D2691E",
-                            "mode": "stacked"
-                        },
-                        {
-                            "type": "bar",
-                            "y": "Average",
-                            "fill": "#FFA500",
-                            "mode": "stacked"
-                        },
-                        {
-                            "type": "bar",
-                            "y": "Maximum",
-                            "fill": "#0000FF",
-                            "mode": "stacked"
-                        }
-                    ],
-                    "legend": true,
-                    "maxLength": 20,
-                    "append": false
-                },
-                "providerConfig": {
-                    "configs": {
-                        "type": "SiddhiStoreDataProvider",
-                        "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
-                            "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\nreturn query;}",
-                                "customWidgetInputs": [
-                                    {
-                                        "name": "timeFrom",
-                                        "defaultValue": "331237800000"
-                                    },
-                                    {
-                                        "name": "timeTo",
-                                        "defaultValue": "394309800000"
-                                    },
-                                    {
-                                        "name": "timeUnit",
-                                        "defaultValue": "minute"
-                                    },
-                                    {
-                                        "name": "componentName",
-                                        "defaultValue": "test"
-                                    }
-                                ],
-                                "systemWidgetInputs": [
-                                    {
-                                        "name": "username",
-                                        "defaultValue": "admin"
-                                    }
-                                ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
-                            },
-                            "publishingInterval": 60,
-                            "timeColumns": ""
-                        }
-                    }
-                },
-                "metadata": {
-                    "names": [
-                        "Minimum",
-                        "Maximum",
-                        "Average",
-                        "Time",
-                        "date"
-                    ],
-                    "types": [
-                        "LINEAR",
-                        "LINEAR",
-                        "LINEAR",
-                        "LINEAR",
-                        "ORDINAL"
-                    ]
-                },
-                "version": "1.0.0",
-                "pubsub": {
-                    "types": [
-                        "subscriber"
-                    ],
-                    "subscriberWidgetInputs": [
-                        "timeFrom",
-                        "timeTo",
-                        "timeUnit",
-                        "componentName"
-                    ]
-                }
-            },
-            {
-                "name": "Inbound Endpoint Message Latency",
-                "id": "Inbound-Endpoint-Message-Latency",
-                "chartConfig": {
-                    "x": "date",
-                    "charts": [
-                        {
-                            "type": "bar",
-                            "y": "Minimum",
-                            "fill": "#D2691E",
-                            "mode": "stacked"
-                        },
-                        {
-                            "type": "bar",
-                            "y": "Average",
-                            "fill": "#FFA500",
-                            "mode": "stacked"
-                        },
-                        {
-                            "type": "bar",
-                            "y": "Maximum",
-                            "fill": "#0000FF",
-                            "mode": "stacked"
-                        }
-                    ],
-                    "legend": true,
-                    "maxLength": 20,
-                    "append": false
-                },
-                "providerConfig": {
-                    "configs": {
-                        "type": "SiddhiStoreDataProvider",
-                        "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
-                            "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\nreturn query;}",
-                                "customWidgetInputs": [
-                                    {
-                                        "name": "timeFrom",
-                                        "defaultValue": "331237800000"
-                                    },
-                                    {
-                                        "name": "timeTo",
-                                        "defaultValue": "394309800000"
-                                    },
-                                    {
-                                        "name": "timeUnit",
-                                        "defaultValue": "minute"
-                                    },
-                                    {
-                                        "name": "componentName",
-                                        "defaultValue": "test"
-                                    }
-                                ],
-                                "systemWidgetInputs": [
-                                    {
-                                        "name": "username",
-                                        "defaultValue": "admin"
-                                    }
-                                ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
-                            },
-                            "publishingInterval": 60,
-                            "timeColumns": ""
-                        }
-                    }
-                },
-                "metadata": {
-                    "names": [
-                        "Minimum",
-                        "Maximum",
-                        "Average",
-                        "Time",
-                        "date"
-                    ],
-                    "types": [
-                        "LINEAR",
-                        "LINEAR",
-                        "LINEAR",
-                        "LINEAR",
-                        "ORDINAL"
-                    ]
-                },
-                "version": "1.0.0",
-                "pubsub": {
-                    "types": [
-                        "subscriber"
-                    ],
-                    "subscriberWidgetInputs": [
-                        "timeFrom",
-                        "timeTo",
-                        "timeUnit",
-                        "componentName"
-                    ]
-                }
-            },
-            {
-                "name": "Sequence Message Count",
-                "id": "Sequence-Message-Count",
+                "name": "Endpoint Message Count",
+                "id": "Endpoint-Message-Count",
                 "chartConfig": {
                     "x": "date",
                     "charts": [
                         {
                             "type": "bar",
                             "y": "Success",
-                            "fill": "#5CB85C ",
+                            "fill": "#5CB85C",
                             "mode": "stacked"
                         },
                         {
@@ -3495,7 +3493,7 @@
                         "config": {
                             "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let queryStringKeyValue \u003d window.location.search.replace(\u0027?\u0027, \u0027\u0027).split(\u0027\u0026\u0027);\nlet qsJsonObject \u003d {};\nif (queryStringKeyValue !\u003d \u0027\u0027) {\n    for (let i \u003d 0; i \u003c queryStringKeyValue.length; i++) {\n        qsJsonObject[queryStringKeyValue[i].split(\u0027\u003d\u0027)[0]] \u003d queryStringKeyValue[i].split(\u0027\u003d\u0027)[1];\n    }\n}\nlet entryPoint \u003d \u0027true\u0027;\nif (qsJsonObject.entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + qsJsonObject.entryPoint + \u0027\\\u0027\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let queryStringKeyValue \u003d window.location.search.replace(\u0027?\u0027, \u0027\u0027).split(\u0027\u0026\u0027);\nlet qsJsonObject \u003d {};\nif (queryStringKeyValue !\u003d \u0027\u0027) {\n    for (let i \u003d 0; i \u003c queryStringKeyValue.length; i++) {\n        qsJsonObject[queryStringKeyValue[i].split(\u0027\u003d\u0027)[0]] \u003d queryStringKeyValue[i].split(\u0027\u003d\u0027)[1];\n    }\n}\nlet entryPoint \u003d qsJsonObject.entryPoint;\nlet query \u003d \u0027\u0027;\n\nif (entryPoint \u003d\u003d \u0027undefined\u0027 || entryPoint \u003d\u003d null) {\n    query \u003d \"from MediatorStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027) + \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\n}\nelse {\n    query \u003d \"from MediatorStatAgg on entryPoint\u003d\u003d\u0027\" + entryPoint + \"\u0027 AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + \u0027time:dateFormat(convert(\\\u0027\u0027 + timeFrom + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027), time:dateFormat(convert(\\\u0027\u0027 + timeTo + \u0027\\\u0027, \\\u0027long\\\u0027), \\\u0027yyyy-MM-dd HH:mm:ss\\\u0027) per \\\u0027\u0027 + (timeUnit + \u0027s\u0027) + \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP\";\n}\nconsole.log(query);\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3520,10 +3518,10 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on true AND componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on componentName\u003d\u003d\u0027test\u0027 within time:dateFormat(convert(\u0027331237800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027), time:dateFormat(convert(\u0027394309800000\u0027, \u0027long\u0027), \u0027yyyy-MM-dd HH:mm:ss\u0027) per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, time:dateFormat(AGG_TIMESTAMP, \u0027yyyy-MM-dd HH:mm:ss\u0027) as date group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
-                            "timeColumns": "Time"
+                            "timeColumns": ""
                         }
                     }
                 },
