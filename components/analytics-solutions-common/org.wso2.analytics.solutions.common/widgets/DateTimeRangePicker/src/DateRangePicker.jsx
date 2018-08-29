@@ -39,8 +39,6 @@ export default class DateRangePicker extends Widget {
             btnType: <NotificationSyncDisabled color='#BDBDBD'/>
         };
 
-        this.handleResize = this.handleResize.bind(this);
-        this.props.glContainer.on('resize', this.handleResize);
         this.handleGranularityChange = this.handleGranularityChange.bind(this);
         this.handleGranularityChangeForCustom = this.handleGranularityChangeForCustom.bind(this);
         this.publishTimeRange = this.publishTimeRange.bind(this);
@@ -71,13 +69,13 @@ export default class DateRangePicker extends Widget {
         this.setRefreshInterval = this.setRefreshInterval.bind(this);
         this.clearRefreshInterval = this.clearRefreshInterval.bind(this);
         this.setQueryParamToURL = this.setQueryParamToURL.bind(this);
-    }
 
-    handleResize() {
-        this.setState({
-            width: this.props.glContainer.width,
-            height: this.props.glContainer.height
-        });
+        this.props.glContainer.on('resize', () =>
+            this.setState({
+                width: this.props.glContainer.width,
+                height: this.props.glContainer.height
+            })
+        );
     }
 
     publishTimeRange(message) {
