@@ -157,7 +157,8 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             for (let key in additionalFilterConditionsClone) {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
-                        console.log('Role Found: ', key, '\nValue: ', additionalFilterConditionsClone[key]);
+                        additionalFilters = additionalFilters +
+                            " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
                     } else if (key === 'isFirstLogin') {
                         additionalFilters = additionalFilters
                             + " and " + key + '==' + additionalFilterConditionsClone[key] + ' ';
