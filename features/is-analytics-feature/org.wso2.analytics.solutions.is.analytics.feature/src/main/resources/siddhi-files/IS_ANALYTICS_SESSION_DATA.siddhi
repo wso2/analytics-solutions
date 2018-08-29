@@ -21,6 +21,7 @@
 
 -- Receving streams from IS
 --Defining Input Stream for receving streams from IS
+
 define trigger TriggerStream at '0 0 12 * * ?';
 
 @source(type = "wso2event", wso2.stream.id = "org.wso2.is.analytics.stream.OverallSession:1.0.0", @map(type = 'wso2event'))
@@ -252,24 +253,20 @@ update or insert into
         SessionInformationTable
 on      SessionInformationTable.meta_tenantId==meta_tenantId and  
         SessionInformationTable.sessionId==sessionId;
+        
+-- Retain last one year data in the SessionInformationTable and active session table and delete the rest by sending trigger at 12.00 pm every day
 
--- Retain last one year data in the SessionInformationTable
-
-from TriggerStream
-select convert(time:dateSub(triggered_time,1,'YEAR'), 'long') as lastYearTimestamp
+from    TriggerStream
+select  convert(time:dateSub(triggered_time,1,'year'), 'long') as lastYearTimestamp
 insert into LastYearTimestamp;
 
-from TriggerStream join SessionInformationTable
-on      timestamp <= LastYearTimestamp
+from    LastYearTimestamp
 delete  SessionInformationTable
-on      SessionInformationTable.meta_tenantId == meta_tenantId and
-        SessionInformationTable.sessionId == sessionId;
+on      SessionInformationTable.timestamp <= lastYearTimestamp;
 
--- Removing inactive sessions from 'ActiveSessionsTable'
-from    HandleSessionInformation[isActive == false]#window.timeBatch(1 sec)
+from    LastYearTimestamp
 delete  ActiveSessionsTable
-on      ActiveSessionsTable.sessionId == sessionId and
-        ActiveSessionsTable.meta_tenantId == meta_tenantId;
+on      ActiveSessionsTable.timestamp <= lastYearTimestamp;
         
 --Counting new and termnated sessions every 1 second for each meta_tenantId
 from OverallSessionStream[action == 1 OR action == 0]#window.externalTimeBatch(_timestamp, 1 sec, 0, 2 sec)
