@@ -123,13 +123,13 @@ class EIAnalyticsMessageTable extends Widget {
 
     handlePublisherParameters(recievedMessage) {
         let message;
-        if (typeof recievedMessage == "string") {
+        if (typeof recievedMessage === "string") {
             message = JSON.parse(recievedMessage);
         }else {
             message = recievedMessage;
         }
 
-        if ('granularity' in message) {
+        if(message.granularity){
             // Update time parameters and clear existing table
             this.setState({
                 timeFromParameter: message.from,
@@ -139,7 +139,7 @@ class EIAnalyticsMessageTable extends Widget {
             }, this.handleGraphUpdate);
         }
 
-       if ('selectedComponent' in message) {
+       if (message.selectedComponent) {
         this.setState({
             componentName: message.selectedComponent
         }, this.handleGraphUpdate);
@@ -158,7 +158,7 @@ class EIAnalyticsMessageTable extends Widget {
                 let dataProviderConf = EIAnalyticsMessageTable.getProviderConf(message.data);
                 let query = dataProviderConf.configs.config.queryData.query;
                 let pageName = this.getCurrentPage();
-                let componentName=this.state.componentName;
+                let componentName = this.state.componentName;
                 let componentType;
                 let componentIdentifier = "componentName";
                 let urlParams = new URLSearchParams(window.location.search);
