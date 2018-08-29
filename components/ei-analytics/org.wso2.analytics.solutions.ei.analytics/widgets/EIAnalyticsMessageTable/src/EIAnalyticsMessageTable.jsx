@@ -121,7 +121,14 @@ class EIAnalyticsMessageTable extends Widget {
         super.subscribe(this.handlePublisherParameters);
     }
 
-    handlePublisherParameters(message) {
+    handlePublisherParameters(recievedMessage) {
+        let message;
+        if (typeof recievedMessage == "string") {
+            message = JSON.parse(recievedMessage);
+        }else {
+            message = recievedMessage;
+        }
+
         if ('granularity' in message) {
             // Update time parameters and clear existing table
             this.setState({
@@ -131,6 +138,12 @@ class EIAnalyticsMessageTable extends Widget {
                 data: []
             }, this.handleGraphUpdate);
         }
+
+       if ('selectedComponent' in message) {
+        this.setState({
+            componentName: message.selectedComponent
+        }, this.handleGraphUpdate);
+       }
     }
 
     handleGraphUpdate() {
@@ -145,14 +158,10 @@ class EIAnalyticsMessageTable extends Widget {
                 let dataProviderConf = EIAnalyticsMessageTable.getProviderConf(message.data);
                 let query = dataProviderConf.configs.config.queryData.query;
                 let pageName = this.getCurrentPage();
-                let componentName;
+                let componentName=this.state.componentName;
                 let componentType;
                 let componentIdentifier = "componentName";
                 let urlParams = new URLSearchParams(window.location.search);
-
-                if (urlParams.has('id')) {
-                    componentName = this.getUrlParameter('id');
-                }
 
                 if (pageName == "api") {
                     componentType = "api";
