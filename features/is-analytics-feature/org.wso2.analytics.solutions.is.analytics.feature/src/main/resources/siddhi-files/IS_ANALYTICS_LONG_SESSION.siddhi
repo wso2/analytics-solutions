@@ -23,7 +23,7 @@
 
 define trigger PeriodicalTriggerStream at every 2 min;
 
-define trigger TriggerStream at 'start';
+define trigger TriggerStreamAtDeployment at 'start';
 
 define trigger TriggerEveryThirtyMinutesStream at every 30 min;
 
@@ -49,7 +49,7 @@ define stream AlertLongSessionsStream (
             duration long,
             avgDuration double);
 
-define stream LastSevenDays( lastSeventimestamp long);
+define stream LastSevenDaysStream ( lastSeventimestamp long);
 
 -- Defining Databases
 
@@ -116,13 +116,13 @@ define table AverageSession(
 -- Queries
 
 -- Calculating last seven days timestamp by sending trigger for every 30 minutes
-from TriggerStream
+from TriggerStreamAtDeployment
 select convert(time:dateSub(triggered_time,7,'DAY'), 'long') as lastSeventimestamp
-insert into LastSevenDays;
+insert into LastSevenDaysStream;
 
 from TriggerEveryThirtyMinutesStream
 select convert(time:dateSub(triggered_time,7,'DAY'), 'long') as lastSeventimestamp
-insert into LastSevenDays;
+insert into LastSevenDaysStream;
 
 -- Filtering sessions longer than 15 minutes from the SessionInformationTable
 from        PeriodicalTriggerStream as P join SessionInformationTable as S
@@ -143,7 +143,7 @@ select      meta_tenantId,
 insert into FilterLongSessionsStreams;
 
 -- Calculating average duration of users and storing in a  event table
-from        LastSevenDays join SessionInformationTable
+from        LastSevenDaysStream join SessionInformationTable
 on          startTimestamp>= lastSeventimestamp
 select      meta_tenantId,
             tenantDomain,
