@@ -21,6 +21,9 @@
 
 -- Receving streams from IS
 --Defining Input Stream for receving streams from IS
+
+define trigger TriggerStream at '0 0 12 * * ?';
+
 @source(type = "wso2event", wso2.stream.id = "org.wso2.is.analytics.stream.OverallSession:1.0.0", @map(type = 'wso2event'))
 @source(type='inMemory',topic='IsAnalytics.Session.Common.Stream', @map(type='passThrough'))
 define stream OverallSessionStream (
@@ -76,6 +79,9 @@ define stream SessionStatisticsPerSecond (
         newSessionCount long, 
         terminatedSessionCount long,
         timestamp long);      
+
+define stream LastYearTimestamp(
+        lastYearTimestamp long);
 
 --Defining Databases
 
@@ -137,6 +143,7 @@ define table SessionInformationTable(
 -- Aggregating active, new, terminated session counts for sec-year
 
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
+@purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
 define aggregation SessionCountAggregation
 from    SessionStatisticsPerSecond
 select  meta_tenantId, 
@@ -247,12 +254,19 @@ update or insert into
 on      SessionInformationTable.meta_tenantId==meta_tenantId and  
         SessionInformationTable.sessionId==sessionId;
 
+-- Retain last one year data in the SessionInformationTable and active session table and delete the rest by sending trigger at 12.00 pm every day
 
--- Removing inactive sessions from 'ActiveSessionsTable'
-from    HandleSessionInformation[isActive == false]#window.timeBatch(1 sec)
+from    TriggerStream
+select  convert(time:dateSub(triggered_time,1,'year'), 'long') as lastYearTimestamp
+insert into LastYearTimestamp;
+
+from    LastYearTimestamp
+delete  SessionInformationTable
+on      SessionInformationTable.timestamp <= lastYearTimestamp;
+
+from    LastYearTimestamp
 delete  ActiveSessionsTable
-on      ActiveSessionsTable.sessionId == sessionId AND 
-        ActiveSessionsTable.meta_tenantId == meta_tenantId;
+on      ActiveSessionsTable.timestamp <= lastYearTimestamp;
         
 --Counting new and termnated sessions every 1 second for each meta_tenantId
 from OverallSessionStream[action == 1 OR action == 0]#window.externalTimeBatch(_timestamp, 1 sec, 0, 2 sec)

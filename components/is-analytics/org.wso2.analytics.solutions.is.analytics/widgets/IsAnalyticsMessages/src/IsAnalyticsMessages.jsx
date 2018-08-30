@@ -18,167 +18,241 @@
  */
 
 import React from 'react';
-import Widget from "@wso2-dashboards/widget";
+import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
-import {Scrollbars} from 'react-custom-scrollbars';
-import {MuiThemeProvider} from '@material-ui/core/styles';
+import { Scrollbars } from 'react-custom-scrollbars';
+import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import _ from 'lodash';
+import Typography from '@material-ui/core/Typography';
 
-const colorGreen = "#6ED460";
-const colorRed = "#EC5D40";
+const colorGreen = '#6ED460';
+const colorRed = '#EC5D40';
 const boolColorScale = [colorRed, colorGreen];
 
-let metadataOverall = {
-    names: ['contextId', 'username', 'serviceProvider', 'authenticationStep', 'rolesCommaSeparated','tenantDomain', 'remoteIp', 'region', 'authSuccess', 'utcTime'],
-    types: ['ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal']
+const darkTheme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    },
+});
+
+const lightTheme = createMuiTheme({
+    palette: {
+        type: 'light',
+    },
+});
+
+const metadataOverall = {
+    names: [
+        'contextId',
+        'username',
+        'serviceProvider',
+        'authenticationStep',
+        'rolesCommaSeparated',
+        'tenantDomain',
+        'remoteIp',
+        'region',
+        'authSuccess',
+        'utcTime',
+    ],
+    types: [
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+    ],
 };
 
-let metadataLocal = {
-    names: ['contextId', 'username', 'serviceProvider', 'userStoreDomain', 'tenantDomain', 'rolesCommaSeparated', 'remoteIp', 'region', 'authSuccess', 'utcTime'],
-    types: ['ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal']
+const metadataLocal = {
+    names: ['contextId',
+        'username',
+        'serviceProvider',
+        'userStoreDomain',
+        'tenantDomain',
+        'rolesCommaSeparated',
+        'remoteIp',
+        'region',
+        'authSuccess',
+        'utcTime',
+    ],
+    types: [
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+    ],
 };
 
-let metadataFederated = {
-    names: ['contextId', 'username', 'serviceProvider', 'identityProvider', 'remoteIp', 'region', 'authSuccess', 'utcTime'],
-    types: ['ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal', 'ordinal']
+const metadataFederated = {
+    names: [
+        'contextId',
+        'username',
+        'serviceProvider',
+        'identityProvider',
+        'remoteIp',
+        'region',
+        'authSuccess',
+        'utcTime',
+    ],
+    types: [
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+        'ordinal',
+    ],
 };
 
-let columnsOverall = [
+const columnsOverall = [
     {
-        name: "contextId",
-        title: "Context ID"
+        name: 'contextId',
+        title: 'Context ID',
     },
     {
-        name: "username",
-        title: "User Name"
+        name: 'username',
+        title: 'User Name',
     },
     {
-        name: "serviceProvider",
-        title: "Service Provider"
+        name: 'serviceProvider',
+        title: 'Service Provider',
     },
     {
-        name: "authenticationStep",
-        title: "Subject Step"
+        name: 'authenticationStep',
+        title: 'Subject Step',
     },
     {
-        name: "rolesCommaSeparated",
-        title: "Roles"
+        name: 'rolesCommaSeparated',
+        title: 'Roles',
     },
     {
-        name: "tenantDomain",
-        title: "Tenant Domain"
+        name: 'tenantDomain',
+        title: 'Tenant Domain',
     },
     {
-        name: "remoteIp",
-        title: "IP"
+        name: 'remoteIp',
+        title: 'IP',
     },
     {
-        name: "region",
-        title: "Region"
+        name: 'region',
+        title: 'Region',
     },
     {
-        name: "authSuccess",
-        title: "Overall Authentication",
+        name: 'authSuccess',
+        title: 'Overall Authentication',
         colorBasedStyle: true,
         colorScale: boolColorScale,
     },
     {
-        name: "utcTime",
-        title: "Timestamp"
-    }
+        name: 'utcTime',
+        title: 'Timestamp',
+    },
 ];
 
-let columnsLocal = [
+const columnsLocal = [
     {
-        name: "contextId",
-        title: "Context ID"
+        name: 'contextId',
+        title: 'Context ID',
     },
     {
-        name: "username",
-        title: "User Name"
+        name: 'username',
+        title: 'User Name',
     },
     {
-        name: "serviceProvider",
-        title: "Service Provider"
+        name: 'serviceProvider',
+        title: 'Service Provider',
     },
     {
-        name: "userStoreDomain",
-        title: "User Store"
+        name: 'userStoreDomain',
+        title: 'User Store',
     },
     {
-        name: "tenantDomain",
-        title: "Tenant Domain"
+        name: 'tenantDomain',
+        title: 'Tenant Domain',
     },
     {
-        name: "rolesCommaSeparated",
-        title: "Roles"
+        name: 'rolesCommaSeparated',
+        title: 'Roles',
     },
     {
-        name: "remoteIp",
-        title: "IP"
+        name: 'remoteIp',
+        title: 'IP',
     },
     {
-        name: "region",
-        title: "Region"
+        name: 'region',
+        title: 'Region',
     },
     {
-        name: "authSuccess",
-        title: "Local Authentication",
+        name: 'authSuccess',
+        title: 'Local Authentication',
         colorBasedStyle: true,
         colorScale: [colorGreen, colorRed],
     },
     {
-        name: "utcTime",
-        title: "Timestamp"
-    }
+        name: 'utcTime',
+        title: 'Timestamp',
+    },
 ];
 
-let columnsFederated = [
+const columnsFederated = [
     {
-        name: "contextId",
-        title: "Context ID"
+        name: 'contextId',
+        title: 'Context ID',
     },
     {
-        name: "username",
-        title: "User Name"
+        name: 'username',
+        title: 'User Name',
     },
     {
-        name: "serviceProvider",
-        title: "Service Provider"
+        name: 'serviceProvider',
+        title: 'Service Provider',
     },
     {
-        name: "identityProvider",
-        title: "identityProvider"
+        name: 'identityProvider',
+        title: 'identityProvider',
     },
     {
-        name: "remoteIp",
-        title: "IP"
+        name: 'remoteIp',
+        title: 'IP',
     },
     {
-        name: "region",
-        title: "Region"
+        name: 'region',
+        title: 'Region',
     },
     {
-        name: "authSuccess",
-        title: "Authentication Step Success",
-        colorBasedStyle:true,
+        name: 'authSuccess',
+        title: 'Authentication Step Success',
+        colorBasedStyle: true,
         colorScale: boolColorScale,
     },
     {
-        name: "utcTime",
-        title: "Timestamp"
-    }
+        name: 'utcTime',
+        title: 'Timestamp',
+    },
 ];
 
-let tableConfig = {
+const tableConfig = {
     charts: [
         {
-            type: "table",
-        }
+            type: 'table',
+        },
     ],
     pagination: true,
     filterable: true,
-    append: false
+    append: false,
 };
 
 class IsAnalyticsMessages extends Widget {
@@ -186,24 +260,22 @@ class IsAnalyticsMessages extends Widget {
         super(props);
 
         this.state = {
-            tableConfig: tableConfig,
+            tableConfig,
             data: [],
             isProviderConfigsFaulty: false,
             options: this.props.configs.options,
             width: this.props.glContainer.width,
-            height: this.props.glContainer.height
+            height: this.props.glContainer.height,
         };
 
         this.handleReceivedData = this.handleReceivedData.bind(this);
         this.onReceivingMessage = this.onReceivingMessage.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
 
-        this.props.glContainer.on('resize', () =>
-            this.setState({
-                width: this.props.glContainer.width,
-                height: this.props.glContainer.height
-            })
-        );
+        this.props.glContainer.on('resize', () => this.setState({
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height,
+        }));
     }
 
     componentDidMount() {
@@ -211,100 +283,99 @@ class IsAnalyticsMessages extends Widget {
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
-                    dataProviderConf: message.data.configs.providerConfig
+                    dataProviderConf: message.data.configs.providerConfig,
                 });
             })
             .catch(() => {
                 this.setState({
-                    isProviderConfigsFaulty: true
+                    isProviderConfigsFaulty: true,
                 });
             });
 
-        let tableConfigClone = _.cloneDeep(tableConfig);
+        const tableConfigClone = _.cloneDeep(tableConfig);
         let metadata = [];
         switch (this.state.options.widgetType) {
-            case ("Local"):
+            case ('Local'):
                 tableConfigClone.charts[0].columns = columnsLocal;
                 metadata = metadataLocal;
                 break;
-            case ("Federated"):
+            case ('Federated'):
                 tableConfigClone.charts[0].columns = columnsFederated;
                 metadata = metadataFederated;
                 break;
-            case ("Overall"):
+            default:
                 tableConfigClone.charts[0].columns = columnsOverall;
                 metadata = metadataOverall;
                 break;
         }
         this.setState({
             tableConfig: tableConfigClone,
-            metadata: metadata,
-        })
+            metadata,
+        });
     }
 
     handleReceivedData(message) {
         this.setState({
-            data: message.data
+            data: message.data,
         });
         window.dispatchEvent(new Event('resize'));
     }
 
     onReceivingMessage(message) {
-        if (message.header === "additionalFilterConditions") {
-            if (message.body === "") {
+        if (message.header === 'additionalFilterConditions') {
+            if (message.body === '') {
                 this.setState({
                     additionalFilterConditions: undefined,
                     data: [],
-                }, this.assembleQuery)
+                }, this.assembleQuery);
             } else {
                 this.setState({
                     additionalFilterConditions: message.body,
                     data: [],
                 }, this.assembleQuery);
             }
-        }
-        else {
+        } else {
             this.setState({
                 fromDate: message.from,
                 toDate: message.to,
-                data: []
+                data: [],
             }, this.assembleQuery);
         }
     }
 
     assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
-        let dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
+        const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
         let updatedQuery = dataProviderConfigs.configs.config.queryData.query;
-        let filterCondition = " on timestamp > {{from}}L and timestamp < {{to}}L ";
-        let additionalFilters = "";
+        let filterCondition = ' on timestamp > {{from}}L and timestamp < {{to}}L ';
+        let additionalFilters = '';
         let doAdditionalFilter = false;
 
         filterCondition = filterCondition
-            .replace("{{per}}", this.state.per)
-            .replace("{{from}}", this.state.fromDate)
-            .replace("{{to}}", this.state.toDate);
+            .replace('{{per}}', this.state.per)
+            .replace('{{from}}', this.state.fromDate)
+            .replace('{{to}}', this.state.toDate);
 
-        if (this.state.options.widgetType === "Local") {
+        if (this.state.options.widgetType === 'Local') {
             updatedQuery = dataProviderConfigs.configs.config.queryData.queryLocal;
-        } else if (this.state.options.widgetType === "Federated") {
+        } else if (this.state.options.widgetType === 'Federated') {
             updatedQuery = dataProviderConfigs.configs.config.queryData.queryFederated;
         }
 
         if (this.state.additionalFilterConditions !== undefined) {
-            let additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
+            const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
 
-            for (var key in additionalFilterConditionsClone) {
-                if (additionalFilterConditionsClone[key] !== "") {
-                    if (key === "role") {
-                        additionalFilters = additionalFilters +
-                            " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
-                    } else if (key === "isFirstLogin") {
-                        additionalFilters = additionalFilters +
-                            " and " + key + "==" + additionalFilterConditionsClone[key] + " ";
+            for (const key in additionalFilterConditionsClone) {
+                if (additionalFilterConditionsClone[key] !== '') {
+                    if (key === 'role') {
+                        additionalFilters = additionalFilters
+                            + " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
+                    } else if (key === 'isFirstLogin') {
+                        additionalFilters = additionalFilters
+                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                     } else {
-                        additionalFilters = additionalFilters +
-                            " and " + key + "==\'" + additionalFilterConditionsClone[key] + "\' ";
+                        additionalFilters = additionalFilters
+                            + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
                     }
                 }
             }
@@ -312,20 +383,25 @@ class IsAnalyticsMessages extends Widget {
         }
 
         if (doAdditionalFilter) {
-            filterCondition = filterCondition + additionalFilters;
+            filterCondition += additionalFilters;
         }
 
-        updatedQuery = updatedQuery.replace("{{filterCondition}}", filterCondition);
+        updatedQuery = updatedQuery.replace('{{filterCondition}}', filterCondition);
         dataProviderConfigs.configs.config.queryData.query = updatedQuery;
 
         super.getWidgetChannelManager().subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfigs);
     }
 
     render() {
+        let theme = darkTheme;
+
+        if (this.props.muiTheme.name === 'light') {
+            theme = lightTheme;
+        }
         if (this.state.isProviderConfigsFaulty) {
             return (
-                <MuiThemeProvider theme={this.props.muiTheme}>
-                    <Scrollbars style={{height: this.state.height}}>
+                <MuiThemeProvider theme={theme}>
+                    <Scrollbars style={{ height: this.state.height }}>
                         <div
                             style={{
                                 width: this.props.glContainer.width,
@@ -333,16 +409,20 @@ class IsAnalyticsMessages extends Widget {
                             }}
                             className="list-table-wrapper"
                         >
-                            <h1> Messages </h1>
-                            <h5>[ERROR]: Cannot connect with the data provider</h5>
+                            <Typography variant="title" gutterBottom align="center">
+                                Messages
+                            </Typography>
+                            <Typography variant="title" gutterBottom align="center">
+                                [ERROR]: Cannot connect with the data provider
+                            </Typography>
                         </div>
                     </Scrollbars>
                 </MuiThemeProvider>
             );
         }
         return (
-            <MuiThemeProvider theme={this.props.muiTheme}>
-                <Scrollbars style={{height: this.state.height}}>
+            <MuiThemeProvider theme={theme}>
+                <Scrollbars style={{ height: this.state.height }}>
                     <div
                         style={{
                             width: this.props.glContainer.width,
@@ -350,14 +430,14 @@ class IsAnalyticsMessages extends Widget {
                         }}
                         className="list-table-wrapper"
                     >
-                        <h1> Messages </h1>
+                        <Typography variant="title" gutterBottom align="center">
+                            Messages
+                        </Typography>
                         <VizG
                             config={this.state.tableConfig}
                             metadata={this.state.metadata}
                             data={this.state.data}
                             append={false}
-                            height={this.props.glContainer.height}
-                            width={this.props.glContainer.width}
                             theme={this.props.muiTheme.name}
                         />
                     </div>

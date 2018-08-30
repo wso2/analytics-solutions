@@ -24,6 +24,8 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import _ from 'lodash';
+import JssProvider from 'react-jss/lib/JssProvider';
+import Typography from '@material-ui/core/Typography';
 
 const colorWhite = '#FFFFFF';
 const colorGreen = '#6ED460';
@@ -62,12 +64,42 @@ const chartConfig = {
     charts: [
         {
             type: 'map',
-            'y': 'Count',
-            'mapType': 'world',
-            'colorScale': colorScaleSuccess,
+            y: 'Count',
+            mapType: 'world',
+            colorScale: colorScaleSuccess,
         },
     ],
     chloropethRangeLowerBound: 0,
+};
+
+// This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
+
+const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
+let classCounter = 0;
+
+
+// This is not the default export
+// eslint-disable-next-line import/prefer-default-export
+export const generateClassName = (rule, styleSheet) => {
+    classCounter += 1;
+
+    if (process.env.NODE_ENV === 'production') {
+        return `c${classCounter}`;
+    }
+
+    if (styleSheet && styleSheet.options.classNamePrefix) {
+        let prefix = styleSheet.options.classNamePrefix;
+        // Sanitize the string as will be used to prefix the generated class name.
+        prefix = prefix.replace(escapeRegex, '-');
+
+        if (prefix.match(/^Mui/)) {
+            return `${prefix}-${rule.key}`;
+        }
+
+        return `${prefix}-${rule.key}-${classCounter}`;
+    }
+
+    return `${rule.key}-${classCounter}`;
 };
 
 class IsAnalyticsLoginAttemptsMap extends Widget {
@@ -92,10 +124,9 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
         this.assembleQuery = this.assembleQuery.bind(this);
 
         this.props.glContainer.on('resize', () => this.setState({
-                width: this.props.glContainer.width,
-                height: this.props.glContainer.height,
-            }),
-        );
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height,
+        }));
     }
 
     componentDidMount() {
@@ -144,7 +175,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
 
         const dataProviderConfig = _.cloneDeep(this.state.dataProviderConf);
-        const query = dataProviderConfig.configs.config.queryData.query;
+        const { query } = dataProviderConfig.configs.config.queryData;
         let filterCondition = " on identityProviderType=='{{idpType}}' ";
         let additionalFilters = '';
         let countType = '';
@@ -154,17 +185,17 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
         if (this.state.additionalFilterConditions !== undefined) {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
 
-            for (let key in additionalFilterConditionsClone) {
+            for (const key in additionalFilterConditionsClone) {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
-                        additionalFilters = additionalFilters +
-                            " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
+                        additionalFilters = additionalFilters
+                            + " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
                     } else if (key === 'isFirstLogin') {
                         additionalFilters = additionalFilters
-                            + " and " + key + '==' + additionalFilterConditionsClone[key] + ' ';
+                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                     } else {
                         additionalFilters = additionalFilters
-                            + " and " + key + "==\'" + additionalFilterConditionsClone[key] + "\' ";
+                            + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
                     }
                 }
             }
@@ -216,6 +247,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
     }
 
     onMapTypeChange(event) {
+        // eslint-disable-next-line react/no-access-state-in-setstate
         const chartConfigClone = _.cloneDeep(this.state.chartConfig);
         let switchLabel = '';
         let isFailureMap = false;
@@ -238,16 +270,43 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
     }
 
     render() {
-        const width = this.state.width;
-        const height = this.state.height;
+        const { width } = this.state;
+        const { height } = this.state;
         let theme = darkTheme;
 
-        if (this.props.muiTheme.appBar.color === '#313335') {
+        if (this.props.muiTheme.name === 'light') {
             theme = lightTheme;
         }
 
         if (this.state.isDataProviderConfingFault) {
             return (
+                <JssProvider generateClassName={generateClassName}>
+                    <MuiThemeProvider theme={theme}>
+                        <div
+                            style={{
+                                paddingLeft: width * 0.05,
+                                paddingRight: width * 0.05,
+                                paddingTop: height * 0.05,
+                                paddingBottom: height * 0.05,
+                                height,
+                                width,
+                            }}
+                        >
+                            <div style={{ height: height * 0.1, width: width * 0.9 }}>
+                                <Typography variant="title" gutterBottom>
+                                    Login Attempts Map
+                                </Typography>
+                            </div>
+                            <div>
+                                <h5>Data Provider Configuration Error</h5>
+                            </div>
+                        </div>
+                    </MuiThemeProvider>
+                </JssProvider>
+            );
+        }
+        return (
+            <JssProvider generateClassName={generateClassName}>
                 <MuiThemeProvider theme={theme}>
                     <div
                         style={{
@@ -260,50 +319,31 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
                         }}
                     >
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <h3> Area Chart </h3>
+                            <Typography variant="title" gutterBottom>
+                                Login Attempts Map
+                            </Typography>
                         </div>
-                        <div>
-                            <h5>Data Provider Configuration Error</h5>
+                        <div style={{ height: height * 0.6, width: width * 0.9 }}>
+                            <VizG
+                                config={this.state.chartConfig}
+                                metadata={this.state.metadata}
+                                data={this.state.data}
+                            />
+                        </div>
+                        <div style={{ height: height * 0.2, width: width * 0.9 }}>
+                            <FormControlLabel
+                                control={(
+                                    <Switch
+                                        checked={this.state.isFailureMap}
+                                        onChange={event => this.onMapTypeChange(event)}
+                                    />
+                                )}
+                                label={this.state.switchLabel}
+                            />
                         </div>
                     </div>
                 </MuiThemeProvider>
-            );
-        }
-        return (
-            <MuiThemeProvider theme={theme}>
-                <div
-                    style={{
-                        paddingLeft: width * 0.05,
-                        paddingRight: width * 0.05,
-                        paddingTop: height * 0.05,
-                        paddingBottom: height * 0.05,
-                        height,
-                        width,
-                    }}
-                >
-                    <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                        <h3> Area Chart </h3>
-                    </div>
-                    <div style={{ height: height * 0.6, width: width * 0.9 }}>
-                        <VizG
-                            config={this.state.chartConfig}
-                            metadata={this.state.metadata}
-                            data={this.state.data}
-                        />
-                    </div>
-                    <div style={{ height: height * 0.2, width: width * 0.9 }}>
-                        <FormControlLabel
-                            control={(
-                                <Switch
-                                    checked={this.state.isFailureMap}
-                                    onChange={(event) => this.onMapTypeChange(event)}
-                                />
-                            )}
-                            label={this.state.switchLabel}
-                        />
-                    </div>
-                </div>
-            </MuiThemeProvider>
+            </JssProvider>
         );
     }
 }
