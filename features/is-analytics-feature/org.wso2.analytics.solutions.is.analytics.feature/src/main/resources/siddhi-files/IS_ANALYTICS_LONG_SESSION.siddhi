@@ -23,7 +23,9 @@
 
 define trigger PeriodicalTriggerStream at every 2 min;
 
-define trigger TriggerStream at every 30 min;
+define trigger TriggerStream at 'start';
+
+define trigger TriggerEveryThirtyMinutesStream at every 30 min;
 
 define stream FilterLongSessionsStreams (
             meta_tenantId int,
@@ -115,6 +117,10 @@ define table AverageSession(
 
 -- Calculating last seven days timestamp by sending trigger for every 30 minutes
 from TriggerStream
+select convert(time:dateSub(triggered_time,7,'DAY'), 'long') as lastSeventimestamp
+insert into LastSevenDays;
+
+from TriggerEveryThirtyMinutesStream
 select convert(time:dateSub(triggered_time,7,'DAY'), 'long') as lastSeventimestamp
 insert into LastSevenDays;
 
