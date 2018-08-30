@@ -22,6 +22,7 @@
 -- Defining streams to handle Long Sessions
 
 define trigger PeriodicalTriggerStream at every 2 min;
+
 define trigger TriggerStream at every 30 min;
 
 define stream FilterLongSessionsStreams (
@@ -103,15 +104,6 @@ define table SecurityAlertTypeTable(
             userReadableTime string);
 
 @primaryKey('meta_tenantId', 'username', 'userstoreDomain')
-@store(type='rdbms', datasource='IS_ANALYTICS_DB')
-define table AverageSessionDurationTable(
-            meta_tenantId int,
-            tenantDomain string,
-            username string,
-            userstoreDomain string,
-            avgDuration double);
-
-@primaryKey('meta_tenantId', 'username', 'userstoreDomain')
 define table AverageSession(
             meta_tenantId int,
             tenantDomain string,
@@ -121,10 +113,12 @@ define table AverageSession(
 
 -- Queries
 
+-- Calculating last seven days timestamp by sending trigger for every 30 minutes
 from TriggerStream
 select convert(time:dateSub(triggered_time,7,'DAY'), 'long') as lastSeventimestamp
 insert into LastSevenDays;
 
+-- Filtering sessions longer than 15 minutes from the SessionInformationTable
 from        PeriodicalTriggerStream as P join SessionInformationTable as S
 on          S.duration > 900000 and
             S.rememberMeFlag == false and
@@ -142,6 +136,7 @@ select      meta_tenantId,
             timestamp
 insert into FilterLongSessionsStreams;
 
+-- Calculating average duration of users and storing in a  event table
 from        LastSevenDays join SessionInformationTable
 on          startTimestamp>= lastSeventimestamp
 select      meta_tenantId,
@@ -159,6 +154,7 @@ on          AverageSession.meta_tenantId==meta_tenantId and
             AverageSession.username==username and
             AverageSession.userstoreDomain==userstoreDomain ;
 
+-- Identifying long sessions
 from        FilterLongSessionsStreams as s join AverageSession as t
 on          s.meta_tenantId == t.meta_tenantId and
             s.tenantDomain == t.tenantDomain and
