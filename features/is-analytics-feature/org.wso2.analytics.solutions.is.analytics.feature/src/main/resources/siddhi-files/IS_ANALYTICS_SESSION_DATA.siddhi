@@ -80,7 +80,7 @@ define stream SessionStatisticsPerSecond (
         terminatedSessionCount long,
         timestamp long);      
 
-define stream LastYearTimestamp(
+define stream LastYearTimestampStream(
         lastYearTimestamp long);
 
 --Defining Databases
@@ -258,13 +258,13 @@ on      SessionInformationTable.meta_tenantId==meta_tenantId and
 
 from    TriggerStream
 select  convert(time:dateSub(triggered_time,1,'year'), 'long') as lastYearTimestamp
-insert into LastYearTimestamp;
+insert into LastYearTimestampStream;
 
-from    LastYearTimestamp
+from    LastYearTimestampStream
 delete  SessionInformationTable
 on      SessionInformationTable.timestamp <= lastYearTimestamp;
 
-from    LastYearTimestamp
+from    LastYearTimestampStream
 delete  ActiveSessionsTable
 on      ActiveSessionsTable.timestamp <= lastYearTimestamp;
         
