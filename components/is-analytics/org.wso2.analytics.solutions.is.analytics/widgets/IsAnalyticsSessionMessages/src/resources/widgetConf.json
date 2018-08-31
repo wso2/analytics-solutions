@@ -1,28 +1,27 @@
 {
-    "name": "IsAnalyticsSessionMessages",
-    "id": "IsAnalyticsSessionMessages",
-    "thumbnailURL": "",
-    "configs": {
-      "pubsub": {
-        "types": [
-          "subscriber"
-        ]
-      },
-      "providerConfig": {
-        "configs": {
-          "type": "RDBMSBatchDataProvider",
-          "config": {
-            "datasourceName": "IS_ANALYTICS_DB",
-            "queryData": {
-              "query": "select username, startTime, terminateTime, endTime, duration, isActive, userstoreDomain, tenantDomain, remoteIp, rememberMeFlag, currentTime from SessionInformationTable WHERE timestamp >= {{from}}L AND timestamp <= {{to}}L "
-            },
-            "incrementalColumn": "meta_tenantId",
-            "publishingLimit": 100
-  
-          }
+  "name": "IsAnalyticsSessionMessages",
+  "id": "IsAnalyticsSessionMessages",
+  "thumbnailURL": "",
+  "configs": {
+    "pubsub": {
+      "types": [
+        "subscriber"
+      ]
+    },
+    "providerConfig": {
+      "configs": {
+        "type": "RDBMSBatchDataProvider",
+        "config": {
+          "datasourceName": "IS_ANALYTICS_DB",
+          "queryData": {
+            "query": "select username, startTime, terminateTime, endTime, duration, isActive, userstoreDomain, tenantDomain, remoteIp, rememberMeFlag, currentTime from SessionInformationTable WHERE timestamp >= {{from}}L AND timestamp <= {{to}}L "
+          },
+          "incrementalColumn": "meta_tenantId",
+          "publishingLimit": 100
+
         }
       }
     }
   }
-  
+}
   
