@@ -2223,62 +2223,6 @@
         }
       },
       {
-        "name":"IsAnalyticsActiveSessions",
-        "id":"IsAnalyticsActiveSessions",
-        "chartConfig":{
-          "x":"ACTIVESESSION",
-          "title":"Active Sessions",
-          "charts":[
-            {
-              "type":"number"
-            }
-          ]
-        },
-        "providerConfig":{
-          "configs":{
-            "type":"RDBMSBatchDataProvider",
-            "config":{
-              "datasourceName":"IS_ANALYTICS_DB",
-              "queryData":{
-                "queryFunction":"this.getQuery \u003d function (username){return \"select count(sessionId) as ActiveSession from ACTIVESESSIONSTABLE group by sessionId\";}",
-                "customWidgetInputs":[
-
-                ],
-                "systemWidgetInputs":[
-                  {
-                    "name":"username",
-                    "defaultValue":"admin"
-                  }
-                ],
-                "query":"select count(sessionId) as ActiveSession from ACTIVESESSIONSTABLE group by sessionId"
-              },
-              "tableName":"ACTIVESESSIONSTABLE",
-              "incrementalColumn":"sessionId",
-              "timeColumns":"",
-              "publishingInterval":1,
-              "purgingInterval":60,
-              "publishingLimit":30,
-              "purgingLimit":30,
-              "isPurgingEnable":false
-            }
-          }
-        },
-        "metadata":{
-          "names":[
-            "ACTIVESESSION"
-          ],
-          "types":[
-            "LINEAR"
-          ]
-        },
-        "version":"1.0.0",
-        "pubsub":{
-          "types":[
-
-          ]
-        }
-      },
-      {
         "name":"IsAnalyticsLongSessionAlerts",
         "id":"IsAnalyticsLongSessionAlerts",
         "chartConfig":{
@@ -2388,6 +2332,62 @@
           "subscriberWidgetInputs":[
             "from",
             "to"
+          ]
+        }
+      },
+      {
+        "name":"IsAnalyticsActiveSessions",
+        "id":"IsAnalyticsActiveSessions",
+        "chartConfig":{
+          "x":"ACTIVESESSION",
+          "title":"Active Sessions",
+          "charts":[
+            {
+              "type":"number"
+            }
+          ]
+        },
+        "providerConfig":{
+          "configs":{
+            "type":"RDBMSBatchDataProvider",
+            "config":{
+              "datasourceName":"IS_ANALYTICS_DB",
+              "queryData":{
+                "queryFunction":"this.getQuery \u003d function (username){return \"select count(sessionId) as ActiveSession from ACTIVESESSIONSTABLE group by sessionId\";}",
+                "customWidgetInputs":[
+
+                ],
+                "systemWidgetInputs":[
+                  {
+                    "name":"username",
+                    "defaultValue":"admin"
+                  }
+                ],
+                "query":"select count(sessionId) as ActiveSession from ACTIVESESSIONSTABLE group by sessionId"
+              },
+              "tableName":"ACTIVESESSIONSTABLE",
+              "incrementalColumn":"sessionId",
+              "timeColumns":"",
+              "publishingInterval":1,
+              "purgingInterval":60,
+              "publishingLimit":30,
+              "purgingLimit":30,
+              "isPurgingEnable":false
+            }
+          }
+        },
+        "metadata":{
+          "names":[
+            "ACTIVESESSION"
+          ],
+          "types":[
+            "LINEAR"
+          ]
+        },
+        "version":"1.0.0",
+        "pubsub":{
+          "types":[
+
           ]
         }
       }
