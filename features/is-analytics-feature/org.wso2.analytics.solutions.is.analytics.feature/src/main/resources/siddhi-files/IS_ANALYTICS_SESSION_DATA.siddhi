@@ -267,7 +267,13 @@ on      SessionInformationTable.timestamp <= lastYearTimestamp;
 from    LastYearTimestampStream
 delete  ActiveSessionsTable
 on      ActiveSessionsTable.timestamp <= lastYearTimestamp;
-        
+
+-- Removing inactive sessions from 'ActiveSessionsTable'
+from    HandleSessionInformation[isActive == false]#window.timeBatch(1 sec)
+delete  ActiveSessionsTable
+on      ActiveSessionsTable.sessionId == sessionId AND
+        ActiveSessionsTable.meta_tenantId == meta_tenantId;
+
 --Counting new and termnated sessions every 1 second for each meta_tenantId
 from OverallSessionStream[action == 1 OR action == 0]#window.externalTimeBatch(_timestamp, 1 sec, 0, 2 sec)
 select  meta_tenantId, 
