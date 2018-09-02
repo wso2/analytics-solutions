@@ -1420,7 +1420,7 @@
                         "isClosable":true,
                         "title":"",
                         "width":100.0,
-                        "height":39.29173693086003,
+                        "height":42.32715008431703,
                         "content":[
                           {
                             "title":"Date Time Range",
@@ -1460,14 +1460,14 @@
                         "type":"row",
                         "isClosable":true,
                         "title":"",
-                        "height":60.70826306913997,
+                        "height":57.67284991568297,
                         "content":[
                           {
                             "type":"stack",
                             "isClosable":true,
                             "title":"",
-                            "height":50.0,
-                            "width":81.11111111111111,
+                            "height":43.482294115679046,
+                            "width":87.03703703703704,
                             "content":[
                               {
                                 "title":"IsAnalyticsSessionCountOverTime",
@@ -1503,14 +1503,14 @@
                             "type":"stack",
                             "isClosable":true,
                             "title":"",
-                            "width":18.88888888888889,
+                            "width":12.962962962962965,
                             "content":[
                               {
-                                "title":"IsAnalyticsActiveSessions",
+                                "title":"IsAnalyticsActiveSession",
                                 "type":"component",
                                 "component":"UniversalWidget",
                                 "props":{
-                                  "id":"70fd5abe-5eb8-4e6c-8d04-e17b9c0176de",
+                                  "id":"e3163678-200a-4c73-95b1-62c956b081f9",
                                   "configs":{
                                     "pubsub":{
                                       "types":[
@@ -1522,7 +1522,7 @@
 
                                     }
                                   },
-                                  "widgetID":"IsAnalyticsActiveSessions"
+                                  "widgetID":"IsAnalyticsActiveSession"
                                 },
                                 "isClosable":false,
                                 "header":{
@@ -2037,92 +2037,6 @@
   "widgets":{
     "generated":[
       {
-        "name":"IsAnalyticsAlertType",
-        "id":"IsAnalyticsAlertType",
-        "chartConfig":{
-          "charts":[
-            {
-              "type":"table",
-              "columns":[
-                {
-                  "name":"TYPE",
-                  "title":" Alert Type",
-                  "colorBasedStyle":false
-                },
-                {
-                  "name":"COUNT1",
-                  "title":"Count",
-                  "colorBasedStyle":false
-                }
-              ],
-              "columnTitles":[
-
-              ]
-            }
-          ],
-          "maxLength":10000000,
-          "filterable":true,
-          "pagination":true,
-          "append":false
-        },
-        "providerConfig":{
-          "configs":{
-            "type":"RDBMSBatchDataProvider",
-            "config":{
-              "datasourceName":"IS_ANALYTICS_DB",
-              "queryData":{
-                "queryFunction":"this.getQuery \u003d function (username,from,to){return \"select type, count(meta_tenantId) as count1 from SECURITYALERTTYPETABLE where alertTimestamp \u003e\u003d \"+from+\" and alertTimestamp \u003c\u003d \"+to+\" group by type\";}",
-                "customWidgetInputs":[
-                  {
-                    "name":"from",
-                    "defaultValue":"0"
-                  },
-                  {
-                    "name":"to",
-                    "defaultValue":"4102425000000"
-                  }
-                ],
-                "systemWidgetInputs":[
-                  {
-                    "name":"username",
-                    "defaultValue":"admin"
-                  }
-                ],
-                "query":"select type, count(meta_tenantId) as count1 from SECURITYALERTTYPETABLE where alertTimestamp \u003e\u003d 0 and alertTimestamp \u003c\u003d 4102425000000 group by type"
-              },
-              "tableName":"SECURITYALERTTYPETABLE",
-              "incrementalColumn":"meta_tenantId",
-              "timeColumns":"",
-              "publishingInterval":1,
-              "purgingInterval":60,
-              "publishingLimit":30,
-              "purgingLimit":30,
-              "isPurgingEnable":false
-            }
-          }
-        },
-        "metadata":{
-          "names":[
-            "TYPE",
-            "COUNT1"
-          ],
-          "types":[
-            "ORDINAL",
-            "LINEAR"
-          ]
-        },
-        "version":"1.0.0",
-        "pubsub":{
-          "types":[
-            "subscriber"
-          ],
-          "subscriberWidgetInputs":[
-            "from",
-            "to"
-          ]
-        }
-      },
-      {
         "name":"IsAnalyticsSuspiciousAlerts",
         "id":"IsAnalyticsSuspiciousAlerts",
         "chartConfig":{
@@ -2219,6 +2133,62 @@
           "subscriberWidgetInputs":[
             "from",
             "to"
+          ]
+        }
+      },
+      {
+        "name":"IsAnalyticsActiveSession",
+        "id":"IsAnalyticsActiveSession",
+        "chartConfig":{
+          "x":"ACTIVE",
+          "title":"Active Sessions",
+          "charts":[
+            {
+              "type":"number"
+            }
+          ]
+        },
+        "providerConfig":{
+          "configs":{
+            "type":"RDBMSBatchDataProvider",
+            "config":{
+              "datasourceName":"IS_ANALYTICS_DB",
+              "queryData":{
+                "queryFunction":"this.getQuery \u003d function (username){return \"select count(*) as active from ActiveSessionsTable\";}",
+                "customWidgetInputs":[
+
+                ],
+                "systemWidgetInputs":[
+                  {
+                    "name":"username",
+                    "defaultValue":"admin"
+                  }
+                ],
+                "query":"select count(*) as active from ActiveSessionsTable"
+              },
+              "tableName":"ActiveSessionsTable",
+              "incrementalColumn":"active",
+              "timeColumns":"",
+              "publishingInterval":1,
+              "purgingInterval":60,
+              "publishingLimit":30,
+              "purgingLimit":30,
+              "isPurgingEnable":false
+            }
+          }
+        },
+        "metadata":{
+          "names":[
+            "ACTIVE"
+          ],
+          "types":[
+            "LINEAR"
+          ]
+        },
+        "version":"1.0.0",
+        "pubsub":{
+          "types":[
+
           ]
         }
       },
@@ -2336,16 +2306,33 @@
         }
       },
       {
-        "name":"IsAnalyticsActiveSessions",
-        "id":"IsAnalyticsActiveSessions",
+        "name":"IsAnalyticsAlertType",
+        "id":"IsAnalyticsAlertType",
         "chartConfig":{
-          "x":"ACTIVESESSION",
-          "title":"Active Sessions",
           "charts":[
             {
-              "type":"number"
+              "type":"table",
+              "columns":[
+                {
+                  "name":"TYPE",
+                  "title":" Alert Type",
+                  "colorBasedStyle":false
+                },
+                {
+                  "name":"COUNT1",
+                  "title":"Count",
+                  "colorBasedStyle":false
+                }
+              ],
+              "columnTitles":[
+
+              ]
             }
-          ]
+          ],
+          "maxLength":10000000,
+          "filterable":true,
+          "pagination":true,
+          "append":false
         },
         "providerConfig":{
           "configs":{
@@ -2353,9 +2340,16 @@
             "config":{
               "datasourceName":"IS_ANALYTICS_DB",
               "queryData":{
-                "queryFunction":"this.getQuery \u003d function (username){return \"select count(sessionId) as ActiveSession from ACTIVESESSIONSTABLE group by sessionId\";}",
+                "queryFunction":"this.getQuery \u003d function (username,from,to){return \"select type, count(meta_tenantId) as count1 from SECURITYALERTTYPETABLE where alertTimestamp \u003e\u003d \"+from+\" and alertTimestamp \u003c\u003d \"+to+\" group by type\";}",
                 "customWidgetInputs":[
-
+                  {
+                    "name":"from",
+                    "defaultValue":"0"
+                  },
+                  {
+                    "name":"to",
+                    "defaultValue":"4102425000000"
+                  }
                 ],
                 "systemWidgetInputs":[
                   {
@@ -2363,10 +2357,10 @@
                     "defaultValue":"admin"
                   }
                 ],
-                "query":"select count(sessionId) as ActiveSession from ACTIVESESSIONSTABLE group by sessionId"
+                "query":"select type, count(meta_tenantId) as count1 from SECURITYALERTTYPETABLE where alertTimestamp \u003e\u003d 0 and alertTimestamp \u003c\u003d 4102425000000 group by type"
               },
-              "tableName":"ACTIVESESSIONSTABLE",
-              "incrementalColumn":"sessionId",
+              "tableName":"SECURITYALERTTYPETABLE",
+              "incrementalColumn":"meta_tenantId",
               "timeColumns":"",
               "publishingInterval":1,
               "purgingInterval":60,
@@ -2378,16 +2372,22 @@
         },
         "metadata":{
           "names":[
-            "ACTIVESESSION"
+            "TYPE",
+            "COUNT1"
           ],
           "types":[
+            "ORDINAL",
             "LINEAR"
           ]
         },
         "version":"1.0.0",
         "pubsub":{
           "types":[
-
+            "subscriber"
+          ],
+          "subscriberWidgetInputs":[
+            "from",
+            "to"
           ]
         }
       }
