@@ -23,7 +23,7 @@ import moment from 'moment';
 
 let TENANT_ID = '-1234';
 let MESSAGE_PAGE = "message";
-let PARAM_ID = "id";
+let pageName;
 
 class EIAnalyticsMessageTable extends Widget {
     constructor(props) {
@@ -90,11 +90,7 @@ class EIAnalyticsMessageTable extends Widget {
         this.handleStats = this.handleStats.bind(this);
         this.handleGraphUpdate = this.handleGraphUpdate.bind(this);
         this.handlePublisherParameters = this.handlePublisherParameters.bind(this);
-        this.getCurrentPage = this.getCurrentPage.bind(this);
-        this.getUrlParameter = this.getUrlParameter.bind(this);
         this.handleRowSelect = this.handleRowSelect.bind(this);
-
-
     }
 
     static getProviderConf(widgetConfiguration) {
@@ -103,28 +99,27 @@ class EIAnalyticsMessageTable extends Widget {
 
     handleRowSelect(event) {
         //get the messageId from the selected row 
-        let messageId = event.messageFlowId;
-        //substring and modify the URL, so on click, the page is directed to relevant message page with query parameter 'id'
-        let currPageStr = parent.window.location.href;
-        let index = currPageStr.lastIndexOf("/");
-        let tempMsgPageURL = currPageStr.substring(0, (index + 1)) + MESSAGE_PAGE;
-        let msgPageURL = new URL(tempMsgPageURL);
-        msgPageURL.searchParams.append(PARAM_ID, messageId);
-        window.location.href = msgPageURL;
-    }
+        let messageId = event.messageFlowId;        
+        window.location.href = MESSAGE_PAGE;
+        super.setGlobalState(getKey("messageId"), messageId);
+    }  
 
     handleResize() {
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
+    }
+
+    componentDidMount() {
+        pageName = getCurrentPage();
     }
 
     componentWillMount() {
         super.subscribe(this.handlePublisherParameters);
     }
 
-    handlePublisherParameters(recievedMessage) {
-        let message = (typeof recievedMessage === "string") ? JSON.parse(recievedMessage): recievedMessage;
+    handlePublisherParameters(receivedMessage) {
+        let message = (typeof receivedMessage === "string") ? JSON.parse(receivedMessage): receivedMessage;
         if(message.granularity){
-            // Update time parameters and clear existing table
+    // Update time parameters and clear existing table
             this.setState({
                 timeFromParameter: message.from,
                 timeToParameter: message.to,
@@ -132,7 +127,6 @@ class EIAnalyticsMessageTable extends Widget {
                 data: []
             }, this.handleGraphUpdate);
         }
-
        if (message.selectedComponent) {
         this.setState({
             componentName: message.selectedComponent
@@ -144,26 +138,21 @@ class EIAnalyticsMessageTable extends Widget {
         console.log("calling");
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
-
-
                 super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
-
                 // Get data provider sub json string from the widget configuration
                 let dataProviderConf = EIAnalyticsMessageTable.getProviderConf(message.data);
                 let query = dataProviderConf.configs.config.queryData.query;
-                let pageName = this.getCurrentPage();
                 let componentName = this.state.componentName;
                 let componentType;
                 let componentIdentifier = "componentName";
                 let urlParams = new URLSearchParams(window.location.search);
-
                 if (pageName == "api") {
                     componentType = "api";
                 } else if (pageName == "proxy") {
                     componentType = "proxy service"
                 } else {
                     if (urlParams.has('entryPoint')) {
-                        entryPoint = this.getUrlParameter('entryPoint')
+                        entryPoint = getUrlParameter('entryPoint')
                     }
                     if (pageName == "mediator") {
                         componentType = "mediator";
@@ -191,11 +180,9 @@ class EIAnalyticsMessageTable extends Widget {
                     .subscribeWidget(
                         this.props.id, this.handleStats, dataProviderConf
                     );
-
-
             })
             .catch((error) => {
-                // todo: Handle error
+                console.log(error);
             });
     }
 
@@ -213,27 +200,6 @@ class EIAnalyticsMessageTable extends Widget {
     componentWillUnmount() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
     }
-
-
-    getCurrentPage() {
-        let pageName;
-        let href = parent.window.location.href;
-        let lastSegment = href.substr(href.lastIndexOf('/') + 1);
-        if (lastSegment.indexOf('?') == -1) {
-            pageName = lastSegment;
-
-        } else {
-            pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
-        }
-        return pageName;
-    }
-
-    getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    };
 
     render() {
         return (
@@ -253,5 +219,30 @@ class EIAnalyticsMessageTable extends Widget {
         );
     }
 }
+
+
+function getCurrentPage() {
+    let pageName;
+    let href = parent.window.location.href;
+    let lastSegment = href.substr(href.lastIndexOf('/') + 1);
+    if (lastSegment.indexOf('?') == -1) {
+        pageName = lastSegment;
+    } else {
+        pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
+    }
+    return pageName;
+}
+
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
+function getKey(parameter){
+    return pageName+"_page_"+parameter;
+}
+
 
 global.dashboard.registerWidget("EIAnalyticsMessageTable", EIAnalyticsMessageTable);
