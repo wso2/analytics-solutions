@@ -107,7 +107,8 @@ class IsAnalyticsAttemptsOverTime extends Widget {
     }
 
     componentWillUnmount() {
-        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+        super.getWidgetChannelManager()
+            .unsubscribeWidget(this.props.id);
     }
 
     onReceivingMessage(message) {
@@ -134,7 +135,8 @@ class IsAnalyticsAttemptsOverTime extends Widget {
     }
 
     assembleQuery() {
-        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+        super.getWidgetChannelManager()
+            .unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
         let { query } = dataProviderConfigs.configs.config.queryData;
         let filterCondition = ' ';
@@ -146,13 +148,13 @@ class IsAnalyticsAttemptsOverTime extends Widget {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
                         filterCondition = filterCondition
-                            + " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
+                            + ' and str:contains(\'' + additionalFilterConditionsClone[key] + '\', rolesCommaSeparated) ';
                     } else if (key === 'isFirstLogin') {
                         filterCondition = filterCondition
                             + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                     } else {
                         filterCondition = filterCondition
-                            + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
+                            + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
                     }
                 }
             }
@@ -177,7 +179,8 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         }
 
         dataProviderConfigs.configs.config.queryData.query = query;
-        super.getWidgetChannelManager().subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfigs);
+        super.getWidgetChannelManager()
+            .subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfigs);
     }
 
     handleReceivedData(message) {
@@ -187,6 +190,16 @@ class IsAnalyticsAttemptsOverTime extends Widget {
     }
 
     render() {
+        const { height } = this.state;
+        const { width } = this.state;
+        const divSpacing = {
+            paddingLeft: width * 0.05,
+            paddingRight: width * 0.05,
+            paddingTop: height * 0.05,
+            paddingBottom: height * 0.05,
+            height,
+            width,
+        };
         let theme = darkTheme;
 
         if (this.props.muiTheme.name === 'light') {
@@ -195,7 +208,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         if (this.state.isProviderConfigFault) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div style={{ height: this.state.height }}>
+                    <div style={divSpacing}>
                         <Typography variant="title" gutterBottom align="center">
                             Login Attempts Over Time
                         </Typography>
@@ -208,13 +221,13 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         }
         return (
             <MuiThemeProvider theme={theme}>
-                <div style={{ height: this.state.height }}>
-                    <div style={{ height: this.state.height * 0.1 }}>
+                <div style={divSpacing}>
+                    <div style={{ height: height * 0.1, width: width * 0.9 }}>
                         <Typography variant="title" gutterBottom align="center">
                             Login Attempts Over Time
                         </Typography>
                     </div>
-                    <div style={{ height: this.state.height * 0.9 }}>
+                    <div style={{ height: height * 0.9, width: width * 0.9 }}>
                         <VizG
                             config={this.state.chartConfig}
                             metadata={this.state.metadata}

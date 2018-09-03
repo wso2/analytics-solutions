@@ -252,6 +252,14 @@ class IsAnalyticsCompactSummary extends Widget {
     render() {
         const { height } = this.state;
         const { width } = this.state;
+        const divSpacing = {
+            paddingLeft: width * 0.05,
+            paddingRight: width * 0.05,
+            paddingTop: height * 0.05,
+            paddingBottom: height * 0.05,
+            height,
+            width,
+        };
         let theme = darkTheme;
 
         if (this.props.muiTheme.name === 'light') {
@@ -261,7 +269,7 @@ class IsAnalyticsCompactSummary extends Widget {
         if (this.state.faultyProviderConf) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div style={{ padding: 24 }}>
+                    <div style={divSpacing}>
                         <Typography variant="body1" gutterBottom align="center">
                             Data Provider Connection Error - Please check the provider configs
                         </Typography>
@@ -271,8 +279,8 @@ class IsAnalyticsCompactSummary extends Widget {
         }
         return (
             <MuiThemeProvider theme={theme}>
-                <div style={{ height, width }}>
-                    <div style={{ height: height * 0.45 }}>
+                <div style={divSpacing}>
+                    <div style={{ height: height * 0.45, width: width * 0.9 }}>
                         <VizG
                             config={numChartConfig}
                             metadata={this.state.numChartMetadata}
@@ -283,8 +291,8 @@ class IsAnalyticsCompactSummary extends Widget {
                     {
                         (this.state.totalAttempts !== 0)
                         && (
-                            <div style={{ padding: 24, height: height * 0.55 }}>
-                                <div style={{ height: height * 0.05, width: width * 0.9, 'text-align': 'center' }}>
+                            <div style={{ padding: 24, height: height * 0.55, width: width * 0.9 }}>
+                                <div style={{ height: height * 0.05, width: width * 0.9 }}>
                                     <Typography
                                         variant="body1"
                                         gutterBottom
