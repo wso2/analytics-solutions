@@ -48,6 +48,8 @@ define stream OverallAuthenticationProcessedStream (
     timestamp long
 );
 
+define trigger TablePurgingTriggerStream at every 1 day;
+
 -- TABLE DEFINITIONS
 
 -- Overall Authentication Table
@@ -86,7 +88,7 @@ define table OverallAuthenticationTable (
 
 -- Update OverallAuthenticationTable
 from OverallAuthenticationProcessedStream
-select 
+select
     meta_tenantId,
     contextId,
     eventId,
@@ -112,15 +114,20 @@ select
     identityProviderType,
     time:dateFormat(timestamp, "MMMM dd, yyyy hh:mm:ss a zzz") as utcTime,
     timestamp
-group by 
+group by
     meta_tenantId,
     contextId,
     eventId,
     eventType,
     region
 update or insert into OverallAuthenticationTable
-on 
-    OverallAuthenticationTable.meta_tenantId==meta_tenantId 
-    and OverallAuthenticationTable.contextId==contextId 
-    and OverallAuthenticationTable.eventType==eventType 
-    and OverallAuthenticationTable.eventId==eventId
+on
+    OverallAuthenticationTable.meta_tenantId==meta_tenantId
+    and OverallAuthenticationTable.contextId==contextId
+    and OverallAuthenticationTable.eventType==eventType
+    and OverallAuthenticationTable.eventId==eventId;
+
+from TablePurgingTriggerStream
+select time:dateSub(triggered_time, 1, 'year') as purgingTime
+delete OverallAuthenticationTable
+on OverallAuthenticationTable.timestamp < purgingTime;

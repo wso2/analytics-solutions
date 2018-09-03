@@ -398,11 +398,11 @@ class IsAnalyticsMessages extends Widget {
     render() {
         const { width } = this.state;
         const { height } = this.state;
-        const divSpacing = {
-            paddingLeft: width * 0.05,
-            paddingRight: width * 0.05,
-            paddingTop: height * 0.05,
-            paddingBottom: height * 0.05,
+        const divSpacings = {
+            paddingLeft: width * 0.02,
+            paddingRight: width * 0.02,
+            paddingTop: height * 0.02,
+            paddingBottom: height * 0.02,
             height,
             width,
         };
@@ -415,7 +415,7 @@ class IsAnalyticsMessages extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <Scrollbars style={{ height, width }}>
-                        <div style={divSpacing}>
+                        <div style={divSpacings}>
                             <div>
                                 <Typography variant="title" gutterBottom align="center">
                                     Messages
@@ -432,13 +432,13 @@ class IsAnalyticsMessages extends Widget {
         return (
             <MuiThemeProvider theme={theme}>
                 <Scrollbars style={{ height, width }}>
-                    <div style={divSpacing}>
-                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
+                    <div style={divSpacings}>
+                        <div style={{ height: height * 0.05, width: width * 0.96 }}>
                             <Typography variant="title" gutterBottom align="center">
                                 Messages
                             </Typography>
                         </div>
-                        <div style={{ height: height * 0.8, width: width * 0.9 }}>
+                        <div style={{ height: height * 0.8, width: width * 0.96 }}>
                             <VizG
                                 config={this.state.tableConfig}
                                 metadata={this.state.metadata}

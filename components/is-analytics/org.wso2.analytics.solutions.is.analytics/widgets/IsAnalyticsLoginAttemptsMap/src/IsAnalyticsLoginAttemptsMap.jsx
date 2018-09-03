@@ -272,7 +272,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
     render() {
         const { width } = this.state;
         const { height } = this.state;
-        const divSpacing = {
+        const divSpacings = {
             paddingLeft: width * 0.05,
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
@@ -290,7 +290,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             return (
                 <JssProvider generateClassName={generateClassName}>
                     <MuiThemeProvider theme={theme}>
-                        <div style={divSpacing}>
+                        <div style={divSpacings}>
                             <div style={{ height: height * 0.1, width: width * 0.9 }}>
                                 <Typography
                                     variant="title"
@@ -311,7 +311,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
         return (
             <JssProvider generateClassName={generateClassName}>
                 <MuiThemeProvider theme={theme}>
-                    <div style={divSpacing}>
+                    <div style={divSpacings}>
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
                             <Typography
                                 variant="title"

@@ -192,7 +192,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
     render() {
         const { height } = this.state;
         const { width } = this.state;
-        const divSpacing = {
+        const divSpacings = {
             paddingLeft: width * 0.05,
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
@@ -208,7 +208,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         if (this.state.isProviderConfigFault) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div style={divSpacing}>
+                    <div style={divSpacings}>
                         <Typography variant="title" gutterBottom align="center">
                             Login Attempts Over Time
                         </Typography>
@@ -221,7 +221,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         }
         return (
             <MuiThemeProvider theme={theme}>
-                <div style={divSpacing}>
+                <div style={divSpacings}>
                     <div style={{ height: height * 0.1, width: width * 0.9 }}>
                         <Typography variant="title" gutterBottom align="center">
                             Login Attempts Over Time
