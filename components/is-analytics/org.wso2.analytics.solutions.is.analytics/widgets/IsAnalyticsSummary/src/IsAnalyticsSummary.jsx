@@ -157,7 +157,7 @@ class IsAnalyticsSummary extends Widget {
         const totalAttempts = parseInt(message.data[0][0], 10) + parseInt(message.data[0][1], 10);
         const successPercentage = parseFloat(parseInt(message.data[0][1], 10) * 100 / totalAttempts)
             .toFixed(2);
-        const failurePercentage = parseFloat(parseInt(message.data[0][1], 10) * 100 / totalAttempts)
+        const failurePercentage = parseFloat(parseInt(message.data[0][0], 10) * 100 / totalAttempts)
             .toFixed(2);
 
         this.setState({

@@ -199,7 +199,7 @@ const columnsLocal = [
         name: 'authSuccess',
         title: 'Local Authentication',
         colorBasedStyle: true,
-        colorScale: [colorGreen, colorRed],
+        colorScale: boolColorScale,
     },
     {
         name: 'utcTime',
