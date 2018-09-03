@@ -122,7 +122,7 @@ class EIAnalyticsMessageTable extends Widget {
     }
 
     handlePublisherParameters(recievedMessage) {
-        let message = (typeof recievedMessage === "string")? JSON.parse(recievedMessage): recievedMessage;
+        let message = (typeof recievedMessage === "string") ? JSON.parse(recievedMessage): recievedMessage;
         if(message.granularity){
             // Update time parameters and clear existing table
             this.setState({
