@@ -272,6 +272,14 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
     render() {
         const { width } = this.state;
         const { height } = this.state;
+        const divSpacing = {
+            paddingLeft: width * 0.05,
+            paddingRight: width * 0.05,
+            paddingTop: height * 0.05,
+            paddingBottom: height * 0.05,
+            height,
+            width,
+        };
         let theme = darkTheme;
 
         if (this.props.muiTheme.name === 'light') {
@@ -282,16 +290,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             return (
                 <JssProvider generateClassName={generateClassName}>
                     <MuiThemeProvider theme={theme}>
-                        <div
-                            style={{
-                                paddingLeft: width * 0.05,
-                                paddingRight: width * 0.05,
-                                paddingTop: height * 0.05,
-                                paddingBottom: height * 0.05,
-                                height,
-                                width,
-                            }}
-                        >
+                        <div style={divSpacing}>
                             <div style={{ height: height * 0.1, width: width * 0.9 }}>
                                 <Typography
                                     variant="title"
@@ -312,16 +311,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
         return (
             <JssProvider generateClassName={generateClassName}>
                 <MuiThemeProvider theme={theme}>
-                    <div
-                        style={{
-                            paddingLeft: width * 0.05,
-                            paddingRight: width * 0.05,
-                            paddingTop: height * 0.05,
-                            paddingBottom: height * 0.05,
-                            height,
-                            width,
-                        }}
-                    >
+                    <div style={divSpacing}>
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
                             <Typography
                                 variant="title"

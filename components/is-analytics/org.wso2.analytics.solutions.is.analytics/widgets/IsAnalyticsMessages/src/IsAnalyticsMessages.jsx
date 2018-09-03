@@ -370,7 +370,8 @@ class IsAnalyticsMessages extends Widget {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
                         additionalFilters = additionalFilters
-                            + ' and str:contains(\'' + additionalFilterConditionsClone[key] + '\', rolesCommaSeparated) ';
+                            + ' and str:contains(\''
+                            + additionalFilterConditionsClone[key] + '\', rolesCommaSeparated) ';
                     } else if (key === 'isFirstLogin') {
                         additionalFilters = additionalFilters
                             + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
@@ -397,6 +398,14 @@ class IsAnalyticsMessages extends Widget {
     render() {
         const { width } = this.state;
         const { height } = this.state;
+        const divSpacing = {
+            paddingLeft: width * 0.05,
+            paddingRight: width * 0.05,
+            paddingTop: height * 0.05,
+            paddingBottom: height * 0.05,
+            height,
+            width,
+        };
         let theme = darkTheme;
 
         if (this.props.muiTheme.name === 'light') {
@@ -405,20 +414,8 @@ class IsAnalyticsMessages extends Widget {
         if (this.state.isProviderConfigsFaulty) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <Scrollbars style={{
-                        height,
-                        width,
-                    }}>
-                        <div
-                            style={{
-                                paddingLeft: width * 0.05,
-                                paddingRight: width * 0.05,
-                                paddingTop: height * 0.05,
-                                paddingBottom: height * 0.05,
-                                height,
-                                width,
-                            }}
-                        >
+                    <Scrollbars style={{ height, width }}>
+                        <div style={divSpacing}>
                             <div>
                                 <Typography variant="title" gutterBottom align="center">
                                     Messages
@@ -434,26 +431,9 @@ class IsAnalyticsMessages extends Widget {
         }
         return (
             <MuiThemeProvider theme={theme}>
-                <Scrollbars style={{
-                    height,
-                    width,
-                }}>
-                    <div
-                        style={{
-                            paddingLeft: width * 0.05,
-                            paddingRight: width * 0.05,
-                            paddingTop: height * 0.05,
-                            paddingBottom: height * 0.05,
-                            height,
-                            width,
-                        }}
-                    >
-                        <div
-                            style={{
-                                height: height * 0.1,
-                                width: width * 0.9,
-                            }}
-                        >
+                <Scrollbars style={{ height, width }}>
+                    <div style={divSpacing}>
+                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
                             <Typography variant="title" gutterBottom align="center">
                                 Messages
                             </Typography>

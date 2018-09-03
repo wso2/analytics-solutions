@@ -413,6 +413,15 @@ class IsAnalyticsAttemptsByType extends Widget {
     render() {
         const { width } = this.state;
         const { height } = this.state;
+        const divSpacing = {
+            paddingLeft: width * 0.05,
+            paddingRight: width * 0.05,
+            paddingTop: height * 0.05,
+            paddingBottom: height * 0.05,
+            height,
+            width,
+        };
+
         let theme = darkTheme;
 
         if (this.props.muiTheme.name === 'light') {
@@ -422,16 +431,7 @@ class IsAnalyticsAttemptsByType extends Widget {
         if (this.state.faultyProviderConf) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div
-                        style={{
-                            paddingLeft: width * 0.05,
-                            paddingRight: width * 0.05,
-                            paddingTop: height * 0.05,
-                            paddingBottom: height * 0.05,
-                            height,
-                            width,
-                        }}
-                    >
+                    <div style={divSpacing}>
                         <Typography variant="title" gutterBottom align="center">
                             {this.state.header}
                         </Typography>
@@ -444,16 +444,7 @@ class IsAnalyticsAttemptsByType extends Widget {
         } else if (this.state.currentSuccessDataSet.length === 0 && this.state.currentFailureDataSet.length > 0) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div
-                        style={{
-                            height,
-                            width,
-                            paddingLeft: width * 0.05,
-                            paddingRight: width * 0.05,
-                            paddingTop: height * 0.05,
-                            paddingBottom: height * 0.05,
-                        }}
-                    >
+                    <div style={divSpacing} >
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
                             <Typography variant="title" gutterBottom align="center">
                                 {this.state.header}
@@ -498,16 +489,7 @@ class IsAnalyticsAttemptsByType extends Widget {
         } else if (this.state.currentFailureDataSet.length === 0 && this.state.currentSuccessDataSet.length > 0) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div
-                        style={{
-                            height,
-                            width,
-                            paddingLeft: width * 0.05,
-                            paddingRight: width * 0.05,
-                            paddingTop: height * 0.05,
-                            paddingBottom: height * 0.05,
-                        }}
-                    >
+                    <div style={divSpacing}>
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
                             <Typography variant="title" gutterBottom align="center">
                                 {this.state.header}
@@ -546,16 +528,7 @@ class IsAnalyticsAttemptsByType extends Widget {
         } else {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div
-                        style={{
-                            height,
-                            width,
-                            paddingLeft: width * 0.05,
-                            paddingRight: width * 0.05,
-                            paddingTop: height * 0.05,
-                            paddingBottom: height * 0.05,
-                        }}
-                    >
+                    <div style={divSpacings}>
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
                             <Typography variant="title" gutterBottom align="center">
                                 {this.state.header}
