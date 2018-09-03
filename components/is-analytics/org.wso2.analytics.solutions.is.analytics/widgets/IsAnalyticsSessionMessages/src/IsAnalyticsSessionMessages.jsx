@@ -27,7 +27,7 @@ class IsAnalyticsSessionMessages extends Widget {
     constructor(props) {
         super(props);
 
-        this.ChartConfig = {
+        this.chartConfig = {
             charts: [
                 {
                     type: 'table',
@@ -94,6 +94,7 @@ class IsAnalyticsSessionMessages extends Widget {
         this.state = {
             data: [],
             metadata: this.metadata,
+            providerConfig: null,
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
         };
@@ -181,7 +182,7 @@ class IsAnalyticsSessionMessages extends Widget {
             <MuiThemeProvider muiTheme={this.props.muiTheme}>
                 <section style={{ paddingTop: 10 }}>
                     <VizG
-                        config={this.ChartConfig}
+                        config={this.chartConfig}
                         metadata={this.state.metadata}
                         data={this.state.data}
                         height={this.state.height}

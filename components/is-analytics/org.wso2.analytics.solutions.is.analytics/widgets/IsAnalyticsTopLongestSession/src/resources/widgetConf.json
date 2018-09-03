@@ -1,5 +1,5 @@
 {
-  "name": "IsAnalyticsTopLongestSession",
+  "name": "Is Analytics Top Longest Session",
   "id": "IsAnalyticsTopLongestSession",
   "thumbnailURL": "",
   "configs": {
@@ -24,6 +24,3 @@
     }
   }
 }
-
-  
-  

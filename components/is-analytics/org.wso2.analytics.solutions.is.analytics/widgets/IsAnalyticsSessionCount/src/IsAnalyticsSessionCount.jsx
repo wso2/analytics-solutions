@@ -27,7 +27,7 @@ class IsAnalyticsSessionCount extends Widget {
     constructor(props) {
         super(props);
 
-        this.ChartConfig = {
+        this.chartConfig = {
             x: 'DURATION',
             charts: [
                 {
@@ -52,6 +52,7 @@ class IsAnalyticsSessionCount extends Widget {
         this.state = {
             data: [],
             metadata: this.metadata,
+            providerConfig: null,
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
         };
@@ -99,8 +100,9 @@ class IsAnalyticsSessionCount extends Widget {
     assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
+        const numOfGroups = 5;
         let { query } = dataProviderConfigs.configs.config.queryData;
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < numOfGroups; i++) {
             query = query
                 .replace('{{from}}', this.state.fromDate)
                 .replace('{{to}}', this.state.toDate)
@@ -115,7 +117,7 @@ class IsAnalyticsSessionCount extends Widget {
         return (
             <MuiThemeProvider muiTheme={this.props.muiTheme}>
                 <VizG
-                    config={this.ChartConfig}
+                    config={this.chartConfig}
                     metadata={this.state.metadata}
                     data={this.state.data}
                     height={this.state.height}

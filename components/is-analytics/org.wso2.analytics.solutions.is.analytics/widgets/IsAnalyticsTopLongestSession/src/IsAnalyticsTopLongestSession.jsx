@@ -30,7 +30,7 @@ class IsAnalyticsTopLongestSession extends Widget {
     constructor(props) {
         super(props);
 
-        this.ChartConfig = {
+        this.chartConfig = {
             x: 'username',
             charts: [
                 {
@@ -56,7 +56,8 @@ class IsAnalyticsTopLongestSession extends Widget {
         this.state = {
             data: [],
             metadata: this.metadata,
-            ChartConfig: this.ChartConfig,
+            chartConfig: this.chartConfig,
+            providerConfig: null,
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
             currentDataSet: [],
@@ -140,7 +141,7 @@ class IsAnalyticsTopLongestSession extends Widget {
             <MuiThemeProvider muiTheme={this.props.muiTheme}>
                 <div>
                     <VizG
-                        config={this.state.ChartConfig}
+                        config={this.state.chartConfig}
                         metadata={this.state.metadata}
                         data={this.state.currentDataSet}
                         height={this.state.height * 0.9}

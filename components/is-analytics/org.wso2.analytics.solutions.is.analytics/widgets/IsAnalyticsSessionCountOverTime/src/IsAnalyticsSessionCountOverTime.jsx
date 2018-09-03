@@ -27,7 +27,7 @@ class IsAnalyticsSessionCountOverTime extends Widget {
     constructor(props) {
         super(props);
 
-        this.ChartConfig = {
+        this.chartConfig = {
             x: 'timestamp',
             charts: [
                 {
@@ -62,7 +62,8 @@ class IsAnalyticsSessionCountOverTime extends Widget {
         this.state = {
             data: [],
             metadata: this.metadata,
-            ChartConfig: this.ChartConfig,
+            chartConfig: this.chartConfig,
+            providerConfig: null,
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
         };
@@ -101,21 +102,21 @@ class IsAnalyticsSessionCountOverTime extends Widget {
         });
 
         this.setState((prevState) => {
-            const ChartConfig = _.cloneDeep(prevState.ChartConfig);
+            const chartConfig = _.cloneDeep(prevState.chartConfig);
             switch (prevState.per) {
                 case 'minute':
-                    ChartConfig.tipTimeFormat = '%d/%m/%Y %H:%M:%S';
+                    chartConfig.tipTimeFormat = '%d/%m/%Y %H:%M:%S';
                     break;
                 case 'hour':
-                    ChartConfig.tipTimeFormat = '%d/%m/%Y %H:%M:%S';
+                    chartConfig.tipTimeFormat = '%d/%m/%Y %H:%M:%S';
                     break;
                 case 'day':
-                    ChartConfig.tipTimeFormat = '%d/%m/%Y';
+                    chartConfig.tipTimeFormat = '%d/%m/%Y';
                     break;
                 default:
                     // This will never hit
             }
-            return { ChartConfig };
+            return { chartConfig };
         });
     }
 
@@ -145,7 +146,7 @@ class IsAnalyticsSessionCountOverTime extends Widget {
         return (
             <MuiThemeProvider muiTheme={this.props.muiTheme}>
                 <VizG
-                    config={this.state.ChartConfig}
+                    config={this.state.chartConfig}
                     metadata={this.state.metadata}
                     data={this.state.data}
                     height={this.state.height}
