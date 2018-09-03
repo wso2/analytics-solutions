@@ -125,7 +125,7 @@ class EIAnalyticsMessageTable extends Widget {
         let message;
         if (typeof recievedMessage === "string") {
             message = JSON.parse(recievedMessage);
-        }else {
+        } else {
             message = recievedMessage;
         }
 
