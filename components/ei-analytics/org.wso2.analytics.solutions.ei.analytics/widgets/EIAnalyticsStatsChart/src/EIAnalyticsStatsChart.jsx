@@ -129,11 +129,11 @@ class EIAnalyticsStatsChart extends Widget {
             page: this.getCurrentPage()
         }, this.handleParameterChange);
 
-        let queryString = this.getQueryString();
+        let entryPointValue = super.getGlobalState(getKey(this.getCurrentPage() ,"entryPoint"));;
         // If window url contains entryPoint, store it in the state
-        if (queryString.entryPoint) {
+        if (entryPointValue) {
             this.setState({
-                entryPoint: queryString.entryPoint
+                entryPoint: entryPointValue
             }, this.handleParameterChange);
         }
         //this.extractStatsData("ALL", "ALL", null, -1234, "ESBStatAgg");
@@ -299,17 +299,6 @@ class EIAnalyticsStatsChart extends Widget {
         return pageName;
     };
 
-    getQueryString() {
-        var queryStringKeyValue = window.location.search.replace('?', '').split('&');
-        var qsJsonObject = {};
-        if (queryStringKeyValue != '') {
-            for (let i = 0; i < queryStringKeyValue.length; i++) {
-                qsJsonObject[queryStringKeyValue[i].split('=')[0]] = queryStringKeyValue[i].split('=')[1];
-            }
-        }
-        return qsJsonObject;
-    };
-
     drawCharts() {
         return (
             <body>
@@ -390,6 +379,11 @@ class EIAnalyticsStatsChart extends Widget {
             this.isDataRecieved() ? this.drawCharts() : <h5>{this.noParameters()}</h5>
         )
     }
+}
+
+
+function getKey(pageName, parameter) {
+    return pageName + "_page_" + parameter;
 }
 
 global.dashboard.registerWidget('EIAnalyticsStatsChart', EIAnalyticsStatsChart);

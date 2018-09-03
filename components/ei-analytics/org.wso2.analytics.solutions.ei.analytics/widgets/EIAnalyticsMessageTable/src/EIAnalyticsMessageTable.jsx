@@ -23,7 +23,6 @@ import moment from 'moment';
 
 let TENANT_ID = '-1234';
 let MESSAGE_PAGE = "message";
-let pageName;
 
 class EIAnalyticsMessageTable extends Widget {
     constructor(props) {
@@ -98,11 +97,11 @@ class EIAnalyticsMessageTable extends Widget {
     }
 
     handleRowSelect(event) {
-        //get the messageId from the selected row 
-        let messageId = event.messageFlowId;        
+        //get the messageId from the selected row
+        let messageId = event.messageFlowId;
+        super.setGlobalState(getKey(MESSAGE_PAGE, "id"), messageId);  // Set messageId for the message page.
         window.location.href = MESSAGE_PAGE;
-        super.setGlobalState(getKey("messageId"), messageId);
-    }  
+    }
 
     handleResize() {
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
@@ -117,9 +116,9 @@ class EIAnalyticsMessageTable extends Widget {
     }
 
     handlePublisherParameters(receivedMessage) {
-        let message = (typeof receivedMessage === "string") ? JSON.parse(receivedMessage): receivedMessage;
-        if(message.granularity){
-    // Update time parameters and clear existing table
+        let message = (typeof receivedMessage === "string") ? JSON.parse(receivedMessage) : receivedMessage;
+        if (message.granularity) {
+            // Update time parameters and clear existing table
             this.setState({
                 timeFromParameter: message.from,
                 timeToParameter: message.to,
@@ -127,11 +126,11 @@ class EIAnalyticsMessageTable extends Widget {
                 data: []
             }, this.handleGraphUpdate);
         }
-       if (message.selectedComponent) {
-        this.setState({
-            componentName: message.selectedComponent
-        }, this.handleGraphUpdate);
-       }
+        if (message.selectedComponent) {
+            this.setState({
+                componentName: message.selectedComponent
+            }, this.handleGraphUpdate);
+        }
     }
 
     handleGraphUpdate() {
@@ -238,10 +237,10 @@ function getUrlParameter(name) {
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
     var results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-};
+}
 
-function getKey(parameter){
-    return pageName+"_page_"+parameter;
+function getKey(pageName, parameter) {
+    return pageName + "_page_" + parameter;
 }
 
 

@@ -236,7 +236,7 @@ class EIAnalyticsMessageFlow extends Widget {
             d3.zoomIdentity
             .scale(zoomScale)
             .translate(
-                (this.state.width - g.graph().width * zoomScale)/2, 
+                (this.state.width - g.graph().width * zoomScale)/2,
                 (this.state.height - g.graph().height * zoomScale)/2)
         );
         svg.attr('width', width);
@@ -1086,15 +1086,16 @@ class EIAnalyticsMessageFlow extends Widget {
         let hashCode = "";
         let hiddenParams = '';
         if (node.hiddenAttributes) {
-            node.hiddenAttributes.forEach(function (item, i) {
+            node.hiddenAttributes.forEach((item) => {
                 hiddenParams += '&' + item.name + '=' + item.value;
+                super.setGlobalState(getKey("mediator", item.name), item.value);
                 if (item.name === "hashCode") {
                     hashCode = item.value;
                 }
             });
         }
-        var targetUrl = pageUrl + '?' + hiddenParams;
-        var labelText;
+        let targetUrl = pageUrl;
+        let labelText;
 
         if (node.dataAttributes) {
             var nodeClasses = "nodeLabel";
@@ -1199,9 +1200,9 @@ class EIAnalyticsMessageFlow extends Widget {
     componentDidMount() {
         // Draw message flow in the message page with component load
         if (this.getCurrentPage() === TYPE_MESSAGE) {
-            let entry = getQueryString();
+            let entry = super.getGlobalState(getKey("message", "id"));
             this.drawMessageFlowGraph(
-                entry.id,
+                entry,
                 DEFAULT_META_TENANT_ID
             );
         }
@@ -1355,13 +1356,17 @@ function getQueryString() {
         }
     }
     return qsJsonObject;
-};
+}
 
 function getDashboardName() {
     let currentUrl = window.location.href;
     let baseUrl = (currentUrl.split("?"))[0];
     let splittedBaseUrl = baseUrl.split("/");
     return splittedBaseUrl[splittedBaseUrl.length - 2];
-};
+}
+
+function getKey(pageName, parameter) {
+    return pageName + "_page_" + parameter;
+}
 
 global.dashboard.registerWidget('EIAnalyticsMessageFlow', EIAnalyticsMessageFlow);

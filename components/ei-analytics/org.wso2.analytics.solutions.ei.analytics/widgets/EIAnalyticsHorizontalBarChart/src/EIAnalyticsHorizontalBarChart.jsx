@@ -253,7 +253,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
         const formattedString = urlString.substring(0, pageNameStartIndex + 1) + redirectPageName
             + urlString.substring(pageNameEndIndex, -1);
         const redirectUrl = new URL(formattedString);
-        redirectUrl.searchParams.append(URL_PARAMETER_ID, clickedComponentName);
+        super.setGlobalState(getKey(redirectPageName, URL_PARAMETER_ID), clickedComponentName);
         window.location.href = redirectUrl.toString();
     }
 
@@ -283,6 +283,22 @@ class EIAnalyticsHorizontalBarChart extends Widget {
             </div>
         );
     }
+}
+
+function getCurrentPage() {
+    let pageName;
+    let href = parent.window.location.href;
+    let lastSegment = href.substr(href.lastIndexOf('/') + 1);
+    if (lastSegment.indexOf('?') == -1) {
+        pageName = lastSegment;
+    } else {
+        pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
+    }
+    return pageName;
+}
+
+function getKey(pageName, parameter) {
+    return pageName + "_page_" + parameter;
 }
 
 global.dashboard.registerWidget('EIAnalyticsHorizontalBarChart', EIAnalyticsHorizontalBarChart);
