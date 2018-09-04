@@ -53,7 +53,7 @@ define stream ProcessedAuthenticationDataStream (
     meta_tenantId int,
     eventId string,
     username string,
-    localUsername string, 
+    localUsername string,
     userStoreDomain string,
     tenantDomain string,
     rolesCommaSeparated string,
@@ -106,40 +106,42 @@ define stream OverallAuthenticationProcessedStream (
 );
 
 from SourceStreamFromIdentityServerWso2EventStream
-select 
-    meta_tenantId, 
-    contextId, 
-    eventId, 
+select
+    meta_tenantId,
+    contextId,
+    eventId,
     eventType,
-    username, 
-    localUsername, 
-    userStoreDomain, 
-    tenantDomain, 
-    remoteIp, 
-    ifThenElse(geo:findCountryFromIP(remoteIp)=="", "N/A", geo:findCountryFromIP(remoteIp)) as region, 
-    inboundAuthType, 
-    serviceProvider, 
-    rememberMeEnabled, 
-    forceAuthEnabled, 
-    passiveAuthEnabled, 
-    str:concat(',', rolesCommaSeparated, ',') as rolesCommaSeparated,
-    authenticationStep, 
+    username,
+    localUsername,
+    userStoreDomain,
+    tenantDomain,
+    remoteIp,
+    -- Uncomment following line and comment the line following ("region") to enable geo location data in siddhi app
+    --ifThenElse(geo:findCountryFromIP(remoteIp)=="", "N/A", geo:findCountryFromIP(remoteIp)) as region,
+    region,
+    inboundAuthType,
+    serviceProvider,
+    rememberMeEnabled,
+    forceAuthEnabled,
+    passiveAuthEnabled,
+    rolesCommaSeparated,
+    authenticationStep,
     identityProvider,
     authenticationSuccess,
-    authStepSuccess, 
-    stepAuthenticator, 
-    isFirstLogin, 
-    identityProviderType, 
+    authStepSuccess,
+    stepAuthenticator,
+    isFirstLogin,
+    identityProviderType,
     _timestamp as timestamp
 insert into OverallAuthenticationProcessedStream;
 
 -- Adding commas to the start and the end of roles comma separated as to use 'contains' keyword on it.
 from OverallAuthenticationProcessedStream
-select 
+select
     meta_tenantId,
     eventId,
     username,
-    localUsername, 
+    localUsername,
     userStoreDomain,
     tenantDomain,
     str:concat(',', rolesCommaSeparated, ',') as rolesCommaSeparated,
@@ -156,9 +158,9 @@ select
     identityProvider,
     identityProviderType,
     isFirstLogin,
-    ifThenElse(authenticationSuccess == true, 1, 0) as successValue, 
-    ifThenElse((authStepSuccess == false and eventType == 'step'), 1, 0) as failureValue, 
-    ifThenElse((authStepSuccess == true and eventType == 'step'), 1, 0) as stepSuccessValue, 
+    ifThenElse(authenticationSuccess == true, 1, 0) as successValue,
+    ifThenElse((authStepSuccess == false and eventType == 'step'), 1, 0) as failureValue,
+    ifThenElse((authStepSuccess == true and eventType == 'step'), 1, 0) as stepSuccessValue,
     ifThenElse(authenticationSuccess == true AND isFirstLogin == true, 1, 0) as firstLoginValue,
     timestamp
 insert into ProcessedAuthenticationDataStream;

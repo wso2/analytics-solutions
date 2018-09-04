@@ -155,10 +155,10 @@ class IsAnalyticsSummary extends Widget {
 
     handleReceivedData(message) {
         if (message.data.length > 0 && message.data[0] > 0) {
-            const totalAttempts = parseInt(message.data[0][0], 10) + parseInt(message.data[0][1], 10);
-            const successPercentage = parseFloat(parseInt(message.data[0][1], 10) * 100 / totalAttempts)
+            const totalAttempts = parseInt(message.data[0][0]) + parseInt(message.data[0][1]);
+            const successPercentage = parseFloat(parseInt(message.data[0][1]) * 100 / totalAttempts)
                 .toFixed(2);
-            const failurePercentage = parseFloat(parseInt(message.data[0][0], 10) * 100 / totalAttempts)
+            const failurePercentage = parseFloat(parseInt(message.data[0][0]) * 100 / totalAttempts)
                 .toFixed(2);
 
             this.setState({
@@ -194,7 +194,7 @@ class IsAnalyticsSummary extends Widget {
             fromDate: message.from,
             toDate: message.to,
             pieChartData: [],
-            numChartData,
+            numChartData: [[0], [0]],
             totalAttempts: 0,
             successPercentage: 0,
             failurePercentage: 0,
