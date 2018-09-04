@@ -2,7 +2,7 @@
   "dashboard": {
     "url": "is-analytics",
     "owner": "admin",
-    "name": "IS-Analytics",
+    "name": "IS Analytics",
     "description": "WSO2 Identity Server Analytics Dashboard",
     "landingPage": "login_attempts",
     "parentId": "0",

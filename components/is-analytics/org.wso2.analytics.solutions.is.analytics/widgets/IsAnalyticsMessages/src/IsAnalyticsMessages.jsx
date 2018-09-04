@@ -389,7 +389,6 @@ class IsAnalyticsMessages extends Widget {
         }
 
         updatedQuery = updatedQuery.replace('{{filterCondition}}', filterCondition);
-        console.log('[Messages] Query: ', updatedQuery);
         dataProviderConfigs.configs.config.queryData.query = updatedQuery;
 
         super.getWidgetChannelManager()

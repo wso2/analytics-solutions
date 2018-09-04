@@ -134,7 +134,6 @@ class IsAnalyticsSummary extends Widget {
     }
 
     componentDidMount() {
-        console.log('[Summary] Mounted');
         super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
@@ -155,7 +154,6 @@ class IsAnalyticsSummary extends Widget {
     }
 
     handleReceivedData(message) {
-        console.log('[Summary] Handling data');
         if (message.data.length > 0 && message.data[0] > 0) {
             const totalAttempts = parseInt(message.data[0][0]) + parseInt(message.data[0][1]);
             const successPercentage = parseFloat(parseInt(message.data[0][1]) * 100 / totalAttempts)
@@ -163,7 +161,6 @@ class IsAnalyticsSummary extends Widget {
             const failurePercentage = parseFloat(parseInt(message.data[0][0]) * 100 / totalAttempts)
                 .toFixed(2);
 
-            console.log('[Summary] Total Attempts: ', totalAttempts);
             this.setState({
                 successPercentage,
                 failurePercentage,
@@ -192,7 +189,6 @@ class IsAnalyticsSummary extends Widget {
     }
 
     onReceivingMessage(message) {
-        console.log('[Summary] Message Received');
         this.setState({
             per: message.granularity,
             fromDate: message.from,
@@ -206,7 +202,6 @@ class IsAnalyticsSummary extends Widget {
     }
 
     assembleQuery() {
-        console.log('[Summary] Assembling Query');
         super.getWidgetChannelManager()
             .unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
@@ -228,7 +223,6 @@ class IsAnalyticsSummary extends Widget {
     }
 
     render() {
-        console.log('[Summary] Rendering');
         const { height } = this.state;
         const { width } = this.state;
         const divSpacings = {
