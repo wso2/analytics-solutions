@@ -370,8 +370,8 @@ class IsAnalyticsMessages extends Widget {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
                         additionalFilters = additionalFilters
-                            + ' and str:contains(\''
-                            + additionalFilterConditionsClone[key] + '\', rolesCommaSeparated) ';
+                            + ' and str:contains(rolesCommaSeparated, \''
+                            + additionalFilterConditionsClone[key] + '\') ';
                     } else if (key === 'isFirstLogin') {
                         additionalFilters = additionalFilters
                             + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
@@ -389,6 +389,7 @@ class IsAnalyticsMessages extends Widget {
         }
 
         updatedQuery = updatedQuery.replace('{{filterCondition}}', filterCondition);
+        console.log('[Messages] Query: ', updatedQuery);
         dataProviderConfigs.configs.config.queryData.query = updatedQuery;
 
         super.getWidgetChannelManager()
