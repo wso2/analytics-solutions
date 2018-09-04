@@ -80,7 +80,7 @@ define stream SessionStatisticsPerSecond (
         terminatedSessionCount long,
         timestamp long);      
 
-define stream LastYearTimestamp(
+define stream LastYearTimestampStream(
         lastYearTimestamp long);
 
 --Defining Databases
@@ -258,16 +258,22 @@ on      SessionInformationTable.meta_tenantId==meta_tenantId and
 
 from    TriggerStream
 select  convert(time:dateSub(triggered_time,1,'year'), 'long') as lastYearTimestamp
-insert into LastYearTimestamp;
+insert into LastYearTimestampStream;
 
-from    LastYearTimestamp
+from    LastYearTimestampStream
 delete  SessionInformationTable
 on      SessionInformationTable.timestamp <= lastYearTimestamp;
 
-from    LastYearTimestamp
+from    LastYearTimestampStream
 delete  ActiveSessionsTable
 on      ActiveSessionsTable.timestamp <= lastYearTimestamp;
-        
+
+-- Removing inactive sessions from 'ActiveSessionsTable'
+from    HandleSessionInformation[isActive == false]#window.timeBatch(1 sec)
+delete  ActiveSessionsTable
+on      ActiveSessionsTable.sessionId == sessionId AND
+        ActiveSessionsTable.meta_tenantId == meta_tenantId;
+
 --Counting new and termnated sessions every 1 second for each meta_tenantId
 from OverallSessionStream[action == 1 OR action == 0]#window.externalTimeBatch(_timestamp, 1 sec, 0, 2 sec)
 select  meta_tenantId, 
