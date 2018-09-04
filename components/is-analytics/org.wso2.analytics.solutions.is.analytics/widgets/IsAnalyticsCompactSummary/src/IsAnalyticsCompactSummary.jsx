@@ -252,7 +252,7 @@ class IsAnalyticsCompactSummary extends Widget {
     render() {
         const { height } = this.state;
         const { width } = this.state;
-        const divSpacing = {
+        const divSpacings = {
             paddingLeft: width * 0.05,
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
@@ -269,7 +269,7 @@ class IsAnalyticsCompactSummary extends Widget {
         if (this.state.faultyProviderConf) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div style={divSpacing}>
+                    <div style={divSpacings}>
                         <Typography variant="body1" gutterBottom align="center">
                             Data Provider Connection Error - Please check the provider configs
                         </Typography>
@@ -279,7 +279,7 @@ class IsAnalyticsCompactSummary extends Widget {
         }
         return (
             <MuiThemeProvider theme={theme}>
-                <div style={divSpacing}>
+                <div style={divSpacings}>
                     <div style={{ height: height * 0.45, width: width * 0.9 }}>
                         <VizG
                             config={numChartConfig}
@@ -291,7 +291,7 @@ class IsAnalyticsCompactSummary extends Widget {
                     {
                         (this.state.totalAttempts !== 0)
                         && (
-                            <div style={{ padding: 24, height: height * 0.55, width: width * 0.9 }}>
+                            <div style={{ height: height * 0.55, width: width * 0.9 }}>
                                 <div style={{ height: height * 0.05, width: width * 0.9 }}>
                                     <Typography
                                         variant="body1"
@@ -306,7 +306,7 @@ class IsAnalyticsCompactSummary extends Widget {
                                         variant="body1"
                                         gutterBottom
                                         align="center"
-                                        style={{ color: colorGreen }}
+                                        style={{ color: colorRed }}
                                     >
                                     Failure:
                                         {this.state.failurePercentage}
