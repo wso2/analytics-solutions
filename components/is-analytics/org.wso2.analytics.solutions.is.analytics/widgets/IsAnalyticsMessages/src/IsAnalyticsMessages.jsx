@@ -326,19 +326,16 @@ class IsAnalyticsMessages extends Widget {
             if (message.body === '') {
                 this.setState({
                     additionalFilterConditions: undefined,
-                    data: [],
                 }, this.assembleQuery);
             } else {
                 this.setState({
                     additionalFilterConditions: message.body,
-                    data: [],
                 }, this.assembleQuery);
             }
         } else {
             this.setState({
                 fromDate: message.from,
                 toDate: message.to,
-                data: [],
             }, this.assembleQuery);
         }
     }
