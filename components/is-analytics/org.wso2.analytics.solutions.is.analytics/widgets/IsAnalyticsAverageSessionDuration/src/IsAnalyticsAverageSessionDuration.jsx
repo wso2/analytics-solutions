@@ -20,25 +20,26 @@
 import React from 'react';
 import VizG from 'react-vizgrammar';
 import Widget from '@wso2-dashboards/widget';
-import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
+import { MuiThemeProvider } from 'material-ui/styles';
+import _ from 'lodash';
 import Pagination from 'material-ui-pagination';
 
-const dataPerPage = 3;
+const dataPerPage = 10;
 
 class IsAnalyticsAverageSessionDuration extends Widget {
     constructor(props) {
         super(props);
 
-        this.ChartConfig = {
-            x: "username",
+        this.chartConfig = {
+            x: 'username',
             charts: [
                 {
-                    type: "bar",
-                    y: "duration",
-                    fill: "#00e600",
-                    mode: "stacked",
-                    orientation: "left",
-                }
+                    type: 'bar',
+                    y: 'duration',
+                    fill: '#00e600',
+                    mode: 'stacked',
+                    orientation: 'left',
+                },
             ],
             yAxisLabel: ' Duration (s)',
             xAxisLabel: 'Username',
@@ -49,17 +50,18 @@ class IsAnalyticsAverageSessionDuration extends Widget {
 
         this.metadata = {
             names: ['username', 'duration'],
-            types: ['ordinal', 'linear']
+            types: ['ordinal', 'linear'],
         };
 
         this.state = {
             data: [],
             metadata: this.metadata,
-            ChartConfig: this.ChartConfig,
+            chartConfig: this.chartConfig,
+            providerConfig: null,
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
             currentDataSet: [],
-            currentPageNumber: 1
+            currentPageNumber: 1,
         };
 
         this.handleResize = this.handleResize.bind(this);
@@ -71,7 +73,7 @@ class IsAnalyticsAverageSessionDuration extends Widget {
     }
 
     handleResize() {
-        this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
+        this.setState({ width: this.props.glContainer.width, height: this.props.glContainer.height });
     }
 
     componentDidMount() {
@@ -79,9 +81,9 @@ class IsAnalyticsAverageSessionDuration extends Widget {
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
-                    providerConfig: message.data.configs.providerConfig
+                    providerConfig: message.data.configs.providerConfig,
                 });
-            })
+            });
     }
 
     componentWillUnmount() {
@@ -94,22 +96,22 @@ class IsAnalyticsAverageSessionDuration extends Widget {
     }
 
     updateTable(data, pageNumber) {
-        let internalPageNumber = pageNumber - 1; 
-        let startPoint = internalPageNumber * dataPerPage;
+        const internalPageNumber = pageNumber - 1;
+        const startPoint = internalPageNumber * dataPerPage;
         let endPoint = startPoint + dataPerPage;
-        let totalPageCount = Math.ceil(data.length / dataPerPage);
-        let dataLength = data.length;
+        const totalPageCount = Math.ceil(data.length / dataPerPage);
+        const dataLength = data.length;
         if (endPoint > dataLength) {
-                endPoint = dataLength;
+            endPoint = dataLength;
         }
-        let dataSet = data.slice(startPoint, endPoint);
+        const dataSet = data.slice(startPoint, endPoint);
 
-            this.setState({
-                data: data,
-                currentDataSet: dataSet,
-                currentPageNumber: pageNumber,
-                pageCount: totalPageCount,
-            });    
+        this.setState({
+            data,
+            currentDataSet: dataSet,
+            currentPageNumber: pageNumber,
+            pageCount: totalPageCount,
+        });
     }
 
     handleUserSelection(message) {
@@ -123,12 +125,12 @@ class IsAnalyticsAverageSessionDuration extends Widget {
 
     assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
-        let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
-        let query = dataProviderConfigs.configs.config.queryData.query;
+        const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
+        let { query } = dataProviderConfigs.configs.config.queryData;
         query = query
-            .replace("{{from}}", this.state.fromDate)
-            .replace("{{to}}", this.state.toDate)
-            .replace("{{now}}", new Date().getTime());
+            .replace('{{from}}', this.state.fromDate)
+            .replace('{{to}}', this.state.toDate)
+            .replace('{{now}}', new Date().getTime());
         dataProviderConfigs.configs.config.queryData.query = query;
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
@@ -137,24 +139,24 @@ class IsAnalyticsAverageSessionDuration extends Widget {
     render() {
         return (
             <MuiThemeProvider muiTheme={this.props.muiTheme}>
-                <section >
-                        <VizG
-                            config={this.state.ChartConfig}
-                            metadata={this.state.metadata}
-                            data={this.state.currentDataSet}
-                            height={this.state.height}
-                            width={this.state.width * 1.1}
-                            theme={this.props.muiTheme.name}
-                        />
-                </section>
-                        <Pagination
-                              total={this.state.pageCount}
-                              current={this.state.currentPageNumber}
-                              display={3}
-                              onChange={number => this.updateTable(this.state.data, number)}
-                        />
+                <div>
+                    <VizG
+                        config={this.state.chartConfig}
+                        metadata={this.state.metadata}
+                        data={this.state.currentDataSet}
+                        height={this.state.height * 0.9}
+                        width={this.state.width}
+                        theme={this.props.muiTheme.name}
+                    />
+                    <Pagination
+                        total={this.state.pageCount}
+                        current={this.state.currentPageNumber}
+                        display={3}
+                        onChange={number => this.updateTable(this.state.data, number)}
+                    />
+                </div>
             </MuiThemeProvider>
         );
     }
 }
-global.dashboard.registerWidget("IsAnalyticsAverageSessionDuration", IsAnalyticsAverageSessionDuration);
+global.dashboard.registerWidget('IsAnalyticsAverageSessionDuration', IsAnalyticsAverageSessionDuration);

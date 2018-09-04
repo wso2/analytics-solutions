@@ -2051,12 +2051,9 @@
           "names": [
             "TIMESTAMP",
             "CURRENTTIME",
-            "META_TENANTID",
             "TENANTDOMAIN",
-            "SESSIONID",
             "USERNAME",
-            "DURATION",
-            "AVGDURATION"
+            "MSG"
           ],
           "types": [
             "LINEAR",
@@ -2065,8 +2062,7 @@
             "ORDINAL",
             "ORDINAL",
             "ORDINAL",
-            "LINEAR",
-            "LINEAR"
+            "ORDINAL"
           ]
         },
         "version": "1.0.0",
@@ -2156,15 +2152,19 @@
         "metadata": {
           "names": [
             "CURRENTTIME",
+            "META_TENANTID",
             "TENANTDOMAIN",
+            "SESSIONID",
             "USERNAME",
-            "MSG"
+            "DURATION",
+            "AVGDURATION"
           ],
           "types": [
             "ORDINAL",
             "ORDINAL",
             "ORDINAL",
-            "ORDINAL"
+            "LINEAR",
+            "LINEAR"
           ]
         },
         "version": "1.0.0",
