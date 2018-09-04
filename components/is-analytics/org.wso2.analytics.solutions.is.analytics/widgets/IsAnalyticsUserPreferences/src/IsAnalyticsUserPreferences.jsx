@@ -1,4 +1,4 @@
-/* eslint-disable react/no-access-state-in-setstate,array-callback-return,consistent-return */
+/* eslint-disable react/no-access-state-in-setstate,array-callback-return,consistent-return,no-unused-vars */
 /*
  *  Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
@@ -26,7 +26,6 @@ import Radio from '@material-ui/core/Radio';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import _ from 'lodash';
 import JssProvider from 'react-jss/lib/JssProvider';
-import Typography from '@material-ui/core/Typography';
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -241,6 +240,14 @@ class IsAnalyticsUserPreferences extends Widget {
     render() {
         const { width } = this.state;
         const { height } = this.state;
+        const divSpacings = {
+            paddingLeft: width * 0.05,
+            paddingRight: width * 0.05,
+            paddingTop: height * 0.05,
+            paddingBottom: height * 0.05,
+            height,
+            width,
+        };
         let theme = darkTheme;
 
         if (this.props.muiTheme.name === 'light') {
@@ -250,21 +257,8 @@ class IsAnalyticsUserPreferences extends Widget {
         return (
             <JssProvider generateClassName={generateClassName}>
                 <MuiThemeProvider theme={theme}>
-                    <div style={{
-                        paddingLeft: width * 0.05,
-                        paddingRight: width * 0.05,
-                        paddingTop: height * 0.05,
-                        paddingBottom: height * 0.05,
-                        height,
-                        width,
-                    }}
-                    >
-                        <div style={{ height: height * 0.2, width: width * 0.9 }}>
-                            <Typography variant="title" gutterBottom>
-                                User Preferences
-                            </Typography>
-                        </div>
-                        <div style={{ height: height * 0.4, width: width * 0.9 }}>
+                    <div style={divSpacings}>
+                        <div style={{ height: height * 0.6, width: width * 0.9 }}>
                             <tr>
                                 {this.state.inputFields.map(function (field, i) {
                                     if (field.doDisplay) {
@@ -311,27 +305,27 @@ class IsAnalyticsUserPreferences extends Widget {
                                 }
                             </tr>
                         </div>
-                        <div style={{ height: height * 0.3, width: width * 0.9 }}>
+                        <div style={{ height: height * 0.2, width: width * 0.9 }}>
                             <table>
                                 <tr>
                                     <td style={{ padding: 15 }}>
                                         <Button
-                                            color="primary"
-                                            variant="outlined"
-                                            component="span"
-                                            onClick={() => this.publishFilterConditions()}
-                                        >
-                                            Filter
-                                        </Button>
-                                    </td>
-                                    <td style={{ padding: 15 }}>
-                                        <Button
                                             color="secondary"
-                                            variant="outlined"
+                                            variant="flat"
                                             component="span"
                                             onClick={() => this.clearFilterConditions()}
                                         >
                                             Clear All
+                                        </Button>
+                                    </td>
+                                    <td style={{ padding: 15 }}>
+                                        <Button
+                                            color="primary"
+                                            variant="flat"
+                                            component="span"
+                                            onClick={() => this.publishFilterConditions()}
+                                        >
+                                            Filter
                                         </Button>
                                     </td>
                                 </tr>

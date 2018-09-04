@@ -67,7 +67,7 @@ const chartConfigSuccess = {
     ],
     yAxisLabel: 'Successful Attempts',
     xAxisLabel: 'Username',
-    yAxisTickCount: 6,
+    yAxisTickCount: 10,
     linearSeriesStep: 1,
     append: false,
 };
@@ -84,7 +84,7 @@ const chartConfigFailure = {
     ],
     yAxisLabel: 'Failure Attempts',
     xAxisLabel: 'Username',
-    yAxisTickCount: 6,
+    yAxisTickCount: 10,
     linearSeriesStep: 1,
     append: false,
 };
@@ -323,12 +323,12 @@ class IsAnalyticsAttemptsByType extends Widget {
                     if (key === 'role') {
                         if (this.state.options.xAxis === 'Role') {
                             additionalFilters = additionalFilters
-                                + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
+                                + ' and ' + key + '== \'' + additionalFilterConditionsClone[key] + '\'';
                         } else {
                             additionalFilters = additionalFilters
-                                + " and str:contains('"
+                                + ' and str:contains(rolesCommaSeparated, \''
                                 + additionalFilterConditionsClone[key]
-                                + "', rolesCommaSeparated) ";
+                                + '\')';
                         }
                     } else if (key === 'isFirstLogin') {
                         additionalFilters = additionalFilters
@@ -365,7 +365,6 @@ class IsAnalyticsAttemptsByType extends Widget {
         }
 
         if (doIdpFilter && doAdditionalFilter) {
-            filterCondition += additionalFilters;
             query = query.replace('{{filterCondition}}', filterCondition);
         } else if (doIdpFilter) {
             query = query.replace('{{filterCondition}}', filterCondition);
@@ -396,7 +395,6 @@ class IsAnalyticsAttemptsByType extends Widget {
             .replace()
             .replace(/{{yAxisValue}}/g, 'authFailureCount');
         dataProviderConfigsFailure.configs.config.queryData.query = queryFailure;
-
         super.getWidgetChannelManager().subscribeWidget(this.state.widgetPseudoId,
             this.handleReceivedFailureData, dataProviderConfigsFailure);
     }
@@ -413,6 +411,15 @@ class IsAnalyticsAttemptsByType extends Widget {
     render() {
         const { width } = this.state;
         const { height } = this.state;
+        const divSpacings = {
+            paddingLeft: width * 0.05,
+            paddingRight: width * 0.05,
+            paddingTop: height * 0.05,
+            paddingBottom: height * 0.05,
+            height,
+            width,
+        };
+
         let theme = darkTheme;
 
         if (this.props.muiTheme.name === 'light') {
@@ -422,7 +429,7 @@ class IsAnalyticsAttemptsByType extends Widget {
         if (this.state.faultyProviderConf) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div style={{ height: this.state.height, width: this.state.width }}>
+                    <div style={divSpacings}>
                         <Typography variant="title" gutterBottom align="center">
                             {this.state.header}
                         </Typography>
@@ -435,16 +442,7 @@ class IsAnalyticsAttemptsByType extends Widget {
         } else if (this.state.currentSuccessDataSet.length === 0 && this.state.currentFailureDataSet.length > 0) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div
-                        style={{
-                            height,
-                            width,
-                            paddingLeft: width * 0.05,
-                            paddingRight: width * 0.05,
-                            paddingTop: height * 0.05,
-                            paddingBottom: height * 0.05,
-                        }}
-                    >
+                    <div style={divSpacings}>
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
                             <Typography variant="title" gutterBottom align="center">
                                 {this.state.header}
@@ -466,7 +464,7 @@ class IsAnalyticsAttemptsByType extends Widget {
                                 alignItems: 'center',
                             }}
                             >
-                                <V0MuiThemeProvider>
+                                <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.failureData.length > dataPerPage
                                         && (
@@ -489,16 +487,7 @@ class IsAnalyticsAttemptsByType extends Widget {
         } else if (this.state.currentFailureDataSet.length === 0 && this.state.currentSuccessDataSet.length > 0) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div
-                        style={{
-                            height,
-                            width,
-                            paddingLeft: width * 0.05,
-                            paddingRight: width * 0.05,
-                            paddingTop: height * 0.05,
-                            paddingBottom: height * 0.05,
-                        }}
-                    >
+                    <div style={divSpacings}>
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
                             <Typography variant="title" gutterBottom align="center">
                                 {this.state.header}
@@ -514,7 +503,7 @@ class IsAnalyticsAttemptsByType extends Widget {
                                 />
                             </div>
                             <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                                <V0MuiThemeProvider>
+                                <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.successData.length > dataPerPage
                                         && (
@@ -537,16 +526,7 @@ class IsAnalyticsAttemptsByType extends Widget {
         } else {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div
-                        style={{
-                            height,
-                            width,
-                            paddingLeft: width * 0.05,
-                            paddingRight: width * 0.05,
-                            paddingTop: height * 0.05,
-                            paddingBottom: height * 0.05,
-                        }}
-                    >
+                    <div style={divSpacings}>
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
                             <Typography variant="title" gutterBottom align="center">
                                 {this.state.header}
@@ -568,7 +548,7 @@ class IsAnalyticsAttemptsByType extends Widget {
                                 alignItems: 'center',
                             }}
                             >
-                                <V0MuiThemeProvider>
+                                <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.successData.length > dataPerPage
                                         && (
@@ -595,7 +575,7 @@ class IsAnalyticsAttemptsByType extends Widget {
                                 />
                             </div>
                             <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                                <V0MuiThemeProvider>
+                                <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.failureData.length > dataPerPage
                                         && (

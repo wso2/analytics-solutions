@@ -189,7 +189,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
                         additionalFilters = additionalFilters
-                            + " and str:contains('" + additionalFilterConditionsClone[key] + "', rolesCommaSeparated) ";
+                            + " and str:contains(rolesCommaSeparated, '" + additionalFilterConditionsClone[key] + "') ";
                     } else if (key === 'isFirstLogin') {
                         additionalFilters = additionalFilters
                             + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
@@ -272,6 +272,14 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
     render() {
         const { width } = this.state;
         const { height } = this.state;
+        const divSpacings = {
+            paddingLeft: width * 0.05,
+            paddingRight: width * 0.05,
+            paddingTop: height * 0.05,
+            paddingBottom: height * 0.05,
+            height,
+            width,
+        };
         let theme = darkTheme;
 
         if (this.props.muiTheme.name === 'light') {
@@ -282,18 +290,13 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             return (
                 <JssProvider generateClassName={generateClassName}>
                     <MuiThemeProvider theme={theme}>
-                        <div
-                            style={{
-                                paddingLeft: width * 0.05,
-                                paddingRight: width * 0.05,
-                                paddingTop: height * 0.05,
-                                paddingBottom: height * 0.05,
-                                height,
-                                width,
-                            }}
-                        >
+                        <div style={divSpacings}>
                             <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                                <Typography variant="title" gutterBottom>
+                                <Typography
+                                    variant="title"
+                                    gutterBottom
+                                    align="center"
+                                >
                                     Login Attempts Map
                                 </Typography>
                             </div>
@@ -308,18 +311,13 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
         return (
             <JssProvider generateClassName={generateClassName}>
                 <MuiThemeProvider theme={theme}>
-                    <div
-                        style={{
-                            paddingLeft: width * 0.05,
-                            paddingRight: width * 0.05,
-                            paddingTop: height * 0.05,
-                            paddingBottom: height * 0.05,
-                            height,
-                            width,
-                        }}
-                    >
+                    <div style={divSpacings}>
                         <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <Typography variant="title" gutterBottom>
+                            <Typography
+                                variant="title"
+                                gutterBottom
+                                align="center"
+                            >
                                 Login Attempts Map
                             </Typography>
                         </div>
