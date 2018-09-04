@@ -45,7 +45,7 @@ class EIAnalyticsSearchBox extends Widget {
 
     componentDidMount() {
         // if a component is already selected, preserve the selection
-        let selected=super.getGlobalState(getKey("selectedComponent").selectedComponent);
+        let selected = super.getGlobalState(getKey("selectedComponent").selectedComponent);
         if (selected) {
             this.publishMessage(selectedComp);
         }
