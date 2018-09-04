@@ -37,7 +37,8 @@
                             "granularity",
                             "from",
                             "to"
-                          ]
+                          ],
+                          "publishers": []
                         },
                         "isGenerated": false,
                         "options": {
@@ -941,6 +942,10 @@
                         "pubsub": {
                           "types": [
                             "subscriber"
+                          ],
+                          "publishers": [
+                            "fdee9dea-2e02-445a-9407-ca93645baf8c",
+                            "e85d20af-f235-47ea-b67b-a10c07c2931d"
                           ]
                         },
                         "isGenerated": false,
@@ -1970,36 +1975,21 @@
   "widgets": {
     "generated": [
       {
-        "name": "Is Analytics Long Session Alerts",
-        "id": "Is-Analytics-Long-Session-Alerts",
+        "name": "Is Analytics Alert Type",
+        "id": "Is-Analytics-Alert-Type",
         "chartConfig": {
           "charts": [
             {
               "type": "table",
               "columns": [
                 {
-                  "name": "CURRENTTIME",
-                  "title": "Timestamp",
+                  "name": "TYPE",
+                  "title": " Alert Type",
                   "colorBasedStyle": false
                 },
                 {
-                  "name": "TENANTDOMAIN",
-                  "title": " Tenant Domain",
-                  "colorBasedStyle": false
-                },
-                {
-                  "name": "USERNAME",
-                  "title": " User",
-                  "colorBasedStyle": false
-                },
-                {
-                  "name": "DURATION",
-                  "title": " Duration (ms)",
-                  "colorBasedStyle": false
-                },
-                {
-                  "name": "AVGDURATION",
-                  "title": " Avg. Duration (ms)",
+                  "name": "COUNTINGS",
+                  "title": " Count",
                   "colorBasedStyle": false
                 }
               ],
@@ -2017,7 +2007,7 @@
             "config": {
               "datasourceName": "IS_ANALYTICS_DB",
               "queryData": {
-                "queryFunction": "this.getQuery \u003d function (username,from,to){return \"select * from ALERTLONGSESSIONSTABLE where timestamp \u003e\u003d \"+from+\" and timestamp \u003c\u003d \"+to;}",
+                "queryFunction": "this.getQuery \u003d function (username,from,to){return \"select type , count(type) as countings from SecurityAlertTypeTable where alertTimestamp \u003e\u003d \"+from+\" and alertTimestamp \u003c\u003d \"+to+\" group by type\";}",
                 "customWidgetInputs": [
                   {
                     "name": "from",
@@ -2034,9 +2024,9 @@
                     "defaultValue": "admin"
                   }
                 ],
-                "query": "select * from ALERTLONGSESSIONSTABLE where timestamp \u003e\u003d 0 and timestamp \u003c\u003d 4070889000000"
+                "query": "select type , count(type) as countings from SecurityAlertTypeTable where alertTimestamp \u003e\u003d 0 and alertTimestamp \u003c\u003d 4070889000000 group by type"
               },
-              "tableName": "ALERTLONGSESSIONSTABLE",
+              "tableName": "SecurityAlertTypeTable",
               "incrementalColumn": "meta_tenantId",
               "timeColumns": "",
               "publishingInterval": 1,
@@ -2049,20 +2039,12 @@
         },
         "metadata": {
           "names": [
-            "TIMESTAMP",
-            "CURRENTTIME",
-            "TENANTDOMAIN",
-            "USERNAME",
-            "MSG"
+            "TYPE",
+            "COUNTINGS"
           ],
           "types": [
-            "LINEAR",
             "ORDINAL",
-            "LINEAR",
-            "ORDINAL",
-            "ORDINAL",
-            "ORDINAL",
-            "ORDINAL"
+            "LINEAR"
           ]
         },
         "version": "1.0.0",
@@ -2152,19 +2134,15 @@
         "metadata": {
           "names": [
             "CURRENTTIME",
-            "META_TENANTID",
             "TENANTDOMAIN",
-            "SESSIONID",
             "USERNAME",
-            "DURATION",
-            "AVGDURATION"
+            "MSG"
           ],
           "types": [
             "ORDINAL",
             "ORDINAL",
             "ORDINAL",
-            "LINEAR",
-            "LINEAR"
+            "ORDINAL"
           ]
         },
         "version": "1.0.0",
@@ -2179,21 +2157,36 @@
         }
       },
       {
-        "name": "Is Analytics Alert Type",
-        "id": "Is-Analytics-Alert-Type",
+        "name": "Is Analytics Long Session Alerts",
+        "id": "Is-Analytics-Long-Session-Alerts",
         "chartConfig": {
           "charts": [
             {
               "type": "table",
               "columns": [
                 {
-                  "name": "TYPE",
-                  "title": " Alert Type",
+                  "name": "CURRENTTIME",
+                  "title": "Timestamp",
                   "colorBasedStyle": false
                 },
                 {
-                  "name": "COUNTINGS",
-                  "title": " Count",
+                  "name": "TENANTDOMAIN",
+                  "title": " Tenant Domain",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "USERNAME",
+                  "title": " User",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "DURATION",
+                  "title": " Duration (ms)",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "AVGDURATION",
+                  "title": " Avg. Duration (ms)",
                   "colorBasedStyle": false
                 }
               ],
@@ -2211,7 +2204,7 @@
             "config": {
               "datasourceName": "IS_ANALYTICS_DB",
               "queryData": {
-                "queryFunction": "this.getQuery \u003d function (username,from,to){return \"select type , count(type) as countings from SecurityAlertTypeTable where alertTimestamp \u003e\u003d \"+from+\" and alertTimestamp \u003c\u003d \"+to+\" group by type\";}",
+                "queryFunction": "this.getQuery \u003d function (username,from,to){return \"select * from ALERTLONGSESSIONSTABLE where timestamp \u003e\u003d \"+from+\" and timestamp \u003c\u003d \"+to;}",
                 "customWidgetInputs": [
                   {
                     "name": "from",
@@ -2228,9 +2221,9 @@
                     "defaultValue": "admin"
                   }
                 ],
-                "query": "select type , count(type) as countings from SecurityAlertTypeTable where alertTimestamp \u003e\u003d 0 and alertTimestamp \u003c\u003d 4070889000000 group by type"
+                "query": "select * from ALERTLONGSESSIONSTABLE where timestamp \u003e\u003d 0 and timestamp \u003c\u003d 4070889000000"
               },
-              "tableName": "SecurityAlertTypeTable",
+              "tableName": "ALERTLONGSESSIONSTABLE",
               "incrementalColumn": "meta_tenantId",
               "timeColumns": "",
               "publishingInterval": 1,
@@ -2243,11 +2236,23 @@
         },
         "metadata": {
           "names": [
-            "TYPE",
-            "COUNTINGS"
+            "TIMESTAMP",
+            "CURRENTTIME",
+            "META_TENANTID",
+            "TENANTDOMAIN",
+            "SESSIONID",
+            "USERNAME",
+            "DURATION",
+            "AVGDURATION"
           ],
           "types": [
+            "LINEAR",
             "ORDINAL",
+            "LINEAR",
+            "ORDINAL",
+            "ORDINAL",
+            "ORDINAL",
+            "LINEAR",
             "LINEAR"
           ]
         },
