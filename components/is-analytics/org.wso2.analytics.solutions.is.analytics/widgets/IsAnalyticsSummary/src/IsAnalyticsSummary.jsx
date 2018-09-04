@@ -154,36 +154,38 @@ class IsAnalyticsSummary extends Widget {
     }
 
     handleReceivedData(message) {
-        const totalAttempts = parseInt(message.data[0][0], 10) + parseInt(message.data[0][1], 10);
-        const successPercentage = parseFloat(parseInt(message.data[0][1], 10) * 100 / totalAttempts)
-            .toFixed(2);
-        const failurePercentage = parseFloat(parseInt(message.data[0][1], 10) * 100 / totalAttempts)
-            .toFixed(2);
+        if (message.data.length > 0 && message.data[0] > 0) {
+            const totalAttempts = parseInt(message.data[0][0], 10) + parseInt(message.data[0][1], 10);
+            const successPercentage = parseFloat(parseInt(message.data[0][1], 10) * 100 / totalAttempts)
+                .toFixed(2);
+            const failurePercentage = parseFloat(parseInt(message.data[0][0], 10) * 100 / totalAttempts)
+                .toFixed(2);
 
-        this.setState({
-            successPercentage,
-            failurePercentage,
-            totalAttempts,
-            pieChartData: [
-                [
-                    'Failure',
-                    message.data[0][0],
+            this.setState({
+                successPercentage,
+                failurePercentage,
+                totalAttempts,
+                pieChartData: [
+                    [
+                        'Failure',
+                        message.data[0][0],
+                    ],
+                    [
+                        'Success',
+                        message.data[0][1],
+                    ],
                 ],
-                [
-                    'Success',
-                    message.data[0][1],
+                numChartData: [
+                    [
+                        message.data[0][1],
+                    ],
+                    [
+                        message.data[0][0] + message.data[0][1],
+                    ],
                 ],
-            ],
-            numChartData: [
-                [
-                    message.data[0][1],
-                ],
-                [
-                    message.data[0][0] + message.data[0][1],
-                ],
-            ],
 
-        });
+            });
+        }
     }
 
     onReceivingMessage(message) {
@@ -223,7 +225,7 @@ class IsAnalyticsSummary extends Widget {
     render() {
         const { height } = this.state;
         const { width } = this.state;
-        const divSpacing = {
+        const divSpacings = {
             paddingLeft: width * 0.05,
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
@@ -240,7 +242,7 @@ class IsAnalyticsSummary extends Widget {
         if (this.state.isProviderConfigFault) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div style={divSpacing}>
+                    <div style={divSpacings}>
                         <Typography variant="title" gutterBottom align="center">
                             {this.state.widgetTexts.heading}
                         </Typography>
@@ -253,7 +255,7 @@ class IsAnalyticsSummary extends Widget {
         }
         return (
             <MuiThemeProvider theme={theme}>
-                <div style={divSpacing}>
+                <div style={divSpacings}>
                     <div style={{
                         height: height * 0.05,
                         width: width * 0.9,
