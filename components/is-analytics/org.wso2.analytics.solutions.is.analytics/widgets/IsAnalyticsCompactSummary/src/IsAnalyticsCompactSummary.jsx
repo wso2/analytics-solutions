@@ -165,23 +165,13 @@ class IsAnalyticsCompactSummary extends Widget {
 
     onReceivingMessage(message) {
         if (message.header === 'additionalFilterConditions') {
-            if (message.body === '') {
-                this.setState({
-                    additionalFilterConditions: undefined,
-                    numChartData,
-                    successPercentage: 0,
-                    failurePercentage: 0,
-                    totalAttempts: 0,
-                }, this.assembleQuery);
-            } else {
-                this.setState({
-                    additionalFilterConditions: message.body,
-                    numChartData,
-                    successPercentage: 0,
-                    failurePercentage: 0,
-                    totalAttempts: 0,
-                }, this.assembleQuery);
-            }
+            this.setState({
+                additionalFilterConditions: message.body === '' ? undefined : message.body,
+                numChartData,
+                successPercentage: 0,
+                failurePercentage: 0,
+                totalAttempts: 0,
+            }, this.assembleQuery);
         } else {
             this.setState({
                 per: message.granularity,
@@ -196,7 +186,8 @@ class IsAnalyticsCompactSummary extends Widget {
     }
 
     assembleQuery() {
-        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+        super.getWidgetChannelManager()
+            .unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
         let { query } = dataProviderConfigs.configs.config.queryData;
         let filterCondition = ' ';
@@ -208,13 +199,13 @@ class IsAnalyticsCompactSummary extends Widget {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
                         filterCondition = filterCondition
-                            + " and str:contains(rolesCommaSeparated, '" + additionalFilterConditionsClone[key] + "') ";
+                            + ' and str:contains(rolesCommaSeparated, \'' + additionalFilterConditionsClone[key] + '\') ';
                     } else if (key === 'isFirstLogin') {
                         filterCondition = filterCondition
                             + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                     } else {
                         filterCondition = filterCondition
-                            + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
+                            + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
                     }
                 }
             }
@@ -241,7 +232,8 @@ class IsAnalyticsCompactSummary extends Widget {
         }
 
         dataProviderConfigs.configs.config.queryData.query = updatedQuery;
-        super.getWidgetChannelManager().subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
+        super.getWidgetChannelManager()
+            .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
     }
 
     render() {
@@ -275,7 +267,10 @@ class IsAnalyticsCompactSummary extends Widget {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={divSpacings}>
-                    <div style={{ height: height * 0.45, width: width * 0.9 }}>
+                    <div style={{
+                        height: height * 0.45,
+                        width: width * 0.9,
+                    }}>
                         <VizG
                             config={numChartConfig}
                             metadata={this.state.numChartMetadata}
@@ -286,15 +281,21 @@ class IsAnalyticsCompactSummary extends Widget {
                     {
                         (this.state.totalAttempts !== 0)
                         && (
-                            <div style={{ height: height * 0.55, width: width * 0.9 }}>
-                                <div style={{ height: height * 0.05, width: width * 0.9 }}>
+                            <div style={{
+                                height: height * 0.55,
+                                width: width * 0.9,
+                            }}>
+                                <div style={{
+                                    height: height * 0.05,
+                                    width: width * 0.9,
+                                }}>
                                     <Typography
                                         variant="body1"
                                         gutterBottom
                                         align="center"
                                         style={{ color: colorGreen }}
                                     >
-                                    Success:
+                                        Success:
                                         {this.state.successPercentage}
                                     </Typography>
                                     <Typography
@@ -303,11 +304,14 @@ class IsAnalyticsCompactSummary extends Widget {
                                         align="center"
                                         style={{ color: colorRed }}
                                     >
-                                    Failure:
+                                        Failure:
                                         {this.state.failurePercentage}
                                     </Typography>
                                 </div>
-                                <div style={{ height: height * 0.5, width: width * 0.9 }}>
+                                <div style={{
+                                    height: height * 0.5,
+                                    width: width * 0.9,
+                                }}>
                                     <VizG
                                         config={this.state.pieChartConfig}
                                         metadata={this.state.pieChartMetadata}
