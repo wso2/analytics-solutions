@@ -69,7 +69,8 @@ const metadataOverall = {
 };
 
 const metadataLocal = {
-    names: ['contextId',
+    names: [
+        'contextId',
         'username',
         'serviceProvider',
         'userStoreDomain',
@@ -153,8 +154,7 @@ const columnsOverall = [
     {
         name: 'authSuccess',
         title: 'Overall Authentication',
-        colorBasedStyle: true,
-        colorScale: boolColorScale,
+        highlight: true,
     },
     {
         name: 'utcTime',
@@ -198,8 +198,7 @@ const columnsLocal = [
     {
         name: 'authSuccess',
         title: 'Local Authentication',
-        colorBasedStyle: true,
-        colorScale: boolColorScale,
+        highlight: true,
     },
     {
         name: 'utcTime',
@@ -235,14 +234,23 @@ const columnsFederated = [
     {
         name: 'authSuccess',
         title: 'Authentication Step Success',
-        colorBasedStyle: true,
-        colorScale: boolColorScale,
+        highlight: true,
     },
     {
         name: 'utcTime',
         title: 'Timestamp',
     },
 ];
+
+function getStyle (state, rowInfo) {
+    if (rowInfo && rowInfo.row.authSuccess === 'Success') {
+        return colorGreen;
+    } else if (rowInfo && rowInfo.row.authSuccess === 'Failure') {
+        return colorRed;
+    } else {
+        return null;
+    }
+}
 
 const tableConfig = {
     charts: [
@@ -253,6 +261,13 @@ const tableConfig = {
     pagination: true,
     filterable: true,
     append: false,
+    dataFunction: (state, rowInfo) => {
+        return {
+            style: {
+                background: getStyle(state, rowInfo),
+            },
+        };
+    },
 };
 
 class IsAnalyticsMessages extends Widget {

@@ -950,7 +950,7 @@
                         },
                         "isGenerated": false,
                         "options": {
-                          "widgetType": "Overall"
+                          "widgetType": "Local"
                         }
                       },
                       "widgetID": "IsAnalyticsMessages"

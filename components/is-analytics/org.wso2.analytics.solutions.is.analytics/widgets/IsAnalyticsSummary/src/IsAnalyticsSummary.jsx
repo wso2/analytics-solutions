@@ -264,7 +264,7 @@ class IsAnalyticsSummary extends Widget {
                         </Typography>
                     </div>
                     <div style={{
-                        height: height * 0.1,
+                        height: height * 0.15,
                         width: width * 0.9,
                     }}
                     >
