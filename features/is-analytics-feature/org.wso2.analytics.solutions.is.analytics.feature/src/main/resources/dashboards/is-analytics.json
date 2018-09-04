@@ -2027,7 +2027,7 @@
                 "query": "select type , count(type) as countings from SecurityAlertTypeTable where alertTimestamp \u003e\u003d 0 and alertTimestamp \u003c\u003d 4070889000000 group by type"
               },
               "tableName": "SecurityAlertTypeTable",
-              "incrementalColumn": "meta_tenantId",
+              "incrementalColumn": "type",
               "timeColumns": "",
               "publishingInterval": 1,
               "purgingInterval": 60,
