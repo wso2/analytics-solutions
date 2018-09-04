@@ -36,6 +36,6 @@
     "copy-webpack-plugin": "^4.2.0",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
-    "@wso2-dashboards/widget": "1.2.2"
+    "@wso2-dashboards/widget": "1.4.0"
   }
 }
