@@ -1407,7 +1407,7 @@
                 "type":"row",
                 "isClosable":true,
                 "title":"",
-                "height":47.90276453765491,
+                "height":44.92858965193536,
                 "content":[
                   {
                     "type":"column",
@@ -1420,7 +1420,7 @@
                         "isClosable":true,
                         "title":"",
                         "width":100.0,
-                        "height":40.719424460431654,
+                        "height":42.32715008431703,
                         "content":[
                           {
                             "title":"Date Time Range",
@@ -1460,14 +1460,14 @@
                         "type":"row",
                         "isClosable":true,
                         "title":"",
-                        "height":59.280575539568346,
+                        "height":57.67284991568297,
                         "content":[
                           {
                             "type":"stack",
                             "isClosable":true,
                             "title":"",
-                            "height":50.0,
-                            "width":81.11111111111111,
+                            "height":43.482294115679046,
+                            "width":87.03703703703704,
                             "content":[
                               {
                                 "title":"IsAnalyticsSessionCountOverTime",
@@ -1503,14 +1503,14 @@
                             "type":"stack",
                             "isClosable":true,
                             "title":"",
-                            "width":18.88888888888889,
+                            "width":12.962962962962965,
                             "content":[
                               {
-                                "title":"IsAnalyticsActiveSessions",
+                                "title":"IsAnalyticsActiveSession",
                                 "type":"component",
                                 "component":"UniversalWidget",
                                 "props":{
-                                  "id":"70fd5abe-5eb8-4e6c-8d04-e17b9c0176de",
+                                  "id":"e3163678-200a-4c73-95b1-62c956b081f9",
                                   "configs":{
                                     "pubsub":{
                                       "types":[
@@ -1522,7 +1522,7 @@
 
                                     }
                                   },
-                                  "widgetID":"IsAnalyticsActiveSessions"
+                                  "widgetID":"IsAnalyticsActiveSession"
                                 },
                                 "isClosable":false,
                                 "header":{
@@ -1542,7 +1542,7 @@
                 "type":"row",
                 "isClosable":true,
                 "title":"",
-                "height":33.70576634995129,
+                "height":35.91281915321924,
                 "content":[
                   {
                     "type":"stack",
@@ -1659,7 +1659,7 @@
                 "type":"stack",
                 "isClosable":true,
                 "title":"",
-                "height":18.3914691123938,
+                "height":19.1585911948454,
                 "content":[
                   {
                     "title":"IsAnalyticsSessionMessages",
@@ -1694,7 +1694,7 @@
             ]
           }
         ],
-        "height":1414.0
+        "height":1341.0
       },
       {
         "id":"alert_type",
@@ -2037,6 +2037,162 @@
   "widgets":{
     "generated":[
       {
+        "name":"IsAnalyticsSuspiciousAlerts",
+        "id":"IsAnalyticsSuspiciousAlerts",
+        "chartConfig":{
+          "charts":[
+            {
+              "type":"table",
+              "columns":[
+                {
+                  "name":"CURRENTTIME",
+                  "title":"Timestamp",
+                  "colorBasedStyle":false
+                },
+                {
+                  "name":"TENANTDOMAIN",
+                  "title":" Tenant Domain",
+                  "colorBasedStyle":false
+                },
+                {
+                  "name":"USERNAME",
+                  "title":" User",
+                  "colorBasedStyle":false
+                },
+                {
+                  "name":"MSG",
+                  "title":" Message",
+                  "colorBasedStyle":false
+                }
+              ],
+              "columnTitles":[
+
+              ]
+            }
+          ],
+          "maxLength":1000000,
+          "filterable":true,
+          "pagination":true,
+          "append":false
+        },
+        "providerConfig":{
+          "configs":{
+            "type":"RDBMSBatchDataProvider",
+            "config":{
+              "datasourceName":"IS_ANALYTICS_DB",
+              "queryData":{
+                "queryFunction":"this.getQuery \u003d function (username,from,to){return \"select currentTime, tenantDomain, username, msg from SUSPICIOUSLOGINALERTTABLE where timestamp \u003e\u003d \"+from+\" and timestamp \u003c\u003d \"+to;\n}",
+                "customWidgetInputs":[
+                  {
+                    "name":"from",
+                    "defaultValue":"0"
+                  },
+                  {
+                    "name":"to",
+                    "defaultValue":"4102425000000"
+                  }
+                ],
+                "systemWidgetInputs":[
+                  {
+                    "name":"username",
+                    "defaultValue":"admin"
+                  }
+                ],
+                "query":"select currentTime, tenantDomain, username, msg from SUSPICIOUSLOGINALERTTABLE where timestamp \u003e\u003d 0 and timestamp \u003c\u003d 4102425000000"
+              },
+              "tableName":"SUSPICIOUSLOGINALERTTABLE",
+              "incrementalColumn":"meta_tenantId",
+              "timeColumns":"",
+              "publishingInterval":1,
+              "purgingInterval":60,
+              "publishingLimit":30,
+              "purgingLimit":30,
+              "isPurgingEnable":false
+            }
+          }
+        },
+        "metadata":{
+          "names":[
+            "CURRENTTIME",
+            "TENANTDOMAIN",
+            "USERNAME",
+            "MSG"
+          ],
+          "types":[
+            "ORDINAL",
+            "ORDINAL",
+            "ORDINAL",
+            "ORDINAL"
+          ]
+        },
+        "version":"1.0.0",
+        "pubsub":{
+          "types":[
+            "subscriber"
+          ],
+          "subscriberWidgetInputs":[
+            "from",
+            "to"
+          ]
+        }
+      },
+      {
+        "name":"IsAnalyticsActiveSession",
+        "id":"IsAnalyticsActiveSession",
+        "chartConfig":{
+          "x":"ACTIVE",
+          "title":"Active Sessions",
+          "charts":[
+            {
+              "type":"number"
+            }
+          ]
+        },
+        "providerConfig":{
+          "configs":{
+            "type":"RDBMSBatchDataProvider",
+            "config":{
+              "datasourceName":"IS_ANALYTICS_DB",
+              "queryData":{
+                "queryFunction":"this.getQuery \u003d function (username){return \"select count(*) as active from ActiveSessionsTable\";}",
+                "customWidgetInputs":[
+
+                ],
+                "systemWidgetInputs":[
+                  {
+                    "name":"username",
+                    "defaultValue":"admin"
+                  }
+                ],
+                "query":"select count(*) as active from ActiveSessionsTable"
+              },
+              "tableName":"ActiveSessionsTable",
+              "incrementalColumn":"active",
+              "timeColumns":"",
+              "publishingInterval":1,
+              "purgingInterval":60,
+              "publishingLimit":30,
+              "purgingLimit":30,
+              "isPurgingEnable":false
+            }
+          }
+        },
+        "metadata":{
+          "names":[
+            "ACTIVE"
+          ],
+          "types":[
+            "LINEAR"
+          ]
+        },
+        "version":"1.0.0",
+        "pubsub":{
+          "types":[
+
+          ]
+        }
+      },
+      {
         "name":"IsAnalyticsLongSessionAlerts",
         "id":"IsAnalyticsLongSessionAlerts",
         "chartConfig":{
@@ -2136,162 +2292,6 @@
             "ORDINAL",
             "LINEAR",
             "LINEAR"
-          ]
-        },
-        "version":"1.0.0",
-        "pubsub":{
-          "types":[
-            "subscriber"
-          ],
-          "subscriberWidgetInputs":[
-            "from",
-            "to"
-          ]
-        }
-      },
-      {
-        "name":"IsAnalyticsActiveSessions",
-        "id":"IsAnalyticsActiveSessions",
-        "chartConfig":{
-          "x":"ACTIVESESSION",
-          "title":"Active Sessions",
-          "charts":[
-            {
-              "type":"number"
-            }
-          ]
-        },
-        "providerConfig":{
-          "configs":{
-            "type":"RDBMSBatchDataProvider",
-            "config":{
-              "datasourceName":"IS_ANALYTICS_DB",
-              "queryData":{
-                "queryFunction":"this.getQuery \u003d function (username){return \"select count(sessionId) as ActiveSession from ACTIVESESSIONSTABLE group by sessionId\";}",
-                "customWidgetInputs":[
-
-                ],
-                "systemWidgetInputs":[
-                  {
-                    "name":"username",
-                    "defaultValue":"admin"
-                  }
-                ],
-                "query":"select count(sessionId) as ActiveSession from ACTIVESESSIONSTABLE group by sessionId"
-              },
-              "tableName":"ACTIVESESSIONSTABLE",
-              "incrementalColumn":"sessionId",
-              "timeColumns":"",
-              "publishingInterval":1,
-              "purgingInterval":60,
-              "publishingLimit":30,
-              "purgingLimit":30,
-              "isPurgingEnable":false
-            }
-          }
-        },
-        "metadata":{
-          "names":[
-            "ACTIVESESSION"
-          ],
-          "types":[
-            "LINEAR"
-          ]
-        },
-        "version":"1.0.0",
-        "pubsub":{
-          "types":[
-
-          ]
-        }
-      },
-      {
-        "name":"IsAnalyticsSuspiciousAlerts",
-        "id":"IsAnalyticsSuspiciousAlerts",
-        "chartConfig":{
-          "charts":[
-            {
-              "type":"table",
-              "columns":[
-                {
-                  "name":"CURRENTTIME",
-                  "title":"Timestamp",
-                  "colorBasedStyle":false
-                },
-                {
-                  "name":"TENANTDOMAIN",
-                  "title":" Tenant Domain",
-                  "colorBasedStyle":false
-                },
-                {
-                  "name":"USERNAME",
-                  "title":" User",
-                  "colorBasedStyle":false
-                },
-                {
-                  "name":"MSG",
-                  "title":" Message",
-                  "colorBasedStyle":false
-                }
-              ],
-              "columnTitles":[
-
-              ]
-            }
-          ],
-          "maxLength":1000000,
-          "filterable":true,
-          "pagination":true,
-          "append":false
-        },
-        "providerConfig":{
-          "configs":{
-            "type":"RDBMSBatchDataProvider",
-            "config":{
-              "datasourceName":"IS_ANALYTICS_DB",
-              "queryData":{
-                "queryFunction":"this.getQuery \u003d function (username,from,to){return \"select currentTime, tenantDomain, username, msg from SUSPICIOUSLOGINALERTTABLE where timestamp \u003e\u003d \"+from+\" and timestamp \u003c\u003d \"+to;\n}",
-                "customWidgetInputs":[
-                  {
-                    "name":"from",
-                    "defaultValue":"0"
-                  },
-                  {
-                    "name":"to",
-                    "defaultValue":"4102425000000"
-                  }
-                ],
-                "systemWidgetInputs":[
-                  {
-                    "name":"username",
-                    "defaultValue":"admin"
-                  }
-                ],
-                "query":"select currentTime, tenantDomain, username, msg from SUSPICIOUSLOGINALERTTABLE where timestamp \u003e\u003d 0 and timestamp \u003c\u003d 4102425000000"
-              },
-              "tableName":"SUSPICIOUSLOGINALERTTABLE",
-              "incrementalColumn":"meta_tenantId",
-              "timeColumns":"",
-              "publishingInterval":1,
-              "purgingInterval":60,
-              "publishingLimit":30,
-              "purgingLimit":30,
-              "isPurgingEnable":false
-            }
-          }
-        },
-        "metadata":{
-          "names":[
-            "CURRENTTIME",
-            "TENANTDOMAIN",
-            "USERNAME",
-            "MSG"
-          ],
-          "types":[
-            "ORDINAL",
-            "ORDINAL",
-            "ORDINAL",
-            "ORDINAL"
           ]
         },
         "version":"1.0.0",
