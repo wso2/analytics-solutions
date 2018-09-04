@@ -68,7 +68,7 @@ from PreProcessedMediatorStatStream
 @store(type = 'rdbms', datasource = 'EI_ANALYTICS')
 @info(name = 'ESBStat')
 define aggregation ESBStatAgg 
-from PreProcessedESBStatStream 
+from PreProcessedESBStatStream
  select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp 
 	group by metaTenantId, componentId, componentName, componentType, entryPoint 
 	aggregate by startTime every sec...years;
@@ -83,7 +83,7 @@ insert current events into DecompressedEventStream;
 -- store ConfigEntryEventStream data into ConfigEntryTable
 from ConfigEntryEventStream 
 select meta_tenantId as metaTenantId, hashcode, entryName, configData, eventTimestamp() as eventTimestamp 
-insert current events into ConfigEntryTable;
+update or insert into ConfigEntryTable on ConfigEntryTable.hashcode == hashcode;
 
 -- if DecompressedEventStream has beforePayload or transportPropertyMap or contextPropertyMap, add them to into ESBEventTable 
 from DecompressedEventStream[not(beforePayload is null) or not(transportPropertyMap is null) or not(contextPropertyMap is null)] 
