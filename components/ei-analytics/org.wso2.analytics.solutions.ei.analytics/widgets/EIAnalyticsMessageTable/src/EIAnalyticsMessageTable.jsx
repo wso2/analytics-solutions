@@ -21,8 +21,8 @@ import VizG from 'react-vizgrammar';
 import {darkBaseTheme, getMuiTheme, MuiThemeProvider} from 'material-ui/styles';
 import moment from 'moment';
 
-let TENANT_ID = '-1234';
-let MESSAGE_PAGE = "message";
+const TENANT_ID = '-1234';
+const MESSAGE_PAGE = "message";
 
 class EIAnalyticsMessageTable extends Widget {
     constructor(props) {
@@ -90,6 +90,10 @@ class EIAnalyticsMessageTable extends Widget {
         this.handleGraphUpdate = this.handleGraphUpdate.bind(this);
         this.handlePublisherParameters = this.handlePublisherParameters.bind(this);
         this.handleRowSelect = this.handleRowSelect.bind(this);
+        this.getCurrentPage = this.getCurrentPage.bind(this);
+        this.getKey = this.getKey.bind(this);
+        this.getUrlParameter = this.getUrlParameter.bind(this);
+        this.pageName = this.getCurrentPage();
     }
 
     static getProviderConf(widgetConfiguration) {
@@ -99,16 +103,12 @@ class EIAnalyticsMessageTable extends Widget {
     handleRowSelect(event) {
         //get the messageId from the selected row
         let messageId = event.messageFlowId;
-        super.setGlobalState(getKey(MESSAGE_PAGE, "id"), messageId);  // Set messageId for the message page.
+        super.setGlobalState(this.getKey(MESSAGE_PAGE, "id"), messageId);  // Set messageId for the message page.
         window.location.href = MESSAGE_PAGE;
     }
 
     handleResize() {
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
-    }
-
-    componentDidMount() {
-        pageName = getCurrentPage();
     }
 
     componentWillMount() {
@@ -151,7 +151,7 @@ class EIAnalyticsMessageTable extends Widget {
                     componentType = "proxy service"
                 } else {
                     if (urlParams.has('entryPoint')) {
-                        entryPoint = getUrlParameter('entryPoint')
+                        entryPoint = this.getUrlParameter('entryPoint')
                     }
                     if (pageName == "mediator") {
                         componentType = "mediator";
@@ -181,7 +181,7 @@ class EIAnalyticsMessageTable extends Widget {
                     );
             })
             .catch((error) => {
-                console.log(error);
+                console.error("Unable to load widget configurations");
             });
     }
 
@@ -198,6 +198,29 @@ class EIAnalyticsMessageTable extends Widget {
 
     componentWillUnmount() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+    }
+
+    getCurrentPage() {
+        let pageName;
+        let href = parent.window.location.href;
+        let lastSegment = href.substr(href.lastIndexOf('/') + 1);
+        if (lastSegment.indexOf('?') == -1) {
+            pageName = lastSegment;
+        } else {
+            pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
+        }
+        return pageName;
+    }
+
+    getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    getKey(pageName, parameter) {
+        return pageName + "_page_" + parameter;
     }
 
     render() {
@@ -218,30 +241,5 @@ class EIAnalyticsMessageTable extends Widget {
         );
     }
 }
-
-
-function getCurrentPage() {
-    let pageName;
-    let href = parent.window.location.href;
-    let lastSegment = href.substr(href.lastIndexOf('/') + 1);
-    if (lastSegment.indexOf('?') == -1) {
-        pageName = lastSegment;
-    } else {
-        pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
-    }
-    return pageName;
-}
-
-function getUrlParameter(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    var results = regex.exec(location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-}
-
-function getKey(pageName, parameter) {
-    return pageName + "_page_" + parameter;
-}
-
 
 global.dashboard.registerWidget("EIAnalyticsMessageTable", EIAnalyticsMessageTable);

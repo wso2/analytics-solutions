@@ -20,8 +20,6 @@ import Widget from '@wso2-dashboards/widget';
 import Select from 'react-select';
 import './react-select.css';
 
-let pageName;
-
 class EIAnalyticsSearchBox extends Widget {
 
     constructor(props) {
@@ -35,7 +33,9 @@ class EIAnalyticsSearchBox extends Widget {
         this.handleDataReceived = this.handleDataReceived.bind(this);
         this.excludeComponets = this.excludeComponets.bind(this);
         this.publishMessage = this.publishMessage.bind(this);
-        pageName = getCurrentPage();
+        this.getCurrentPage = this.getCurrentPage.bind(this);
+        this.getKey = this.getKey.bind(this);
+        this.pageName = this.getCurrentPage();
         this.pgAPI = "api";
         this.pgEndpoint = "endpoint";
         this.pgProxy = "proxy";
@@ -45,25 +45,25 @@ class EIAnalyticsSearchBox extends Widget {
 
     componentDidMount() {
         // if a component is already selected, preserve the selection
-        let selected = super.getGlobalState(getKey("selectedComponent").selectedComponent);
+        let selected = super.getGlobalState(this.getKey("selectedComponent").selectedComponent);
         if (selected) {
             this.publishMessage(selectedComp);
         }
 
         let query;
-        let componentType = pageName;
+        let componentType = this.pageName;
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 //based on the component type, query ESB or Mediator stat tables
-                if (pageName == this.pgAPI || pageName == this.pgProxy || pageName == this.pgInbound) {
+                if (this.pageName == this.pgAPI || this.pageName == this.pgProxy || this.pageName == this.pgInbound) {
                     query = message.data.configs.providerConfig.configs.config.queryData.queryESB;
 
                     //change pageName variable to 'Proxy Service' to query data based on the componentType
-                    if (pageName == this.pgProxy) {
+                    if (this.pageName == this.pgProxy) {
                         componentType = 'proxy service';
                     }
                     //change pageName variable to 'Inbound EndPoint'to query data based on the componentType
-                    else if (pageName == this.pgInbound) {
+                    else if (this.pageName == this.pgInbound) {
                         componentType = 'inbound endpoint';
                     }
 
@@ -81,6 +81,22 @@ class EIAnalyticsSearchBox extends Widget {
             });
     }
 
+    getCurrentPage() {
+        let pageName;
+        let href = parent.window.location.href;
+        let lastSegment = href.substr(href.lastIndexOf('/') + 1);
+        if (lastSegment.indexOf('?') == -1) {
+            pageName = lastSegment;
+        } else {
+            pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
+        }
+        return pageName;
+    }
+
+    getKey(parameter){
+        return this.pageName+"_page_"+parameter;
+    }
+
     //map data into options in the search box
     handleDataReceived(data) {
         let componentNameArr = data.data.map(
@@ -89,13 +105,13 @@ class EIAnalyticsSearchBox extends Widget {
             });
 
         // remove endpoints in the excludeEndpoints-array from the options
-        if (pageName == this.pgEndpoint) {
+        if (this.pageName == this.pgEndpoint) {
             let excludeEndpoints = ["AnonymousEndpoint"];
             this.excludeComponets(componentNameArr, excludeEndpoints);
         }
 
         // remove sequences in the excludeSequences-array from the options
-        else if (pageName == this.pgSequence) {
+        else if (this.pageName == this.pgSequence) {
             let excludeSequences = ["PROXY_INSEQ", "PROXY_OUTSEQ", "PROXY_FAULTSEQ", "API_OUTSEQ", "API_INSEQ", "API_FAULTSEQ", "AnonymousSequence"];
             this.excludeComponets(componentNameArr, excludeSequences);
         }
@@ -154,22 +170,6 @@ class EIAnalyticsSearchBox extends Widget {
             </div>
         );
     }
-}
-
-function getCurrentPage() {
-    let pageName;
-    let href = parent.window.location.href;
-    let lastSegment = href.substr(href.lastIndexOf('/') + 1);
-    if (lastSegment.indexOf('?') == -1) {
-        pageName = lastSegment;
-    } else {
-        pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
-    }
-    return pageName;
-}
-
-function getKey(parameter){
-    return pageName+"_page_"+parameter;
 }
 
 global.dashboard.registerWidget('EIAnalyticsSearchBox', EIAnalyticsSearchBox);
