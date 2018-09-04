@@ -168,6 +168,7 @@ class IsAnalyticsCompactSummary extends Widget {
             if (message.body === '') {
                 this.setState({
                     additionalFilterConditions: undefined,
+                    numChartData,
                     successPercentage: 0,
                     failurePercentage: 0,
                     totalAttempts: 0,
@@ -175,6 +176,7 @@ class IsAnalyticsCompactSummary extends Widget {
             } else {
                 this.setState({
                     additionalFilterConditions: message.body,
+                    numChartData,
                     successPercentage: 0,
                     failurePercentage: 0,
                     totalAttempts: 0,
@@ -185,6 +187,7 @@ class IsAnalyticsCompactSummary extends Widget {
                 per: message.granularity,
                 fromDate: message.from,
                 toDate: message.to,
+                numChartData,
                 successPercentage: 0,
                 failurePercentage: 0,
                 totalAttempts: 0,
