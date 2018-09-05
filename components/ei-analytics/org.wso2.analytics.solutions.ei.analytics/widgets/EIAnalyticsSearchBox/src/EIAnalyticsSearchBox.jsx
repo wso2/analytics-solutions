@@ -45,7 +45,7 @@ class EIAnalyticsSearchBox extends Widget {
 
     componentDidMount() {
         // if a component is already selected, preserve the selection
-        let selected = super.getGlobalState(this.getKey("selectedComponent").selectedComponent);
+        let selected = super.getGlobalState(this.getKey("id"));
         if (selected) {
             this.publishMessage(selectedComp);
         }
@@ -152,7 +152,7 @@ class EIAnalyticsSearchBox extends Widget {
         this.publishedMsgSet.push({time: new Date(), value: pubMessage});
         super.publish(selectedComponent);
         //publish it to the subscriber
-        //super.publish(JSON.stringify(selectedComponent)); 
+        //super.publish(JSON.stringify(selectedComponent));
     }
 
     render() {

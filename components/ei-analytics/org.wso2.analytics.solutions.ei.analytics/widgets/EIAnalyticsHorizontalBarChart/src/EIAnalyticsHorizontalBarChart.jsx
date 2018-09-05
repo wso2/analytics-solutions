@@ -229,32 +229,33 @@ class EIAnalyticsHorizontalBarChart extends Widget {
         const pageNameEndIndex = urlString.indexOf('?');
         let redirectPageName;
         switch (this.state.graphType) {
-            case 'API':
+            case 'api':
                 redirectPageName = 'api';
                 break;
-            case 'Endpoint':
+            case 'endpoint':
                 redirectPageName = 'endpoint';
                 break;
-            case 'Sequence':
+            case 'sequence':
                 redirectPageName = 'sequence';
                 break;
-            case 'Mediator':
+            case 'mediator':
                 redirectPageName = 'mediator';
                 break;
-            case 'Proxy Service':
+            case 'proxy service':
                 redirectPageName = 'proxy';
                 break;
-            case 'Inbound Endpoint':
+            case 'inbound endpoint':
                 redirectPageName = 'inbound';
                 break;
             default:
                 redirectPageName = '';
         }
         const formattedString = urlString.substring(0, pageNameStartIndex + 1) + redirectPageName
-            + urlString.substring(pageNameEndIndex, -1);
+            + urlString.substring(pageNameEndIndex, urlString.length);
         const redirectUrl = new URL(formattedString);
-        super.setGlobalState(this.getKey(redirectPageName, URL_PARAMETER_ID), clickedComponentName);
-        window.location.href = redirectUrl.toString();
+        let hashComponent = {};
+        hashComponent[this.getKey(redirectPageName, URL_PARAMETER_ID)] = clickedComponentName;
+        window.location.href = redirectUrl.toString() + ('#' + JSON.stringify(hashComponent));
     }
 
     /**

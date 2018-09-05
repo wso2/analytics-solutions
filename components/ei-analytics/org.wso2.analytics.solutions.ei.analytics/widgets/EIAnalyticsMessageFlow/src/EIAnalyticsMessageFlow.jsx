@@ -1084,22 +1084,21 @@ class EIAnalyticsMessageFlow extends Widget {
             pageUrl = ENDPOINT_PAGE_URL;
         }
         let hashCode = "";
-        let hiddenParams = '';
+        let hashComponent = {};
         if (node.hiddenAttributes) {
             node.hiddenAttributes.forEach((item) => {
-                hiddenParams += '&' + item.name + '=' + item.value;
-                super.setGlobalState(getKey("mediator", item.name), item.value);
+                hashComponent[getKey("mediator", item.name)] = item.value;
                 if (item.name === "hashCode") {
                     hashCode = item.value;
                 }
             });
         }
-        let targetUrl = pageUrl;
+        let targetUrl = pageUrl + ('#' + JSON.stringify(hashComponent));
         let labelText;
 
         if (node.dataAttributes) {
-            var nodeClasses = "nodeLabel";
-            var nodeWrapClasses = "nodeLabelWrap"
+            let nodeClasses = "nodeLabel";
+            let nodeWrapClasses = "nodeLabelWrap"
 
             if (node.dataAttributes[1].value === "Failed") {
                 nodeClasses += " failed-node";

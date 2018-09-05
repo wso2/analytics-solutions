@@ -103,8 +103,9 @@ class EIAnalyticsMessageTable extends Widget {
     handleRowSelect(event) {
         //get the messageId from the selected row
         let messageId = event.messageFlowId;
-        super.setGlobalState(this.getKey(MESSAGE_PAGE, "id"), messageId);  // Set messageId for the message page.
-        window.location.href = MESSAGE_PAGE;
+        let hashComponent = {};
+        hashComponent[this.getKey(MESSAGE_PAGE, "id")] = messageId;
+        window.location.href = MESSAGE_PAGE + ('#' + JSON.stringify(hashComponent));
     }
 
     handleResize() {
