@@ -794,14 +794,14 @@
     </profiles>
 
     <properties>
-        <carbon.analytics-common.version>6.0.66</carbon.analytics-common.version>
-        <carbon.analytics.version>2.0.402</carbon.analytics.version>
+        <carbon.analytics-common.version>6.0.67</carbon.analytics-common.version>
+        <carbon.analytics.version>2.0.409</carbon.analytics.version>
         <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
         <kryo.version>3.0.3</kryo.version>
 
-        <siddhi.version>4.2.0</siddhi.version>
-        <siddhi.map.wso2event.version>4.0.13</siddhi.map.wso2event.version>
-        <siddhi.map.json.version>4.0.27</siddhi.map.json.version>
+        <siddhi.version>4.2.11</siddhi.version>
+        <siddhi.map.wso2event.version>4.0.15</siddhi.map.wso2event.version>
+        <siddhi.map.json.version>4.0.30</siddhi.map.json.version>
 
         <open.tracing.version>0.31.0</open.tracing.version>
         <org.wso2.json.version>3.0.0.wso2v1</org.wso2.json.version>
