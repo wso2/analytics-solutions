@@ -16,7 +16,8 @@
                     "queryData":{
                         "query":"from RequestAggregation {{filterCondition}} within {{from}}L, {{to}}L per \"{{per}}s\" select AGG_TIMESTAMP, {{groupBy}}, {{filterBy}} avg(avgRespTime) as avgRespTime group by AGG_TIMESTAMP, {{groupBy}}"
                     },
-                    "publishingInterval":60
+                    "publishingInterval":60,
+                    "timeColumns":"AGG_TIMESTAMP"
                 }
             }
         }
