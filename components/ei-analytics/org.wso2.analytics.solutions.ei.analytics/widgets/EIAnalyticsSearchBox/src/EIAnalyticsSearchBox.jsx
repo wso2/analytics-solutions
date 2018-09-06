@@ -16,18 +16,199 @@
  * under the License.
  */
 
+import React from 'react';
+import PropTypes from 'prop-types';
 import Widget from '@wso2-dashboards/widget';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Chip from '@material-ui/core/Chip';
+import Typography from '@material-ui/core/Typography';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
 import Select from 'react-select';
-import './react-select.css';
+import JssProvider from 'react-jss/lib/JssProvider';
+import {Scrollbars} from 'react-custom-scrollbars';
+
+const darkTheme = createMuiTheme({
+    palette: {
+        type: 'dark'
+    }
+});
+
+const lightTheme = createMuiTheme({
+    palette: {
+        type: 'light'
+    }
+});
+
+let openPopper = false;
+
+function NoOptionsMessage(props) {
+    return (
+        <Typography
+            style={{
+                padding: 15,
+                color: '#7e7e7e'
+            }}
+            {...props.innerProps}>
+            {props.children}
+        </Typography>
+    );
+}
+
+function inputComponent({inputRef, ...props}) {
+    return <div
+        ref={inputRef}
+        {...props}/>;
+}
+
+function Control(props) {
+    openPopper = props.selectProps.menuIsOpen;
+    return (
+        <TextField
+            id='popper-anchor-ei-analytics-search-box'
+            fullWidth={true}
+            InputProps={{
+                inputComponent,
+                inputProps: {
+                    inputRef: props.innerRef,
+                    children: props.children,
+                    ...props.innerProps,
+                },
+            }}
+            {...props.selectProps.textFieldProps}/>
+    );
+}
+
+function Option(props) {
+    return (
+        <MenuItem
+            buttonRef={props.innerRef}
+            selected={props.isFocused}
+            component='div'
+            style={{fontWeight: props.isSelected ? 500 : 400}}
+            {...props.innerProps}>
+            {props.children}
+        </MenuItem>
+    );
+}
+
+function Placeholder(props) {
+    return (
+        <Typography
+            style={{
+                position: 'absolute',
+                left: 2,
+                fontSize: '90%',
+                color: '#7e7e7e'
+            }}
+            {...props.innerProps}>
+            {props.children}
+        </Typography>
+    );
+}
+
+function SingleValue(props) {
+    return (
+        <Typography
+            style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                color: 'white',
+                fontSize: '95%'
+            }}
+            {...props.innerProps}>
+            {props.children}
+        </Typography>
+    );
+}
+
+function ValueContainer(props) {
+    return (
+        <div
+            style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                flex: 1,
+                alignItems: 'center',
+            }}>
+            {props.children}
+        </div>);
+}
+
+function MultiValue(props) {
+    return (
+        <Chip
+            tabIndex={-1}
+            label={props.children}
+            onDelete={event => {
+                props.removeProps.onClick();
+                props.removeProps.onMouseDown(event);
+            }}
+            style={{
+                borderRadius: 15,
+                display: 'flex',
+                flexWrap: 'wrap',
+                fontSize: '90%',
+                overflow: 'hidden',
+                paddingLeft: 6,
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                minWidth: '20',
+                margin: 2
+            }}/>
+    );
+}
+
+function Menu(props) {
+    let popperNode = document.getElementById('popper-anchor-ei-analytics-search-box');
+    return (
+        <Popper
+            open={openPopper}
+            anchorEl={popperNode}>
+            <Paper
+                square
+                style={{width: popperNode ? popperNode.clientWidth : null}}
+                {...props.innerProps}>
+                {props.children}
+            </Paper>
+        </Popper>
+    );
+}
+
+const components = {
+    Option,
+    Control,
+    NoOptionsMessage,
+    Placeholder,
+    SingleValue,
+    MultiValue,
+    ValueContainer,
+    Menu,
+};
 
 class EIAnalyticsSearchBox extends Widget {
-
     constructor(props) {
         super(props);
         this.state = {
-            selectedOption: '',
-            optionArray: []
-        }
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height,
+            options: [],
+            availableOptions: [],
+            selectedOptions: null,
+            faultyProviderConf: false
+        };
+
+
+        this.props.glContainer.on('resize', () => {
+                this.setState({
+                    width: this.props.glContainer.width,
+                    height: this.props.glContainer.height
+                });
+            }
+        );
+
         this.publishedMsgSet = [];
         this.handleChange = this.handleChange.bind(this);
         this.handleDataReceived = this.handleDataReceived.bind(this);
@@ -43,20 +224,91 @@ class EIAnalyticsSearchBox extends Widget {
         this.pgInbound = "inbound";
     }
 
+    //publish the given message as an object
+    publishMessage() {
+        const pubMessage = this.state.selectedOptions;
+        this.publishedMsgSet.push({time: new Date(), value: pubMessage});
+        super.publish({"selectedComponent": pubMessage});
+    }
+
     getCurrentPage() {
         let pageName;
         let href = parent.window.location.href;
         let lastSegment = href.substr(href.lastIndexOf('/') + 1);
         if (lastSegment.indexOf('?') == -1) {
             pageName = lastSegment;
-
         } else {
             pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
         }
         return pageName;
     }
 
+
+    handleDataReceived(data) {
+        let componentNameArr = data.data.map(
+            function (nameArr) {
+                return nameArr[0];
+            });
+
+        // remove endpoints in the excludeEndpoints-array from the options
+        if (this.pageName == this.pgEndpoint) {
+            let excludeEndpoints = ["AnonymousEndpoint"];
+            this.excludeComponets(componentNameArr, excludeEndpoints);
+        }
+
+        // remove sequences in the excludeSequences-array from the options
+        else if (this.pageName == this.pgSequence) {
+            let excludeSequences = ["PROXY_INSEQ", "PROXY_OUTSEQ", "PROXY_FAULTSEQ", "API_OUTSEQ", "API_INSEQ", "API_FAULTSEQ", "AnonymousSequence"];
+            this.excludeComponets(componentNameArr, excludeSequences);
+        }
+
+        this.setState({
+            optionArray: componentNameArr.map(option => ({
+                value: option,
+                label: option,
+                disabled: false
+            }))
+        });
+    }
+
+    handleChange(event) {
+        let options = this.state.options;
+        let updatedOptions;
+        let selectedValues = [];
+        selectedValues[0] = event;
+
+        updatedOptions = options.map(option => ({
+            value: option,
+            label: option,
+            disabled: false
+        }));
+        this.setState({
+            selectedOptions: selectedValues,
+            availableOptions: updatedOptions
+        }, this.publishMessage);
+    };
+
+    //remove an array of elements from an array
+    excludeComponets(componentNameArr, excludeItems) {
+        let item;
+        for (item in excludeItems) {
+            let exSeq = excludeItems[item];
+            let index = componentNameArr.indexOf(exSeq);
+            if (index > -1) {
+                componentNameArr.splice(index, 1);
+            }
+        }
+    }
+
+    getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        let results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+
     componentDidMount() {
+        document.getElementById('popper-anchor-ei-analytics-search-box').style = 'display: flex';
         // if a component is already selected, preserve the selection
         let urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('id')) {
@@ -94,86 +346,77 @@ class EIAnalyticsSearchBox extends Widget {
             });
     }
 
-    //map data into options in the search box
-    handleDataReceived(data) {
-        let componentNameArr = data.data.map(
-            function (nameArr) {
-                return nameArr[0];
-            });
-
-        // remove endpoints in the excludeEndpoints-array from the options
-        if (this.pageName == this.pgEndpoint) {
-            let excludeEndpoints = ["AnonymousEndpoint"];
-            this.excludeComponets(componentNameArr, excludeEndpoints);
-        }
-
-        // remove sequences in the excludeSequences-array from the options
-        else if (this.pageName == this.pgSequence) {
-            let excludeSequences = ["PROXY_INSEQ", "PROXY_OUTSEQ", "PROXY_FAULTSEQ", "API_OUTSEQ", "API_INSEQ", "API_FAULTSEQ", "AnonymousSequence"];
-            this.excludeComponets(componentNameArr, excludeSequences);
-        }
-
-        this.setState({
-            optionArray: componentNameArr.map(option => ({
-                value: option,
-                label: option,
-                clearableValue: false
-            }))
-        });
-    }
-
-    //remove an array of elements from an array
-    excludeComponets(componentNameArr, excludeItems) {
-        let item;
-        for (item in excludeItems) {
-            let exSeq = excludeItems[item];
-            let index = componentNameArr.indexOf(exSeq);
-            if (index > -1) {
-                componentNameArr.splice(index, 1);
-            }
-        }
-    }
-
-    getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        let results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    };
-
-    //publish the selected componentName
-    handleChange(event) {
-        if (event) {
-            let selectedValue = event.value;
-            this.publishMessage(selectedValue);
-        }
-    }
-
-    //publish the given message as an object
-    publishMessage(pubMessage) {
-        this.setState({selectedOption: pubMessage});
-        let selectedComponent = {"selectedComponent": pubMessage};
-        this.publishedMsgSet.push({time: new Date(), value: pubMessage});
-        super.publish(selectedComponent);
-        //publish it to the subscriber
-        //super.publish(JSON.stringify(selectedComponent)); 
+    componentWillUnmount() {
+        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
     }
 
     render() {
+        const {classes} = this.props;
         return (
-            <div>
-                <Select
-                    name="form-field-name"
-                    onChange={this.handleChange}
-                    options={this.state.optionArray}
-                    placeholder={this.state.selectedOption}
-                    value={this.state.selectedOption}
-                    clearable={false}
-                >
-                </Select>
-            </div>
+            <JssProvider
+                generateClassName={generateClassName}>
+                <MuiThemeProvider
+                    theme={this.props.muiTheme.name === 'dark' ? darkTheme : lightTheme}>
+                    <Scrollbars
+                        style={{height: this.state.height}}>
+                        <div
+                            style={{
+                                paddingLeft: 24,
+                                paddingRight: 16
+                            }}>
+                            <Select
+                                classes={classes}
+                                className='autocomplete'
+                                classNamePrefix='autocomplete'
+                                textFieldProps={{
+                                    label: '',
+                                    InputLabelProps: {
+                                        shrink: false,
+                                    },
+                                }}
+                                options={this.state.optionArray}
+                                components={components}
+                                value={this.state.selectedOption}
+                                onChange={this.handleChange}
+                                placeholder='Select option'
+                            />
+                        </div>
+                    </Scrollbars>
+                </MuiThemeProvider>
+            </JssProvider>
         );
     }
 }
+
+//This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
+const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
+let classCounter = 0;
+
+export const generateClassName = (rule, styleSheet) => {
+    classCounter += 1;
+
+    if (process.env.NODE_ENV === 'production') {
+        return `c${classCounter}`;
+    }
+
+    if (styleSheet && styleSheet.options.classNamePrefix) {
+        let prefix = styleSheet.options.classNamePrefix;
+        // Sanitize the string as will be used to prefix the generated class name.
+        prefix = prefix.replace(escapeRegex, '-');
+
+        if (prefix.match(/^Mui/)) {
+            return `${prefix}-${rule.key}`;
+        }
+
+        return `${prefix}-${rule.key}-${classCounter}`;
+    }
+
+    return `${rule.key}-${classCounter}`;
+};
+
+
+EIAnalyticsSearchBox.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
 global.dashboard.registerWidget('EIAnalyticsSearchBox', EIAnalyticsSearchBox);
