@@ -211,10 +211,8 @@ class HTTPAnalyticsRequestCountComparison extends Widget {
                 .replace('{{from}}', this.state.fromDate)
                 .replace('{{to}}', this.state.toDate);
             dataProviderConfigs.configs.config.queryData.query = query;
-            this.setState({
-                data: [],
-            }, super.getWidgetChannelManager()
-                .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs));
+            super.getWidgetChannelManager()
+                .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
         }
     }
 
@@ -231,18 +229,7 @@ class HTTPAnalyticsRequestCountComparison extends Widget {
                         padding: 24,
                     }}
                 >
-                    Unable to fetch data, please check the data provider configurations.
-                </div>
-            );
-        }
-        if (this.state.data.length === 0) {
-            return (
-                <div
-                    style={{
-                        padding: 24,
-                    }}
-                >
-                    No Data Available
+                    Cannot fetch provider configuration for HTTP Analytics Request Count Comparison widget.
                 </div>
             );
         }
