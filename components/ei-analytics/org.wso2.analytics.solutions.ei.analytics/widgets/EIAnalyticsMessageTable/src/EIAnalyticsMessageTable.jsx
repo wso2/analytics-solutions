@@ -135,7 +135,6 @@ class EIAnalyticsMessageTable extends Widget {
     }
 
     handleGraphUpdate() {
-        console.log("calling");
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 super.getWidgetChannelManager().unsubscribeWidget(this.props.id);

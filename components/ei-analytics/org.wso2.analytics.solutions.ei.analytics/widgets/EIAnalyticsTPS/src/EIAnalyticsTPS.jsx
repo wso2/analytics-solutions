@@ -106,7 +106,6 @@ class EIAnalyticsTPS extends Widget {
      * Update graph parameters according to the updated publisher widget parameters
      */
     handleGraphUpdate() {
-        //console.log('A');
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
 
@@ -132,7 +131,7 @@ class EIAnalyticsTPS extends Widget {
                     );
             })
             .catch((error) => {
-                // console.log(error);
+                console.error("Unable to load widget configurations");
             });
     }
 
@@ -184,8 +183,6 @@ class EIAnalyticsTPS extends Widget {
             );
         });
 
-
-        console.log(data);
         // Draw the graph with received stats only if data is present after filtering
         if (data.length > 0) {
             this.setState({
