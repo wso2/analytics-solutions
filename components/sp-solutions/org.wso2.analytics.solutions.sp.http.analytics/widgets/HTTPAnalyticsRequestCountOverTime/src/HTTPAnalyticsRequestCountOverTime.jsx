@@ -31,7 +31,7 @@ const chartConfig = {
     charts:
         [
             {
-                type: 'line',
+                type: 'bar',
                 y: 'numRequests',
                 fill: '#00e1d6',
                 color: 'serverName',
@@ -52,6 +52,8 @@ const chartConfig = {
     xAxisLabel: 'Time',
     yAxisLabel: 'Number of Requests',
     append: false,
+    timeStep: 'month',
+    tipTimeFormat: '%Y-%m-%d %H:%M:%S',
 };
 
 /**
@@ -115,9 +117,10 @@ class HTTPAnalyticsRequestCountOverTime extends Widget {
      * @param {JSON} message Message received from data Provider
      */
     handleDataReceived(message) {
+        console.info(message.metadata);
         const configClone = _.cloneDeep(chartConfig);
         [, configClone.charts[0].color] = message.metadata.names;
-        message.metadata.types[0] = 'TIME';
+        configClone.timeStep = this.state.per;
 
         this.setState({
             lineConfig: configClone,
@@ -215,11 +218,8 @@ class HTTPAnalyticsRequestCountOverTime extends Widget {
                 .replace('{{from}}', this.state.fromDate)
                 .replace('{{to}}', this.state.toDate);
             dataProviderConfigs.configs.config.queryData.query = query;
-
-            this.setState({
-                data: [],
-            }, super.getWidgetChannelManager()
-                .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs));
+            super.getWidgetChannelManager()
+                .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
         }
     }
 
@@ -236,18 +236,7 @@ class HTTPAnalyticsRequestCountOverTime extends Widget {
                         padding: 24,
                     }}
                 >
-                    Unable to fetch data, please check the data provider configurations.
-                </div>
-            );
-        }
-        if (this.state.data.length === 0) {
-            return (
-                <div
-                    style={{
-                        padding: 24,
-                    }}
-                >
-                    No Data Available
+                    Cannot fetch provider configuration for HTTP Analytics Request Count Over Time widget.
                 </div>
             );
         }
