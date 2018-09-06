@@ -200,7 +200,6 @@ class EIAnalyticsSearchBox extends Widget {
             faultyProviderConf: false
         };
 
-
         this.props.glContainer.on('resize', () => {
                 this.setState({
                     width: this.props.glContainer.width,
@@ -215,7 +214,7 @@ class EIAnalyticsSearchBox extends Widget {
         this.getCurrentPage = this.getCurrentPage.bind(this);
         this.getUrlParameter = this.getUrlParameter.bind(this);
         this.excludeComponets = this.excludeComponets.bind(this);
-        this.capitalizeCaseFirstChar = this.capitalizeCaseFirstChar.bind(this);
+        this.formatPageName = this.formatPageName.bind(this);
         this.publishMessage = this.publishMessage.bind(this);
         this.pageName = this.getCurrentPage();
         this.pgAPI = "api";
@@ -308,12 +307,27 @@ class EIAnalyticsSearchBox extends Widget {
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
-    capitalizeCaseFirstChar(str) {
-        let result = '';
+    formatPageName(str) {
         if (str) {
-            result = str.charAt(0).toUpperCase() + str.slice(1);
+            switch (str) {
+                case 'api':
+                    return 'API';
+                case 'proxy':
+                    return 'Proxy Services';
+                case 'sequence':
+                    return 'Sequence';
+                case 'endpoint':
+                    return 'Endpoint';
+                case 'inbound':
+                    return 'Inbound Endpoint';
+                case 'mediator':
+                    return 'Mediator';
+                default:
+                    return '';
+            }
+        } else {
+            return '';
         }
-        return result;
     }
 
     componentDidMount() {
@@ -375,7 +389,7 @@ class EIAnalyticsSearchBox extends Widget {
                                 paddingTop: 5,
                             }}>
                             <div>
-                                Filter by {this.capitalizeCaseFirstChar(this.pageName)}
+                                Filter by {this.formatPageName(this.pageName)}
                             </div>
                             <div>
                                 <Select
