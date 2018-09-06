@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@wso2-dashboards/widget": "1.2.2",
+    "@wso2-dashboards/widget": "1.4.0",
     "css-loader": "^1.0.0",
     "moment": "^2.22.2",
     "react": "^16.4.1",
