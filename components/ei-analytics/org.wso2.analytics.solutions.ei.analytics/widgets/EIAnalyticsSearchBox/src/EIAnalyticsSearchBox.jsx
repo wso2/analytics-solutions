@@ -215,6 +215,7 @@ class EIAnalyticsSearchBox extends Widget {
         this.getCurrentPage = this.getCurrentPage.bind(this);
         this.getUrlParameter = this.getUrlParameter.bind(this);
         this.excludeComponets = this.excludeComponets.bind(this);
+        this.capitalizeCaseFirstChar = this.capitalizeCaseFirstChar.bind(this);
         this.publishMessage = this.publishMessage.bind(this);
         this.pageName = this.getCurrentPage();
         this.pgAPI = "api";
@@ -307,8 +308,16 @@ class EIAnalyticsSearchBox extends Widget {
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
+    capitalizeCaseFirstChar(str) {
+        let result = '';
+        if (str) {
+            result = str.charAt(0).toUpperCase() + str.slice(1);
+        }
+        return result;
+    }
+
     componentDidMount() {
-        document.getElementById('popper-anchor-ei-analytics-search-box').style = 'display: flex';
+        document.getElementById('popper-anchor-ei-analytics-search-box').style = 'display: flex; padding: 0';
         // if a component is already selected, preserve the selection
         let urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('id')) {
@@ -361,25 +370,31 @@ class EIAnalyticsSearchBox extends Widget {
                         style={{height: this.state.height}}>
                         <div
                             style={{
-                                paddingLeft: 24,
-                                paddingRight: 16
+                                paddingLeft: 15,
+                                paddingRight: 15,
+                                paddingTop: 5,
                             }}>
-                            <Select
-                                classes={classes}
-                                className='autocomplete'
-                                classNamePrefix='autocomplete'
-                                textFieldProps={{
-                                    label: '',
-                                    InputLabelProps: {
-                                        shrink: false,
-                                    },
-                                }}
-                                options={this.state.optionArray}
-                                components={components}
-                                value={this.state.selectedOption}
-                                onChange={this.handleChange}
-                                placeholder='Select option'
-                            />
+                            <div>
+                                Filter by {this.capitalizeCaseFirstChar(this.pageName)}
+                            </div>
+                            <div>
+                                <Select
+                                    classes={classes}
+                                    className='autocomplete'
+                                    classNamePrefix='autocomplete'
+                                    textFieldProps={{
+                                        label: '',
+                                        InputLabelProps: {
+                                            shrink: false,
+                                        },
+                                    }}
+                                    options={this.state.optionArray}
+                                    components={components}
+                                    value={this.state.selectedOption}
+                                    onChange={this.handleChange}
+                                    placeholder='Select option'
+                                />
+                            </div>
                         </div>
                     </Scrollbars>
                 </MuiThemeProvider>
