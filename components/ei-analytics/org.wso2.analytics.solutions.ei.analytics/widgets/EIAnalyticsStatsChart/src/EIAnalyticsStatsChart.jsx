@@ -105,11 +105,7 @@ class EIAnalyticsStatsChart extends Widget {
     }
 
     setWidgetTitle() {
-        let currentUrl = window.location.href;
-        let pageNameStartIndex = currentUrl.lastIndexOf('/');
-        let pageNameEndIndex = currentUrl.indexOf('?');
-        let pageName = (pageNameEndIndex === -1) ?
-            currentUrl.substring(pageNameStartIndex + 1) : currentUrl.substring(pageNameStartIndex + 1, pageNameEndIndex);
+        let pageName = window.location.pathname.split('/').pop();
         let title = 'StatChart';
 
         if (pageName === 'overview') {
@@ -288,29 +284,21 @@ class EIAnalyticsStatsChart extends Widget {
     }
 
     getCurrentPage() {
-        var pageName;
-        var href = window.location.href;
-        var lastSegment = href.substr(href.lastIndexOf('/') + 1);
-        if (lastSegment.indexOf('?') == -1) {
-            pageName = lastSegment;
-        } else {
-            pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
-        }
-        return pageName;
+        return window.location.pathname.split('/').pop();
     };
 
     drawCharts() {
         return (
             <body>
-            <div id={"overall-count"} style={{float: 'left', height: '100%', minHeight: '100%', width: '20%'}}>
+            <div id={"overall-count"} style={{float: 'left', height: '100%', minHeight: '100%', width: '20%', padding: '1% 1% 1% 1%', textAlign: 'center'}}>
                 <h2><b>Total</b> requests</h2>
                 <h4><span
                     id="title">{this.state.componentName != null ? 'for ' + this.state.componentName : null}</span></h4>
                 <h1 id="totalCount">{this.state.totalCount}</h1>
             </div>
-            <div id={"charts"} style={{float: 'left', height: '100%', minHeight: '100%', width: '80%'}}>
-                <div style={{float: 'left', textAlign: 'center', height: '100%', minHeight: '100%', width: '50%'}}>
-                    <div style={{float: 'bottom', height: '60%', width: '100%'}}>
+            <div id={"charts"} style={{float: 'left', height: '100%', minHeight: '100%', width: '80%', padding: '1% 1% 1% 1%'}}>
+                <div style={{float: 'left', textAlign: 'center', height: '100%', minHeight: '100%', width: '50%', margin: 'auto'}}>
+                    <div style={{float: 'bottom', height: '60%', width: '100%', margin: 'auto'}}>
                         <VizG
                             config={this.successChartConfig}
                             metadata={this.metadata}
@@ -320,13 +308,13 @@ class EIAnalyticsStatsChart extends Widget {
                             theme={this.props.muiTheme.name}
                         />
                     </div>
-                    <div style={{float: 'top', height: '40%', width: '100%'}}>
+                    <div style={{float: 'top', height: '40%', width: '100%', margin: 'auto'}}>
                         <h5>Success Rate</h5>
                         <h6>{'Success Requests: ' + String(this.state.totalCount - this.state.faultCount)}</h6>
                     </div>
                 </div>
-                <div style={{float: 'left', textAlign: 'center', height: '100%', minHeight: '100%', width: '50%'}}>
-                    <div style={{float: 'bottom', height: '60%', width: '100%'}}>
+                <div style={{float: 'left', textAlign: 'center', height: '100%', minHeight: '100%', width: '50%', margin: 'auto'}}>
+                    <div style={{float: 'bottom', height: '60%', width: '100%', margin: 'auto'}}>
                         <VizG
                             config={this.faultChartConfig}
                             metadata={this.metadata}
@@ -336,7 +324,7 @@ class EIAnalyticsStatsChart extends Widget {
                             theme={this.props.muiTheme.name}
                         />
                     </div>
-                    <div style={{float: 'top', height: '40%', width: '100%'}}>
+                    <div style={{float: 'top', height: '40%', width: '100%', margin: 'auto'}}>
                         <h5>Failure Rate</h5>
                         <h6>{'Failure Requests: ' + String(this.state.faultCount)}</h6>
                     </div>

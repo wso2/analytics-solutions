@@ -201,15 +201,7 @@ class EIAnalyticsMessageTable extends Widget {
     }
 
     getCurrentPage() {
-        let pageName;
-        let href = parent.window.location.href;
-        let lastSegment = href.substr(href.lastIndexOf('/') + 1);
-        if (lastSegment.indexOf('?') == -1) {
-            pageName = lastSegment;
-        } else {
-            pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
-        }
-        return pageName;
+        return window.location.pathname.split('/').pop();
     }
 
     getUrlParameter(name) {
