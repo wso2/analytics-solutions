@@ -153,12 +153,10 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             if (message.body === '') {
                 this.setState({
                     additionalFilterConditions: undefined,
-                    data: [],
                 }, () => this.assembleQuery());
             } else {
                 this.setState({
                     additionalFilterConditions: message.body,
-                    data: [],
                 }, () => this.assembleQuery());
             }
         } else {
@@ -166,7 +164,6 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
                 per: message.granularity,
                 fromDate: message.from,
                 toDate: message.to,
-                data: [],
             }, () => this.assembleQuery());
         }
     }
@@ -265,7 +262,6 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             isFailureMap,
             chartConfig: chartConfigClone,
             switchLabel,
-            data: [],
         }, () => this.assembleQuery());
     }
 
