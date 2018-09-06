@@ -181,7 +181,7 @@ class EIAnalyticsMessageTable extends Widget {
                     );
             })
             .catch((error) => {
-                console.error("Unable to load widget configurations");
+                console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
             });
     }
 

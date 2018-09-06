@@ -524,7 +524,7 @@ class EIAnalyticsMessageFlow extends Widget {
                     );
             })
             .catch((error) => {
-                console.error("Unable to load widget configuration");
+                console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
             });
     }
 
