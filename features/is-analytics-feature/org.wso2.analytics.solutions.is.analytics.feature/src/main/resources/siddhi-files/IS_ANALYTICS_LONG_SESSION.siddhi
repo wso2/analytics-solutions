@@ -27,6 +27,8 @@ define trigger TriggerStreamAtDeployment at 'start';
 
 define trigger TriggerEveryThirtyMinutesStream at every 30 min;
 
+define trigger TablePurgingTriggerStream at every 1 day;
+
 define stream FilterLongSessionsStreams (
             meta_tenantId int,
             sessionId string,
@@ -232,3 +234,10 @@ update or insert into
             AlertLongSessionsTable
 on          AlertLongSessionsTable.meta_tenantId==meta_tenantId and
             AlertLongSessionsTable.sessionId==sessionId;
+
+-- Retain last one year data in AlertLongSessionsTable
+
+from    TablePurgingTriggerStream
+select  time:dateSub(triggered_time, 1, 'year') as purgingTime
+delete  AlertLongSessionsTable
+on      AlertLongSessionsTable.timestamp < purgingTime;
