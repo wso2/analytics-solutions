@@ -12,7 +12,7 @@
     "react-simple-maps": "^0.9.0",
     "react-table": "^6.6.0",
     "react-tooltip": "^3.4.0",
-    "react-vizgrammar": "^0.7.17",
+    "react-vizgrammar": "0.7.28",
     "topojson-client": "^3.0.0",
     "victory": "^0.22.2"
   },
