@@ -22,7 +22,7 @@
 -- Receving streams from IS
 --Defining Input Stream for receving streams from IS
 
-define trigger TriggerStream at '0 0 12 * * ?';
+define trigger TablePurgingTriggerStream at every 1 day;
 
 @source(type = "wso2event", wso2.stream.id = "org.wso2.is.analytics.stream.OverallSession:1.0.0", @map(type = 'wso2event'))
 @source(type='inMemory',topic='IsAnalytics.Session.Common.Stream', @map(type='passThrough'))
@@ -79,10 +79,7 @@ define stream SessionStatisticsPerSecond (
         activeSessionCount long, 
         newSessionCount long, 
         terminatedSessionCount long,
-        timestamp long);      
-
-define stream LastYearTimestampStream(
-        lastYearTimestamp long);
+        timestamp long);
 
 --Defining Databases
 
@@ -229,9 +226,9 @@ insert into HandleSessionInformation;
 from HandleSessionInformation
 select  meta_tenantId, 
         sessionId,  
-        str:concat( time: dateFormat(startTimestamp, 'MMMM d,yyyy HH:mm:ss'), ' IST') as startTime,
-        str:concat( time: dateFormat(terminationTimestamp, 'MMMM d,yyyy HH:mm:ss'), ' IST') as terminateTime,
-        str:concat( time: dateFormat(endTimestamp, 'MMMM d,yyyy HH:mm:ss'), ' IST') as endTime,
+        time:dateFormat(startTimestamp, "MMMM dd, yyyy hh:mm:ss a zzz") as startTime,
+        time:dateFormat(terminationTimestamp, "MMMM dd, yyyy hh:mm:ss a zzz") as terminateTime,
+        time:dateFormat(endTimestamp, "MMMM dd, yyyy hh:mm:ss a zzz") as endTime,
         duration,  
         isActive, 
         username,
@@ -244,7 +241,7 @@ select  meta_tenantId,
         rememberMeFlag, 
         userAgent, 
         usernameWithTenantDomainAndUserstoreDomain,
-        str:concat( time: dateFormat(timestamp, 'MMMM d,yyyy HH:mm:ss'), ' IST') as currentTime,
+        time:dateFormat(timestamp, "MMMM dd, yyyy hh:mm:ss a zzz") as currentTime,
         startTimestamp, 
         renewTimestamp, 
         terminationTimestamp, 
@@ -255,19 +252,17 @@ update or insert into
 on      SessionInformationTable.meta_tenantId==meta_tenantId and  
         SessionInformationTable.sessionId==sessionId;
 
--- Retain last one year data in the SessionInformationTable and active session table and delete the rest by sending trigger at 12.00 pm every day
+-- Retain last one year data in the SessionInformationTable and active session table and delete the rest by sending trigger  every day
 
-from    TriggerStream
-select  convert(time:dateSub(triggered_time,1,'year'), 'long') as lastYearTimestamp
-insert into LastYearTimestampStream;
-
-from    LastYearTimestampStream
+from    TablePurgingTriggerStream
+select  time:dateSub(triggered_time, 1, 'year') as purgingTime
 delete  SessionInformationTable
-on      SessionInformationTable.timestamp <= lastYearTimestamp;
+on      SessionInformationTable.timestamp < purgingTime;
 
-from    LastYearTimestampStream
+from    TablePurgingTriggerStream
+select  time:dateSub(triggered_time, 1, 'year') as purgingTime
 delete  ActiveSessionsTable
-on      ActiveSessionsTable.timestamp <= lastYearTimestamp;
+on      ActiveSessionsTable.timestamp < purgingTime;
 
 -- Removing inactive sessions from 'ActiveSessionsTable'
 from    HandleSessionInformation[isActive == false]#window.timeBatch(1 sec)

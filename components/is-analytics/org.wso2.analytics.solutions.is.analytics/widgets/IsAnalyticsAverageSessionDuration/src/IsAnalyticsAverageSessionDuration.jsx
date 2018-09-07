@@ -118,8 +118,6 @@ class IsAnalyticsAverageSessionDuration extends Widget {
         this.setState({
             fromDate: message.from,
             toDate: message.to,
-            data: [],
-            currentDataSet: [],
         }, this.assembleQuery);
     }
 
