@@ -42,7 +42,7 @@ let MEDIATOR_PAGE_URL = BASE_URL + TYPE_MEDIATOR;
 let SEQUENCE_PAGE_URL = BASE_URL + TYPE_SEQUENCE;
 let ENDPOINT_PAGE_URL = BASE_URL + TYPE_ENDPOINT;
 
-let centerDiv = {
+const centerDiv = {
     textAlign: 'center',
     verticalAlign: 'middle'
 };
@@ -85,7 +85,7 @@ class EIAnalyticsMessageFlow extends Widget {
             if (e.currentTarget.getAttribute("data-node-type") === "UNKNOWN") {
                 return;
             }
-            if (this.getCurrentPage() !== TYPE_MESSAGE) {
+            if (this.getCurrentPage() !== "message") {
                 window.open(e.currentTarget.getAttribute("data-target-url"));
             } else {
                 //let componentId = $(this).data("componentId");
@@ -234,10 +234,10 @@ class EIAnalyticsMessageFlow extends Widget {
         svg.transition().duration(750).call(
             zoom.transform,
             d3.zoomIdentity
-            .scale(zoomScale)
-            .translate(
-                (this.state.width - g.graph().width * zoomScale)/2, 
-                (this.state.height - g.graph().height * zoomScale)/2)
+                .scale(zoomScale)
+                .translate(
+                    (this.state.width - g.graph().width * zoomScale) / 2,
+                    (this.state.height - g.graph().height * zoomScale) / 2)
         );
         svg.attr('width', width);
         svg.attr('height', height);
@@ -524,7 +524,7 @@ class EIAnalyticsMessageFlow extends Widget {
                     );
             })
             .catch((error) => {
-                console.error("Unable to load widget configuration");
+                console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
             });
     }
 
@@ -1084,34 +1084,35 @@ class EIAnalyticsMessageFlow extends Widget {
             pageUrl = ENDPOINT_PAGE_URL;
         }
         let hashCode = "";
-        let hiddenParams = '';
+        let existingUrlHash = decodeURIComponent(window.location.hash);
+        let hashComponent = existingUrlHash === "" ? {} : JSON.parse(existingUrlHash.substring(1));
         if (node.hiddenAttributes) {
-            node.hiddenAttributes.forEach(function (item, i) {
-                hiddenParams += '&' + item.name + '=' + item.value;
+            node.hiddenAttributes.forEach((item) => {
+                hashComponent[getKey("mediator", item.name)] = item.value;
                 if (item.name === "hashCode") {
                     hashCode = item.value;
                 }
             });
         }
-        var targetUrl = pageUrl + '?' + hiddenParams;
-        var labelText;
+        let targetUrl = pageUrl + encodeURI('#' + JSON.stringify(hashComponent));
+        let labelText;
 
         if (node.dataAttributes) {
-            var nodeClasses = "nodeLabel";
-            var nodeWrapClasses = "nodeLabelWrap"
+            let nodeClasses = "nodeLabel";
+            let nodeWrapClasses = "nodeLabelWrap"
 
             if (node.dataAttributes[1].value === "Failed") {
                 nodeClasses += " failed-node";
                 nodeWrapClasses += " failed-node";
 
             }
-            var icon;
+            let icon;
             if (node.type.toLowerCase() === 'mediator') {
 
-                var mediatorName = node.label.split(':')[0].toLowerCase();
+                let mediatorName = node.label.split(':')[0].toLowerCase();
 
-                var imgURL = '/portal/public/app/images/mediators/' + mediatorName + '.svg';
-                var defaultImgURL = '/portal/public/app/images/mediators/mediator.svg';
+                let imgURL = '/portal/public/app/images/mediators/' + mediatorName + '.svg';
+                let defaultImgURL = '/portal/public/app/images/mediators/mediator.svg';
 
                 $.ajax({
                     url: imgURL,
@@ -1199,9 +1200,9 @@ class EIAnalyticsMessageFlow extends Widget {
     componentDidMount() {
         // Draw message flow in the message page with component load
         if (this.getCurrentPage() === TYPE_MESSAGE) {
-            let entry = getQueryString();
+            let entry = super.getGlobalState(getKey("message", "id"));
             this.drawMessageFlowGraph(
-                entry.id,
+                entry,
                 DEFAULT_META_TENANT_ID
             );
         }
@@ -1284,15 +1285,7 @@ class EIAnalyticsMessageFlow extends Widget {
     }
 
     getCurrentPage() {
-        var pageName;
-        var href = parent.window.location.href;
-        var lastSegment = href.substr(href.lastIndexOf('/') + 1);
-        if (lastSegment.indexOf('?') === -1) {
-            pageName = lastSegment;
-        } else {
-            pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
-        }
-        return pageName;
+        return window.location.pathname.split('/').pop();
     };
 
     render() {
@@ -1355,13 +1348,17 @@ function getQueryString() {
         }
     }
     return qsJsonObject;
-};
+}
 
 function getDashboardName() {
     let currentUrl = window.location.href;
     let baseUrl = (currentUrl.split("?"))[0];
     let splittedBaseUrl = baseUrl.split("/");
     return splittedBaseUrl[splittedBaseUrl.length - 2];
-};
+}
+
+function getKey(pageName, parameter) {
+    return pageName + "_page_" + parameter;
+}
 
 global.dashboard.registerWidget('EIAnalyticsMessageFlow', EIAnalyticsMessageFlow);

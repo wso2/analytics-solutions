@@ -34,7 +34,7 @@ class EIAnalyticsTPS extends Widget {
 
         var config = {
             "x": 'Time',
-            "charts": [{type: "line", y: "EIAnalyticsTPS"}],
+            "charts": [{type: "bar", y: "EIAnalyticsTPS"}],
             "maxLength": 10,
             "width": 400,
             "height": 200,
@@ -106,7 +106,6 @@ class EIAnalyticsTPS extends Widget {
      * Update graph parameters according to the updated publisher widget parameters
      */
     handleGraphUpdate() {
-        //console.log('A');
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
 
@@ -132,7 +131,7 @@ class EIAnalyticsTPS extends Widget {
                     );
             })
             .catch((error) => {
-                // console.log(error);
+                console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
             });
     }
 
@@ -184,8 +183,6 @@ class EIAnalyticsTPS extends Widget {
             );
         });
 
-
-        console.log(data);
         // Draw the graph with received stats only if data is present after filtering
         if (data.length > 0) {
             this.setState({

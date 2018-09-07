@@ -78,8 +78,7 @@ class EIAnalyticsMediatorProperties extends Widget {
                     isNoData: true,
                 }, () => {
                     const componentId = mediatorAttributes.componentId;
-                    const queryParameters = getQueryString();
-                    const messageFlowId = queryParameters.id;
+                    const messageFlowId = super.getGlobalState(getKey("message" ,"id"));
 
                     // Get message flow details of the mediator
                     super.getWidgetConfiguration(this.props.widgetID)
@@ -137,7 +136,7 @@ class EIAnalyticsMediatorProperties extends Widget {
                             );
                     })
                     .catch((error) => {
-                        console.error("Unable to load widget configurations");
+                        console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
                     });
                 /*
                 If DB returned nothing, still continue the process
@@ -341,6 +340,10 @@ class EIAnalyticsMediatorProperties extends Widget {
     }
 }
 
+    function getKey(pageName, parameter) {
+        return pageName + "_page_" + parameter;
+    }
+
 /**
  * Combine meta data and data separated data store message in to an object with names as attributes
  * @param recievedData
@@ -365,20 +368,6 @@ function parseDatastoreMessage(recievedData) {
     });
 
     return parsedArray;
-}
-
-/**
- * Get query parameters parsed in to an object
- */
-function getQueryString() {
-    let queryStringKeyValue = window.parent.location.search.replace('?', '').split('&');
-    let qsJsonObject = {};
-    if (queryStringKeyValue !== '') {
-        for (let i = 0; i < queryStringKeyValue.length; i++) {
-            qsJsonObject[queryStringKeyValue[i].split('=')[0]] = queryStringKeyValue[i].split('=')[1];
-        }
-    }
-    return qsJsonObject;
 }
 
 /**
