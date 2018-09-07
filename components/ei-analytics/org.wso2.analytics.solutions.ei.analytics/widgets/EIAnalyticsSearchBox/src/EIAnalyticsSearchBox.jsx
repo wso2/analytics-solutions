@@ -20,6 +20,8 @@ import Widget from '@wso2-dashboards/widget';
 import Select from 'react-select';
 import './react-select.css';
 
+const SELECTED_COMPONENT = "id";
+
 class EIAnalyticsSearchBox extends Widget {
 
     constructor(props) {
@@ -28,13 +30,15 @@ class EIAnalyticsSearchBox extends Widget {
             selectedOption: '',
             optionArray: []
         }
-        this.publishedMsgSet = [];
+
         this.handleChange = this.handleChange.bind(this);
         this.handleDataReceived = this.handleDataReceived.bind(this);
         this.excludeComponets = this.excludeComponets.bind(this);
         this.publishMessage = this.publishMessage.bind(this);
         this.getCurrentPage = this.getCurrentPage.bind(this);
         this.getKey = this.getKey.bind(this);
+
+        this.publishedMsgSet = [];
         this.pageName = this.getCurrentPage();
         this.pgAPI = "api";
         this.pgEndpoint = "endpoint";
@@ -45,9 +49,9 @@ class EIAnalyticsSearchBox extends Widget {
 
     componentDidMount() {
         // if a component is already selected, preserve the selection
-        let selected = super.getGlobalState(this.getKey("id"));
+        let selected = super.getGlobalState(this.getKey(this.pageName,SELECTED_COMPONENT));
         if (selected) {
-            this.publishMessage(selectedComp);
+            this.publishMessage(selected);
         }
 
         let query;
@@ -82,11 +86,19 @@ class EIAnalyticsSearchBox extends Widget {
     }
 
     getCurrentPage() {
-        return window.location.pathname.split('/').pop();
+        let pageName;
+        let href = window.location.href;
+        let lastSegment = href.substr(href.lastIndexOf('/') + 1);
+        if (lastSegment.indexOf('?') == -1) {
+            pageName = lastSegment;
+        } else {
+            pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
+        }
+        return pageName;
     }
 
-    getKey(parameter) {
-        return this.pageName + "_page_" + parameter;
+    getKey(pageName, parameter) {
+            return pageName + "_page_" + parameter;
     }
 
     //map data into options in the search box
@@ -143,6 +155,7 @@ class EIAnalyticsSearchBox extends Widget {
         let selectedComponent = {"selectedComponent": pubMessage};
         this.publishedMsgSet.push({time: new Date(), value: pubMessage});
         super.publish(selectedComponent);
+        //super.setGlobalState(this.getKey(this.pageName,SELECTED_COMPONENT),selectedComponent);
         //publish it to the subscriber
         //super.publish(JSON.stringify(selectedComponent));
     }
