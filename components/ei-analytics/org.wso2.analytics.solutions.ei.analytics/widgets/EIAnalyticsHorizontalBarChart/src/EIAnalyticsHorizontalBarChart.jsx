@@ -17,7 +17,6 @@
  */
 
 import React from 'react';
-import {BrowserRouter} from 'react-router-dom';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
 import moment from 'moment';
