@@ -160,9 +160,14 @@ on      SuspiciousLoginAlertTable.meta_tenantId==meta_tenantId and
         SuspiciousLoginAlertTable.username==username and  
     SuspiciousLoginAlertTable.msg==msg;
 
--- Retain last one year data in the SecurityAlertTypeTable
+-- Retain last one year data in the SecurityAlertTypeTable and SuspiciousLoginAlertTable
 
 from    TablePurgingTriggerStream
 select  time:dateSub(triggered_time, 1, 'year') as purgingTime
 delete  SecurityAlertTypeTable
 on      SecurityAlertTypeTable.alertTimestamp < purgingTime;
+
+from    TablePurgingTriggerStream
+select  time:dateSub(triggered_time, 1, 'year') as purgingTime
+delete  SuspiciousLoginAlertTable
+on      SuspiciousLoginAlertTable.timestamp < purgingTime;
