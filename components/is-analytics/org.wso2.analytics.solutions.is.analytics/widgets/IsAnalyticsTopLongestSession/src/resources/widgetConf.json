@@ -14,7 +14,7 @@
         "config": {
           "datasourceName": "IS_ANALYTICS_DB",
           "queryData": {
-            "query": "select sessionId, usernameWithTenantDomainAndUserstoreDomain as username, duration FROM SessionInformationTable where (startTimestamp >= 0 and startTimestamp <= {{to}}L) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive = 1)"
+            "query": "select sessionId, usernameWithTenantDomainAndUserstoreDomain as username, duration/1000 FROM SessionInformationTable where (startTimestamp >= 0 and startTimestamp <= {{to}}L) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive = 1)"
           },
           "incrementalColumn": "duration",
           "publishingInterval": 60

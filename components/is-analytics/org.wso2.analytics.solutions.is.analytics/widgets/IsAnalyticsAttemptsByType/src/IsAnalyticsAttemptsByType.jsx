@@ -255,18 +255,10 @@ class IsAnalyticsAttemptsByType extends Widget {
             if (message.body === '') {
                 this.setState({
                     additionalFilterConditions: undefined,
-                    successData: [],
-                    failureData: [],
-                    currentSuccessDataSet: [],
-                    currentFailureDataSet: [],
                 }, this.assembleQuery);
             } else {
                 this.setState({
                     additionalFilterConditions: message.body,
-                    successData: [],
-                    failureData: [],
-                    currentSuccessDataSet: [],
-                    currentFailureDataSet: [],
                 }, this.assembleQuery);
             }
         } else {
@@ -274,10 +266,6 @@ class IsAnalyticsAttemptsByType extends Widget {
                 per: message.granularity,
                 fromDate: message.from,
                 toDate: message.to,
-                successData: [],
-                failureData: [],
-                currentSuccessDataSet: [],
-                currentFailureDataSet: [],
             }, () => {
                 this.assembleQuery();
             });

@@ -30,7 +30,7 @@ const chartConfigTemplate = {
     x: 'AGG_TIMESTAMP',
     charts: [
         {
-            type: 'line',
+            type: 'bar',
             y: 'avgRespTime',
             fill: '#00e1d6',
             color: 'serverName',
@@ -50,6 +50,8 @@ const chartConfigTemplate = {
     xAxisLabel: 'Time',
     yAxisLabel: 'Average Latency',
     append: false,
+    timeStep: 'month',
+    tipTimeFormat: '%Y-%m-%d %H:%M:%S',
 };
 
 /**
@@ -112,7 +114,7 @@ class HTTPAnalyticsLatencyOverTime extends Widget {
     handleDataReceived(message) {
         const configClone = _.cloneDeep(chartConfigTemplate);
         [, configClone.charts[0].color] = message.metadata.names;
-        message.metadata.types[0] = 'TIME';
+        configClone.timeStep = this.state.per;
 
         this.setState({
             chartConfig: configClone,
@@ -203,11 +205,8 @@ class HTTPAnalyticsLatencyOverTime extends Widget {
                 .replace('{{from}}', this.state.fromDate)
                 .replace('{{to}}', this.state.toDate);
             dataProviderConfigs.configs.config.queryData.query = query;
-
-            this.setState({
-                data: [],
-            }, super.getWidgetChannelManager()
-                .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs));
+            super.getWidgetChannelManager()
+                .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
         }
     }
 
@@ -224,18 +223,7 @@ class HTTPAnalyticsLatencyOverTime extends Widget {
                         padding: 24,
                     }}
                 >
-                    Unable to fetch data, please check the data provider configurations.
-                </div>
-            );
-        }
-        if (this.state.data.length === 0) {
-            return (
-                <div
-                    style={{
-                        padding: 24,
-                    }}
-                >
-                    No Data Available
+                    Cannot fetch provider configuration for HTTP Analytics Latency Over Time widget.
                 </div>
             );
         }

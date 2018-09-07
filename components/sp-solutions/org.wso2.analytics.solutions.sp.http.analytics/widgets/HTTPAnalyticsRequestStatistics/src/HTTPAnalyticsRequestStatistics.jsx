@@ -248,10 +248,8 @@ class HTTPAnalyticsRequestStatistics extends Widget {
                 .replace('{{from}}', this.state.fromDate)
                 .replace('{{to}}', this.state.toDate);
             dataProviderConfigs.configs.config.queryData.query = query;
-            this.setState({
-                data: [],
-            }, super.getWidgetChannelManager()
-                .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs));
+            super.getWidgetChannelManager()
+                .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
         }
     }
 
@@ -261,6 +259,17 @@ class HTTPAnalyticsRequestStatistics extends Widget {
      * @return {XML} HTML content
      */
     render() {
+        if (this.state.faultyProviderConf) {
+            return (
+                <div
+                    style={{
+                        padding: 24,
+                    }}
+                >
+                    Cannot fetch provider configuration for HTTP Analytics Request Statistics widget.
+                </div>
+            );
+        }
         return (
             <Scrollbars style={{
                 width: this.state.width,
