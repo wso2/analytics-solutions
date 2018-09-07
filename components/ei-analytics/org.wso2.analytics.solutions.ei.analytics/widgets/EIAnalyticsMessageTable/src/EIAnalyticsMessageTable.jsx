@@ -139,20 +139,17 @@ class EIAnalyticsMessageTable extends Widget {
             .then((message) => {
                 super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
                 // Get data provider sub json string from the widget configuration
-                let dataProviderConf = EIAnalyticsMessageTable.getProviderConf(message.data);
-                let query = dataProviderConf.configs.config.queryData.query;
-                let componentName = this.state.componentName;
+                const dataProviderConf = EIAnalyticsMessageTable.getProviderConf(message.data);
+                const query = dataProviderConf.configs.config.queryData.query;
+                const componentName = this.state.componentName;
                 let componentType;
                 let componentIdentifier = "componentName";
-                let urlParams = new URLSearchParams(window.location.search);
-                if (pageName == "api") {
+                let pageName = this.getCurrentPage();
+                if (pageName === "api") {
                     componentType = "api";
-                } else if (pageName == "proxy") {
+                } else if (pageName === "proxy") {
                     componentType = "proxy service"
                 } else {
-                    if (urlParams.has('entryPoint')) {
-                        entryPoint = this.getUrlParameter('entryPoint')
-                    }
                     if (pageName == "mediator") {
                         componentType = "mediator";
                         componentIdentifier = "componentId";
@@ -165,15 +162,13 @@ class EIAnalyticsMessageTable extends Widget {
                     }
                 }
                 // Insert required parameters to the query string
-                let formattedQuery = query
+                dataProviderConf.configs.config.queryData.query = query
                     .replace("{{timeFrom}}", this.state.timeFromParameter)
                     .replace("{{timeTo}}", this.state.timeToParameter)
                     .replace("{{metaTenantId}}", TENANT_ID)
                     .replace("{{componentType}}", componentType)
                     .replace("{{componentIdentifier}}", componentIdentifier)
                     .replace("{{componentName}}", componentName);
-                dataProviderConf.configs.config.queryData.query = formattedQuery;
-                console.log(formattedQuery);
                 // Request datastore with the modified query
                 super.getWidgetChannelManager()
                     .subscribeWidget(
@@ -181,7 +176,7 @@ class EIAnalyticsMessageTable extends Widget {
                     );
             })
             .catch((error) => {
-                console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
+                console.error("Unable to load configurations of " + this.props.widgetID + " widget.", error);
             });
     }
 
