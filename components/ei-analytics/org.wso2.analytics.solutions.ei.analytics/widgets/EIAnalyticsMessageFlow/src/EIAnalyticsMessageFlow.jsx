@@ -85,7 +85,7 @@ class EIAnalyticsMessageFlow extends Widget {
             if (e.currentTarget.getAttribute("data-node-type") === "UNKNOWN") {
                 return;
             }
-            if (this.getCurrentPage() !== TYPE_MESSAGE) {
+            if (this.getCurrentPage() !== "message") {
                 window.open(e.currentTarget.getAttribute("data-target-url"));
             } else {
                 //let componentId = $(this).data("componentId");
@@ -1094,7 +1094,7 @@ class EIAnalyticsMessageFlow extends Widget {
                 }
             });
         }
-        let targetUrl = pageUrl + ('#' + JSON.stringify(hashComponent));
+        let targetUrl = pageUrl + encodeURI('#' + JSON.stringify(hashComponent));
         let labelText;
 
         if (node.dataAttributes) {

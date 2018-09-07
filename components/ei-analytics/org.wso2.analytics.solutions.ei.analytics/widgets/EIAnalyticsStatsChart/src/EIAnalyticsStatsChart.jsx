@@ -127,7 +127,6 @@ class EIAnalyticsStatsChart extends Widget {
         }, this.handleParameterChange);
 
         let entryPointValue = super.getGlobalState(getKey(this.getCurrentPage(), "entryPoint"));
-        ;
         // If window url contains entryPoint, store it in the state
         if (entryPointValue) {
             this.setState({
