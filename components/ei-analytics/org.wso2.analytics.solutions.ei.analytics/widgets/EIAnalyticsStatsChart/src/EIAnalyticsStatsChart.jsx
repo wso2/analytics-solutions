@@ -128,7 +128,7 @@ class EIAnalyticsStatsChart extends Widget {
 
         let entryPointValue = super.getGlobalState(getKey(this.getCurrentPage(), "entryPoint"));
         // If window url contains entryPoint, store it in the state
-        if (entryPointValue) {
+        if (entryPointValue && JSON.stringify(entryPointValue) !== "{}") {
             this.setState({
                 entryPoint: entryPointValue
             }, this.handleParameterChange);
@@ -168,7 +168,7 @@ class EIAnalyticsStatsChart extends Widget {
                             this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                     case PAGE_INBOUND_ENDPOINT:
-                        this.extractStatsData(PAGE_INBOUND_ENDPOINT, this.state.componentName, null, TENANT_ID, "ESBStatAggAgg",
+                        this.extractStatsData(PAGE_INBOUND_ENDPOINT, this.state.componentName, null, TENANT_ID, "ESBStatAgg",
                             this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                     case PAGE_MEDIATOR:
