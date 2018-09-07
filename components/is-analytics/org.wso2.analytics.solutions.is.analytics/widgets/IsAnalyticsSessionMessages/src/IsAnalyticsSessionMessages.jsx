@@ -125,7 +125,7 @@ class IsAnalyticsSessionMessages extends Widget {
     }
 
     handleDataReceived(message) {
-        const date = 'January 1,1970 05:29:59 IST';
+        const date = 'January 01, 1970 05:29:59 AM IST';
         for (let j = 0; j < message.data.length; j++) {
             switch (message.data[j][5]) {
                 case 0:
