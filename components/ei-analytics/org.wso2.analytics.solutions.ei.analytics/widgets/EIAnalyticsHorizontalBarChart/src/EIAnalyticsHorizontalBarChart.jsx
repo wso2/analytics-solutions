@@ -17,6 +17,8 @@
  */
 
 import React from 'react';
+import {Redirect} from 'react-router';
+import {BrowserRouter} from 'react-router-dom';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
 import moment from 'moment';
@@ -77,6 +79,8 @@ class EIAnalyticsHorizontalBarChart extends Widget {
             timeFromParameter: null,
             timeToParameter: null,
             timeUnitParameter: null,
+            isRouteAtOnClick: false,
+            redirectData: null,
         };
         this.props.glContainer.on('resize', () => {
                 this.setState({
@@ -206,7 +210,8 @@ class EIAnalyticsHorizontalBarChart extends Widget {
             <div className="status-message" style={{
                 color: 'white',
                 marginLeft: 'auto',
-                marginRight: 'auto'
+                marginRight: 'auto',
+                padding: '5px 5px 5px 5px'
             }}>
                 <div className="message message-info">
                     <h4>
@@ -224,9 +229,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
 
     handleGraphOnClick(message) {
         const clickedComponentName = message.Name;
-        const urlString = window.location.href;
-        const pageNameStartIndex = urlString.lastIndexOf('/');
-        const pageNameEndIndex = urlString.indexOf('?');
+        const urlString = window.location.pathname;
         let redirectPageName;
         switch (this.state.graphType) {
             case 'api':
@@ -250,12 +253,11 @@ class EIAnalyticsHorizontalBarChart extends Widget {
             default:
                 redirectPageName = '';
         }
-        const formattedString = urlString.substring(0, pageNameStartIndex + 1) + redirectPageName
-            + urlString.substring(pageNameEndIndex, urlString.length);
-        const redirectUrl = new URL(formattedString);
-        let hashComponent = {};
+        const formattedString = urlString.substring(0, urlString.lastIndexOf('/') + 1) + redirectPageName;
+        let existingUrlHash = decodeURIComponent(window.location.hash);
+        let hashComponent = existingUrlHash === "" ? {} : JSON.parse(existingUrlHash.substring(1));
         hashComponent[this.getKey(redirectPageName, URL_PARAMETER_ID)] = clickedComponentName;
-        window.location.href = redirectUrl.toString() + ('#' + JSON.stringify(hashComponent));
+        window.location.href = formattedString + ('#' + JSON.stringify(hashComponent));
     }
 
     /**
@@ -282,6 +284,13 @@ class EIAnalyticsHorizontalBarChart extends Widget {
     }
 
     render() {
+        if (this.state.isRouteAtOnClick) {
+            return (
+                <BrowserRouter>
+                    <Redirect to={this.state.redirectData}/>
+                </BrowserRouter>
+            );
+        }
         return (
             <div id={DIV_ID_GRAPH}>
                 {this.state.isLoading ? this.renderEmptyRecordsMessage() : this.renderGraph()}

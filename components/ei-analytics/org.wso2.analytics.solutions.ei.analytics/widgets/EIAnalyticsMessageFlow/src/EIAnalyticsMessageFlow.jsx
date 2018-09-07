@@ -42,7 +42,7 @@ let MEDIATOR_PAGE_URL = BASE_URL + TYPE_MEDIATOR;
 let SEQUENCE_PAGE_URL = BASE_URL + TYPE_SEQUENCE;
 let ENDPOINT_PAGE_URL = BASE_URL + TYPE_ENDPOINT;
 
-let centerDiv = {
+const centerDiv = {
     textAlign: 'center',
     verticalAlign: 'middle'
 };
@@ -234,10 +234,10 @@ class EIAnalyticsMessageFlow extends Widget {
         svg.transition().duration(750).call(
             zoom.transform,
             d3.zoomIdentity
-            .scale(zoomScale)
-            .translate(
-                (this.state.width - g.graph().width * zoomScale)/2,
-                (this.state.height - g.graph().height * zoomScale)/2)
+                .scale(zoomScale)
+                .translate(
+                    (this.state.width - g.graph().width * zoomScale) / 2,
+                    (this.state.height - g.graph().height * zoomScale) / 2)
         );
         svg.attr('width', width);
         svg.attr('height', height);
@@ -1084,7 +1084,8 @@ class EIAnalyticsMessageFlow extends Widget {
             pageUrl = ENDPOINT_PAGE_URL;
         }
         let hashCode = "";
-        let hashComponent = {};
+        let existingUrlHash = decodeURIComponent(window.location.hash);
+        let hashComponent = existingUrlHash === "" ? {} : JSON.parse(existingUrlHash.substring(1));
         if (node.hiddenAttributes) {
             node.hiddenAttributes.forEach((item) => {
                 hashComponent[getKey("mediator", item.name)] = item.value;
@@ -1105,13 +1106,13 @@ class EIAnalyticsMessageFlow extends Widget {
                 nodeWrapClasses += " failed-node";
 
             }
-            var icon;
+            let icon;
             if (node.type.toLowerCase() === 'mediator') {
 
-                var mediatorName = node.label.split(':')[0].toLowerCase();
+                let mediatorName = node.label.split(':')[0].toLowerCase();
 
-                var imgURL = '/portal/public/app/images/mediators/' + mediatorName + '.svg';
-                var defaultImgURL = '/portal/public/app/images/mediators/mediator.svg';
+                let imgURL = '/portal/public/app/images/mediators/' + mediatorName + '.svg';
+                let defaultImgURL = '/portal/public/app/images/mediators/mediator.svg';
 
                 $.ajax({
                     url: imgURL,

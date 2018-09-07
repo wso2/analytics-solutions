@@ -31,8 +31,9 @@ const PAGE_INBOUND_ENDPOINT = 'inbound';
 const PAGE_MEDIATOR = 'mediator';
 const PUBLISHER_DATE_TIME_PICKER = "granularity";
 const PUBLISHER_SEARCH_BOX = "selectedComponent";
+const GRAPH_MIN_HEIGHT = '300';
+const GRAPH_MIN_WIDTH = '300';
 
-// console.log(JSON.stringify(this.bodyRef.current.parentNode.getAttribute("height")));
 
 class EIAnalyticsStatsChart extends Widget {
     constructor(props) {
@@ -125,7 +126,8 @@ class EIAnalyticsStatsChart extends Widget {
             page: this.getCurrentPage()
         }, this.handleParameterChange);
 
-        let entryPointValue = super.getGlobalState(getKey(this.getCurrentPage() ,"entryPoint"));;
+        let entryPointValue = super.getGlobalState(getKey(this.getCurrentPage(), "entryPoint"));
+        ;
         // If window url contains entryPoint, store it in the state
         if (entryPointValue) {
             this.setState({
@@ -289,48 +291,97 @@ class EIAnalyticsStatsChart extends Widget {
 
     drawCharts() {
         return (
-            <body>
-            <div id={"overall-count"} style={{float: 'left', height: '100%', minHeight: '100%', width: '20%', padding: '1% 1% 1% 1%', textAlign: 'center'}}>
-                <h2><b>Total</b> requests</h2>
-                <h4><span
-                    id="title">{this.state.componentName != null ? 'for ' + this.state.componentName : null}</span></h4>
-                <h1 id="totalCount">{this.state.totalCount}</h1>
-            </div>
-            <div id={"charts"} style={{float: 'left', height: '100%', minHeight: '100%', width: '80%', padding: '1% 1% 1% 1%'}}>
-                <div style={{float: 'left', textAlign: 'center', height: '100%', minHeight: '100%', width: '50%', margin: 'auto'}}>
-                    <div style={{float: 'bottom', height: '60%', width: '100%', margin: 'auto'}}>
-                        <VizG
-                            config={this.successChartConfig}
-                            metadata={this.metadata}
-                            data={[[
-                                9000, ((this.state.totalCount - this.state.faultCount) * 100) / this.state.totalCount, 130, "Rotary"
-                            ]]}
-                            theme={this.props.muiTheme.name}
-                        />
-                    </div>
-                    <div style={{float: 'top', height: '40%', width: '100%', margin: 'auto'}}>
-                        <h5>Success Rate</h5>
-                        <h6>{'Success Requests: ' + String(this.state.totalCount - this.state.faultCount)}</h6>
-                    </div>
+            <div style={{display: 'flex'}}>
+                <div id={"overall-count"} style={{
+                    float: 'left',
+                    height: '100%',
+                    width: '20%',
+                    padding: '5px 5px 5px 5px',
+                    textAlign: 'center',
+                    alignContent: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <h2><b>Total</b> requests</h2>
+                    <h4><span
+                        id="title">{this.state.componentName != null ? 'for ' + this.state.componentName : null}</span>
+                    </h4>
+                    <h1 id="totalCount">{this.state.totalCount}</h1>
                 </div>
-                <div style={{float: 'left', textAlign: 'center', height: '100%', minHeight: '100%', width: '50%', margin: 'auto'}}>
-                    <div style={{float: 'bottom', height: '60%', width: '100%', margin: 'auto'}}>
-                        <VizG
-                            config={this.faultChartConfig}
-                            metadata={this.metadata}
-                            data={[[
-                                9000, ((this.state.faultCount) * 100) / this.state.totalCount, 130, "Rotary"
-                            ]]}
-                            theme={this.props.muiTheme.name}
-                        />
+
+
+                <div id={"charts"} style={{
+                    float: 'left',
+                    height: '100%',
+                    minHeight: '100%',
+                    width: '80%',
+                    padding: '5px 5px 5px 5px'
+                }}>
+                    <div style={{float: 'left', textAlign: 'center', height: '100%', width: '50%', margin: 'auto'}}>
+                        <div style={{
+                            float: 'bottom',
+                            height: this.state.height * 0.6,
+                            width: this.state.width * 0.4,
+                            margin: 'auto',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            display: 'flex'
+                        }}>
+                            <VizG
+                                config={this.successChartConfig}
+                                metadata={this.metadata}
+                                data={[[
+                                    9000, ((this.state.totalCount - this.state.faultCount) * 100) / this.state.totalCount, 130, "Rotary"
+                                ]]}
+                                theme={this.props.muiTheme.name}
+                            />
+                        </div>
+                        <div style={{
+                            float: 'top',
+                            height: '40%',
+                            width: '100%',
+                            margin: 'auto',
+                            alignContent: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <b>Success Rate</b>
+                            <br/>
+                            <b>{'Success Requests: ' + String(this.state.totalCount - this.state.faultCount)}</b>
+                        </div>
                     </div>
-                    <div style={{float: 'top', height: '40%', width: '100%', margin: 'auto'}}>
-                        <h5>Failure Rate</h5>
-                        <h6>{'Failure Requests: ' + String(this.state.faultCount)}</h6>
+                    <div style={{float: 'left', textAlign: 'center', height: '100%', width: '50%', margin: 'auto'}}>
+                        <div style={{
+                            float: 'bottom',
+                            height: this.state.height * 0.6,
+                            width: this.state.width * 0.4,
+                            margin: 'auto',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            display: 'flex'
+                        }}>
+                            <VizG
+                                config={this.faultChartConfig}
+                                metadata={this.metadata}
+                                data={[[
+                                    9000, ((this.state.faultCount) * 100) / this.state.totalCount, 130, "Rotary"
+                                ]]}
+                                theme={this.props.muiTheme.name}
+                            />
+                        </div>
+                        <div style={{
+                            float: 'top',
+                            height: '40%',
+                            width: '100%',
+                            margin: 'auto',
+                            alignContent: 'center',
+                            justifyContent: 'center'}}>
+                            <b>Failure Rate</b>
+                            <br/>
+                            <b>{'Failure Requests: ' + String(this.state.faultCount)}</b>
+                        </div>
                     </div>
+
                 </div>
             </div>
-            </body>
         )
     }
 
@@ -339,7 +390,7 @@ class EIAnalyticsStatsChart extends Widget {
     }
 
     noParameters() {
-        var page = this.getCurrentPage();
+        let page = this.getCurrentPage();
         switch (page) {
             case 'api':
                 return 'Please select an API and a valid date range to view stats.';
@@ -359,7 +410,6 @@ class EIAnalyticsStatsChart extends Widget {
             default:
                 return 'Please select a valid date range to view stats';
         }
-        ;
     }
 
     render() {
