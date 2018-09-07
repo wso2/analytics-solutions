@@ -27,7 +27,7 @@ define trigger TriggerStreamAtDeployment at 'start';
 
 define trigger TriggerEveryThirtyMinutesStream at every 30 min;
 
-define trigger TablePurgingTriggerStream at every 1 day;
+define trigger TablePurgingTriggerStream at '0 0 23 * * ?';
 
 define stream FilterLongSessionsStreams (
             meta_tenantId int,

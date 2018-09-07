@@ -48,7 +48,7 @@ define stream OverallAuthenticationProcessedStream (
     timestamp long
 );
 
-define trigger TablePurgingTriggerStream at every 1 day;
+define trigger TablePurgingTriggerStream at '0 0 23 * * ?';
 
 -- TABLE DEFINITIONS
 
