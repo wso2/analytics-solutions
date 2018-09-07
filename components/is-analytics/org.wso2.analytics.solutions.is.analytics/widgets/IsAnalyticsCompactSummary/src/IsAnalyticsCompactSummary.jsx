@@ -68,6 +68,7 @@ const pieChartConfig = {
             colorScale: [colorRed, colorGreen],
         },
     ],
+    legend: false,
 };
 
 const numChartConfig = {
