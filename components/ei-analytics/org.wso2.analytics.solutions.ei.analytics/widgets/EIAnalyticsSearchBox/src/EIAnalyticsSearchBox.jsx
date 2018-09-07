@@ -45,6 +45,8 @@ const lightTheme = createMuiTheme({
 // Following functions are used by material ui to implement autocomplete using react-select. For more information see
 // see https://v1-5-0.material-ui.com/demos/autocomplete/
 let openPopper = false;
+const popperAnchor = 'popper-anchor-ei-analytics-search-box';
+const textInputElement = '#popper-anchor-ei-analytics-search-box div div div input';
 
 const NoOptionsMessage = function(props) {
     return (
@@ -164,7 +166,7 @@ const MultiValue = function(props) {
 };
 
 const Menu = function(props) {
-    let popperNode = document.getElementById('popper-anchor-ei-analytics-search-box');
+    let popperNode = document.getElementById(popperAnchor);
     return (
         <Popper
             open={openPopper}
@@ -351,16 +353,16 @@ class EIAnalyticsSearchBox extends Widget {
     }
 
     updateTextBoxColor() {
-        if (document.querySelector('#popper-anchor-ei-analytics-search-box div div div input')) {
-            const inputElm = document.querySelector('#popper-anchor-ei-analytics-search-box div div div input');
+        if (document.querySelector(textInputElement)) {
+            const inputElm = document.querySelector(textInputElement);
             inputElm.style =
                 this.updateStyleColor(inputElm.getAttribute('style'), this.props.muiTheme.palette.textColor);
         }
     }
 
     componentDidMount() {
-        if (document.getElementById('popper-anchor-ei-analytics-search-box')) {
-            document.getElementById('popper-anchor-ei-analytics-search-box').style = 'display: flex; padding: 0';
+        if (document.getElementById(popperAnchor)) {
+            document.getElementById(popperAnchor).style = 'display: flex; padding: 0';
         }
         // if a component is already selected, preserve the selection
         let urlParams = new URLSearchParams(window.location.search);
