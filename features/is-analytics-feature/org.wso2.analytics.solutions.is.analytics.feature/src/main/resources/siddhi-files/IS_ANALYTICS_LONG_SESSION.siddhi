@@ -105,10 +105,11 @@ define table AlertLongSessionsTable(
             duration long,
             avgDuration double);
 
-@primaryKey('meta_tenantId', 'type', 'tenantDomain','msg')
+@primaryKey('meta_tenantId','alertId')
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
 define table SecurityAlertTypeTable(
             meta_tenantId int,
+            alertId string,
             type string,
             tenantDomain string,
             msg string,
@@ -207,6 +208,7 @@ insert into AlertLongSessionsStream;
 --Storing Login alert type in 'SecurityAlertTypeTable'
 from        AlertLongSessionsStream
 select      meta_tenantId,
+            UUID() as alertId,
             "AbnormalLongSessionAlert" as type,
             tenantDomain,
             str:concat('Abnormal long session session of ', duration, ' milliseconds detected by user: ', username,' on session id: ', sessionId, '.') as msg,
@@ -215,10 +217,8 @@ select      meta_tenantId,
             time:dateFormat((time:timestampInMilliseconds()),'yyyy-MM-dd HH:mm:ss') as userReadableTime
 update or insert into
             SecurityAlertTypeTable
-on          SecurityAlertTypeTable.meta_tenantId==meta_tenantId and
-            SecurityAlertTypeTable.type==type and
-            SecurityAlertTypeTable.tenantDomain==tenantDomain and
-            SecurityAlertTypeTable.msg==msg;
+on          SecurityAlertTypeTable.meta_tenantId == meta_tenantId and
+            SecurityAlertTypeTable.alertId == alertId;
 
 --Storing abnormal long sessions in 'AlertLongSessionsTable'
 from AlertLongSessionsStream

@@ -79,10 +79,11 @@ define table SuspiciousLoginAlertTable(
         timestamp long,
         currentTime string);
 
-@primaryKey('meta_tenantId', 'type', 'tenantDomain','msg') 
+@primaryKey('meta_tenantId','alertId')
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
 define table SecurityAlertTypeTable(
-        meta_tenantId int, 
+        meta_tenantId int,
+        alertId string,
         type string, 
         tenantDomain string, 
         msg string, 
@@ -132,7 +133,8 @@ insert into
 
 -- Sending alert type and storing in 'SecurityAlertTypeTable'
 from    LoginAlertStreamSameUsername
-select  meta_tenantId, 
+select  meta_tenantId,
+        UUID() as alertId,
         "SuspiciousLoginAlert" as type, 
         tenantDomain, 
         str:concat('Successful login attempt after multiple login failures from same username: ', username, ' detected at: ', time:dateFormat(e3[last].timestamp,'yyyy-MM-dd HH:mm:ss'), '.') as msg, 
@@ -140,10 +142,8 @@ select  meta_tenantId,
         (time:timestampInMilliseconds()) as alertTimestamp, 
         time:dateFormat((time:timestampInMilliseconds()),'yyyy-MM-dd HH:mm:ss') as userReadableTime
 update or insert into SecurityAlertTypeTable
-on      SecurityAlertTypeTable.meta_tenantId==meta_tenantId and 
-        SecurityAlertTypeTable.type==type and 
-        SecurityAlertTypeTable.tenantDomain==tenantDomain and 
-        SecurityAlertTypeTable.msg==msg;
+on      SecurityAlertTypeTable.meta_tenantId == meta_tenantId and
+        SecurityAlertTypeTable.alertId == alertId;
 
 -- Storing Multiple login failures in 'SuspiciousLoginAlertTable'
 from SuspiciousLoginAlertStream
