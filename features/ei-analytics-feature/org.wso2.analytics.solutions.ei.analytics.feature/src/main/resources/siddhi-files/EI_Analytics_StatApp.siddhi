@@ -25,7 +25,7 @@
 define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);
 
 -- maps Flow Entry into FlowEntryEventStream
-@source(type = 'wso2event', wso2.stream.id = 'org.wso2.esb.analytics.stream.FlowEntry:1.0.0',
+@source(type = 'wso2event', wso2.stream.id = 'org.wso2.esb.analytics.stream.FlowEntry:1.0.0', 
 	@map(type = 'wso2event'))
 define stream FlowEntryEventStream (meta_compressed bool, meta_tenantId int, messageId string, flowData string);
 
@@ -33,7 +33,7 @@ define stream FlowEntryEventStream (meta_compressed bool, meta_tenantId int, mes
 define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);
 
 -- maps Config entry into ConfigEntryEventStream
-@source(type = 'wso2event', wso2.stream.id = 'org.wso2.esb.analytics.stream.ConfigEntry:1.0.0',
+@source(type = 'wso2event', wso2.stream.id = 'org.wso2.esb.analytics.stream.ConfigEntry:1.0.0', 
 	@map(type = 'wso2event'))
 define stream ConfigEntryEventStream (meta_tenantId int, hashcode string, entryName string, configData string);
 
@@ -58,61 +58,47 @@ define table ConfigEntryTable (metaTenantId int, hashcode string, entryName stri
 -- aggregates PreProcessedMediatorStatStream data every minute to month
 @store(type = 'rdbms', datasource = 'EI_ANALYTICS')
 @info(name = 'MediatorStat')
-@purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
-define aggregation MediatorStatAgg
-from PreProcessedMediatorStatStream
- select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime
-	group by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode
+define aggregation MediatorStatAgg 
+from PreProcessedMediatorStatStream 
+ select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime 
+	group by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode 
 	aggregate by startTime every sec...years;
 
 -- aggregates PreProcessedESBStatStream data every minute to month
 @store(type = 'rdbms', datasource = 'EI_ANALYTICS')
-@purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
 @info(name = 'ESBStat')
-define aggregation ESBStatAgg
+define aggregation ESBStatAgg 
 from PreProcessedESBStatStream
- select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp
-	group by metaTenantId, componentId, componentName, componentType, entryPoint
+ select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp 
+	group by metaTenantId, componentId, componentName, componentType, entryPoint 
 	aggregate by startTime every sec...years;
-
---Triggers
-define trigger TablePurgingTriggerStream at '0 0 23 * * ?';
 
 -- Queries
 
 -- decompress compressed-FlowEntryEventStream and store data in DecompressedEventStream
-from FlowEntryEventStream#esbAnalytics:decompress(meta_compressed, meta_tenantId, messageId, flowData)
-select metaTenantId, messageFlowId, host, hashCode, componentName, str:lower(componentType) as componentType, componentIndex, componentId, startTime, endTime, duration, beforePayload, afterPayload, contextPropertyMap, transportPropertyMap, children, entryPoint, entryPointHashcode, faultCount, _timestamp as eventTimestamp
+from FlowEntryEventStream#esbAnalytics:decompress(meta_compressed, meta_tenantId, messageId, flowData) 
+select metaTenantId, messageFlowId, host, hashCode, componentName, str:lower(componentType) as componentType, componentIndex, componentId, startTime, endTime, duration, beforePayload, afterPayload, contextPropertyMap, transportPropertyMap, children, entryPoint, entryPointHashcode, faultCount, _timestamp as eventTimestamp 
 insert current events into DecompressedEventStream;
 
 -- store ConfigEntryEventStream data into ConfigEntryTable
-from ConfigEntryEventStream
-select meta_tenantId as metaTenantId, hashcode, entryName, configData, eventTimestamp() as eventTimestamp
+from ConfigEntryEventStream 
+select meta_tenantId as metaTenantId, hashcode, entryName, configData, eventTimestamp() as eventTimestamp 
 update or insert into ConfigEntryTable on ConfigEntryTable.hashcode == hashcode;
 
--- if DecompressedEventStream has beforePayload or transportPropertyMap or contextPropertyMap, add them to into ESBEventTable
-from DecompressedEventStream[not(beforePayload is null) or not(transportPropertyMap is null) or not(contextPropertyMap is null)]
-select metaTenantId, messageFlowId, host, hashCode, componentName, componentType, componentIndex, componentId, startTime, endTime, duration, beforePayload, afterPayload, contextPropertyMap, transportPropertyMap, children, entryPoint, entryPointHashcode, faultCount, eventTimestamp
+-- if DecompressedEventStream has beforePayload or transportPropertyMap or contextPropertyMap, add them to into ESBEventTable 
+from DecompressedEventStream[not(beforePayload is null) or not(transportPropertyMap is null) or not(contextPropertyMap is null)] 
+select metaTenantId, messageFlowId, host, hashCode, componentName, componentType, componentIndex, componentId, startTime, endTime, duration, beforePayload, afterPayload, contextPropertyMap, transportPropertyMap, children, entryPoint, entryPointHashcode, faultCount, eventTimestamp 
 insert current events into ESBEventTable;
 
--- if DecompressedEventStream's componentType is ProxyService or API or InboundEndPoint, add it into PreProcessedESBStatStream
-from DecompressedEventStream[componentType == "proxy service" or componentType == "api" or componentType == "inbound endpoint"]
-select componentId, componentName, componentType, duration, ifThenElse(faultCount > 0, 1, 0) as faultCount, startTime, entryPoint, metaTenantId
+-- if DecompressedEventStream's componentType is ProxyService or API or InboundEndPoint, add it into PreProcessedESBStatStream 
+from DecompressedEventStream[componentType == "proxy service" or componentType == "api" or componentType == "inbound endpoint"] 
+select componentId, componentName, componentType, duration, ifThenElse(faultCount > 0, 1, 0) as faultCount, startTime, entryPoint, metaTenantId 
 insert current events into PreProcessedESBStatStream;
 
 -- insert DecompressedEventStream data into PreProcessedMediatorStatStream
-from DecompressedEventStream
-select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, duration, ifThenElse(faultCount > 0, 1, 0) as faultCount, startTime
+from DecompressedEventStream 
+select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, duration, ifThenElse(faultCount > 0, 1, 0) as faultCount, startTime 
 insert current events into PreProcessedMediatorStatStream;
 
-from    TablePurgingTriggerStream
-select  time:dateSub(triggered_time, 2, 'week') as purgingTime
-delete  ConfigEntryTable
-on      ConfigEntryTable.eventTimestamp < purgingTime;
-
-from    TablePurgingTriggerStream
-select  time:dateSub(triggered_time, 2, 'week') as purgingTime
-delete  ESBEventTable
-on      ESBEventTable.eventTimestamp < purgingTime;
 
 
