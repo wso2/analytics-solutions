@@ -215,6 +215,8 @@ class EIAnalyticsSearchBox extends Widget {
         this.getUrlParameter = this.getUrlParameter.bind(this);
         this.excludeComponets = this.excludeComponets.bind(this);
         this.formatPageName = this.formatPageName.bind(this);
+        this.updateStyleColor = this.updateStyleColor.bind(this);
+        this.updateTextBoxColor = this.updateTextBoxColor.bind(this);
         this.publishMessage = this.publishMessage.bind(this);
         this.pageName = this.getCurrentPage();
         this.pgAPI = "api";
@@ -258,7 +260,8 @@ class EIAnalyticsSearchBox extends Widget {
 
         // remove sequences in the excludeSequences-array from the options
         else if (this.pageName == this.pgSequence) {
-            let excludeSequences = ["PROXY_INSEQ", "PROXY_OUTSEQ", "PROXY_FAULTSEQ", "API_OUTSEQ", "API_INSEQ", "API_FAULTSEQ", "AnonymousSequence"];
+            let excludeSequences = ["PROXY_INSEQ", "PROXY_OUTSEQ", "PROXY_FAULTSEQ", "API_OUTSEQ", "API_INSEQ",
+                "API_FAULTSEQ", "AnonymousSequence"];
             this.excludeComponets(componentNameArr, excludeSequences);
         }
 
@@ -330,8 +333,33 @@ class EIAnalyticsSearchBox extends Widget {
         }
     }
 
+    updateStyleColor(existingStyles, color) {
+        let result = '';
+        existingStyles.split(';').forEach((item) => {
+            if(item.length > 0) {
+                const itemPair = item.split(':');
+                if(itemPair[0].trim() !== 'color') {
+                    result = result + itemPair[0] + ': ' + itemPair[1] + ';'
+                } else{
+                    result = result + 'color: ' + color + ';'
+                }
+            }
+        });
+        return result;
+    }
+
+    updateTextBoxColor() {
+        if (document.querySelector('#popper-anchor-ei-analytics-search-box div div div input')) {
+            const inputElm = document.querySelector('#popper-anchor-ei-analytics-search-box div div div input');
+            inputElm.style =
+                this.updateStyleColor(inputElm.getAttribute('style'), this.props.muiTheme.palette.textColor);
+        }
+    }
+
     componentDidMount() {
-        document.getElementById('popper-anchor-ei-analytics-search-box').style = 'display: flex; padding: 0';
+        if (document.getElementById('popper-anchor-ei-analytics-search-box')) {
+            document.getElementById('popper-anchor-ei-analytics-search-box').style = 'display: flex; padding: 0';
+        }
         // if a component is already selected, preserve the selection
         let urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('id')) {
@@ -358,8 +386,10 @@ class EIAnalyticsSearchBox extends Widget {
                 } else {
                     query = message.data.configs.providerConfig.configs.config.queryData.queryMediator;
                 }
-                message.data.configs.providerConfig.configs.config.queryData.query = query.replace('{{paramComponentType}}', componentType);
-                super.getWidgetChannelManager().subscribeWidget(this.props.id, this.handleDataReceived, message.data.configs.providerConfig);
+                message.data.configs.providerConfig.configs.config.queryData.query = query
+                    .replace('{{paramComponentType}}', componentType);
+                super.getWidgetChannelManager().subscribeWidget(this.props.id,
+                    this.handleDataReceived, message.data.configs.providerConfig);
 
             })
             .catch((error) => {
@@ -374,7 +404,8 @@ class EIAnalyticsSearchBox extends Widget {
     }
 
     render() {
-        const {classes} = this.props;
+        const { classes } = this.props;
+        this.updateTextBoxColor();
         return (
             <JssProvider
                 generateClassName={generateClassName}>
