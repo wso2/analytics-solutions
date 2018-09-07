@@ -42,9 +42,11 @@ const lightTheme = createMuiTheme({
     }
 });
 
+// Following functions are used by material ui to implement autocomplete using react-select. For more information see
+// see https://v1-5-0.material-ui.com/demos/autocomplete/
 let openPopper = false;
 
-function NoOptionsMessage(props) {
+const NoOptionsMessage = function(props) {
     return (
         <Typography
             style={{
@@ -55,15 +57,15 @@ function NoOptionsMessage(props) {
             {props.children}
         </Typography>
     );
-}
+};
 
-function inputComponent({inputRef, ...props}) {
+const inputComponent = function({inputRef, ...props}) {
     return <div
         ref={inputRef}
         {...props}/>;
-}
+};
 
-function Control(props) {
+const Control = function(props) {
     openPopper = props.selectProps.menuIsOpen;
     return (
         <TextField
@@ -79,9 +81,9 @@ function Control(props) {
             }}
             {...props.selectProps.textFieldProps}/>
     );
-}
+};
 
-function Option(props) {
+const Option = function(props) {
     return (
         <MenuItem
             buttonRef={props.innerRef}
@@ -94,7 +96,7 @@ function Option(props) {
     );
 }
 
-function Placeholder(props) {
+const Placeholder = function(props) {
     return (
         <Typography
             style={{
@@ -107,9 +109,9 @@ function Placeholder(props) {
             {props.children}
         </Typography>
     );
-}
+};
 
-function SingleValue(props) {
+const SingleValue = function(props) {
     return (
         <Typography
             style={{
@@ -122,9 +124,9 @@ function SingleValue(props) {
             {props.children}
         </Typography>
     );
-}
+};
 
-function ValueContainer(props) {
+const ValueContainer = function(props) {
     return (
         <div
             style={{
@@ -135,9 +137,9 @@ function ValueContainer(props) {
             }}>
             {props.children}
         </div>);
-}
+};
 
-function MultiValue(props) {
+const MultiValue = function(props) {
     return (
         <Chip
             tabIndex={-1}
@@ -159,9 +161,9 @@ function MultiValue(props) {
                 margin: 2
             }}/>
     );
-}
+};
 
-function Menu(props) {
+const Menu = function(props) {
     let popperNode = document.getElementById('popper-anchor-ei-analytics-search-box');
     return (
         <Popper
@@ -175,7 +177,7 @@ function Menu(props) {
             </Paper>
         </Popper>
     );
-}
+};
 
 const components = {
     Option,
