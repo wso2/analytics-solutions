@@ -191,7 +191,7 @@ class IsAnalyticsUserPreferences extends Widget {
                 isPublished: false,
             });
         } else if (event.target.value === 'byAll' && this.state.byFirstLogins) {
-            filterConditionClone.isFirstLogin = undefined;
+            delete filterConditionClone.isFirstLogin;
             this.setState({
                 filterConditions: filterConditionClone,
                 byFirstLogins: false,
@@ -320,8 +320,8 @@ class IsAnalyticsUserPreferences extends Widget {
                                     </td>
                                     <td style={{ padding: 15 }}>
                                         <Button
-                                            color="primary"
-                                            variant="flat"
+                                            color="#ef6c00"
+                                            variant="contained"
                                             component="span"
                                             onClick={() => this.publishFilterConditions()}
                                         >
