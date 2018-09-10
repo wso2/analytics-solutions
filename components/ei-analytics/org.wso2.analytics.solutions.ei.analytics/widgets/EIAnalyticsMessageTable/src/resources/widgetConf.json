@@ -9,17 +9,14 @@
       ]
     },
     "providerConfig": {
-      "configs": {
-        "type": "RDBMSBatchDataProvider",
+      "configs" : {
+        "type": "SiddhiStoreDataProvider",
         "config": {
-          "datasourceName": "EI_ANALYTICS",
+          "siddhiApp": "@App:name(\"EI_ANALYTICS\") @store(type='rdbms', datasource='EI_ANALYTICS', field.length=\"contextPropertyMap:5000,beforePayload:5000,afterPayload:5000,transportPropertyMap:5000\") @Index('metaTenantId','messageFlowId','host','hashCode','componentName','componentType','componentIndex','componentId','startTime','endTime','entryPoint','entryPointHashcode','faultCount') define table ESBEventTable(metaTenantId int, messageFlowId string, host string, hashCode string, componentName string, componentType string, componentIndex int, componentId string, startTime long, endTime long, duration long, beforePayload string, afterPayload string, contextPropertyMap string, transportPropertyMap string, children string, entryPoint string, entryPointHashcode string, faultCount int, eventTimestamp long);",
           "queryData": {
-            "query": "select messageFlowId,host,startTime,if(faultCount>0,'Failed','Success') as faultCount from ESBEventTable where startTime>={{timeFrom}} and startTime<{{timeTo}} and metaTenantId={{metaTenantId}} and componentType='{{componentType}}' and {{componentIdentifier}}='{{componentName}}'"
+            "query": "from ESBEventTable on startTime>={{timeFrom}}L and startTime<{{timeTo}}L and metaTenantId=={{metaTenantId}} and componentType=='{{componentType}}' and {{componentIdentifier}}=='{{componentName}}' select messageFlowId,host,startTime, ifThenElse(faultCount>0,'Failed','Success') as faultCount order by startTime desc limit 100"
           },
-          "tableName": "ESBEventTable",
-          "incrementalColumn": "startTime",
-          "publishingInterval": 60,
-          "publishingLimit": 100
+          "publishingInterval": 60
         }
       }
     }
