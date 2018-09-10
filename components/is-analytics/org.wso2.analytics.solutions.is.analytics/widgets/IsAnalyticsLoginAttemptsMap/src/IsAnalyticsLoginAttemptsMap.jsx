@@ -290,15 +290,6 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
                 <JssProvider generateClassName={generateClassName}>
                     <MuiThemeProvider theme={theme}>
                         <div style={divSpacings}>
-                            <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                                <Typography
-                                    variant="title"
-                                    gutterBottom
-                                    align="center"
-                                >
-                                    Login Attempts Map
-                                </Typography>
-                            </div>
                             <Typography variant="body1" gutterBottom align="center">
                                 Unable to fetch data from siddhi data provider,
                                 please check the data provider configurations.
@@ -312,15 +303,6 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             <JssProvider generateClassName={generateClassName}>
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <Typography
-                                variant="title"
-                                gutterBottom
-                                align="center"
-                            >
-                                Login Attempts Map
-                            </Typography>
-                        </div>
                         <div style={{ height: height * 0.6, width: width * 0.9 }}>
                             <VizG
                                 config={this.state.chartConfig}
