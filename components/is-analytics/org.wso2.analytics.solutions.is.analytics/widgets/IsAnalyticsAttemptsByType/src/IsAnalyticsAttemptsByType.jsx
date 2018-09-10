@@ -184,7 +184,7 @@ class IsAnalyticsAttemptsByType extends Widget {
                     chartConfigSuccess: chartConfigSuccessClone,
                     chartConfigFailure: chartConfigFailureClone,
                     widgetPseudoId,
-                }, super.subscribe(this.onReceivingMessage));
+                }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
@@ -301,23 +301,25 @@ class IsAnalyticsAttemptsByType extends Widget {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
 
             for (const key in additionalFilterConditionsClone) {
-                if (additionalFilterConditionsClone[key] !== '') {
-                    if (key === 'role') {
-                        if (this.state.options.xAxis === 'Role') {
+                if (Object.hasOwnProperty.call(additionalFilterConditionsClone, key)) {
+                    if (additionalFilterConditionsClone[key] !== '') {
+                        if (key === 'role') {
+                            if (this.state.options.xAxis === 'Role') {
+                                additionalFilters = additionalFilters
+                                    + ' and ' + key + '== \'' + additionalFilterConditionsClone[key] + '\'';
+                            } else {
+                                additionalFilters = additionalFilters
+                                    + ' and str:contains(rolesCommaSeparated, \''
+                                    + additionalFilterConditionsClone[key]
+                                    + '\')';
+                            }
+                        } else if (key === 'isFirstLogin') {
                             additionalFilters = additionalFilters
-                                + ' and ' + key + '== \'' + additionalFilterConditionsClone[key] + '\'';
+                                + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                         } else {
                             additionalFilters = additionalFilters
-                                + ' and str:contains(rolesCommaSeparated, \''
-                                + additionalFilterConditionsClone[key]
-                                + '\')';
+                                + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
                         }
-                    } else if (key === 'isFirstLogin') {
-                        additionalFilters = additionalFilters
-                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
-                    } else {
-                        additionalFilters = additionalFilters
-                            + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
                     }
                 }
             }
@@ -416,7 +418,8 @@ class IsAnalyticsAttemptsByType extends Widget {
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
                         <Typography variant="body1" gutterBottom align="center">
-                            Unable to fetch data, please check the data provider configurations.
+                            Unable to fetch data from siddhi data provider,
+                            please check the data provider configurations.
                         </Typography>
                     </div>
                 </MuiThemeProvider>
@@ -425,14 +428,8 @@ class IsAnalyticsAttemptsByType extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div style={{
-                            height: height * 0.8,
-                            width: width * 0.9,
-                        }}>
-                            <div style={{
-                                height: height * 0.7,
-                                width: width * 0.9,
-                            }}>
+                        <div style={{ height: height * 0.8, width: width * 0.9 }}>
+                            <div style={{ height: height * 0.7, width: width * 0.9 }}>
                                 <VizG
                                     config={this.state.chartConfigFailure}
                                     metadata={this.state.failureMetadata}
@@ -474,11 +471,13 @@ class IsAnalyticsAttemptsByType extends Widget {
                         <div style={{
                             height: height * 0.8,
                             width: width * 0.9,
-                        }}>
+                        }}
+                        >
                             <div style={{
                                 height: height * 0.7,
                                 width: width * 0.9,
-                            }}>
+                            }}
+                            >
                                 <VizG
                                     config={this.state.chartConfigSuccess}
                                     metadata={this.state.successMetadata}
@@ -489,7 +488,8 @@ class IsAnalyticsAttemptsByType extends Widget {
                             <div style={{
                                 height: height * 0.1,
                                 width: width * 0.9,
-                            }}>
+                            }}
+                            >
                                 <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.successData.length > dataPerPage
@@ -514,12 +514,8 @@ class IsAnalyticsAttemptsByType extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div style={{ height: height * 0.4, width: width * 0.9 }}
-                        >
-                            <div style={{
-                                height: height * 0.3,
-                                width: width * 0.9,
-                            }}>
+                        <div style={{ height: height * 0.4, width: width * 0.9 }}>
+                            <div style={{ height: height * 0.3, width: width * 0.9 }}>
                                 <VizG
                                     config={this.state.chartConfigSuccess}
                                     metadata={this.state.successMetadata}
@@ -551,14 +547,8 @@ class IsAnalyticsAttemptsByType extends Widget {
                                 </V0MuiThemeProvider>
                             </div>
                         </div>
-                        <div style={{
-                            height: height * 0.4,
-                            width: width * 0.9,
-                        }}>
-                            <div style={{
-                                height: height * 0.3,
-                                width: width * 0.9,
-                            }}>
+                        <div style={{ height: height * 0.4, width: width * 0.9 }}>
+                            <div style={{ height: height * 0.3, width: width * 0.9 }}>
                                 <VizG
                                     config={this.state.chartConfigFailure}
                                     metadata={this.state.failureMetadata}
@@ -566,10 +556,7 @@ class IsAnalyticsAttemptsByType extends Widget {
                                     onClick={data => this.onChartClick(data)}
                                 />
                             </div>
-                            <div style={{
-                                height: height * 0.1,
-                                width: width * 0.9,
-                            }}>
+                            <div style={{ height: height * 0.1, width: width * 0.9 }}>
                                 <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.failureData.length > dataPerPage

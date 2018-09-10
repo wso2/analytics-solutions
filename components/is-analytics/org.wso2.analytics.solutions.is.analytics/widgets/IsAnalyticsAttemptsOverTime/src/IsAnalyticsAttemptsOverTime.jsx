@@ -97,7 +97,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                }, super.subscribe(this.onReceivingMessage));
+                }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
@@ -142,17 +142,19 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         if (this.state.additionalFilterConditions !== undefined) {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
             for (const key in additionalFilterConditionsClone) {
-                if (additionalFilterConditionsClone[key] !== '') {
-                    if (key === 'role') {
-                        filterCondition = filterCondition
-                            + ' and str:contains(rolesCommaSeparated, \''
-                            + additionalFilterConditionsClone[key] + '\') ';
-                    } else if (key === 'isFirstLogin') {
-                        filterCondition = filterCondition
-                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
-                    } else {
-                        filterCondition = filterCondition
-                            + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
+                if (Object.hasOwnProperty.call(additionalFilterConditionsClone, key)) {
+                    if (additionalFilterConditionsClone[key] !== '') {
+                        if (key === 'role') {
+                            filterCondition = filterCondition
+                                + ' and str:contains(rolesCommaSeparated, \''
+                                + additionalFilterConditionsClone[key] + '\') ';
+                        } else if (key === 'isFirstLogin') {
+                            filterCondition = filterCondition
+                                + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
+                        } else {
+                            filterCondition = filterCondition
+                                + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
+                        }
                     }
                 }
             }
@@ -188,7 +190,6 @@ class IsAnalyticsAttemptsOverTime extends Widget {
     }
 
     render() {
-        console.log('Testing');
         const { height } = this.state;
         const { width } = this.state;
         const divSpacings = {
@@ -209,7 +210,8 @@ class IsAnalyticsAttemptsOverTime extends Widget {
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
                         <Typography variant="body1" gutterBottom align="center">
-                            Unable to fetch data, please check the data provider configurations.
+                            Unable to fetch data from siddhi data provider,
+                            please check the data provider configurations.
                         </Typography>
                     </div>
                 </MuiThemeProvider>

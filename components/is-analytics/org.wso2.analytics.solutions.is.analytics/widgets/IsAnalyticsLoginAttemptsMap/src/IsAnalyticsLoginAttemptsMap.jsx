@@ -135,7 +135,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                }, super.subscribe(this.onReceivingMessage));
+                }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
@@ -183,16 +183,19 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
 
             for (const key in additionalFilterConditionsClone) {
-                if (additionalFilterConditionsClone[key] !== '') {
-                    if (key === 'role') {
-                        additionalFilters = additionalFilters
-                            + " and str:contains(rolesCommaSeparated, '" + additionalFilterConditionsClone[key] + "') ";
-                    } else if (key === 'isFirstLogin') {
-                        additionalFilters = additionalFilters
-                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
-                    } else {
-                        additionalFilters = additionalFilters
-                            + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
+                if (Object.hasOwnProperty.call(additionalFilterConditionsClone, key)) {
+                    if (additionalFilterConditionsClone[key] !== '') {
+                        if (key === 'role') {
+                            additionalFilters = additionalFilters
+                                + " and str:contains(rolesCommaSeparated, '"
+                                + additionalFilterConditionsClone[key] + "') ";
+                        } else if (key === 'isFirstLogin') {
+                            additionalFilters = additionalFilters
+                                + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
+                        } else {
+                            additionalFilters = additionalFilters
+                                + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
+                        }
                     }
                 }
             }
@@ -297,7 +300,8 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
                                 </Typography>
                             </div>
                             <Typography variant="body1" gutterBottom align="center">
-                                Unable to fetch data, please check the data provider configurations.
+                                Unable to fetch data from siddhi data provider,
+                                please check the data provider configurations.
                             </Typography>
                         </div>
                     </MuiThemeProvider>
