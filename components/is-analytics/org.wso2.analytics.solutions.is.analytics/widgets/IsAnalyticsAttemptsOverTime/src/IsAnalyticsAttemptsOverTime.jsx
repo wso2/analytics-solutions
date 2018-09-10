@@ -77,6 +77,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             chartConfig,
             data: [],
             metadata,
+            dataProviderConf: null,
             isProviderConfigFault: false,
             options: this.props.configs.options,
         };
@@ -92,12 +93,11 @@ class IsAnalyticsAttemptsOverTime extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
@@ -188,6 +188,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
     }
 
     render() {
+        console.log('Testing');
         const { height } = this.state;
         const { width } = this.state;
         const divSpacings = {
@@ -207,11 +208,8 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <Typography variant="title" gutterBottom align="center">
-                            Login Attempts Over Time
-                        </Typography>
                         <Typography variant="body1" gutterBottom align="center">
-                            No data found
+                            Unable to fetch data, please check the data provider configurations.
                         </Typography>
                     </div>
                 </MuiThemeProvider>
@@ -220,11 +218,6 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={divSpacings}>
-                    <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                        <Typography variant="title" gutterBottom align="center">
-                            Login Attempts Over Time
-                        </Typography>
-                    </div>
                     <div style={{ height: height * 0.9, width: width * 0.9 }}>
                         <VizG
                             config={this.state.chartConfig}

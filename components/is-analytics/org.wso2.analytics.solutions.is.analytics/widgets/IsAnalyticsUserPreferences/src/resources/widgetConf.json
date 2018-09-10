@@ -26,6 +26,19 @@
           ]
         },
         "defaultValue": "Overall"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "ENUM",
+          "possibleValues": [
+            "Overall Login Attempts User Preferences",
+            "Local Login Attempts User Preferences",
+            "Federated Login Attempts User Preferences"
+          ]
+        },
+        "defaultValue": "Overall Login User Preferences"
       }
     ]
   }

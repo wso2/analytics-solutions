@@ -69,7 +69,7 @@ const chartConfig = {
             colorScale: colorScaleSuccess,
         },
     ],
-    chloropethRangeLowerBound: 0,
+    chloropethRangeLowerbound: [0],
 };
 
 // This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
@@ -113,7 +113,8 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             chartConfig,
             data: [],
             metadata,
-            isDataProviderConfingFault: false,
+            dataProviderConf: null,
+            isDataProviderConfigFault: false,
             options: this.props.configs.options,
             isFailureMap: false,
             switchLabel: 'Success',
@@ -130,16 +131,15 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
-                    isDataProviderConfingFault: true,
+                    isDataProviderConfigFault: true,
                 });
             });
     }
@@ -282,7 +282,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             theme = lightTheme;
         }
 
-        if (this.state.isDataProviderConfingFault) {
+        if (this.state.isDataProviderConfigFault) {
             return (
                 <JssProvider generateClassName={generateClassName}>
                     <MuiThemeProvider theme={theme}>
@@ -296,9 +296,9 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
                                     Login Attempts Map
                                 </Typography>
                             </div>
-                            <div>
-                                <h5>Data Provider Configuration Error</h5>
-                            </div>
+                            <Typography variant="body1" gutterBottom align="center">
+                                Unable to fetch data, please check the data provider configurations.
+                            </Typography>
                         </div>
                     </MuiThemeProvider>
                 </JssProvider>

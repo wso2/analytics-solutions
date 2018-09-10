@@ -21,6 +21,19 @@
           ]
         },
         "defaultValue": "Overall"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "ENUM",
+          "possibleValues": [
+            "Overall Login Attempts Map",
+            "Local Login Attempts Map",
+            "Federated Login Attempts Map"
+          ]
+        },
+        "defaultValue": "Overall Login Attempts Map"
       }
     ],
     "providerConfig": {

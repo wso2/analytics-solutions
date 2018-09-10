@@ -41,6 +41,21 @@
           ]
         },
         "defaultValue": "Username"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "ENUM",
+          "possibleValues": [
+            "Login Attempts By Service Provider",
+            "Login Attempts By User Store Domain",
+            "Login Attempts By Role",
+            "Login Attempts By Identity Provider",
+            "Login Attempts By Username"
+          ]
+        },
+        "defaultValue": "Login Attempts By Username"
       }
     ],
     "providerConfig": {

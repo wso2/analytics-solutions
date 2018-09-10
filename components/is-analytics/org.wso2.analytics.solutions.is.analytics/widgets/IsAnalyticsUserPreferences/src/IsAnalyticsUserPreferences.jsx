@@ -320,7 +320,6 @@ class IsAnalyticsUserPreferences extends Widget {
                                     </td>
                                     <td style={{ padding: 15 }}>
                                         <Button
-                                            color="#ef6c00"
                                             variant="contained"
                                             component="span"
                                             onClick={() => this.publishFilterConditions()}

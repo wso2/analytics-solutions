@@ -21,6 +21,19 @@
           ]
         },
         "defaultValue": "Overall"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "ENUM",
+          "possibleValues": [
+            "Overall Login Attempts Summary",
+            "Local Login Attempts Summary",
+            "Federated Login Attempts Summary"
+          ]
+        },
+        "defaultValue": "Overall Login Attempts Summary"
       }
     ],
     "providerConfig": {

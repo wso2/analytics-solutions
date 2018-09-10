@@ -99,7 +99,8 @@ class IsAnalyticsCompactSummary extends Widget {
             numChartConfig,
             numChartData,
             numChartMetadata,
-            faultyProviderConf: false,
+            dataProviderConf: null,
+            isDataProviderConfigFault: false,
             options: this.props.configs.options,
             totalAttempts: 0,
             successPercentage: 0,
@@ -117,16 +118,15 @@ class IsAnalyticsCompactSummary extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
-                    faultyProviderConf: true,
+                    isDataProviderConfigFault: true,
                 });
             });
     }
@@ -200,7 +200,8 @@ class IsAnalyticsCompactSummary extends Widget {
                 if (additionalFilterConditionsClone[key] !== '') {
                     if (key === 'role') {
                         filterCondition = filterCondition
-                            + ' and str:contains(rolesCommaSeparated, \'' + additionalFilterConditionsClone[key] + '\') ';
+                            + ' and str:contains(rolesCommaSeparated, \''
+                            + additionalFilterConditionsClone[key] + '\') ';
                     } else if (key === 'isFirstLogin') {
                         filterCondition = filterCondition
                             + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
@@ -254,12 +255,12 @@ class IsAnalyticsCompactSummary extends Widget {
             theme = lightTheme;
         }
 
-        if (this.state.faultyProviderConf) {
+        if (this.state.isDataProviderConfigFault) {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
                         <Typography variant="body1" gutterBottom align="center">
-                            Data Provider Connection Error - Please check the provider configs
+                            Unable to fetch data, please check the data provider configurations.
                         </Typography>
                     </div>
                 </MuiThemeProvider>
@@ -271,7 +272,8 @@ class IsAnalyticsCompactSummary extends Widget {
                     <div style={{
                         height: height * 0.45,
                         width: width * 0.9,
-                    }}>
+                    }}
+                    >
                         <VizG
                             config={numChartConfig}
                             metadata={this.state.numChartMetadata}
@@ -285,11 +287,13 @@ class IsAnalyticsCompactSummary extends Widget {
                             <div style={{
                                 height: height * 0.55,
                                 width: width * 0.9,
-                            }}>
+                            }}
+                            >
                                 <div style={{
                                     height: height * 0.05,
                                     width: width * 0.9,
-                                }}>
+                                }}
+                                >
                                     <Typography
                                         variant="body1"
                                         gutterBottom
@@ -312,7 +316,8 @@ class IsAnalyticsCompactSummary extends Widget {
                                 <div style={{
                                     height: height * 0.5,
                                     width: width * 0.9,
-                                }}>
+                                }}
+                                >
                                     <VizG
                                         config={this.state.pieChartConfig}
                                         metadata={this.state.pieChartMetadata}
