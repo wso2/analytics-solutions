@@ -319,7 +319,7 @@ class IsAnalyticsUserPreferences extends Widget {
                                     </td>
                                     <td style={{ padding: 15 }}>
                                         <Button
-                                            color="inherit"
+                                            color="primary"
                                             variant="raised"
                                             component="span"
                                             onClick={() => this.publishFilterConditions()}
