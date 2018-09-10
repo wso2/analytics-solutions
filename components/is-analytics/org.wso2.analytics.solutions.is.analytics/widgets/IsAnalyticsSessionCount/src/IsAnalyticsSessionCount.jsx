@@ -20,60 +20,62 @@
 import React from 'react';
 import VizG from 'react-vizgrammar';
 import Widget from '@wso2-dashboards/widget';
-import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
-import RaisedButton from 'material-ui/RaisedButton';
+import { MuiThemeProvider } from 'material-ui/styles';
+import _ from 'lodash';
 
 class IsAnalyticsSessionCount extends Widget {
     constructor(props) {
         super(props);
 
-        this.ChartConfig = {
-            x: "DURATION",
+        this.chartConfig = {
+            x: 'DURATION',
             charts: [
                 {
-                    type: "bar",
-                    y: "COUNT1",
-                    fill: "#00e600",
-                    mode: "stacked",
-                }
+                    type: 'bar',
+                    y: 'COUNT1',
+                    fill: '#00e600',
+                    mode: 'stacked',
+                },
             ],
             yAxisLabel: 'Session count',
             xAxisLabel: 'Duration',
             pagination: 'true',
             maxLength: 10,
-            legend: false
+            legend: false,
         };
 
         this.metadata = {
-               names: ['DURATION', 'COUNT1'],
-               types: ['ordinal', 'linear']
+            names: ['DURATION', 'COUNT1'],
+            types: ['ordinal', 'linear'],
         };
 
-        this.state ={
+        this.state = {
             data: [],
             metadata: this.metadata,
+            providerConfig: null,
             width: this.props.glContainer.width,
-            height: this.props.glContainer.height
+            height: this.props.glContainer.height,
         };
 
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this.handleDataReceived = this.handleDataReceived.bind(this);
-        this.setReceivedMsg = this.setReceivedMsg.bind(this);
+        this.handleUserSelection = this.handleUserSelection.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
     }
-    handleResize() {
-        this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
 
+    handleResize() {
+        this.setState({ width: this.props.glContainer.width, height: this.props.glContainer.height });
     }
+
     componentDidMount() {
-        super.subscribe(this.setReceivedMsg);
+        super.subscribe(this.handleUserSelection);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
-                    providerConfig: message.data.configs.providerConfig
+                    providerConfig: message.data.configs.providerConfig,
                 });
-            })
+            });
     }
 
     componentWillUnmount() {
@@ -81,42 +83,31 @@ class IsAnalyticsSessionCount extends Widget {
     }
 
     handleDataReceived(message) {
-        let {metadata, data} = message;
         message.data = message.data.reverse();
         this.setState({
             metadata: message.metadata,
-            data: message.data
+            data: message.data,
         });
-
     }
 
-    setReceivedMsg(message) {
+    handleUserSelection(message) {
         this.setState({
-          fromDate: message.from,
-          toDate: message.to,
+            fromDate: message.from,
+            toDate: message.to,
         }, this.assembleQuery);
     }
 
     assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
-        let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
-        let query = dataProviderConfigs.configs.config.queryData.query;
-        query = query
-            .replace('begin', this.state.fromDate)
-            .replace('finish', this.state.toDate)
-            .replace('begin1', this.state.fromDate)
-            .replace('finish1', this.state.toDate)
-            .replace('begin2', this.state.fromDate)
-            .replace('finish2', this.state.toDate)
-            .replace('begin3', this.state.fromDate)
-            .replace('finish3', this.state.toDate)
-            .replace('begin4', this.state.fromDate)
-            .replace('finish4', this.state.toDate)
-            .replace('now', new Date().getTime())
-            .replace('now1', new Date().getTime())
-            .replace('now2', new Date().getTime())
-            .replace('now3', new Date().getTime())
-            .replace('now4', new Date().getTime());
+        const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
+        const numOfGroups = 5;
+        let { query } = dataProviderConfigs.configs.config.queryData;
+        for (let i = 0; i < numOfGroups; i++) {
+            query = query
+                .replace('{{from}}', this.state.fromDate)
+                .replace('{{to}}', this.state.toDate)
+                .replace('{{now}}', new Date().getTime());
+        }
         dataProviderConfigs.configs.config.queryData.query = query;
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
@@ -124,19 +115,17 @@ class IsAnalyticsSessionCount extends Widget {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <section style={{paddingTop: 25}}>
-                    <VizG
-                        config={this.ChartConfig}
-                        metadata={this.state.metadata}
-                        data={this.state.data}
-                        height={this.state.height * .8}
-                        width={this.state.width*1.2}
-                        theme={this.props.muiTheme.name}
-                    />
-                </section>
+            <MuiThemeProvider muiTheme={this.props.muiTheme}>
+                <VizG
+                    config={this.chartConfig}
+                    metadata={this.state.metadata}
+                    data={this.state.data}
+                    height={this.state.height}
+                    width={this.state.width}
+                    theme={this.props.muiTheme.name}
+                />
             </MuiThemeProvider>
         );
     }
 }
-global.dashboard.registerWidget("IsAnalyticsSessionCount", IsAnalyticsSessionCount);
+global.dashboard.registerWidget('IsAnalyticsSessionCount', IsAnalyticsSessionCount);

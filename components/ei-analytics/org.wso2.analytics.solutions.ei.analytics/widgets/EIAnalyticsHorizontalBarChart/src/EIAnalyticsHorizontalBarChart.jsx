@@ -77,6 +77,8 @@ class EIAnalyticsHorizontalBarChart extends Widget {
             timeFromParameter: null,
             timeToParameter: null,
             timeUnitParameter: null,
+            isRouteAtOnClick: false,
+            redirectData: null,
         };
         this.props.glContainer.on('resize', () => {
                 this.setState({
@@ -206,7 +208,8 @@ class EIAnalyticsHorizontalBarChart extends Widget {
             <div className="status-message" style={{
                 color: 'white',
                 marginLeft: 'auto',
-                marginRight: 'auto'
+                marginRight: 'auto',
+                padding: '5px 5px 5px 5px'
             }}>
                 <div className="message message-info">
                     <h4>
@@ -224,37 +227,35 @@ class EIAnalyticsHorizontalBarChart extends Widget {
 
     handleGraphOnClick(message) {
         const clickedComponentName = message.Name;
-        const urlString = window.location.href;
-        const pageNameStartIndex = urlString.lastIndexOf('/');
-        const pageNameEndIndex = urlString.indexOf('?');
+        const urlString = window.location.pathname;
         let redirectPageName;
         switch (this.state.graphType) {
-            case 'API':
+            case 'api':
                 redirectPageName = 'api';
                 break;
-            case 'Endpoint':
+            case 'endpoint':
                 redirectPageName = 'endpoint';
                 break;
-            case 'Sequence':
+            case 'sequence':
                 redirectPageName = 'sequence';
                 break;
-            case 'Mediator':
+            case 'mediator':
                 redirectPageName = 'mediator';
                 break;
-            case 'Proxy Service':
+            case 'proxy service':
                 redirectPageName = 'proxy';
                 break;
-            case 'Inbound Endpoint':
+            case 'inbound endpoint':
                 redirectPageName = 'inbound';
                 break;
             default:
                 redirectPageName = '';
         }
-        const formattedString = urlString.substring(0, pageNameStartIndex + 1) + redirectPageName
-            + urlString.substring(pageNameEndIndex, -1);
-        const redirectUrl = new URL(formattedString);
-        redirectUrl.searchParams.append(URL_PARAMETER_ID, clickedComponentName);
-        window.location.href = redirectUrl.toString();
+        const formattedString = urlString.substring(0, urlString.lastIndexOf('/') + 1) + redirectPageName;
+        let existingUrlHash = decodeURIComponent(window.location.hash);
+        let hashComponent = existingUrlHash === "" ? {} : JSON.parse(existingUrlHash.substring(1));
+        hashComponent[this.getKey(redirectPageName, URL_PARAMETER_ID)] = clickedComponentName;
+        window.location.href = formattedString + ('#' + JSON.stringify(hashComponent));
     }
 
     /**
@@ -276,7 +277,18 @@ class EIAnalyticsHorizontalBarChart extends Widget {
         );
     }
 
+    getKey(pageName, parameter) {
+        return pageName + "_page_" + parameter;
+    }
+
     render() {
+        if (this.state.isRouteAtOnClick) {
+            return (
+                <BrowserRouter>
+                    <Redirect to={this.state.redirectData}/>
+                </BrowserRouter>
+            );
+        }
         return (
             <div id={DIV_ID_GRAPH}>
                 {this.state.isLoading ? this.renderEmptyRecordsMessage() : this.renderGraph()}

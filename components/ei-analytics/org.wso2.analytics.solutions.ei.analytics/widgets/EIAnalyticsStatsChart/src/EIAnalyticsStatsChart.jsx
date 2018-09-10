@@ -31,8 +31,9 @@ const PAGE_INBOUND_ENDPOINT = 'inbound';
 const PAGE_MEDIATOR = 'mediator';
 const PUBLISHER_DATE_TIME_PICKER = "granularity";
 const PUBLISHER_SEARCH_BOX = "selectedComponent";
+const GRAPH_MIN_HEIGHT = '300';
+const GRAPH_MIN_WIDTH = '300';
 
-// console.log(JSON.stringify(this.bodyRef.current.parentNode.getAttribute("height")));
 
 class EIAnalyticsStatsChart extends Widget {
     constructor(props) {
@@ -105,11 +106,7 @@ class EIAnalyticsStatsChart extends Widget {
     }
 
     setWidgetTitle() {
-        let currentUrl = window.location.href;
-        let pageNameStartIndex = currentUrl.lastIndexOf('/');
-        let pageNameEndIndex = currentUrl.indexOf('?');
-        let pageName = (pageNameEndIndex === -1) ?
-            currentUrl.substring(pageNameStartIndex + 1) : currentUrl.substring(pageNameStartIndex + 1, pageNameEndIndex);
+        let pageName = window.location.pathname.split('/').pop();
         let title = 'StatChart';
 
         if (pageName === 'overview') {
@@ -129,11 +126,11 @@ class EIAnalyticsStatsChart extends Widget {
             page: this.getCurrentPage()
         }, this.handleParameterChange);
 
-        let queryString = this.getQueryString();
+        let entryPointValue = super.getGlobalState(getKey(this.getCurrentPage(), "entryPoint"));
         // If window url contains entryPoint, store it in the state
-        if (queryString.entryPoint) {
+        if (entryPointValue && JSON.stringify(entryPointValue) !== "{}") {
             this.setState({
-                entryPoint: queryString.entryPoint
+                entryPoint: entryPointValue
             }, this.handleParameterChange);
         }
         //this.extractStatsData("ALL", "ALL", null, -1234, "ESBStatAgg");
@@ -171,7 +168,7 @@ class EIAnalyticsStatsChart extends Widget {
                             this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                     case PAGE_INBOUND_ENDPOINT:
-                        this.extractStatsData(PAGE_INBOUND_ENDPOINT, this.state.componentName, null, TENANT_ID, "ESBStatAggAgg",
+                        this.extractStatsData(PAGE_INBOUND_ENDPOINT, this.state.componentName, null, TENANT_ID, "ESBStatAgg",
                             this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                     case PAGE_MEDIATOR:
@@ -256,7 +253,7 @@ class EIAnalyticsStatsChart extends Widget {
                     .subscribeWidget(this.props.id, this.handleStats().bind(this), dataProviderConf.configs.providerConfig);
             })
             .catch(() => {
-                console.error("Unable to load widget configurations");
+                console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
             });
     }
 
@@ -288,72 +285,102 @@ class EIAnalyticsStatsChart extends Widget {
     }
 
     getCurrentPage() {
-        var pageName;
-        var href = window.location.href;
-        var lastSegment = href.substr(href.lastIndexOf('/') + 1);
-        if (lastSegment.indexOf('?') == -1) {
-            pageName = lastSegment;
-        } else {
-            pageName = lastSegment.substr(0, lastSegment.indexOf('?'));
-        }
-        return pageName;
-    };
-
-    getQueryString() {
-        var queryStringKeyValue = window.location.search.replace('?', '').split('&');
-        var qsJsonObject = {};
-        if (queryStringKeyValue != '') {
-            for (let i = 0; i < queryStringKeyValue.length; i++) {
-                qsJsonObject[queryStringKeyValue[i].split('=')[0]] = queryStringKeyValue[i].split('=')[1];
-            }
-        }
-        return qsJsonObject;
+        return window.location.pathname.split('/').pop();
     };
 
     drawCharts() {
         return (
-            <body>
-            <div id={"overall-count"} style={{float: 'left', height: '100%', minHeight: '100%', width: '20%'}}>
-                <h2><b>Total</b> requests</h2>
-                <h4><span
-                    id="title">{this.state.componentName != null ? 'for ' + this.state.componentName : null}</span></h4>
-                <h1 id="totalCount">{this.state.totalCount}</h1>
-            </div>
-            <div id={"charts"} style={{float: 'left', height: '100%', minHeight: '100%', width: '80%'}}>
-                <div style={{float: 'left', textAlign: 'center', height: '100%', minHeight: '100%', width: '50%'}}>
-                    <div style={{float: 'bottom', height: '60%', width: '100%'}}>
-                        <VizG
-                            config={this.successChartConfig}
-                            metadata={this.metadata}
-                            data={[[
-                                9000, ((this.state.totalCount - this.state.faultCount) * 100) / this.state.totalCount, 130, "Rotary"
-                            ]]}
-                            theme={this.props.muiTheme.name}
-                        />
-                    </div>
-                    <div style={{float: 'top', height: '40%', width: '100%'}}>
-                        <h5>Success Rate</h5>
-                        <h6>{'Success Requests: ' + String(this.state.totalCount - this.state.faultCount)}</h6>
-                    </div>
+            <div style={{display: 'flex'}}>
+                <div id={"overall-count"} style={{
+                    float: 'left',
+                    height: '100%',
+                    width: '20%',
+                    padding: '5px 5px 5px 5px',
+                    textAlign: 'center',
+                    alignContent: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <h2><b>Total</b> requests</h2>
+                    <h4><span
+                        id="title">{this.state.componentName != null ? 'for ' + this.state.componentName : null}</span>
+                    </h4>
+                    <h1 id="totalCount">{this.state.totalCount}</h1>
                 </div>
-                <div style={{float: 'left', textAlign: 'center', height: '100%', minHeight: '100%', width: '50%'}}>
-                    <div style={{float: 'bottom', height: '60%', width: '100%'}}>
-                        <VizG
-                            config={this.faultChartConfig}
-                            metadata={this.metadata}
-                            data={[[
-                                9000, ((this.state.faultCount) * 100) / this.state.totalCount, 130, "Rotary"
-                            ]]}
-                            theme={this.props.muiTheme.name}
-                        />
+
+
+                <div id={"charts"} style={{
+                    float: 'left',
+                    height: '100%',
+                    minHeight: '100%',
+                    width: '80%',
+                    padding: '5px 5px 5px 5px'
+                }}>
+                    <div style={{float: 'left', textAlign: 'center', height: '100%', width: '50%', margin: 'auto'}}>
+                        <div style={{
+                            float: 'bottom',
+                            height: this.state.height * 0.6,
+                            width: this.state.width * 0.4,
+                            margin: 'auto',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            display: 'flex'
+                        }}>
+                            <VizG
+                                config={this.successChartConfig}
+                                metadata={this.metadata}
+                                data={[[
+                                    9000, ((this.state.totalCount - this.state.faultCount) * 100) / this.state.totalCount, 130, "Rotary"
+                                ]]}
+                                theme={this.props.muiTheme.name}
+                            />
+                        </div>
+                        <div style={{
+                            float: 'top',
+                            height: '40%',
+                            width: '100%',
+                            margin: 'auto',
+                            alignContent: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <b>Success Rate</b>
+                            <br/>
+                            <b>{'Success Requests: ' + String(this.state.totalCount - this.state.faultCount)}</b>
+                        </div>
                     </div>
-                    <div style={{float: 'top', height: '40%', width: '100%'}}>
-                        <h5>Failure Rate</h5>
-                        <h6>{'Failure Requests: ' + String(this.state.faultCount)}</h6>
+                    <div style={{float: 'left', textAlign: 'center', height: '100%', width: '50%', margin: 'auto'}}>
+                        <div style={{
+                            float: 'bottom',
+                            height: this.state.height * 0.6,
+                            width: this.state.width * 0.4,
+                            margin: 'auto',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            display: 'flex'
+                        }}>
+                            <VizG
+                                config={this.faultChartConfig}
+                                metadata={this.metadata}
+                                data={[[
+                                    9000, ((this.state.faultCount) * 100) / this.state.totalCount, 130, "Rotary"
+                                ]]}
+                                theme={this.props.muiTheme.name}
+                            />
+                        </div>
+                        <div style={{
+                            float: 'top',
+                            height: '40%',
+                            width: '100%',
+                            margin: 'auto',
+                            alignContent: 'center',
+                            justifyContent: 'center'}}>
+                            <b>Failure Rate</b>
+                            <br/>
+                            <b>{'Failure Requests: ' + String(this.state.faultCount)}</b>
+                        </div>
                     </div>
+
                 </div>
             </div>
-            </body>
         )
     }
 
@@ -362,7 +389,7 @@ class EIAnalyticsStatsChart extends Widget {
     }
 
     noParameters() {
-        var page = this.getCurrentPage();
+        let page = this.getCurrentPage();
         switch (page) {
             case 'api':
                 return 'Please select an API and a valid date range to view stats.';
@@ -382,7 +409,6 @@ class EIAnalyticsStatsChart extends Widget {
             default:
                 return 'Please select a valid date range to view stats';
         }
-        ;
     }
 
     render() {
@@ -390,6 +416,11 @@ class EIAnalyticsStatsChart extends Widget {
             this.isDataRecieved() ? this.drawCharts() : <h5>{this.noParameters()}</h5>
         )
     }
+}
+
+
+function getKey(pageName, parameter) {
+    return pageName + "_page_" + parameter;
 }
 
 global.dashboard.registerWidget('EIAnalyticsStatsChart', EIAnalyticsStatsChart);

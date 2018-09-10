@@ -14,7 +14,7 @@
     "react-simple-maps": "^0.9.0",
     "react-table": "^6.6.0",
     "react-tooltip": "^3.4.0",
-    "react-vizgrammar": "^0.7.20",
+    "react-vizgrammar": "0.7.28",
     "topojson-client": "^3.0.0",
     "victory": "^0.22.2"
   },
@@ -24,7 +24,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "clean": "rimraf dist",
-    "dev": "NODE_ENV=development webpack -d --config webpack.config.js --watch"
+    "dev": "NODE_ENV=development webpack -d --progress --devtool source-map"
   },
   "devDependencies": {
     "ajv": "^5.2.2",
@@ -34,6 +34,12 @@
     "babel-preset-react": "^6.24.1",
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.28.7",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.1.0",
     "rimraf": "^2.6.2",
     "style-loader": "^0.19.0",
     "webpack": "^3.5.6"

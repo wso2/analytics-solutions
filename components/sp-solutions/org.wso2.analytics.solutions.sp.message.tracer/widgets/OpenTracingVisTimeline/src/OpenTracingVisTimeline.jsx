@@ -197,39 +197,24 @@ class OpenTracingVisTimeline extends Widget {
             }
             let scale, step, addingLimits;
             if ((highestDate - lowestDate) < 1000) {
-                //from 1 millisecond to second
-                scale = "millisecond";
-                step = 100;
                 addingLimits = 10;
             } else if ((highestDate - lowestDate) < 60000 && (highestDate - lowestDate) >= 1000) {
                 //from 1 second to 1 minute
-                scale = "second";
-                step = 10;
                 addingLimits = 2000;
             } else if ((highestDate - lowestDate) <= 3600000 && (highestDate - lowestDate) >= 60000) {
                 //from 1 minute to 1 hour
-                scale = "minute";
-                step = 10;
                 addingLimits = 60000;
             } else if ((highestDate - lowestDate) <= 86400000 && (highestDate - lowestDate) >= 3600000) {
                 //from 1 hour to 24 hours
-                scale = "hour";
-                step = 1;
                 addingLimits = 3600000;
             } else if ((highestDate - lowestDate) <= 604800000 && (highestDate - lowestDate) >= 86400000) {
                 //from 24 hours to week
-                scale = "day";
-                step = 1;
                 addingLimits = 86400000;
             } else if ((highestDate - lowestDate) <= 2592000000 && (highestDate - lowestDate) >= 604800000) {
                 //from week to month
-                scale = "week";
-                step = 1;
                 addingLimits = 604800000;
             } else if ((highestDate - lowestDate) <= 31104000000 && (highestDate - lowestDate) >= 2592000000) {
                 //during a month
-                scale = "month";
-                step = 1;
                 addingLimits = 2592000000;
             }
             let options = {
@@ -310,8 +295,7 @@ class OpenTracingVisTimeline extends Widget {
                 editable: false,
                 groupEditable: false,
                 start: new Date(lowestDate - addingLimits),
-                end: new Date(highestDate + addingLimits),
-                timeAxis: {scale: scale, step: step}
+                end: new Date(highestDate + addingLimits)
             };
 
             if (!this.timeline) {

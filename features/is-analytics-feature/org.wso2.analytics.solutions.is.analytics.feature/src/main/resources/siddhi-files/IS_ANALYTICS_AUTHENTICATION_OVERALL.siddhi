@@ -16,7 +16,7 @@
  * under the License.
  */
 
-@App:name("IS_AUTHENTICATION_OVERALL")
+@App:name("IS_ANALYTICS_AUTHENTICATION_OVERALL")
 @App:description("Handle Event from IS and save data in a table for Overall Authentication")
 
 -- Read data from OverallAuthenticationProcessedStream (Sinked from IsAnalytics_Auth_Common)
@@ -48,13 +48,14 @@ define stream OverallAuthenticationProcessedStream (
     timestamp long
 );
 
+define trigger TablePurgingTriggerStream at '0 0 23 * * ?';
+
 -- TABLE DEFINITIONS
 
 -- Overall Authentication Table
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
 @primaryKey('meta_tenantId', 'contextId', 'eventId', 'eventType')
 @index('meta_tenantId', 'username', 'identityProviderType', 'identityProvider', 'userStoreDomain', 'serviceProvider', 'region', 'timestamp')
-@purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
 define table OverallAuthenticationTable (
     meta_tenantId int,
     contextId string,
@@ -87,7 +88,7 @@ define table OverallAuthenticationTable (
 
 -- Update OverallAuthenticationTable
 from OverallAuthenticationProcessedStream
-select 
+select
     meta_tenantId,
     contextId,
     eventId,
@@ -113,15 +114,20 @@ select
     identityProviderType,
     time:dateFormat(timestamp, "MMMM dd, yyyy hh:mm:ss a zzz") as utcTime,
     timestamp
-group by 
+group by
     meta_tenantId,
     contextId,
     eventId,
     eventType,
     region
 update or insert into OverallAuthenticationTable
-on 
-    OverallAuthenticationTable.meta_tenantId==meta_tenantId 
-    and OverallAuthenticationTable.contextId==contextId 
-    and OverallAuthenticationTable.eventType==eventType 
-    and OverallAuthenticationTable.eventId==eventId
+on
+    OverallAuthenticationTable.meta_tenantId==meta_tenantId
+    and OverallAuthenticationTable.contextId==contextId
+    and OverallAuthenticationTable.eventType==eventType
+    and OverallAuthenticationTable.eventId==eventId;
+
+from TablePurgingTriggerStream
+select time:dateSub(triggered_time, 1, 'year') as purgingTime
+delete OverallAuthenticationTable
+on OverallAuthenticationTable.timestamp < purgingTime;

@@ -20,72 +20,73 @@
 import React from 'react';
 import VizG from 'react-vizgrammar';
 import Widget from '@wso2-dashboards/widget';
-import {MuiThemeProvider, darkBaseTheme, getMuiTheme} from 'material-ui/styles';
+import { MuiThemeProvider } from 'material-ui/styles';
+import _ from 'lodash';
 
 class IsAnalyticsSessionCountOverTime extends Widget {
     constructor(props) {
         super(props);
 
-        this.ChartConfig = {
-            x: "timestamp",
+        this.chartConfig = {
+            x: 'timestamp',
             charts: [
                 {
-                    type: "line",
-                    y: "Active",
-                    fill: "#1aa3ff"
+                    type: 'line',
+                    y: 'Active',
+                    fill: '#1aa3ff',
                 },
                 {
-                    type: "line",
-                    y: "New",
-                    fill: "#ff7f0e"
+                    type: 'line',
+                    y: 'New',
+                    fill: '#ff7f0e',
                 },
                 {
-                    type: "line",
-                    y: "Terminated",
-                    fill: "#00e600"
-                }
+                    type: 'line',
+                    y: 'Terminated',
+                    fill: '#00e600',
+                },
             ],
             maxLength: 10,
             yAxisLabel: 'Session Count',
             xAxisLabel: 'Time',
             legend: true,
             append: false,
-            brush: true
+            brush: true,
         };
 
         this.metadata = {
-               names: ['timestamp', 'Active', 'New', 'Terminated'],
-               types: ['ordinal', 'linear', 'linear', 'linear']
+            names: ['timestamp', 'Active', 'New', 'Terminated'],
+            types: ['ordinal', 'linear', 'linear', 'linear'],
         };
 
         this.state = {
             data: [],
             metadata: this.metadata,
-            ChartConfig: this.ChartConfig,
+            chartConfig: this.chartConfig,
+            providerConfig: null,
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
-            btnGroupHeight: 50
         };
 
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this.handleDataReceived = this.handleDataReceived.bind(this);
-        this.setReceivedMsg = this.setReceivedMsg.bind(this);
+        this.handleUserSelection = this.handleUserSelection.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
     }
 
     handleResize() {
-        this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
+        this.setState({ width: this.props.glContainer.width, height: this.props.glContainer.height });
     }
 
     componentDidMount() {
-        super.subscribe(this.setReceivedMsg);
+        super.subscribe(this.handleUserSelection);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
-                    providerConfig: message.data.configs.providerConfig
+                    providerConfig: message.data.configs.providerConfig,
                 });
-            })
+            });
     }
 
     componentWillUnmount() {
@@ -93,45 +94,49 @@ class IsAnalyticsSessionCountOverTime extends Widget {
     }
 
     handleDataReceived(message) {
-        let ChartConfig = _.cloneDeep(this.state.ChartConfig);
-        let {metadata, data} = message;
+        const { metadata, data } = message;
         metadata.types[0] = 'TIME';
-
-        switch(this.state.per)
-        {
-            case "minute":
-                ChartConfig.tipTimeFormat= '%d/%m/%Y %H:%M:%S';
-                break;
-            case "hour":
-                ChartConfig.tipTimeFormat= '%d/%m/%Y %H:%M:%S';
-                break;
-            case "day":
-                ChartConfig.tipTimeFormat= '%d/%m/%Y';
-                break;
-        }
         this.setState({
-            metadata: metadata,
-            data: data,
-            ChartConfig: ChartConfig
+            metadata,
+            data,
+        });
+
+        this.setState((prevState) => {
+            const chartConfig = _.cloneDeep(prevState.chartConfig);
+            switch (prevState.per) {
+                case 'minute':
+                    chartConfig.tipTimeFormat = '%d/%m/%Y %H:%M:%S';
+                    break;
+                case 'hour':
+                    chartConfig.tipTimeFormat = '%d/%m/%Y %H:%M:%S';
+                    break;
+                case 'day':
+                    chartConfig.tipTimeFormat = '%d/%m/%Y';
+                    break;
+                default:
+                    // This will never hit
+            }
+            return { chartConfig };
         });
     }
 
-    setReceivedMsg(message) {
+
+    handleUserSelection(message) {
         this.setState({
             per: message.granularity,
             fromDate: message.from,
-            toDate: message.to
+            toDate: message.to,
         }, this.assembleQuery);
     }
 
     assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
-        let dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
-        let query = dataProviderConfigs.configs.config.queryData.query;
+        const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
+        let { query } = dataProviderConfigs.configs.config.queryData;
         query = query
-            .replace("{{per}}", this.state.per)
-            .replace("{{from}}", this.state.fromDate)
-            .replace("{{to}}", this.state.toDate);
+            .replace('{{per}}', this.state.per)
+            .replace('{{from}}', this.state.fromDate)
+            .replace('{{to}}', this.state.toDate);
         dataProviderConfigs.configs.config.queryData.query = query;
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
@@ -139,19 +144,17 @@ class IsAnalyticsSessionCountOverTime extends Widget {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-                <section style={{paddingTop: 50}}>
-                    <VizG
-                        config={this.state.ChartConfig}
-                        metadata={this.state.metadata}
-                        data={this.state.data}
-                        height={this.state.height -this.state.btnGroupHeight}
-                        width={this.state.width}
-                        theme={this.props.muiTheme.name}
-                    />
-                </section>
+            <MuiThemeProvider muiTheme={this.props.muiTheme}>
+                <VizG
+                    config={this.state.chartConfig}
+                    metadata={this.state.metadata}
+                    data={this.state.data}
+                    height={this.state.height}
+                    width={this.state.width}
+                    theme={this.props.muiTheme.name}
+                />
             </MuiThemeProvider>
         );
     }
 }
-global.dashboard.registerWidget("IsAnalyticsSessionCountOverTime", IsAnalyticsSessionCountOverTime);
+global.dashboard.registerWidget('IsAnalyticsSessionCountOverTime', IsAnalyticsSessionCountOverTime);

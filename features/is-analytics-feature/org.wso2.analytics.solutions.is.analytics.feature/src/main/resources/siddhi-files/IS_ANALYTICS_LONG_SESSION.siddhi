@@ -22,7 +22,12 @@
 -- Defining streams to handle Long Sessions
 
 define trigger PeriodicalTriggerStream at every 2 min;
-define trigger TriggerStream at every 30 min;
+
+define trigger TriggerStreamAtDeployment at 'start';
+
+define trigger TriggerEveryThirtyMinutesStream at every 30 min;
+
+define trigger TablePurgingTriggerStream at '0 0 23 * * ?';
 
 define stream FilterLongSessionsStreams (
             meta_tenantId int,
@@ -37,6 +42,15 @@ define stream FilterLongSessionsStreams (
             tenantDomain string,
             timestamp long);
 
+define stream AlertLongSessionsStreamTemp (
+            timestamp long,
+            meta_tenantId int,
+            tenantDomain string,
+            sessionId string,
+            username string,
+            duration long,
+            avgDuration double);
+
 define stream AlertLongSessionsStream (
             timestamp long,
             meta_tenantId int,
@@ -46,7 +60,7 @@ define stream AlertLongSessionsStream (
             duration long,
             avgDuration double);
 
-define stream LastSevenDays( lastSeventimestamp long);
+define stream LastSevenDaysStream ( lastSeventimestamp long);
 
 -- Defining Databases
 
@@ -91,25 +105,17 @@ define table AlertLongSessionsTable(
             duration long,
             avgDuration double);
 
-@primaryKey('meta_tenantId', 'type', 'tenantDomain','msg')
+@primaryKey('meta_tenantId','alertId')
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
 define table SecurityAlertTypeTable(
             meta_tenantId int,
+            alertId string,
             type string,
             tenantDomain string,
             msg string,
             severity int,
             alertTimestamp long,
             userReadableTime string);
-
-@primaryKey('meta_tenantId', 'username', 'userstoreDomain')
-@store(type='rdbms', datasource='IS_ANALYTICS_DB')
-define table AverageSessionDurationTable(
-            meta_tenantId int,
-            tenantDomain string,
-            username string,
-            userstoreDomain string,
-            avgDuration double);
 
 @primaryKey('meta_tenantId', 'username', 'userstoreDomain')
 define table AverageSession(
@@ -121,12 +127,18 @@ define table AverageSession(
 
 -- Queries
 
-from TriggerStream
+-- Calculating last seven days timestamp by sending trigger for every 30 minutes
+from TriggerStreamAtDeployment
 select convert(time:dateSub(triggered_time,7,'DAY'), 'long') as lastSeventimestamp
-insert into LastSevenDays;
+insert into LastSevenDaysStream;
 
+from TriggerEveryThirtyMinutesStream
+select convert(time:dateSub(triggered_time,7,'DAY'), 'long') as lastSeventimestamp
+insert into LastSevenDaysStream;
+
+-- Filtering sessions longer than 15 minutes from the SessionInformationTable
 from        PeriodicalTriggerStream as P join SessionInformationTable as S
-on          S.duration > 400000 and
+on          S.duration > 900000 and
             S.rememberMeFlag == false and
             S.isActive == true
 select      meta_tenantId,
@@ -142,7 +154,8 @@ select      meta_tenantId,
             timestamp
 insert into FilterLongSessionsStreams;
 
-from        LastSevenDays join SessionInformationTable
+-- Calculating average duration of users and storing in a  event table
+from        LastSevenDaysStream join SessionInformationTable
 on          startTimestamp>= lastSeventimestamp
 select      meta_tenantId,
             tenantDomain,
@@ -159,6 +172,7 @@ on          AverageSession.meta_tenantId==meta_tenantId and
             AverageSession.username==username and
             AverageSession.userstoreDomain==userstoreDomain ;
 
+-- Identifying long sessions
 from        FilterLongSessionsStreams as s join AverageSession as t
 on          s.meta_tenantId == t.meta_tenantId and
             s.tenantDomain == t.tenantDomain and
@@ -172,11 +186,29 @@ select      s.timestamp,
             s.username,
             s.duration,
             t.avgDuration
+insert into AlertLongSessionsStreamTemp;
+
+-- Ignoring repeated alerts for the same event
+from AlertLongSessionsStreamTemp#window.length(1) as a left outer join AlertLongSessionsStreamTemp#window.time(10 minute) as b
+on          a.meta_tenantId == b.meta_tenantId and
+            a.tenantDomain == b.tenantDomain and
+            a.sessionId == b.sessionId and
+            a.username == b.username
+select      a.timestamp,
+            a.meta_tenantId,
+            a.tenantDomain,
+            a.sessionId,
+            a.username,
+            a.duration,
+            a.avgDuration
+having      b.sessionId is null
 insert into AlertLongSessionsStream;
+
 
 --Storing Login alert type in 'SecurityAlertTypeTable'
 from        AlertLongSessionsStream
 select      meta_tenantId,
+            UUID() as alertId,
             "AbnormalLongSessionAlert" as type,
             tenantDomain,
             str:concat('Abnormal long session session of ', duration, ' milliseconds detected by user: ', username,' on session id: ', sessionId, '.') as msg,
@@ -185,10 +217,8 @@ select      meta_tenantId,
             time:dateFormat((time:timestampInMilliseconds()),'yyyy-MM-dd HH:mm:ss') as userReadableTime
 update or insert into
             SecurityAlertTypeTable
-on          SecurityAlertTypeTable.meta_tenantId==meta_tenantId and
-            SecurityAlertTypeTable.type==type and
-            SecurityAlertTypeTable.tenantDomain==tenantDomain and
-            SecurityAlertTypeTable.msg==msg;
+on          SecurityAlertTypeTable.meta_tenantId == meta_tenantId and
+            SecurityAlertTypeTable.alertId == alertId;
 
 --Storing abnormal long sessions in 'AlertLongSessionsTable'
 from AlertLongSessionsStream
@@ -204,3 +234,10 @@ update or insert into
             AlertLongSessionsTable
 on          AlertLongSessionsTable.meta_tenantId==meta_tenantId and
             AlertLongSessionsTable.sessionId==sessionId;
+
+-- Retain last one year data in AlertLongSessionsTable
+
+from    TablePurgingTriggerStream
+select  time:dateSub(triggered_time, 1, 'year') as purgingTime
+delete  AlertLongSessionsTable
+on      AlertLongSessionsTable.timestamp < purgingTime;
