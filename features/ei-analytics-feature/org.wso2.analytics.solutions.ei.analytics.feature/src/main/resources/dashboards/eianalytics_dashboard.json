@@ -1,1 +1,3548 @@
-{"dashboard":{"url":"eianalytics","owner":"admin","name":"EI Analytics","description":"A dashboard to display Enterprise Integrator Analytics","landingPage":"overview","parentId":"0","pages":[{"id":"overview","name":"Overview","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"stack","isClosable":true,"title":"","height":8.298042159475202,"width":100.0,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"]},"isGenerated":false,"options":{"defaultValue":"3 Months"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":17.044506083196598,"width":100.0,"content":[{"title":"REQUEST SUMMARY","type":"component","component":"EIAnalyticsStatsChart","props":{"id":"bd991de0-36a3-4c30-8f05-5a9dd794f22f","configs":{"pubsub":{"types":["subscriber"],"publishers":["ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849","817ffe09-8dff-4361-939b-e15b7409a649"],"widgetInputOutputMapping":[]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsStatsChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":20.76861654190729,"content":[{"type":"stack","isClosable":true,"title":"","height":21.701686571701867,"width":50.14164305949008,"content":[{"title":"OVERALL EIAnalyticsTPS","type":"component","component":"EIAnalyticsTPS","props":{"id":"20ceb84d-a96d-402e-98d3-6845233b4e74","configs":{"pubsub":{"types":["subscriber"],"publishers":["ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849","817ffe09-8dff-4361-939b-e15b7409a649"],"widgetInputOutputMapping":[]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsTPS"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":49.85835694050992,"content":[{"title":"Overall Message Count","type":"component","component":"UniversalWidget","props":{"id":"a9b172cf-b238-4e95-aed0-73bd3969c4c2","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit"],"publishers":["ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849","817ffe09-8dff-4361-939b-e15b7409a649"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"817ffe09-8dff-4361-939b-e15b7409a649","publisherWidgetOutput":"selectedComponent"}]},"isGenerated":true,"options":{}},"widgetID":"Overall-Message-Count"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"row","isClosable":true,"title":"","height":25.088963700592668,"content":[{"type":"stack","isClosable":true,"title":"","height":25.0,"width":50.07142857142857,"content":[{"title":"Top proxy services by Request Count","type":"component","component":"EIAnalyticsHorizontalBarChart","props":{"id":"1dba552a-d3a1-441f-b7b6-73b552182dda","configs":{"pubsub":{"types":["subscriber"],"publishers":["ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849","817ffe09-8dff-4361-939b-e15b7409a649"]},"isGenerated":false,"options":{"Component Type Selection":"proxy service"}},"widgetID":"EIAnalyticsHorizontalBarChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":49.92857142857143,"content":[{"title":"Top apis by Request Count","type":"component","component":"EIAnalyticsHorizontalBarChart","props":{"id":"6b688b47-ef87-4114-90e6-3bd76766459c","configs":{"pubsub":{"types":["subscriber"],"publishers":["ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849"]},"isGenerated":false,"options":{"Component Type Selection":"api"}},"widgetID":"EIAnalyticsHorizontalBarChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"row","isClosable":true,"title":"","height":28.799871514828247,"content":[{"type":"stack","isClosable":true,"title":"","height":100.0,"width":29.989094874591057,"content":[{"title":"Top endpoints by Request Count","type":"component","component":"EIAnalyticsHorizontalBarChart","props":{"id":"f95513cb-2d88-4554-9982-8fe9d310c0ee","configs":{"pubsub":{"types":["subscriber"],"publishers":["ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849"]},"isGenerated":false,"options":{"Component Type Selection":"endpoint"}},"widgetID":"EIAnalyticsHorizontalBarChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":35.176781902660125,"content":[{"title":"Top sequences by Request Count","type":"component","component":"EIAnalyticsHorizontalBarChart","props":{"id":"af583379-fa88-412c-8f2f-9a91d11e8e1f","configs":{"pubsub":{"types":["subscriber"],"publishers":["ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849"]},"isGenerated":false,"options":{"Component Type Selection":"sequence"}},"widgetID":"EIAnalyticsHorizontalBarChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":34.834123222748815,"content":[{"title":"Top inbound endpoints by Request Count","type":"component","component":"EIAnalyticsHorizontalBarChart","props":{"id":"31a90bea-f5b3-4bcc-bf5c-1b7645066233","configs":{"pubsub":{"types":["subscriber"],"publishers":["ffef5e03-e8ad-4ef3-a6a2-de4b72fb2849"]},"isGenerated":false,"options":{"Component Type Selection":"inbound endpoint"}},"widgetID":"EIAnalyticsHorizontalBarChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}]}],"height":1261.0},{"id":"proxy","name":"Proxy Services","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"row","isClosable":true,"title":"","height":9.014160772387433,"content":[{"type":"stack","isClosable":true,"title":"","width":50.0,"content":[{"title":"EI Analytics Search Box","type":"component","component":"EIAnalyticsSearchBox","props":{"id":"e5cf3e3f-3662-4c89-905e-9fa8f0358091","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["selectedComponent"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsSearchBox"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":7.283390031012305,"width":50.0,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"8cb027fb-621c-4069-8453-acfded278ef4","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"]},"isGenerated":false,"options":{"defaultValue":"3 Months"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":19.902402763837483,"content":[{"title":"PROXY  REQUEST COUNT","type":"component","component":"EIAnalyticsStatsChart","props":{"id":"bfae4260-d283-44bb-a430-ea49d298eb9c","configs":{"pubsub":{"types":["subscriber"],"publishers":["8cb027fb-621c-4069-8453-acfded278ef4","e5cf3e3f-3662-4c89-905e-9fa8f0358091"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsStatsChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":18.058891760842734,"content":[{"type":"stack","isClosable":true,"title":"","width":50.0,"content":[{"title":"Proxy Message Count","type":"component","component":"UniversalWidget","props":{"id":"4d8cd3b8-f786-4505-880a-ee9ed9e9633f","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit","componentName"],"publishers":["e5cf3e3f-3662-4c89-905e-9fa8f0358091","8cb027fb-621c-4069-8453-acfded278ef4"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"8cb027fb-621c-4069-8453-acfded278ef4","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"8cb027fb-621c-4069-8453-acfded278ef4","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"8cb027fb-621c-4069-8453-acfded278ef4","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"e5cf3e3f-3662-4c89-905e-9fa8f0358091","publisherWidgetOutput":"selectedComponent"}]},"isGenerated":true,"options":{}},"widgetID":"Proxy-Message-Count"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":50.0,"height":18.058891760842734,"content":[{"title":"Proxy Message Latency","type":"component","component":"UniversalWidget","props":{"id":"51e85b1a-a9cb-4cc2-b785-1ea39cfe39ef","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit","componentName"],"publishers":["e5cf3e3f-3662-4c89-905e-9fa8f0358091","8cb027fb-621c-4069-8453-acfded278ef4"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"8cb027fb-621c-4069-8453-acfded278ef4","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"8cb027fb-621c-4069-8453-acfded278ef4","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"8cb027fb-621c-4069-8453-acfded278ef4","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"e5cf3e3f-3662-4c89-905e-9fa8f0358091","publisherWidgetOutput":"selectedComponent"}]},"isGenerated":true,"options":{}},"widgetID":"Proxy-Message-Latency"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":20.39405565497399,"content":[{"title":"Messages","type":"component","component":"EIAnalyticsMessageTable","props":{"id":"c4002571-3739-4129-93a1-5916cefa5235","configs":{"pubsub":{"types":["subscriber"],"publishers":["8cb027fb-621c-4069-8453-acfded278ef4","e5cf3e3f-3662-4c89-905e-9fa8f0358091"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMessageTable"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":32.630489047958385,"content":[{"title":"EI Analytics Message Flow","type":"component","component":"EIAnalyticsMessageFlow","props":{"id":"775a75c2-5e31-4dae-933f-932b32431b7f","configs":{"pubsub":{"types":["subscriber","publisher"],"publishers":["e5cf3e3f-3662-4c89-905e-9fa8f0358091","8cb027fb-621c-4069-8453-acfded278ef4"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMessageFlow"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":1993.0},{"id":"api","name":"API","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"row","isClosable":true,"title":"","height":9.546076841512694,"content":[{"type":"stack","isClosable":true,"title":"","width":49.999999999999986,"height":25.0,"content":[{"title":"EI Analytics Search Box","type":"component","component":"EIAnalyticsSearchBox","props":{"id":"f4fea18c-d358-431e-81ad-49ae24bd7c90","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["selectedComponent"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsSearchBox"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":49.999999999999986,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"7870473e-8fe8-4112-b96c-1dce3b16f171","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"]},"isGenerated":false,"options":{"defaultValue":"3 Months"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":17.94178820622274,"content":[{"title":"API  REQUEST COUNT","type":"component","component":"EIAnalyticsStatsChart","props":{"id":"bd3a4e62-60f5-4ff2-ac2b-14541dcc39f7","configs":{"pubsub":{"types":["subscriber"],"publishers":["f4fea18c-d358-431e-81ad-49ae24bd7c90","7870473e-8fe8-4112-b96c-1dce3b16f171"],"widgetInputOutputMapping":[]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsStatsChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":16.44726327521599,"content":[{"type":"stack","isClosable":true,"title":"","height":12.218522357048284,"width":50.0,"content":[{"title":"API Message Count","type":"component","component":"UniversalWidget","props":{"id":"56442d84-e3d6-4fcd-89e2-cbebbd287293","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit","componentName"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"7870473e-8fe8-4112-b96c-1dce3b16f171","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"7870473e-8fe8-4112-b96c-1dce3b16f171","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"7870473e-8fe8-4112-b96c-1dce3b16f171","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"f4fea18c-d358-431e-81ad-49ae24bd7c90","publisherWidgetOutput":"selectedComponent"}],"publishers":["f4fea18c-d358-431e-81ad-49ae24bd7c90","7870473e-8fe8-4112-b96c-1dce3b16f171"]},"isGenerated":true,"options":{}},"widgetID":"API-Message-Count"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":50.0,"content":[{"title":"API Message Latency","type":"component","component":"UniversalWidget","props":{"id":"8ff03f9f-ee6b-45c7-99f9-95ae36a3140d","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit","componentName"],"publishers":["f4fea18c-d358-431e-81ad-49ae24bd7c90","7870473e-8fe8-4112-b96c-1dce3b16f171"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"7870473e-8fe8-4112-b96c-1dce3b16f171","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"7870473e-8fe8-4112-b96c-1dce3b16f171","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"7870473e-8fe8-4112-b96c-1dce3b16f171","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"f4fea18c-d358-431e-81ad-49ae24bd7c90","publisherWidgetOutput":"selectedComponent"}]},"isGenerated":true,"options":{}},"widgetID":"API-Message-Latency"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":22.941343231079284,"content":[{"title":"Messages","type":"component","component":"EIAnalyticsMessageTable","props":{"id":"068a30e1-1e49-4b51-9d4a-5fb3cbdbe5a9","configs":{"pubsub":{"types":["subscriber"],"publishers":["7870473e-8fe8-4112-b96c-1dce3b16f171"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMessageTable"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":33.123528445969264,"content":[{"title":"EI Analytics Message Flow","type":"component","component":"EIAnalyticsMessageFlow","props":{"id":"2dd53247-e403-41c4-9d03-ee0c95166f1f","configs":{"pubsub":{"types":["subscriber","publisher"],"publishers":["f4fea18c-d358-431e-81ad-49ae24bd7c90","7870473e-8fe8-4112-b96c-1dce3b16f171"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMessageFlow"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":2191.0},{"id":"sequence","name":"Sequence","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"row","isClosable":true,"title":"","height":8.686176678931822,"content":[{"type":"stack","isClosable":true,"title":"","height":13.755020080321284,"width":50.0,"content":[{"title":"EI Analytics Search Box","type":"component","component":"EIAnalyticsSearchBox","props":{"id":"a93d734b-c943-4460-ba0b-b7a894433ffa","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["selectedComponent"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsSearchBox"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":50.0,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"dd3822cb-9956-4f59-b864-7a91f7afc205","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"],"publishers":[]},"isGenerated":false,"options":{"defaultValue":"3 Months"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":16.496951463292213,"content":[{"title":"SEQUENCE  REQUEST COUNT","type":"component","component":"EIAnalyticsStatsChart","props":{"id":"b689147a-11d1-4f02-902e-b3e40f7a7cb6","configs":{"pubsub":{"types":["subscriber"],"publishers":["a93d734b-c943-4460-ba0b-b7a894433ffa","dd3822cb-9956-4f59-b864-7a91f7afc205"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsStatsChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":17.7155785349845,"content":[{"type":"stack","isClosable":true,"title":"","height":20.05476930209594,"width":50.0,"content":[{"title":"Sequence Message Count","type":"component","component":"UniversalWidget","props":{"id":"5e9b35d5-7891-4ef0-869f-d3c63a2f871f","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit","componentName"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"dd3822cb-9956-4f59-b864-7a91f7afc205","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"dd3822cb-9956-4f59-b864-7a91f7afc205","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"dd3822cb-9956-4f59-b864-7a91f7afc205","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"a93d734b-c943-4460-ba0b-b7a894433ffa","publisherWidgetOutput":"selectedComponent"}],"publishers":["a93d734b-c943-4460-ba0b-b7a894433ffa","dd3822cb-9956-4f59-b864-7a91f7afc205"]},"isGenerated":true,"options":{}},"widgetID":"Sequence-Message-Count"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":50.0,"content":[{"title":"Sequence Message Latency","type":"component","component":"UniversalWidget","props":{"id":"f0a0eb4b-83dd-4b01-8b0b-861f168f05a5","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit","componentName"],"publishers":["a93d734b-c943-4460-ba0b-b7a894433ffa","dd3822cb-9956-4f59-b864-7a91f7afc205"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"dd3822cb-9956-4f59-b864-7a91f7afc205","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"dd3822cb-9956-4f59-b864-7a91f7afc205","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"dd3822cb-9956-4f59-b864-7a91f7afc205","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"a93d734b-c943-4460-ba0b-b7a894433ffa","publisherWidgetOutput":"selectedComponent"}]},"isGenerated":true,"options":{}},"widgetID":"Sequence-Message-Latency"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":18.03198736509204,"content":[{"title":"Messages","type":"component","component":"EIAnalyticsMessageTable","props":{"id":"ad4af316-0a13-4719-9b10-ea4a8dc9eccd","configs":{"pubsub":{"types":["subscriber"],"widgetInputOutputMapping":[],"publishers":["dd3822cb-9956-4f59-b864-7a91f7afc205"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMessageTable"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":39.06930595769942,"content":[{"title":"EI Analytics Message Flow","type":"component","component":"EIAnalyticsMessageFlow","props":{"id":"3b9157a9-dabc-4af7-9a28-e132e457ef45","configs":{"pubsub":{"types":["subscriber","publisher"],"publishers":["a93d734b-c943-4460-ba0b-b7a894433ffa","dd3822cb-9956-4f59-b864-7a91f7afc205"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMessageFlow"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":1964.0},{"id":"endpoint","name":"Endpoint","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"row","isClosable":true,"title":"","height":15.971962755248521,"content":[{"type":"stack","isClosable":true,"title":"","width":50.0,"content":[{"title":"EI Analytics Search Box","type":"component","component":"EIAnalyticsSearchBox","props":{"id":"3865a05b-8f2e-40b3-a9a0-babbff15b622","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["selectedComponent"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsSearchBox"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":25.0,"width":50.0,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"a810d756-a17a-4df9-b089-a554462b9d04","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"]},"isGenerated":false,"options":{"defaultValue":"3 Months"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":27.556219574856147,"content":[{"title":"ENDPOINT  REQUEST COUNT","type":"component","component":"EIAnalyticsStatsChart","props":{"id":"9c7f2585-8a45-46bc-9228-083354f72c46","configs":{"pubsub":{"types":["subscriber"],"publishers":["3865a05b-8f2e-40b3-a9a0-babbff15b622","a810d756-a17a-4df9-b089-a554462b9d04"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsStatsChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":29.290527100546395,"content":[{"type":"stack","isClosable":true,"title":"","height":23.795180722891565,"width":50.0,"content":[{"title":"Endpoint Message Count","type":"component","component":"UniversalWidget","props":{"id":"27ea3510-2337-4870-9934-d28925ad3610","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit","componentName"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"a810d756-a17a-4df9-b089-a554462b9d04","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"a810d756-a17a-4df9-b089-a554462b9d04","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"a810d756-a17a-4df9-b089-a554462b9d04","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"3865a05b-8f2e-40b3-a9a0-babbff15b622","publisherWidgetOutput":"selectedComponent"}],"publishers":["3865a05b-8f2e-40b3-a9a0-babbff15b622","a810d756-a17a-4df9-b089-a554462b9d04"]},"isGenerated":true,"options":{}},"widgetID":"Endpoint-Message-Count"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":50.0,"content":[{"title":"Endpoint Message Latency","type":"component","component":"UniversalWidget","props":{"id":"9fc4b46e-3657-4347-9588-7bc84f8d5572","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit","componentName"],"publishers":["3865a05b-8f2e-40b3-a9a0-babbff15b622","a810d756-a17a-4df9-b089-a554462b9d04"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"a810d756-a17a-4df9-b089-a554462b9d04","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"a810d756-a17a-4df9-b089-a554462b9d04","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"a810d756-a17a-4df9-b089-a554462b9d04","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"3865a05b-8f2e-40b3-a9a0-babbff15b622","publisherWidgetOutput":"selectedComponent"}]},"isGenerated":true,"options":{}},"widgetID":"Endpoint-Message-Latency"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":27.181290569348963,"content":[{"title":"Messages","type":"component","component":"EIAnalyticsMessageTable","props":{"id":"1ad9dad0-2ddb-47e2-980f-2718ea592861","configs":{"pubsub":{"types":["subscriber"],"widgetInputOutputMapping":[],"publishers":["a810d756-a17a-4df9-b089-a554462b9d04"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMessageTable"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":1053.0},{"id":"inbound","name":"Inbound Endpoint","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"row","isClosable":true,"title":"","height":8.482229276903983,"content":[{"type":"stack","isClosable":true,"title":"","width":50.0,"content":[{"title":"EI Analytics Search Box","type":"component","component":"EIAnalyticsSearchBox","props":{"id":"c553d13a-9168-45f4-b6c2-a4fc2bbec9fa","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["selectedComponent"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsSearchBox"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":18.922728782594255,"width":50.0,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"e4f169ba-e7c0-4ffb-9a02-638cc494daac","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"]},"isGenerated":false,"options":{"defaultValue":"3 Months"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":18.521220674614018,"content":[{"title":"INBOUND  REQUEST COUNT","type":"component","component":"EIAnalyticsStatsChart","props":{"id":"ada62cb2-563d-4240-b009-5b37592b1e96","configs":{"pubsub":{"types":["subscriber"],"publishers":["c553d13a-9168-45f4-b6c2-a4fc2bbec9fa","e4f169ba-e7c0-4ffb-9a02-638cc494daac"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsStatsChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":15.981683654867588,"content":[{"type":"stack","isClosable":true,"title":"","height":17.03045590433483,"width":50.0,"content":[{"title":"Inbound Endpoint Message Count","type":"component","component":"UniversalWidget","props":{"id":"a360f182-9c78-47ca-b659-c62df4a8261d","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit","componentName"],"publishers":["c553d13a-9168-45f4-b6c2-a4fc2bbec9fa","e4f169ba-e7c0-4ffb-9a02-638cc494daac"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"e4f169ba-e7c0-4ffb-9a02-638cc494daac","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"e4f169ba-e7c0-4ffb-9a02-638cc494daac","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"e4f169ba-e7c0-4ffb-9a02-638cc494daac","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"c553d13a-9168-45f4-b6c2-a4fc2bbec9fa","publisherWidgetOutput":"selectedComponent"}]},"isGenerated":true,"options":{}},"widgetID":"Inbound-Endpoint-Message-Count"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":50.0,"content":[{"title":"Inbound Endpoint Message Latency","type":"component","component":"UniversalWidget","props":{"id":"5c18a656-6102-4371-b35c-f769307f8c9a","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit","componentName"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"e4f169ba-e7c0-4ffb-9a02-638cc494daac","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"e4f169ba-e7c0-4ffb-9a02-638cc494daac","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"e4f169ba-e7c0-4ffb-9a02-638cc494daac","publisherWidgetOutput":"granularity"},{"subscriberWidgetInput":"componentName","publisherId":"c553d13a-9168-45f4-b6c2-a4fc2bbec9fa","publisherWidgetOutput":"selectedComponent"}],"publishers":["c553d13a-9168-45f4-b6c2-a4fc2bbec9fa","e4f169ba-e7c0-4ffb-9a02-638cc494daac"]},"isGenerated":true,"options":{}},"widgetID":"Inbound-Endpoint-Message-Latency"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":17.57274459549166,"content":[{"title":"Messages","type":"component","component":"EIAnalyticsMessageTable","props":{"id":"4d454605-34f3-4d4f-9381-c04cf9d38daa","configs":{"pubsub":{"types":["subscriber"],"widgetInputOutputMapping":[],"publishers":["e4f169ba-e7c0-4ffb-9a02-638cc494daac"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMessageTable"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":39.44212179812276,"content":[{"title":"EI Analytics Message Flow","type":"component","component":"EIAnalyticsMessageFlow","props":{"id":"744118df-2bc3-42b7-8e0f-d48c1d43ff9e","configs":{"pubsub":{"types":["subscriber","publisher"],"publishers":["c553d13a-9168-45f4-b6c2-a4fc2bbec9fa","e4f169ba-e7c0-4ffb-9a02-638cc494daac"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMessageFlow"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":1872.0},{"id":"message","name":"Message","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"stack","isClosable":true,"title":"","height":50.0,"content":[{"title":"EI Analytics Message Flow","type":"component","component":"EIAnalyticsMessageFlow","props":{"id":"08da310f-e162-4b86-b06b-edaa686effb2","configs":{"pubsub":{"types":["subscriber","publisher"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMessageFlow"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":50.0,"content":[{"title":"EI Analytics Mediator Properties","type":"component","component":"EIAnalyticsMediatorProperties","props":{"id":"a2059e30-63f8-4247-9308-92581867984a","configs":{"pubsub":{"types":["subscriber"],"publishers":["08da310f-e162-4b86-b06b-edaa686effb2"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsMediatorProperties"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":1374.0000305175781,"hidden":true},{"id":"mediator","name":"Mediator","content":[{"type":"row","isClosable":true,"title":"","height":100.0,"content":[{"type":"column","isClosable":true,"title":"","width":50.0,"content":[{"type":"stack","isClosable":true,"title":"","width":50.0,"height":50.0,"content":[{"title":"MEDIATOR  REQUEST COUNT","type":"component","component":"EIAnalyticsStatsChart","props":{"id":"277dc820-21ba-45a7-8e85-e79d7ddfccda","configs":{"pubsub":{"types":["subscriber"],"widgetInputOutputMapping":[],"publishers":["d68460ca-d773-47a4-967a-4263c7d54ed6"]},"isGenerated":false,"options":{}},"widgetID":"EIAnalyticsStatsChart"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":50.0,"content":[{"title":"Mediator Message Count","type":"component","component":"UniversalWidget","props":{"id":"32293089-e1de-4068-a8a1-35c2b1b17619","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit"],"publishers":["d68460ca-d773-47a4-967a-4263c7d54ed6"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"d68460ca-d773-47a4-967a-4263c7d54ed6","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"d68460ca-d773-47a4-967a-4263c7d54ed6","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"d68460ca-d773-47a4-967a-4263c7d54ed6","publisherWidgetOutput":"granularity"}]},"isGenerated":true,"options":{}},"widgetID":"Mediator-Message-Count"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"column","isClosable":true,"title":"","width":50.0,"content":[{"type":"stack","isClosable":true,"title":"","height":50.0,"width":50.0,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"d68460ca-d773-47a4-967a-4263c7d54ed6","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"]},"isGenerated":false,"options":{"defaultValue":"3 Months"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":50.0,"content":[{"title":"Mediator Message Latency","type":"component","component":"UniversalWidget","props":{"id":"d3e2d5e8-12ca-4468-aff9-66980a4bf466","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["timeFrom","timeTo","timeUnit"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"timeFrom","publisherId":"d68460ca-d773-47a4-967a-4263c7d54ed6","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"timeTo","publisherId":"d68460ca-d773-47a4-967a-4263c7d54ed6","publisherWidgetOutput":"to"},{"subscriberWidgetInput":"timeUnit","publisherId":"d68460ca-d773-47a4-967a-4263c7d54ed6","publisherWidgetOutput":"granularity"}],"publishers":["d68460ca-d773-47a4-967a-4263c7d54ed6"]},"isGenerated":true,"options":{}},"widgetID":"Mediator-Message-Latency"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}]}],"hidden":true}],"hasOwnerPermission":false,"hasDesignerPermission":false,"hasViewerPermission":false},"widgets":{"generated":[],"custom":["DateRangePicker","EIAnalyticsSearchBox","EIAnalyticsMediatorProperties","EIAnalyticsMessageTable","EIAnalyticsHorizontalBarChart","EIAnalyticsTPS","EIAnalyticsMessageFlow","EIAnalyticsStatsChart"]}}
+{
+  "dashboard": {
+    "url": "eianalytics",
+    "owner": "admin",
+    "name": "EI Analytics",
+    "description": "A dashboard to display Enterprise Integrator Analytics",
+    "landingPage": "overview",
+    "parentId": "0",
+    "pages": [
+      {
+        "id": "overview",
+        "name": "Overview",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 9.578614692830499,
+                "width": 100.0,
+                "content": [
+                  {
+                    "title": "Date Time Range",
+                    "type": "component",
+                    "component": "DateRangePicker",
+                    "props": {
+                      "id": "aa53daba-1042-4a5b-9ebb-d74bf0770f3d",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "granularity",
+                            "from",
+                            "to"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "defaultValue": "3 Months",
+                          "availableGranularities": "From Second",
+                          "autoSyncInterval": "10"
+                        }
+                      },
+                      "widgetID": "DateRangePicker"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 26.072632492979032,
+                "content": [
+                  {
+                    "title": "OVERVIEW#{%22DTRP%22:{%22TR%22:%223MONTHS%22,%22SD%22:%222018-JUN%22,%22ED%22:%222018-SEP%22,%22G%22:%22MONTH%22,%22SYNC%22:FALSE}}  REQUEST COUNT",
+                    "type": "component",
+                    "component": "EIAnalyticsStatsChart",
+                    "props": {
+                      "id": "caa21446-1300-480b-af06-7eef4570414f",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsStatsChart"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 18.668444461415717,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 18.668444461415717,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "OVERALL EIAnalyticsTPS",
+                        "type": "component",
+                        "component": "EIAnalyticsTPS",
+                        "props": {
+                          "id": "20ceb84d-a96d-402e-98d3-6845233b4e74",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
+                              ],
+                              "widgetInputOutputMapping": []
+                            },
+                            "isGenerated": false,
+                            "options": {}
+                          },
+                          "widgetID": "EIAnalyticsTPS"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[Overall Message Count]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "5df7940c-4cf7-4667-bcbd-8f96d0d904bd",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit"
+                              ],
+                              "publishers": [
+                                "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "aa53daba-1042-4a5b-9ebb-d74bf0770f3d",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "aa53daba-1042-4a5b-9ebb-d74bf0770f3d",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "aa53daba-1042-4a5b-9ebb-d74bf0770f3d",
+                                  "publisherWidgetOutput": "granularity"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Overall-Message-Count"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 18.5590013872592,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 25.0,
+                    "width": 49.92917847025496,
+                    "content": [
+                      {
+                        "title": "Top proxy services by Request Count",
+                        "type": "component",
+                        "component": "EIAnalyticsHorizontalBarChart",
+                        "props": {
+                          "id": "1dba552a-d3a1-441f-b7b6-73b552182dda",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "Component Type Selection": "proxy service"
+                            }
+                          },
+                          "widgetID": "EIAnalyticsHorizontalBarChart"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.07082152974505,
+                    "content": [
+                      {
+                        "title": "Top apis by Request Count",
+                        "type": "component",
+                        "component": "EIAnalyticsHorizontalBarChart",
+                        "props": {
+                          "id": "6b688b47-ef87-4114-90e6-3bd76766459c",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "Component Type Selection": "api"
+                            }
+                          },
+                          "widgetID": "EIAnalyticsHorizontalBarChart"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 27.12130696551555,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 29.989094874591057,
+                    "content": [
+                      {
+                        "title": "Top endpoints by Request Count",
+                        "type": "component",
+                        "component": "EIAnalyticsHorizontalBarChart",
+                        "props": {
+                          "id": "f95513cb-2d88-4554-9982-8fe9d310c0ee",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "Component Type Selection": "endpoint"
+                            }
+                          },
+                          "widgetID": "EIAnalyticsHorizontalBarChart"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 35.176781902660125,
+                    "content": [
+                      {
+                        "title": "Top sequences by Request Count",
+                        "type": "component",
+                        "component": "EIAnalyticsHorizontalBarChart",
+                        "props": {
+                          "id": "af583379-fa88-412c-8f2f-9a91d11e8e1f",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "Component Type Selection": "sequence"
+                            }
+                          },
+                          "widgetID": "EIAnalyticsHorizontalBarChart"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 34.834123222748815,
+                    "content": [
+                      {
+                        "title": "Top inbound endpoints by Request Count",
+                        "type": "component",
+                        "component": "EIAnalyticsHorizontalBarChart",
+                        "props": {
+                          "id": "31a90bea-f5b3-4bcc-bf5c-1b7645066233",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "Component Type Selection": "inbound endpoint"
+                            }
+                          },
+                          "widgetID": "EIAnalyticsHorizontalBarChart"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 1733.4000244140625
+      },
+      {
+        "id": "proxy",
+        "name": "Proxy Services",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 9.906580958757585,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 33.56871758426203,
+                    "height": 7.849504987941964,
+                    "content": [
+                      {
+                        "title": "EI Analytics Search Box",
+                        "type": "component",
+                        "component": "EIAnalyticsSearchBox",
+                        "props": {
+                          "id": "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "selectedComponent"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {}
+                          },
+                          "widgetID": "EIAnalyticsSearchBox"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 66.431282415738,
+                    "content": [
+                      {
+                        "title": "Date Time Range",
+                        "type": "component",
+                        "component": "DateRangePicker",
+                        "props": {
+                          "id": "ea185ba1-a50a-449e-a4f3-3200c78e391c",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "granularity",
+                                "from",
+                                "to"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "defaultValue": "3 Months",
+                              "availableGranularities": "From Second",
+                              "autoSyncInterval": "10"
+                            }
+                          },
+                          "widgetID": "DateRangePicker"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 21.27257485911709,
+                "content": [
+                  {
+                    "title": "PROXY  REQUEST COUNT",
+                    "type": "component",
+                    "component": "EIAnalyticsStatsChart",
+                    "props": {
+                      "id": "7ee63820-5894-4a62-bb95-350bd6b25182",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
+                            "ea185ba1-a50a-449e-a4f3-3200c78e391c"
+                          ],
+                          "widgetInputOutputMapping": []
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsStatsChart"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 14.097111112513605,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 11.887307405215838,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[Proxy Message Count]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "e5b1ac69-0d99-4c32-a2b6-a64e0c7707ad",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit",
+                                "componentName"
+                              ],
+                              "publishers": [
+                                "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
+                                "ea185ba1-a50a-449e-a4f3-3200c78e391c"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "ea185ba1-a50a-449e-a4f3-3200c78e391c",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "ea185ba1-a50a-449e-a4f3-3200c78e391c",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "ea185ba1-a50a-449e-a4f3-3200c78e391c",
+                                  "publisherWidgetOutput": "granularity"
+                                },
+                                {
+                                  "subscriberWidgetInput": "componentName",
+                                  "publisherId": "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
+                                  "publisherWidgetOutput": "selectedComponent"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Proxy-Message-Count"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[Proxy Message Latency]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "14477e0c-d267-40af-a6be-cb210661479a",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit",
+                                "componentName"
+                              ],
+                              "publishers": [
+                                "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
+                                "ea185ba1-a50a-449e-a4f3-3200c78e391c"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "ea185ba1-a50a-449e-a4f3-3200c78e391c",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "ea185ba1-a50a-449e-a4f3-3200c78e391c",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "ea185ba1-a50a-449e-a4f3-3200c78e391c",
+                                  "publisherWidgetOutput": "granularity"
+                                },
+                                {
+                                  "subscriberWidgetInput": "componentName",
+                                  "publisherId": "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
+                                  "publisherWidgetOutput": "selectedComponent"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Proxy-Message-Latency"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 19.272413222464408,
+                "content": [
+                  {
+                    "title": "Messages",
+                    "type": "component",
+                    "component": "EIAnalyticsMessageTable",
+                    "props": {
+                      "id": "607b714c-9c6b-4be7-a348-deb4fda96b84",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
+                            "ea185ba1-a50a-449e-a4f3-3200c78e391c"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMessageTable"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 35.45131984714732,
+                "content": [
+                  {
+                    "title": "EI Analytics Message Flow",
+                    "type": "component",
+                    "component": "EIAnalyticsMessageFlow",
+                    "props": {
+                      "id": "775a75c2-5e31-4dae-933f-932b32431b7f",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber",
+                            "publisher"
+                          ],
+                          "publishers": [
+                            "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
+                            "ea185ba1-a50a-449e-a4f3-3200c78e391c"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMessageFlow"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 1994.0
+      },
+      {
+        "id": "api",
+        "name": "API",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 11.111688025163481,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 33.165271669168355,
+                    "height": 10.861092670659161,
+                    "content": [
+                      {
+                        "title": "EI Analytics Search Box",
+                        "type": "component",
+                        "component": "EIAnalyticsSearchBox",
+                        "props": {
+                          "id": "f4fea18c-d358-431e-81ad-49ae24bd7c90",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "selectedComponent"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {}
+                          },
+                          "widgetID": "EIAnalyticsSearchBox"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 66.83472833083164,
+                    "content": [
+                      {
+                        "title": "Date Time Range",
+                        "type": "component",
+                        "component": "DateRangePicker",
+                        "props": {
+                          "id": "cd941660-27d6-42eb-acbe-9e92de5fd144",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "granularity",
+                                "from",
+                                "to"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "defaultValue": "3 Months",
+                              "availableGranularities": "From Second",
+                              "autoSyncInterval": "10"
+                            }
+                          },
+                          "widgetID": "DateRangePicker"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 20.19619066543107,
+                "content": [
+                  {
+                    "title": "API  REQUEST COUNT",
+                    "type": "component",
+                    "component": "EIAnalyticsStatsChart",
+                    "props": {
+                      "id": "bd3a4e62-60f5-4ff2-ac2b-14541dcc39f7",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "f4fea18c-d358-431e-81ad-49ae24bd7c90",
+                            "cd941660-27d6-42eb-acbe-9e92de5fd144"
+                          ],
+                          "widgetInputOutputMapping": []
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsStatsChart"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 14.29957627455111,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 13.083318811051978,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[API Message Count]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "aef05649-9c70-435f-9fdd-16552333819e",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit",
+                                "componentName"
+                              ],
+                              "publishers": [
+                                "f4fea18c-d358-431e-81ad-49ae24bd7c90",
+                                "cd941660-27d6-42eb-acbe-9e92de5fd144"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "cd941660-27d6-42eb-acbe-9e92de5fd144",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "cd941660-27d6-42eb-acbe-9e92de5fd144",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "cd941660-27d6-42eb-acbe-9e92de5fd144",
+                                  "publisherWidgetOutput": "granularity"
+                                },
+                                {
+                                  "subscriberWidgetInput": "componentName",
+                                  "publisherId": "f4fea18c-d358-431e-81ad-49ae24bd7c90",
+                                  "publisherWidgetOutput": "selectedComponent"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "API-Message-Count"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[API Message Latency]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "278f74a7-dc20-419a-805b-10fe0edf1620",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit",
+                                "componentName"
+                              ],
+                              "publishers": [
+                                "f4fea18c-d358-431e-81ad-49ae24bd7c90",
+                                "cd941660-27d6-42eb-acbe-9e92de5fd144"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "cd941660-27d6-42eb-acbe-9e92de5fd144",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "cd941660-27d6-42eb-acbe-9e92de5fd144",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "cd941660-27d6-42eb-acbe-9e92de5fd144",
+                                  "publisherWidgetOutput": "granularity"
+                                },
+                                {
+                                  "subscriberWidgetInput": "componentName",
+                                  "publisherId": "f4fea18c-d358-431e-81ad-49ae24bd7c90",
+                                  "publisherWidgetOutput": "selectedComponent"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "API-Message-Latency"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 19.838642282252355,
+                "content": [
+                  {
+                    "title": "Messages",
+                    "type": "component",
+                    "component": "EIAnalyticsMessageTable",
+                    "props": {
+                      "id": "af4587aa-8113-40d0-9cec-0df46f53c9cc",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "f4fea18c-d358-431e-81ad-49ae24bd7c90",
+                            "cd941660-27d6-42eb-acbe-9e92de5fd144"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMessageTable"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 34.553902752602,
+                "content": [
+                  {
+                    "title": "EI Analytics Message Flow",
+                    "type": "component",
+                    "component": "EIAnalyticsMessageFlow",
+                    "props": {
+                      "id": "2dd53247-e403-41c4-9d03-ee0c95166f1f",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber",
+                            "publisher"
+                          ],
+                          "publishers": [
+                            "f4fea18c-d358-431e-81ad-49ae24bd7c90",
+                            "cd941660-27d6-42eb-acbe-9e92de5fd144"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMessageFlow"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 2149.0
+      },
+      {
+        "id": "sequence",
+        "name": "Sequence",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 12.384325470861173,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 9.086458721969501,
+                    "width": 33.165271669168355,
+                    "content": [
+                      {
+                        "title": "EI Analytics Search Box",
+                        "type": "component",
+                        "component": "EIAnalyticsSearchBox",
+                        "props": {
+                          "id": "a93d734b-c943-4460-ba0b-b7a894433ffa",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "selectedComponent"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {}
+                          },
+                          "widgetID": "EIAnalyticsSearchBox"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 66.83472833083164,
+                    "content": [
+                      {
+                        "title": "Date Time Range",
+                        "type": "component",
+                        "component": "DateRangePicker",
+                        "props": {
+                          "id": "00674be1-08d6-4446-a4c9-06d062376a28",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "granularity",
+                                "from",
+                                "to"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "defaultValue": "3 Months",
+                              "availableGranularities": "From Second",
+                              "autoSyncInterval": "10"
+                            }
+                          },
+                          "widgetID": "DateRangePicker"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 19.291552032784615,
+                "width": 100.0,
+                "content": [
+                  {
+                    "title": "SEQUENCE  REQUEST COUNT",
+                    "type": "component",
+                    "component": "EIAnalyticsStatsChart",
+                    "props": {
+                      "id": "b689147a-11d1-4f02-902e-b3e40f7a7cb6",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "a93d734b-c943-4460-ba0b-b7a894433ffa",
+                            "00674be1-08d6-4446-a4c9-06d062376a28"
+                          ],
+                          "widgetInputOutputMapping": []
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsStatsChart"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 16.419970007797616,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 11.53980105855789,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[Sequence Message Count]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "9131c3bb-a8d8-4b9a-a5cf-406044cb32f7",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit",
+                                "componentName"
+                              ],
+                              "publishers": [
+                                "a93d734b-c943-4460-ba0b-b7a894433ffa",
+                                "00674be1-08d6-4446-a4c9-06d062376a28"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "00674be1-08d6-4446-a4c9-06d062376a28",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "00674be1-08d6-4446-a4c9-06d062376a28",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "00674be1-08d6-4446-a4c9-06d062376a28",
+                                  "publisherWidgetOutput": "granularity"
+                                },
+                                {
+                                  "subscriberWidgetInput": "componentName",
+                                  "publisherId": "a93d734b-c943-4460-ba0b-b7a894433ffa",
+                                  "publisherWidgetOutput": "selectedComponent"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Sequence-Message-Count"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[Sequence Message Latency]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "52af2fb2-06c5-431b-928a-2663bf70097c",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit",
+                                "componentName"
+                              ],
+                              "publishers": [
+                                "a93d734b-c943-4460-ba0b-b7a894433ffa",
+                                "00674be1-08d6-4446-a4c9-06d062376a28"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "00674be1-08d6-4446-a4c9-06d062376a28",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "00674be1-08d6-4446-a4c9-06d062376a28",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "00674be1-08d6-4446-a4c9-06d062376a28",
+                                  "publisherWidgetOutput": "granularity"
+                                },
+                                {
+                                  "subscriberWidgetInput": "componentName",
+                                  "publisherId": "a93d734b-c943-4460-ba0b-b7a894433ffa",
+                                  "publisherWidgetOutput": "selectedComponent"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Sequence-Message-Latency"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 17.35294569888908,
+                "content": [
+                  {
+                    "title": "Messages",
+                    "type": "component",
+                    "component": "EIAnalyticsMessageTable",
+                    "props": {
+                      "id": "a3506d95-fc60-4b4c-ac1f-460537160bda",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "a93d734b-c943-4460-ba0b-b7a894433ffa",
+                            "00674be1-08d6-4446-a4c9-06d062376a28"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMessageTable"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 34.55120678966752,
+                "content": [
+                  {
+                    "title": "EI Analytics Message Flow",
+                    "type": "component",
+                    "component": "EIAnalyticsMessageFlow",
+                    "props": {
+                      "id": "3b9157a9-dabc-4af7-9a28-e132e457ef45",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber",
+                            "publisher"
+                          ],
+                          "publishers": [
+                            "a93d734b-c943-4460-ba0b-b7a894433ffa",
+                            "00674be1-08d6-4446-a4c9-06d062376a28"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMessageFlow"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 1964.0
+      },
+      {
+        "id": "endpoint",
+        "name": "Endpoint",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 19.498302419813626,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 33.11486829093233,
+                    "height": 15.971962755248521,
+                    "content": [
+                      {
+                        "title": "EI Analytics Search Box",
+                        "type": "component",
+                        "component": "EIAnalyticsSearchBox",
+                        "props": {
+                          "id": "3865a05b-8f2e-40b3-a9a0-babbff15b622",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "selectedComponent"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {}
+                          },
+                          "widgetID": "EIAnalyticsSearchBox"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 66.88513170906766,
+                    "content": [
+                      {
+                        "title": "Date Time Range",
+                        "type": "component",
+                        "component": "DateRangePicker",
+                        "props": {
+                          "id": "84e1a9ea-64c0-412a-a99e-1ffb88502778",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "granularity",
+                                "from",
+                                "to"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "defaultValue": "3 Months",
+                              "availableGranularities": "From Second",
+                              "autoSyncInterval": "10"
+                            }
+                          },
+                          "widgetID": "DateRangePicker"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 29.408555399675294,
+                "content": [
+                  {
+                    "title": "ENDPOINT  REQUEST COUNT",
+                    "type": "component",
+                    "component": "EIAnalyticsStatsChart",
+                    "props": {
+                      "id": "9c7f2585-8a45-46bc-9228-083354f72c46",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "3865a05b-8f2e-40b3-a9a0-babbff15b622",
+                            "84e1a9ea-64c0-412a-a99e-1ffb88502778"
+                          ],
+                          "widgetInputOutputMapping": []
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsStatsChart"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 22.734395675502505,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 17.71053121060733,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[Endpoint Message Count]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "27520bf9-5470-47c5-b96c-f52244f11fc8",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit",
+                                "componentName"
+                              ],
+                              "publishers": [
+                                "3865a05b-8f2e-40b3-a9a0-babbff15b622",
+                                "84e1a9ea-64c0-412a-a99e-1ffb88502778"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "84e1a9ea-64c0-412a-a99e-1ffb88502778",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "84e1a9ea-64c0-412a-a99e-1ffb88502778",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "84e1a9ea-64c0-412a-a99e-1ffb88502778",
+                                  "publisherWidgetOutput": "granularity"
+                                },
+                                {
+                                  "subscriberWidgetInput": "componentName",
+                                  "publisherId": "3865a05b-8f2e-40b3-a9a0-babbff15b622",
+                                  "publisherWidgetOutput": "selectedComponent"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Endpoint-Message-Count"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[Endpoint Message Latency]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "e653dbfa-1f32-425e-99de-0c258d366dd9",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit",
+                                "componentName"
+                              ],
+                              "publishers": [
+                                "3865a05b-8f2e-40b3-a9a0-babbff15b622",
+                                "84e1a9ea-64c0-412a-a99e-1ffb88502778"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "84e1a9ea-64c0-412a-a99e-1ffb88502778",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "84e1a9ea-64c0-412a-a99e-1ffb88502778",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "84e1a9ea-64c0-412a-a99e-1ffb88502778",
+                                  "publisherWidgetOutput": "granularity"
+                                },
+                                {
+                                  "subscriberWidgetInput": "componentName",
+                                  "publisherId": "3865a05b-8f2e-40b3-a9a0-babbff15b622",
+                                  "publisherWidgetOutput": "selectedComponent"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Endpoint-Message-Latency"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 28.358746505008604,
+                "content": [
+                  {
+                    "title": "Messages",
+                    "type": "component",
+                    "component": "EIAnalyticsMessageTable",
+                    "props": {
+                      "id": "40de7705-a760-4e1d-8554-25a04ed7dd1f",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "3865a05b-8f2e-40b3-a9a0-babbff15b622",
+                            "84e1a9ea-64c0-412a-a99e-1ffb88502778"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMessageTable"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 1260.7999877929688
+      },
+      {
+        "id": "inbound",
+        "name": "Inbound Endpoint",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 11.635631536560387,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 33.06446491269631,
+                    "content": [
+                      {
+                        "title": "EI Analytics Search Box",
+                        "type": "component",
+                        "component": "EIAnalyticsSearchBox",
+                        "props": {
+                          "id": "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "selectedComponent"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {}
+                          },
+                          "widgetID": "EIAnalyticsSearchBox"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 66.9355350873037,
+                    "height": 9.090802872124586,
+                    "content": [
+                      {
+                        "title": "Date Time Range",
+                        "type": "component",
+                        "component": "DateRangePicker",
+                        "props": {
+                          "id": "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "granularity",
+                                "from",
+                                "to"
+                              ],
+                              "publishers": []
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "defaultValue": "3 Months",
+                              "availableGranularities": "From Second",
+                              "autoSyncInterval": "10"
+                            }
+                          },
+                          "widgetID": "DateRangePicker"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 20.809677862483746,
+                "content": [
+                  {
+                    "title": "INBOUND  REQUEST COUNT",
+                    "type": "component",
+                    "component": "EIAnalyticsStatsChart",
+                    "props": {
+                      "id": "ada62cb2-563d-4240-b009-5b37592b1e96",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                            "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
+                          ],
+                          "widgetInputOutputMapping": []
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsStatsChart"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 14.295643943363249,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 10.831495131197688,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[Inbound Endpoint Message Count]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "d4ece54b-c7b8-4d46-83dc-fcc097b985a9",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit",
+                                "componentName"
+                              ],
+                              "publishers": [
+                                "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a",
+                                "fb49be68-14e3-472b-b371-daf6bfef58cb"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                                  "publisherWidgetOutput": "granularity"
+                                },
+                                {
+                                  "subscriberWidgetInput": "componentName",
+                                  "publisherId": "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a",
+                                  "publisherWidgetOutput": "selectedComponent"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Inbound-Endpoint-Message-Count"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "[Inbound Endpoint Message Latency]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "0070424f-56f7-4fb4-afa5-9565963aaacb",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit ",
+                                "componentName"
+                              ],
+                              "publishers": [
+                                "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a",
+                                "fb49be68-14e3-472b-b371-daf6bfef58cb"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit ",
+                                  "publisherId": "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                                  "publisherWidgetOutput": "granularity"
+                                },
+                                {
+                                  "subscriberWidgetInput": "componentName",
+                                  "publisherId": "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a",
+                                  "publisherWidgetOutput": "selectedComponent"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Inbound-Endpoint-Message-Latency"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 18.684578894866707,
+                "content": [
+                  {
+                    "title": "Messages",
+                    "type": "component",
+                    "component": "EIAnalyticsMessageTable",
+                    "props": {
+                      "id": "15cb4ed4-bc6c-4481-a773-8d37e331b544",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a",
+                            "fb49be68-14e3-472b-b371-daf6bfef58cb"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMessageTable"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 34.57446776272593,
+                "content": [
+                  {
+                    "title": "EI Analytics Message Flow",
+                    "type": "component",
+                    "component": "EIAnalyticsMessageFlow",
+                    "props": {
+                      "id": "744118df-2bc3-42b7-8e0f-d48c1d43ff9e",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber",
+                            "publisher"
+                          ],
+                          "publishers": [
+                            "fb49be68-14e3-472b-b371-daf6bfef58cb",
+                            "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
+                          ],
+                          "widgetInputOutputMapping": []
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMessageFlow"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 2231.0
+      },
+      {
+        "id": "message",
+        "name": "Message",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 50.0,
+                "content": [
+                  {
+                    "title": "EI Analytics Message Flow",
+                    "type": "component",
+                    "component": "EIAnalyticsMessageFlow",
+                    "props": {
+                      "id": "08da310f-e162-4b86-b06b-edaa686effb2",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber",
+                            "publisher"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMessageFlow"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 50.0,
+                "content": [
+                  {
+                    "title": "EI Analytics Mediator Properties",
+                    "type": "component",
+                    "component": "EIAnalyticsMediatorProperties",
+                    "props": {
+                      "id": "a2059e30-63f8-4247-9308-92581867984a",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "08da310f-e162-4b86-b06b-edaa686effb2"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "EIAnalyticsMediatorProperties"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 1374.0000305175781,
+        "hidden": true
+      },
+      {
+        "id": "mediator",
+        "name": "Mediator",
+        "content": [
+          {
+            "type": "row",
+            "isClosable": true,
+            "title": "",
+            "height": 100.0,
+            "content": [
+              {
+                "type": "column",
+                "isClosable": true,
+                "title": "",
+                "width": 50.0,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "width": 50.0,
+                    "height": 50.0,
+                    "content": [
+                      {
+                        "title": "MEDIATOR  REQUEST COUNT",
+                        "type": "component",
+                        "component": "EIAnalyticsStatsChart",
+                        "props": {
+                          "id": "277dc820-21ba-45a7-8e85-e79d7ddfccda",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "widgetInputOutputMapping": [],
+                              "publishers": [
+                                "afb5839d-3770-4f79-a00a-37d4d5e5821c"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {}
+                          },
+                          "widgetID": "EIAnalyticsStatsChart"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 50.0,
+                    "content": [
+                      {
+                        "title": "[Mediator Message Count]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "c103ef9b-4216-424a-a1fd-415ba0329edb",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom",
+                                "timeTo",
+                                "timeUnit"
+                              ],
+                              "publishers": [
+                                "afb5839d-3770-4f79-a00a-37d4d5e5821c"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom",
+                                  "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
+                                  "publisherWidgetOutput": "granularity"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Mediator-Message-Count"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "column",
+                "isClosable": true,
+                "title": "",
+                "width": 50.0,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 50.0,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "Date Time Range",
+                        "type": "component",
+                        "component": "DateRangePicker",
+                        "props": {
+                          "id": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "granularity",
+                                "from",
+                                "to"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "defaultValue": "3 Months",
+                              "availableGranularities": "From Second",
+                              "autoSyncInterval": "10"
+                            }
+                          },
+                          "widgetID": "DateRangePicker"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 50.0,
+                    "content": [
+                      {
+                        "title": "[Mediator Message Latency]",
+                        "type": "component",
+                        "component": "UniversalWidget",
+                        "props": {
+                          "id": "c3ce4687-c66e-45e6-9b7e-175c133f7437",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "subscriberWidgetInputs": [
+                                "timeFrom ",
+                                "timeTo",
+                                "timeUnit"
+                              ],
+                              "publishers": [
+                                "afb5839d-3770-4f79-a00a-37d4d5e5821c"
+                              ],
+                              "widgetInputOutputMapping": [
+                                {
+                                  "subscriberWidgetInput": "timeFrom ",
+                                  "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
+                                  "publisherWidgetOutput": "from"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeTo",
+                                  "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
+                                  "publisherWidgetOutput": "to"
+                                },
+                                {
+                                  "subscriberWidgetInput": "timeUnit",
+                                  "publisherId": "afb5839d-3770-4f79-a00a-37d4d5e5821c",
+                                  "publisherWidgetOutput": "granularity"
+                                }
+                              ]
+                            },
+                            "isGenerated": true,
+                            "options": {}
+                          },
+                          "widgetID": "Mediator-Message-Latency"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "hidden": true
+      }
+    ],
+    "hasOwnerPermission": false,
+    "hasDesignerPermission": false,
+    "hasViewerPermission": false
+  },
+  "widgets": {
+    "generated": [
+      {
+        "name": "Inbound Endpoint Message Latency",
+        "id": "Inbound-Endpoint-Message-Latency",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Minimum",
+              "fill": "#1565C0 ",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Average",
+              "fill": "#4DB6AC",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Maximum",
+              "fill": "#F44336",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit ,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit ",
+                    "defaultValue": "minute"
+                  },
+                  {
+                    "name": "componentName",
+                    "defaultValue": "test"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Minimum",
+            "Maximum",
+            "Average",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit ",
+            "componentName"
+          ]
+        }
+      },
+      {
+        "name": "Inbound Endpoint Message Count",
+        "id": "Inbound-Endpoint-Message-Count",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Success",
+              "fill": "#5CB85C",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Faults",
+              "fill": "#D9534F",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \" + timeTo + \"L per \u0027\"  + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  },
+                  {
+                    "name": "componentName",
+                    "defaultValue": "test"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Count",
+            "Faults",
+            "Success",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit",
+            "componentName"
+          ]
+        }
+      },
+      {
+        "name": "API Message Latency",
+        "id": "API-Message-Latency",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Minimum",
+              "fill": "#1565C0",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Average",
+              "fill": "#4DB6AC",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Maximum",
+              "fill": "#F44336",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  },
+                  {
+                    "name": "componentName",
+                    "defaultValue": "test"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Minimum",
+            "Maximum",
+            "Average",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit",
+            "componentName"
+          ]
+        }
+      },
+      {
+        "name": "Proxy Message Latency",
+        "id": "Proxy-Message-Latency",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Minimum",
+              "fill": "#1565C0",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Average",
+              "fill": "#4DB6AC",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Maximum",
+              "fill": "#F44336 ",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  },
+                  {
+                    "name": "componentName",
+                    "defaultValue": "test"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Minimum",
+            "Maximum",
+            "Average",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit",
+            "componentName"
+          ]
+        }
+      },
+      {
+        "name": "Overall Message Count",
+        "id": "Overall-Message-Count",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Success",
+              "fill": "#5CB85C",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Faults",
+              "fill": "#D9534F",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit){let query \u003d \"from ESBStatAgg on not(AGG_TIMESTAMP is null) within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \"\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "1530816178000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "1530816609000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "second"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from ESBStatAgg on not(AGG_TIMESTAMP is null) within 1530816178000L, 1530816609000L per \u0027seconds\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Count",
+            "Faults",
+            "Success",
+            "Time",
+            "date"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME",
+            "LINEAR"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit"
+          ]
+        }
+      },
+      {
+        "name": "Mediator Message Latency",
+        "id": "Mediator-Message-Latency",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Minimum",
+              "fill": "#1565C0",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Average",
+              "fill": "#4DB6AC",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Maximum",
+              "fill": "#F44336",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom ,timeTo,timeUnit){let entryPoint \u003d null;\nlet id \u003d true;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.mediator_page_entryPoint;\n\tid \u003d hashObject.mediator_page_id;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentId\u003d\u003d\u0027\" + id + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom ",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from MediatorStatAgg on true AND componentId\u003d\u003d\u0027true\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Minimum",
+            "Maximum",
+            "Average",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom ",
+            "timeTo",
+            "timeUnit"
+          ]
+        }
+      },
+      {
+        "name": "Sequence Message Latency",
+        "id": "Sequence-Message-Latency",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Minimum",
+              "fill": "#1565C0",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Average",
+              "fill": "#4DB6AC",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Maximum",
+              "fill": "#F44336",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.sequence_page_entryPoint;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\n\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  },
+                  {
+                    "name": "componentName",
+                    "defaultValue": "test"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from MediatorStatAgg on true AND componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Minimum",
+            "Maximum",
+            "Average",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit",
+            "componentName"
+          ]
+        }
+      },
+      {
+        "name": "Sequence Message Count",
+        "id": "Sequence-Message-Count",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Success",
+              "fill": "#5CB85C",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Faults",
+              "fill": "#D9534F",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.sequence_page_entryPoint;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" +  timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  },
+                  {
+                    "name": "componentName",
+                    "defaultValue": "test"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from MediatorStatAgg on true AND componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Count",
+            "Faults",
+            "Success",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit",
+            "componentName"
+          ]
+        }
+      },
+      {
+        "name": "Endpoint Message Count",
+        "id": "Endpoint-Message-Count",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Success",
+              "fill": "#5CB85C",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Faults",
+              "fill": "#D9534F",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.endpoint_page_entryPoint;\n}\n\t\nlet query \u003d \u0027\u0027;\n\nif (entryPoint \u003d\u003d \u0027undefined\u0027 || entryPoint \u003d\u003d null) {\n    query \u003d \"from MediatorStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027) + \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query \u003d \"from MediatorStatAgg on entryPoint\u003d\u003d\u0027\" + entryPoint + \"\u0027 AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\"  + (timeUnit + \u0027s\u0027) + \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  },
+                  {
+                    "name": "componentName",
+                    "defaultValue": "test"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from MediatorStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Count",
+            "Faults",
+            "Success",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit",
+            "componentName"
+          ]
+        }
+      },
+      {
+        "name": "API Message Count",
+        "id": "API-Message-Count",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Success",
+              "fill": "#5CB85C",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Faults",
+              "fill": "#D9534F",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \" + timeTo + \"L per \u0027\"  + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  },
+                  {
+                    "name": "componentName",
+                    "defaultValue": "test"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Count",
+            "Faults",
+            "Success",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit",
+            "componentName"
+          ]
+        }
+      },
+      {
+        "name": "Endpoint Message Latency",
+        "id": "Endpoint-Message-Latency",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Minimum",
+              "fill": "#1565C0 ",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Average",
+              "fill": "#4DB6AC",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Maximum",
+              "fill": "#F44336",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.endpoint_page_entryPoint;\n}\nlet query \u003d \u0027\u0027;\nif (entryPoint \u003d\u003d \u0027undefined\u0027 || entryPoint \u003d\u003d null) {\n    query \u003d \"from MediatorStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\"  + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query \u003d \"from MediatorStatAgg on entryPoint\u003d\u003d\u0027\" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  },
+                  {
+                    "name": "componentName",
+                    "defaultValue": "test"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from MediatorStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Minimum",
+            "Maximum",
+            "Average",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit",
+            "componentName"
+          ]
+        }
+      },
+      {
+        "name": "Mediator Message Count",
+        "id": "Mediator-Message-Count",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Success",
+              "fill": "#5CB85C",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Fault",
+              "fill": "#D9534F",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit){let entryPoint \u003d null;\nlet id \u003d true;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.mediator_page_entryPoint;\n\tid \u003d hashObject.mediator_page_id;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentId\u003d\u003d\u0027\" + id + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from MediatorStatAgg on true AND componentId\u003d\u003d\u0027true\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Count",
+            "Fault",
+            "Success",
+            "Time"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit"
+          ]
+        }
+      },
+      {
+        "name": "Proxy Message Count",
+        "id": "Proxy-Message-Count",
+        "chartConfig": {
+          "x": "Time",
+          "charts": [
+            {
+              "type": "bar",
+              "y": "Success",
+              "fill": "#5CB85C",
+              "mode": "stacked"
+            },
+            {
+              "type": "bar",
+              "y": "Faults",
+              "fill": "#D9534F",
+              "mode": "stacked"
+            }
+          ],
+          "legend": true,
+          "maxLength": 20,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \" + timeTo + \"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "timeFrom",
+                    "defaultValue": "331237800000"
+                  },
+                  {
+                    "name": "timeTo",
+                    "defaultValue": "394309800000"
+                  },
+                  {
+                    "name": "timeUnit",
+                    "defaultValue": "minute"
+                  },
+                  {
+                    "name": "componentName",
+                    "defaultValue": "test"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP"
+              },
+              "publishingInterval": 60,
+              "timeColumns": "Time"
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "Count",
+            "Faults",
+            "Success",
+            "Time",
+            "date"
+          ],
+          "types": [
+            "LINEAR",
+            "LINEAR",
+            "LINEAR",
+            "TIME",
+            "LINEAR"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "timeFrom",
+            "timeTo",
+            "timeUnit",
+            "componentName"
+          ]
+        }
+      }
+    ],
+    "custom": [
+      "DateRangePicker",
+      "EIAnalyticsSearchBox",
+      "EIAnalyticsMediatorProperties",
+      "EIAnalyticsMessageTable",
+      "EIAnalyticsHorizontalBarChart",
+      "EIAnalyticsTPS",
+      "EIAnalyticsMessageFlow",
+      "EIAnalyticsStatsChart"
+    ]
+  }
+}
