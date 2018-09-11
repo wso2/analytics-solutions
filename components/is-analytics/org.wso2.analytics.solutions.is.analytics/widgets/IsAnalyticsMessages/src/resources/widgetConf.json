@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Messages",
+  "name": "IS Analytics Messages",
   "id": "IsAnalyticsMessages",
   "thumbnailURL": "",
   "configs": {
@@ -26,14 +26,10 @@
         "id": "headerTitle",
         "title": "Widget Display Name",
         "type": {
-          "name": "ENUM",
-          "possibleValues": [
-            "Overall Login Attempts Messages",
-            "Local Login Attempts Messages",
-            "Federated Login Attempts Messages"
-          ]
+          "name": "TEXT",
+          "possibleValues": []
         },
-        "defaultValue": "Overall Login Attempts Messages"
+        "defaultValue": "Login Attempts Messages"
       }
     ],
     "providerConfig": {

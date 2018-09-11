@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Compact Summary",
+  "name": "IS Analytics Compact Summary",
   "id": "IsAnalyticsCompactSummary",
   "thumbnailURL": "",
   "configs": {
@@ -26,14 +26,10 @@
         "id": "headerTitle",
         "title": "Widget Display Name",
         "type": {
-          "name": "ENUM",
-          "possibleValues": [
-            "Overall Login Attempts Compact Summary",
-            "Local Login Attempts Compact Summary",
-            "Federated Login Attempts Compact Summary"
-          ]
+          "name": "TEXT",
+          "possibleValues": []
         },
-        "defaultValue": "Overall Login Attempts Compact Summary"
+        "defaultValue": "Login Attempts Compact Summary"
       }
     ],
     "providerConfig": {

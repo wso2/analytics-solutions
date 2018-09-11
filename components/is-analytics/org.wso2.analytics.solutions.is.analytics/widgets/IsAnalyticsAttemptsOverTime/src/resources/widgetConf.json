@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Attempts Over Time",
+  "name": "IS Analytics Attempts Over Time",
   "id": "IsAnalyticsAttemptsOverTime",
   "thumbnailURL": "",
   "configs": {
@@ -26,14 +26,10 @@
         "id": "headerTitle",
         "title": "Widget Display Name",
         "type": {
-          "name": "Enum",
-          "possibleValues": [
-            "Overall Login Attempts Over Time",
-            "Local Login Attempts Over Time",
-            "Federated Login Attempts Over Time"
-          ]
+          "name": "TEXT",
+          "possibleValues": []
         },
-        "defaultValue": "Overall Login Attempts Over Time"
+        "defaultValue": "Login Attempts Over Time"
       }
     ],
     "providerConfig": {
