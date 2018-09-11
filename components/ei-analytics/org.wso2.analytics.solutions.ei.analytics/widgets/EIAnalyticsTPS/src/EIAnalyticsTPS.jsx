@@ -34,7 +34,7 @@ class EIAnalyticsTPS extends Widget {
 
         var config = {
             "x": 'Time',
-            "charts": [{type: "bar", y: "EIAnalyticsTPS"}],
+            "charts": [{type: "line", y: "EIAnalyticsTPS"}],
             "maxLength": 10,
             "width": 400,
             "height": 200,
