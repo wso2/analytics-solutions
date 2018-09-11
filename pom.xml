@@ -27,7 +27,7 @@
     <groupId>org.wso2.analytics.solutions</groupId>
     <artifactId>org.wso2.analytics.solutions.parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.9-SNAPSHOT</version>
     <name>WSO2 Analytics Solutions - Parent</name>
 
     <modules>
