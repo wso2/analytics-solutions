@@ -108,7 +108,6 @@ class IsAnalyticsSummary extends Widget {
             numChartMetadata,
             dataProviderConf: null,
             isProviderConfigFault: false,
-            seeMoreLink: '',
             totalAttempts: 0,
         };
 
@@ -128,7 +127,6 @@ class IsAnalyticsSummary extends Widget {
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                    seeMoreLink: this.getSeeMoreLink(),
                 }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
@@ -338,7 +336,7 @@ class IsAnalyticsSummary extends Widget {
                         width: width * 0.9,
                     }}
                     >
-                        <a href={this.state.seeMoreLink}>
+                        <a href={this.getSeeMoreLink()}>
                             <Button color="primary" variant="outlined" component="span" style={{ float: 'right' }}>
                                 <Typography
                                     variant="button"
