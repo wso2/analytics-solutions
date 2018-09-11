@@ -25,21 +25,15 @@ import _ from 'lodash';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-const widgetTexts = {
-    Overall: {
-        bodyText: 'Analyze overall login attempts made via WSO2 Identity Server. '
+const bodyTexts = {
+    Overall: 'Analyze overall login attempts made via WSO2 Identity Server. '
         + 'This includes information about overall flows of authentication took place through Identity Server.'
         + 'A collection of authentication steps is considered as an overall attempt',
-    },
-    Local: {
-        bodyText: 'Analyze local login attempts made via WSO2 Identity Server. '
+    Local: 'Analyze local login attempts made via WSO2 Identity Server. '
         + 'Local login attempts include all login attempts which are done through resident IDP.'
         + 'These statistics will give an idea on the involvement of resident IDP in an authentication flow.',
-    },
-    Federated: {
-        bodyText: 'Analyze federated login attempts made via WSO2 Identity Server.'
+    Federated: 'Analyze federated login attempts made via WSO2 Identity Server.'
         + 'This will give an idea about the authentication steps took place via federated identity providers.',
-    },
 };
 
 const colorGreen = '#6ED460';
@@ -116,7 +110,7 @@ class IsAnalyticsSummary extends Widget {
             isProviderConfigFault: false,
             options: this.props.configs.options,
             seeMoreLink: '',
-            widgetTexts: widgetTexts[this.props.configs.options.widgetType],
+            bodyText: bodyTexts[this.props.configs.options.widgetType],
             totalAttempts: 0,
         };
 
@@ -269,7 +263,7 @@ class IsAnalyticsSummary extends Widget {
                     }}
                     >
                         <Typography variant="body1" gutterBottom align="center">
-                            {this.state.widgetTexts.bodyText}
+                            {this.state.bodyText}
                         </Typography>
                     </div>
                     <div style={{
