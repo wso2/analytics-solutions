@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Attempts By Type",
+  "name": "IS Analytics Attempts By Type",
   "id": "IsAnalyticsAttemptsByType",
   "thumbnailURL": "",
   "configs": {
@@ -46,16 +46,10 @@
         "id": "headerTitle",
         "title": "Widget Display Name",
         "type": {
-          "name": "ENUM",
-          "possibleValues": [
-            "Login Attempts By Service Provider",
-            "Login Attempts By User Store Domain",
-            "Login Attempts By Role",
-            "Login Attempts By Identity Provider",
-            "Login Attempts By Username"
-          ]
+          "name": "TEXT",
+          "possibleValues": []
         },
-        "defaultValue": "Login Attempts By Username"
+        "defaultValue": "Login Attempts By "
       }
     ],
     "providerConfig": {

@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Login Attempts Map",
+  "name": "IS Analytics Login Attempts Map",
   "id": "IsAnalyticsLoginAttemptsMap",
   "thumbnailURL": "",
   "configs": {
@@ -26,14 +26,10 @@
         "id": "headerTitle",
         "title": "Widget Display Name",
         "type": {
-          "name": "ENUM",
-          "possibleValues": [
-            "Overall Login Attempts Map",
-            "Local Login Attempts Map",
-            "Federated Login Attempts Map"
-          ]
+          "name": "TEXT",
+          "possibleValues": []
         },
-        "defaultValue": "Overall Login Attempts Map"
+        "defaultValue": "Login Attempts Map"
       }
     ],
     "providerConfig": {

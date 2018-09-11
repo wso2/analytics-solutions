@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics User Preferences",
+  "name": "IS Analytics User Preferences",
   "id": "IsAnalyticsUserPreferences",
   "thumbnailURL": "",
   "configs": {
@@ -31,14 +31,10 @@
         "id": "headerTitle",
         "title": "Widget Display Name",
         "type": {
-          "name": "ENUM",
-          "possibleValues": [
-            "Overall Login Attempts User Preferences",
-            "Local Login Attempts User Preferences",
-            "Federated Login Attempts User Preferences"
-          ]
+          "name": "TEXT",
+          "possibleValues": []
         },
-        "defaultValue": "Overall Login User Preferences"
+        "defaultValue": "User Preferences"
       }
     ]
   }
