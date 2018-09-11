@@ -262,8 +262,8 @@ class IsAnalyticsCompactSummary extends Widget {
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
                         <Typography variant="body1" gutterBottom align="center">
-                            Unable to fetch data from siddhi data provider,
-                            please check the data provider configurations.
+                            Unable to fetch data from Siddhi data provider,
+                            Please check the data provider configurations.
                         </Typography>
                     </div>
                 </MuiThemeProvider>
