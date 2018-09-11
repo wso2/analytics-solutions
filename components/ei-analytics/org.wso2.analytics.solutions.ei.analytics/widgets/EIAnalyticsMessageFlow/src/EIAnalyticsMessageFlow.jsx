@@ -55,6 +55,9 @@ let svgCenter = {
 class EIAnalyticsMessageFlow extends Widget {
     constructor(props) {
         super(props);
+        this.props.glContainer.setTitle(
+            "Message Flow"
+        );
         this.parameters = {
             timeFrom: null,
             timeTo: null,
