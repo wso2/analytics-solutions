@@ -279,7 +279,8 @@ final class AnalyticsSpan implements Span {
     }
 
     static long nowMicros() {
-        return System.nanoTime();
+        //todo: revert the time generator to nowMicros(), after fixing the Siddhi microsecond support
+        return System.currentTimeMillis();
     }
 
     private synchronized void finishedCheck(String format, Object... args) {
