@@ -112,7 +112,7 @@ select
     stepAuthenticator,
     isFirstLogin,
     identityProviderType,
-    time:dateFormat(timestamp, "MMMM dd, yyyy hh:mm:ss a zzz") as utcTime,
+    time:dateFormat(timestamp, "MMM dd, yyyy hh:mm:ss a zzz") as utcTime,
     timestamp
 group by
     meta_tenantId,

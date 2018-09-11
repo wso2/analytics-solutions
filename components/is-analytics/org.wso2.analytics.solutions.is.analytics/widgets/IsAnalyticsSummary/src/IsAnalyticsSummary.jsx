@@ -30,20 +30,17 @@ const widgetTexts = {
         bodyText: 'Analyze overall login attempts made via WSO2 Identity Server. '
         + 'This includes information about overall flows of authentication took place through Identity Server.'
         + 'A collection of authentication steps is considered as an overall attempt',
-        heading: 'Overall Login Attempts',
         seeMoreLink: window.location.href.split('?')[0] + '/../overall',
     },
     Local: {
         bodyText: 'Analyze local login attempts made via WSO2 Identity Server. '
         + 'Local login attempts include all login attempts which are done through resident IDP.'
         + 'These statistics will give an idea on the involvement of resident IDP in an authentication flow.',
-        heading: 'Local Login Attempts',
         seeMoreLink: window.location.href.split('?')[0] + '/../local',
     },
     Federated: {
         bodyText: 'Analyze federated login attempts made via WSO2 Identity Server.'
         + 'This will give an idea about the authentication steps took place via federated identity providers.',
-        heading: 'Federated Login Attempts',
         seeMoreLink: window.location.href.split('?')[0] + '/../federated',
     },
 };
@@ -118,6 +115,7 @@ class IsAnalyticsSummary extends Widget {
             numChartConfig,
             numChartData,
             numChartMetadata,
+            dataProviderConf: null,
             isProviderConfigFault: false,
             options: this.props.configs.options,
             widgetTexts: widgetTexts[this.props.configs.options.widgetType],
@@ -135,12 +133,11 @@ class IsAnalyticsSummary extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
@@ -243,11 +240,9 @@ class IsAnalyticsSummary extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <Typography variant="title" gutterBottom align="center">
-                            {this.state.widgetTexts.heading}
-                        </Typography>
                         <Typography variant="body1" gutterBottom align="center">
-                            [ERROR]: Cannot connect to the data provider
+                            Unable to fetch data from Siddhi data provider,
+                            Please check the data provider configurations.
                         </Typography>
                     </div>
                 </MuiThemeProvider>
@@ -256,15 +251,6 @@ class IsAnalyticsSummary extends Widget {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={divSpacings}>
-                    <div style={{
-                        height: height * 0.05,
-                        width: width * 0.9,
-                    }}
-                    >
-                        <Typography variant="title" gutterBottom align="center">
-                            {this.state.widgetTexts.heading}
-                        </Typography>
-                    </div>
                     <div style={{
                         height: height * 0.15,
                         width: width * 0.9,
@@ -275,7 +261,7 @@ class IsAnalyticsSummary extends Widget {
                         </Typography>
                     </div>
                     <div style={{
-                        height: height * 0.3,
+                        height: height * 0.35,
                         width: width * 0.9,
                     }}
                     >

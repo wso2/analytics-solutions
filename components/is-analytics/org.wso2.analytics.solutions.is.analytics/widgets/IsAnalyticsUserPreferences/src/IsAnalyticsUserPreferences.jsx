@@ -135,12 +135,11 @@ class IsAnalyticsUserPreferences extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
@@ -320,8 +319,8 @@ class IsAnalyticsUserPreferences extends Widget {
                                     </td>
                                     <td style={{ padding: 15 }}>
                                         <Button
-                                            color="#ef6c00"
-                                            variant="contained"
+                                            color="primary"
+                                            variant="raised"
                                             component="span"
                                             onClick={() => this.publishFilterConditions()}
                                         >

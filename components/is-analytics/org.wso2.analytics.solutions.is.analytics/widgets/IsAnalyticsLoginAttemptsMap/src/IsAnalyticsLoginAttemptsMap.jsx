@@ -69,7 +69,7 @@ const chartConfig = {
             colorScale: colorScaleSuccess,
         },
     ],
-    chloropethRangeLowerBound: 0,
+    chloropethRangeLowerbound: [0],
 };
 
 // This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
@@ -113,7 +113,8 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             chartConfig,
             data: [],
             metadata,
-            isDataProviderConfingFault: false,
+            dataProviderConf: null,
+            isDataProviderConfigFault: false,
             options: this.props.configs.options,
             isFailureMap: false,
             switchLabel: 'Success',
@@ -130,16 +131,15 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
-                    isDataProviderConfingFault: true,
+                    isDataProviderConfigFault: true,
                 });
             });
     }
@@ -183,16 +183,19 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
 
             for (const key in additionalFilterConditionsClone) {
-                if (additionalFilterConditionsClone[key] !== '') {
-                    if (key === 'role') {
-                        additionalFilters = additionalFilters
-                            + " and str:contains(rolesCommaSeparated, '" + additionalFilterConditionsClone[key] + "') ";
-                    } else if (key === 'isFirstLogin') {
-                        additionalFilters = additionalFilters
-                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
-                    } else {
-                        additionalFilters = additionalFilters
-                            + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
+                if (Object.hasOwnProperty.call(additionalFilterConditionsClone, key)) {
+                    if (additionalFilterConditionsClone[key] !== '') {
+                        if (key === 'role') {
+                            additionalFilters = additionalFilters
+                                + " and str:contains(rolesCommaSeparated, '"
+                                + additionalFilterConditionsClone[key] + "') ";
+                        } else if (key === 'isFirstLogin') {
+                            additionalFilters = additionalFilters
+                                + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
+                        } else {
+                            additionalFilters = additionalFilters
+                                + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
+                        }
                     }
                 }
             }
@@ -282,23 +285,15 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             theme = lightTheme;
         }
 
-        if (this.state.isDataProviderConfingFault) {
+        if (this.state.isDataProviderConfigFault) {
             return (
                 <JssProvider generateClassName={generateClassName}>
                     <MuiThemeProvider theme={theme}>
                         <div style={divSpacings}>
-                            <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                                <Typography
-                                    variant="title"
-                                    gutterBottom
-                                    align="center"
-                                >
-                                    Login Attempts Map
-                                </Typography>
-                            </div>
-                            <div>
-                                <h5>Data Provider Configuration Error</h5>
-                            </div>
+                            <Typography variant="body1" gutterBottom align="center">
+                                Unable to fetch data from Siddhi data provider,
+                                Please check the data provider configurations.
+                            </Typography>
                         </div>
                     </MuiThemeProvider>
                 </JssProvider>
@@ -308,15 +303,6 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             <JssProvider generateClassName={generateClassName}>
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <Typography
-                                variant="title"
-                                gutterBottom
-                                align="center"
-                            >
-                                Login Attempts Map
-                            </Typography>
-                        </div>
                         <div style={{ height: height * 0.6, width: width * 0.9 }}>
                             <VizG
                                 config={this.state.chartConfig}
