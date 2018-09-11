@@ -10,19 +10,16 @@
     },
     "providerConfig": {
       "configs": {
-        "type": "RDBMSBatchDataProvider",
+        "type": "SiddhiStoreDataProvider",
         "config": {
-          "datasourceName": "IS_ANALYTICS_DB",
+          "siddhiApp": "@App:name(\"IS_ANALYTICS_SESSION_DATA\") @App:description(\"Receiving Streams from IS and executing and analyzing statistics for session\") define stream HandleSessionInformation (meta_tenantId int, sessionId string, startTimestamp long, renewTimestamp long, terminationTimestamp long, endTimestamp long, duration long, isActive bool, username string, userstoreDomain string, remoteIp string, region string, tenantDomain string, serviceProvider string, identityProviders string, rememberMeFlag bool, userAgent string, usernameWithTenantDomainAndUserstoreDomain string, timestamp long); @store(type='rdbms', datasource='IS_ANALYTICS_DB') @primaryKey('meta_tenantId', 'sessionId') define table SessionInformationTable ( meta_tenantId int, sessionId string, startTime string, terminateTime string, endTime string, duration long, isActive bool, username string, userstoreDomain string, remoteIp string, region string, tenantDomain string, serviceProvider string, identityProviders string, rememberMeFlag bool, userAgent string, usernameWithTenantDomainAndUserstoreDomain string, currentTime string, startTimestamp long, renewTimestamp long, terminationTimestamp long, endTimestamp long, timestamp long);",
           "queryData": {
-            "query": "select usernameWithTenantDomainAndUserstoreDomain as username, AVG(duration)/1000 as duration from SessionInformationTable where (startTimestamp >= 0 and startTimestamp <= {{to}}L ) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive = 1)  GROUP BY username"
+            "query": "from SessionInformationTable select usernameWithTenantDomainAndUserstoreDomain as username, avg(duration)/1000 as duration GROUP BY username having (startTimestamp >= 0 and startTimestamp <= {{to}}L ) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive == true )"
           },
           "incrementalColumn": "duration",
           "publishingInterval": 60
-
         }
       }
     }
   }
 }
-
-
