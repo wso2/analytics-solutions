@@ -30,18 +30,15 @@ const widgetTexts = {
         bodyText: 'Analyze overall login attempts made via WSO2 Identity Server. '
         + 'This includes information about overall flows of authentication took place through Identity Server.'
         + 'A collection of authentication steps is considered as an overall attempt',
-        seeMoreLink: window.location.href.split('?')[0] + '/../overall',
     },
     Local: {
         bodyText: 'Analyze local login attempts made via WSO2 Identity Server. '
         + 'Local login attempts include all login attempts which are done through resident IDP.'
         + 'These statistics will give an idea on the involvement of resident IDP in an authentication flow.',
-        seeMoreLink: window.location.href.split('?')[0] + '/../local',
     },
     Federated: {
         bodyText: 'Analyze federated login attempts made via WSO2 Identity Server.'
         + 'This will give an idea about the authentication steps took place via federated identity providers.',
-        seeMoreLink: window.location.href.split('?')[0] + '/../federated',
     },
 };
 
@@ -118,6 +115,7 @@ class IsAnalyticsSummary extends Widget {
             dataProviderConf: null,
             isProviderConfigFault: false,
             options: this.props.configs.options,
+            seeMoreLink: '',
             widgetTexts: widgetTexts[this.props.configs.options.widgetType],
             totalAttempts: 0,
         };
@@ -133,10 +131,24 @@ class IsAnalyticsSummary extends Widget {
     }
 
     componentDidMount() {
+        let { pathname } = window.location;
+        let seeMoreLink = '';
+
+        const pathnameArray = pathname.split('/');
+        pathnameArray.pop();
+        pathname = pathnameArray.join('/');
+        if (this.state.options.widgetType === 'Local') {
+            seeMoreLink = pathname + '/local';
+        } else if (this.state.options.widgetType === 'Federated') {
+            seeMoreLink = pathname + '/federated';
+        } else {
+            seeMoreLink = pathname + '/overall';
+        }
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
+                    seeMoreLink,
                 }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
@@ -261,7 +273,7 @@ class IsAnalyticsSummary extends Widget {
                         </Typography>
                     </div>
                     <div style={{
-                        height: height * 0.35,
+                        height: height * 0.3,
                         width: width * 0.9,
                     }}
                     >
@@ -282,7 +294,7 @@ class IsAnalyticsSummary extends Widget {
                             && (
                                 <div>
                                     <div style={{
-                                        height: height * 0.05,
+                                        height: height * 0.1,
                                         width: width * 0.9,
                                         'text-align': 'center',
                                     }}
@@ -328,8 +340,8 @@ class IsAnalyticsSummary extends Widget {
                         width: width * 0.9,
                     }}
                     >
-                        <a href={this.state.widgetTexts.seeMoreLink}>
-                            <Button color="primary" variant="outlined" component="span">
+                        <a href={this.state.seeMoreLink}>
+                            <Button color="primary" variant="outlined" component="span" style={{ float: 'right' }}>
                                 <Typography
                                     variant="button"
                                     gutterBottom
