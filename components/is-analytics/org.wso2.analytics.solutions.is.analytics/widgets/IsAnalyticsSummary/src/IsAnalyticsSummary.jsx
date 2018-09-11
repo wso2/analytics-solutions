@@ -108,15 +108,14 @@ class IsAnalyticsSummary extends Widget {
             numChartMetadata,
             dataProviderConf: null,
             isProviderConfigFault: false,
-            options: this.props.configs.options,
             seeMoreLink: '',
-            bodyText: bodyTexts[this.props.configs.options.widgetType],
             totalAttempts: 0,
         };
 
         this.handleReceivedData = this.handleReceivedData.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
         this.onReceivingMessage = this.onReceivingMessage.bind(this);
+        this.getSeeMoreLink = this.getSeeMoreLink.bind(this);
 
         this.props.glContainer.on('resize', () => this.setState({
             width: this.props.glContainer.width,
@@ -125,24 +124,11 @@ class IsAnalyticsSummary extends Widget {
     }
 
     componentDidMount() {
-        let { pathname } = window.location;
-        let seeMoreLink = '';
-
-        const pathnameArray = pathname.split('/');
-        pathnameArray.pop();
-        pathname = pathnameArray.join('/');
-        if (this.state.options.widgetType === 'Local') {
-            seeMoreLink = pathname + '/local';
-        } else if (this.state.options.widgetType === 'Federated') {
-            seeMoreLink = pathname + '/federated';
-        } else {
-            seeMoreLink = pathname + '/overall';
-        }
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                    seeMoreLink,
+                    seeMoreLink: this.getSeeMoreLink(),
                 }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
@@ -155,6 +141,24 @@ class IsAnalyticsSummary extends Widget {
     componentWillUnmount() {
         super.getWidgetChannelManager()
             .unsubscribeWidget(this.props.id);
+    }
+
+    getSeeMoreLink() {
+        let { pathname } = window.location;
+        let seeMoreLink = '';
+
+        const pathnameArray = pathname.split('/');
+        pathnameArray.pop();
+        pathname = pathnameArray.join('/');
+        if (this.props.configs.options.widgetType === 'Local') {
+            seeMoreLink = pathname + '/local';
+        } else if (this.props.configs.options.widgetType === 'Federated') {
+            seeMoreLink = pathname + '/federated';
+        } else {
+            seeMoreLink = pathname + '/overall';
+        }
+
+        return seeMoreLink;
     }
 
     handleReceivedData(message) {
@@ -210,9 +214,9 @@ class IsAnalyticsSummary extends Widget {
         const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
         let { query } = dataProviderConfigs.configs.config.queryData;
 
-        if (this.state.options.widgetType === 'Local') {
+        if (this.props.configs.options.widgetType === 'Local') {
             query = dataProviderConfigs.configs.config.queryData.queryLocal;
-        } else if (this.state.options.widgetType === 'Federated') {
+        } else if (this.props.configs.options.widgetType === 'Federated') {
             query = dataProviderConfigs.configs.config.queryData.queryFederated;
         }
         query = query
@@ -263,7 +267,7 @@ class IsAnalyticsSummary extends Widget {
                     }}
                     >
                         <Typography variant="body1" gutterBottom align="center">
-                            {this.state.bodyText}
+                            {bodyTexts[this.props.configs.options.widgetType]}
                         </Typography>
                     </div>
                     <div style={{
