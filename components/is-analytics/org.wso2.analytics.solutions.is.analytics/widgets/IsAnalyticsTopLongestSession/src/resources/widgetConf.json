@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Top Longest Session",
+  "name": "IS Analytics Top Longest Session",
   "id": "IsAnalyticsTopLongestSession",
   "thumbnailURL": "",
   "configs": {
@@ -16,7 +16,6 @@
           "queryData": {
             "query": "from SessionInformationTable select sessionId, usernameWithTenantDomainAndUserstoreDomain as username, duration/1000 as duration having (startTimestamp >= 0 AND startTimestamp <= {{to}}L ) AND ((endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L) OR isActive == true) order by duration desc"
           },
-          "incrementalColumn": "duration",
           "publishingInterval": 60
         }
       }
