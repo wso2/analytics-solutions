@@ -28,11 +28,11 @@ class IsAnalyticsSessionCount extends Widget {
         super(props);
 
         this.chartConfig = {
-            x: 'DURATION',
+            x: 'duration',
             charts: [
                 {
                     type: 'bar',
-                    y: 'COUNT1',
+                    y: 'count1',
                     fill: '#00e600',
                     mode: 'stacked',
                 },
@@ -45,17 +45,20 @@ class IsAnalyticsSessionCount extends Widget {
         };
 
         this.metadata = {
-            names: ['DURATION', 'COUNT1'],
+            names: ['duration', 'count1'],
             types: ['ordinal', 'linear'],
         };
 
         this.state = {
             data: [],
+            tempData: [],
             metadata: this.metadata,
             providerConfig: null,
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
         };
+
+        this.qCount = 0;
 
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
@@ -83,11 +86,21 @@ class IsAnalyticsSessionCount extends Widget {
     }
 
     handleDataReceived(message) {
-        message.data = message.data.reverse();
-        this.setState({
-            metadata: message.metadata,
-            data: message.data,
-        });
+        console.log(' message\n ', message.data);
+        this.qCount++;
+        console.log(' num\n ', this.qCount);
+        this.state.tempData = this.state.tempData.concat(message.data);
+        console.log(' temp data\n ', this.state.tempData);
+        if (this.qCount === 2) {
+            this.qCount = 0;
+            console.log('hit\n');
+            this.setState((ps) => {
+                return {
+                    metadata: message.metadata,
+                    data: ps.tempData,
+                };
+            });
+        }
     }
 
     handleUserSelection(message) {
@@ -100,17 +113,22 @@ class IsAnalyticsSessionCount extends Widget {
     assembleQuery() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
-        const numOfGroups = 5;
         let { query } = dataProviderConfigs.configs.config.queryData;
-        for (let i = 0; i < numOfGroups; i++) {
-            query = query
-                .replace('{{from}}', this.state.fromDate)
-                .replace('{{to}}', this.state.toDate)
-                .replace('{{now}}', new Date().getTime());
-        }
+        query = query
+            .replace('{{from}}', this.state.fromDate)
+            .replace('{{to}}', this.state.toDate)
+            .replace('{{now}}', new Date().getTime());
         dataProviderConfigs.configs.config.queryData.query = query;
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
+        let { query2 } = dataProviderConfigs.configs.config.queryData;
+        query2 = query2
+            .replace('{{from}}', this.state.fromDate)
+            .replace('{{to}}', this.state.toDate)
+            .replace('{{now}}', new Date().getTime());
+        dataProviderConfigs.configs.config.queryData.query = query2;
+        super.getWidgetChannelManager()
+            .subscribeWidget(this.props.id + '2', this.handleDataReceived, dataProviderConfigs);
     }
 
     render() {
