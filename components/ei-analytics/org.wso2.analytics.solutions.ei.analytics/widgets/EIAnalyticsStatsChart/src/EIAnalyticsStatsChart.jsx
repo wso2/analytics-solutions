@@ -110,10 +110,11 @@ class EIAnalyticsStatsChart extends Widget {
         let title = 'StatChart';
 
         if (pageName === 'overview') {
-            title = 'REQUEST SUMMARY';
+            title = 'Request Summary';
         }
         else {
-            title = pageName.toUpperCase() + "  REQUEST COUNT";
+            let pageNameTitle = pageName.charAt(0).toUpperCase() + pageName.substr(1).toLowerCase();
+            title = pageNameTitle + "  Request Count";
         }
 
         this.props.glContainer.setTitle(

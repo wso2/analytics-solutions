@@ -55,6 +55,9 @@ const table = {
 class EIAnalyticsMediatorProperties extends Widget {
     constructor(props) {
         super(props);
+        this.props.glContainer.setTitle(
+            "Mediator Properties"
+        );
         this.state = {
             isNoData: true,
             messageComparisonData: null,

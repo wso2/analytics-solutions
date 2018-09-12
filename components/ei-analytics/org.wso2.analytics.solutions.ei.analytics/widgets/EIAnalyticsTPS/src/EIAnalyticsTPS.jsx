@@ -29,12 +29,12 @@ class EIAnalyticsTPS extends Widget {
 
         // Set title to 'OverallTPS'
         this.props.glContainer.setTitle(
-            "OVERALL EIAnalyticsTPS"
+            "Overall TPS"
         );
 
         var config = {
             "x": 'Time',
-            "charts": [{type: "bar", y: "EIAnalyticsTPS"}],
+            "charts": [{type: "line", y: "TPS"}],
             "maxLength": 10,
             "width": 400,
             "height": 200,
@@ -48,7 +48,7 @@ class EIAnalyticsTPS extends Widget {
         let metadata = {
             "names": [
                 "Time",
-                "EIAnalyticsTPS"
+                "TPS"
             ],
             "types": [
                 "time",
