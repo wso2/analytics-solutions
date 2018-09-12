@@ -129,7 +129,6 @@ class IsAnalyticsSessionCount extends Widget {
         if (this.tempData.length < 5) {
             this.sendQuery(this.tempData.length);
         } else if (this.tempData.length === 5) {
-            console.log(this.tempData);
             this.setState({
                 data: this.tempData,
             }, () => { this.tempData = []; });
@@ -159,7 +158,6 @@ class IsAnalyticsSessionCount extends Widget {
             .replace('{{to}}', this.state.toDate)
             .replace('{{now}}', new Date().getTime());
         dataProviderConfigs.configs.config.queryData.query = query;
-        console.log(i, query);
 
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id + i, this.handleDataReceived, dataProviderConfigs);
