@@ -26,12 +26,6 @@ var TENANT_ID = '-1234';
 class EIAnalyticsTPS extends Widget {
     constructor(props) {
         super(props);
-
-        // Set title to 'OverallTPS'
-        this.props.glContainer.setTitle(
-            "OVERALL EIAnalyticsTPS"
-        );
-
         var config = {
             "x": 'Time',
             "charts": [{type: "bar", y: "EIAnalyticsTPS"}],
