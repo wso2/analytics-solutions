@@ -216,8 +216,6 @@ class EIAnalyticsStatsChart extends Widget {
                         .replace("{{timeTo}}", "\'" + timeTo + "\'")
                         .replace("{{timeUnit}}", "\'" + timeUnit + "\'");
                     dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
-                    // delete dataProviderConf.configs.providerConfig.configs.config.queryData.nullEntryPointStatPerQuery;
-                    // delete dataProviderConf.configs.providerConfig.configs.config.queryData.notNullEntryPointStatPerQuery;
                 } else {
                     var query = dataProviderConf.configs.providerConfig.configs.config.queryData.notNullEntryPointStatPerQuery;
                     let formattedQuery = query
@@ -230,8 +228,6 @@ class EIAnalyticsStatsChart extends Widget {
                         .replace("{{timeTo}}", "\'" + timeTo + "\'")
                         .replace("{{timeUnit}}", "\'" + timeUnit + "\'");
                     dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
-                    // delete dataProviderConf.configs.providerConfig.configs.config.queryData.nullEntryPointStatPerQuery;
-                    // delete dataProviderConf.configs.providerConfig.configs.config.queryData.notNullEntryPointStatPerQuery;
                 }
                 // console.log(JSON.stringify(dataProviderConf.configs.providerConfig));
                 super.getWidgetChannelManager()
@@ -248,19 +244,16 @@ class EIAnalyticsStatsChart extends Widget {
      * @returns {Function}
      */
     handleStats(stats) {
-        //return function (stats) {
-            let metadata = stats.metadata.names;
-            let data = stats.data[0];
-            let dataIndex = {};
-            metadata.forEach((value, index) => {
-                dataIndex[value] = index;
-            })
-            this.setState({
-                totalCount: data[dataIndex["noOfInvocationSum"]],
-                faultCount: data[dataIndex["faultCountSum"]]
-            });
-            //console.log("Received final stats: " + JSON.stringify(stats));
-        //}
+        let metadata = stats.metadata.names;
+        let data = stats.data[0];
+        let dataIndex = {};
+        metadata.forEach((value, index) => {
+            dataIndex[value] = index;
+        })
+        this.setState({
+            totalCount: data[dataIndex["noOfInvocationSum"]],
+            faultCount: data[dataIndex["faultCountSum"]]
+        });
     }
 
     getProviderConf(aggregatorDataProviderConf) {
