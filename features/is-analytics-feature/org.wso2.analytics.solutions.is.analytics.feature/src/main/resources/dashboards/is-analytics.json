@@ -1,1 +1,2379 @@
-{"dashboard":{"url":"is-analytics","owner":"admin","name":"IS Analytics","description":"WSO2 Identity Server Analytics Dashboard","landingPage":"login_attempts","parentId":"0","pages":[{"id":"login_attempts","name":"Login Attempts","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"stack","isClosable":true,"title":"","width":100.0,"height":15.284360189573459,"content":[{"title":"[Date Time Range]","type":"component","component":"DateRangePicker","props":{"id":"9bd23095-62d6-4b84-8ab1-e2bbae851b35","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"],"publishers":[]},"isGenerated":false,"options":{"header":false,"defaultValue":"3 Months","availableGranularities":"From Second","autoSyncInterval":"10"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":84.71563981042654,"content":[{"type":"stack","isClosable":true,"title":"","height":100.0,"width":33.333333,"content":[{"title":"[Is Analytics Summary]","type":"component","component":"IsAnalyticsSummary","props":{"id":"cb2e4284-8e30-4144-a364-ee41b24c2eb5","configs":{"pubsub":{"types":["subscriber"],"publishers":["9bd23095-62d6-4b84-8ab1-e2bbae851b35"]},"isGenerated":false,"options":{"widgetType":"Overall","headerTitle":"Overall Login Attempts Summary"}},"widgetID":"IsAnalyticsSummary"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":33.333333,"content":[{"title":"[Is Analytics Summary]","type":"component","component":"IsAnalyticsSummary","props":{"id":"17f03e3c-50e3-4ba3-b865-0e8caebad18f","configs":{"pubsub":{"types":["subscriber"],"publishers":["9bd23095-62d6-4b84-8ab1-e2bbae851b35"]},"isGenerated":false,"options":{"widgetType":"Local","headerTitle":"Local Login Attempts Summary"}},"widgetID":"IsAnalyticsSummary"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":33.333334,"content":[{"title":"[Is Analytics Summary]","type":"component","component":"IsAnalyticsSummary","props":{"id":"6f37092c-6498-480f-86d7-8ba52d571d36","configs":{"pubsub":{"types":["subscriber"],"publishers":["9bd23095-62d6-4b84-8ab1-e2bbae851b35"]},"isGenerated":false,"options":{"widgetType":"Federated","headerTitle":"Federated Login Attempts Summary"}},"widgetID":"IsAnalyticsSummary"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}]}],"height":""},{"id":"overall","name":"Overall","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"stack","isClosable":true,"title":"","width":100.0,"height":10.17,"content":[{"title":"[Date Time Range]","type":"component","component":"DateRangePicker","props":{"id":"664de114-52ef-4a1f-9a9d-5f3121d76877","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"],"publishers":[]},"isGenerated":false,"options":{"header":false,"defaultValue":"3 Months","availableGranularities":"From Second","autoSyncInterval":"10"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":100.0,"height":11.77,"content":[{"title":"[IS Analytics User Preferences]","type":"component","component":"IsAnalyticsUserPreferences","props":{"id":"9d854217-943b-4715-badc-44992f6c0b4a","configs":{"pubsub":{"types":["publisher","subscriber"],"publisherWidgetOutputs":["header","body"],"publishers":["09d297b7-fce8-4682-bc6b-b4d4d6d67871","6dc0fd3c-9543-400e-bc9d-4a114d58a4f4"]},"isGenerated":false,"options":{"widgetType":"Overall","headerTitle":"User Preferences - Overall"}},"widgetID":"IsAnalyticsUserPreferences"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":30.57,"content":[{"type":"stack","isClosable":true,"title":"","height":100.0,"width":33.0,"content":[{"title":"[IS Analytics Attempts Over Time]","type":"component","component":"IsAnalyticsAttemptsOverTime","props":{"id":"e78e3c72-a8af-455c-9b3b-66a5b43382b3","configs":{"pubsub":{"types":["subscriber",null],"publishers":["664de114-52ef-4a1f-9a9d-5f3121d76877","9d854217-943b-4715-badc-44992f6c0b4a"]},"isGenerated":false,"options":{"widgetType":"Overall","headerTitle":"Overall Login Attempts Over Time"}},"widgetID":"IsAnalyticsAttemptsOverTime"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":24.5,"content":[{"title":"[IS Analytics Compact Summary]","type":"component","component":"IsAnalyticsCompactSummary","props":{"id":"3533b834-cdec-4780-a523-380eeaee93ae","configs":{"pubsub":{"types":["subscriber"],"publishers":["664de114-52ef-4a1f-9a9d-5f3121d76877","9d854217-943b-4715-badc-44992f6c0b4a"]},"isGenerated":false,"options":{"widgetType":"Overall","headerTitle":"Overall Login Attempts Compact Summary"}},"widgetID":"IsAnalyticsCompactSummary"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":42.5,"content":[{"title":"[IS Analytics Login Attempts Map]","type":"component","component":"IsAnalyticsLoginAttemptsMap","props":{"id":"5d8b0759-fc39-468d-9754-d25d7e6c0124","configs":{"pubsub":{"types":["subscriber",null],"publishers":["664de114-52ef-4a1f-9a9d-5f3121d76877","9d854217-943b-4715-badc-44992f6c0b4a"]},"isGenerated":false,"options":{"widgetType":"Overall","headerTitle":"Overall Login Attempts Map"}},"widgetID":"IsAnalyticsLoginAttemptsMap"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"row","isClosable":true,"title":"","height":34.47,"content":[{"type":"stack","isClosable":true,"title":"","height":100.0,"width":50.0,"content":[{"title":"[IS Analytics Attempts By Type]","type":"component","component":"IsAnalyticsAttemptsByType","props":{"id":"09d297b7-fce8-4682-bc6b-b4d4d6d67871","configs":{"pubsub":{"types":["subscriber","publisher"],"publisherWidgetOutputs":["header","body"],"publishers":["664de114-52ef-4a1f-9a9d-5f3121d76877","9d854217-943b-4715-badc-44992f6c0b4a"]},"isGenerated":false,"options":{"widgetType":"Overall","xAxis":"Service Provider","headerTitle":"By Service Provider"}},"widgetID":"IsAnalyticsAttemptsByType"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":50.0,"content":[{"title":"[IS Analytics Attempts By Type]","type":"component","component":"IsAnalyticsAttemptsByType","props":{"id":"6dc0fd3c-9543-400e-bc9d-4a114d58a4f4","configs":{"pubsub":{"types":["subscriber","publisher"],"publisherWidgetOutputs":["header","body"],"publishers":["664de114-52ef-4a1f-9a9d-5f3121d76877","9d854217-943b-4715-badc-44992f6c0b4a"]},"isGenerated":false,"options":{"widgetType":"Overall","xAxis":"Username","headerTitle":"By Username"}},"widgetID":"IsAnalyticsAttemptsByType"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":13.02,"content":[{"title":"[IS Analytics Messages]","type":"component","component":"IsAnalyticsMessages","props":{"id":"525e2d55-ff31-4b35-bed4-811b6baa0c0d","configs":{"pubsub":{"types":["subscriber"],"publishers":["664de114-52ef-4a1f-9a9d-5f3121d76877","9d854217-943b-4715-badc-44992f6c0b4a"]},"isGenerated":false,"options":{"widgetType":"Overall","headerTitle":"Overall Login Attempts Messages"}},"widgetID":"IsAnalyticsMessages"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":"2000"},{"id":"local","name":"Local","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"stack","isClosable":true,"title":"","width":100.0,"height":10.17,"content":[{"title":"[Date Time Range]","type":"component","component":"DateRangePicker","props":{"id":"6b5fb4d1-37a3-4afa-9f7d-b09a50307817","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"],"publishers":[]},"isGenerated":false,"options":{"header":false,"defaultValue":"3 Months","availableGranularities":"From Second","autoSyncInterval":"10"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":100.0,"height":11.77,"content":[{"title":"[IS Analytics User Preferences]","type":"component","component":"IsAnalyticsUserPreferences","props":{"id":"74ec4638-14a7-48ed-a640-459cfd221643","configs":{"pubsub":{"types":["publisher","subscriber"],"publisherWidgetOutputs":["header","body"],"publishers":["3550e833-b170-4c60-8e9c-302162b18fa6","a8b995c7-2a80-4fcc-95db-5e97fefb9a29","cb733ed6-3ecb-4114-bb13-1bd84b9fa327","d8de75e6-dd1e-42f0-8870-74b1b1919eea"]},"isGenerated":false,"options":{"widgetType":"Local","headerTitle":"User Preferences - Local"}},"widgetID":"IsAnalyticsUserPreferences"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":30.57,"content":[{"type":"stack","isClosable":true,"title":"","height":100.0,"width":33.0,"content":[{"title":"[IS Analytics Attempts Over Time]","type":"component","component":"IsAnalyticsAttemptsOverTime","props":{"id":"950da79b-9a9a-4df9-81b6-7dc32d8d3da5","configs":{"pubsub":{"types":["subscriber",null],"publishers":["6b5fb4d1-37a3-4afa-9f7d-b09a50307817","74ec4638-14a7-48ed-a640-459cfd221643"]},"isGenerated":false,"options":{"widgetType":"Local","headerTitle":"Local Login Attempts Over Time"}},"widgetID":"IsAnalyticsAttemptsOverTime"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":24.5,"content":[{"title":"[IS Analytics Compact Summary]","type":"component","component":"IsAnalyticsCompactSummary","props":{"id":"24a5adf0-f8bf-43de-b07b-030729002d3e","configs":{"pubsub":{"types":["subscriber"],"publishers":["6b5fb4d1-37a3-4afa-9f7d-b09a50307817","74ec4638-14a7-48ed-a640-459cfd221643"]},"isGenerated":false,"options":{"widgetType":"Local","headerTitle":"Local Login Attempts Compact Summary"}},"widgetID":"IsAnalyticsCompactSummary"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":42.5,"content":[{"title":"[IS Analytics Login Attempts Map]","type":"component","component":"IsAnalyticsLoginAttemptsMap","props":{"id":"0b6697f9-9420-4c76-ae7a-e81db6bafca7","configs":{"pubsub":{"types":["subscriber",null],"publishers":["6b5fb4d1-37a3-4afa-9f7d-b09a50307817","74ec4638-14a7-48ed-a640-459cfd221643"]},"isGenerated":false,"options":{"widgetType":"Local","headerTitle":"Local Login Attempts Map"}},"widgetID":"IsAnalyticsLoginAttemptsMap"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"row","isClosable":true,"title":"","height":34.47,"content":[{"type":"stack","isClosable":true,"title":"","height":100.0,"width":25.0,"content":[{"title":"[IS Analytics Attempts By Type]","type":"component","component":"IsAnalyticsAttemptsByType","props":{"id":"3550e833-b170-4c60-8e9c-302162b18fa6","configs":{"pubsub":{"types":["subscriber","publisher"],"publisherWidgetOutputs":["header","body"],"publishers":["6b5fb4d1-37a3-4afa-9f7d-b09a50307817","74ec4638-14a7-48ed-a640-459cfd221643"]},"isGenerated":false,"options":{"widgetType":"Local","xAxis":"Service Provider","headerTitle":"By Service Provider"}},"widgetID":"IsAnalyticsAttemptsByType"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":25.0,"content":[{"title":"[IS Analytics Attempts By Type]","type":"component","component":"IsAnalyticsAttemptsByType","props":{"id":"a8b995c7-2a80-4fcc-95db-5e97fefb9a29","configs":{"pubsub":{"types":["subscriber","publisher"],"publisherWidgetOutputs":["header","body"],"publishers":["6b5fb4d1-37a3-4afa-9f7d-b09a50307817","74ec4638-14a7-48ed-a640-459cfd221643"]},"isGenerated":false,"options":{"widgetType":"Local","xAxis":"User Store Domain","headerTitle":"By User Store Domain"}},"widgetID":"IsAnalyticsAttemptsByType"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":25.0,"content":[{"title":"[IS Analytics Attempts By Type]","type":"component","component":"IsAnalyticsAttemptsByType","props":{"id":"cb733ed6-3ecb-4114-bb13-1bd84b9fa327","configs":{"pubsub":{"types":["subscriber","publisher"],"publisherWidgetOutputs":["header","body"],"publishers":["6b5fb4d1-37a3-4afa-9f7d-b09a50307817","74ec4638-14a7-48ed-a640-459cfd221643"]},"isGenerated":false,"options":{"widgetType":"Local","xAxis":"Role","headerTitle":"By Role"}},"widgetID":"IsAnalyticsAttemptsByType"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":25.0,"content":[{"title":"[IS Analytics Attempts By Type]","type":"component","component":"IsAnalyticsAttemptsByType","props":{"id":"d8de75e6-dd1e-42f0-8870-74b1b1919eea","configs":{"pubsub":{"types":["subscriber","publisher"],"publisherWidgetOutputs":["header","body"],"publishers":["6b5fb4d1-37a3-4afa-9f7d-b09a50307817","74ec4638-14a7-48ed-a640-459cfd221643"]},"isGenerated":false,"options":{"widgetType":"Local","xAxis":"Username","headerTitle":"By Username"}},"widgetID":"IsAnalyticsAttemptsByType"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":13.02,"content":[{"title":"[IS Analytics Messages]","type":"component","component":"IsAnalyticsMessages","props":{"id":"85d85906-b08b-47ad-a1a6-16e13573a038","configs":{"pubsub":{"types":["subscriber"],"publishers":["6b5fb4d1-37a3-4afa-9f7d-b09a50307817","74ec4638-14a7-48ed-a640-459cfd221643"]},"isGenerated":false,"options":{"widgetType":"Local","headerTitle":"Local Login Attempts Messages"}},"widgetID":"IsAnalyticsMessages"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":"2000"},{"id":"federated","name":"Federated","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"stack","isClosable":true,"title":"","width":100.0,"height":10.17,"content":[{"title":"[Date Time Range]","type":"component","component":"DateRangePicker","props":{"id":"e79cd86d-451b-4176-a496-c41b51424d22","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"],"publishers":[]},"isGenerated":false,"options":{"header":false,"defaultValue":"3 Months","availableGranularities":"From Second","autoSyncInterval":"10"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":100.0,"height":11.77,"content":[{"title":"[IS Analytics User Preferences]","type":"component","component":"IsAnalyticsUserPreferences","props":{"id":"6e7c0745-c85d-4c02-a303-8888a6628c55","configs":{"pubsub":{"types":["publisher","subscriber"],"publisherWidgetOutputs":["header","body"],"publishers":["5ac4058e-9a7c-4202-a40a-e8d3ea430a7f","74ab53ce-6dfa-412f-bb11-ba5e9848a69c","ef9c3929-00c3-4385-bc7a-9522c800dbbf"]},"isGenerated":false,"options":{"widgetType":"Federated","headerTitle":"User Preferences"}},"widgetID":"IsAnalyticsUserPreferences"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":30.57,"content":[{"type":"stack","isClosable":true,"title":"","height":100.0,"width":33.0,"content":[{"title":"[IS Analytics Attempts Over Time]","type":"component","component":"IsAnalyticsAttemptsOverTime","props":{"id":"18f6128b-b894-451a-a449-9fc7b0f6841e","configs":{"pubsub":{"types":["subscriber",null],"publishers":["e79cd86d-451b-4176-a496-c41b51424d22","6e7c0745-c85d-4c02-a303-8888a6628c55"]},"isGenerated":false,"options":{"widgetType":"Federated","headerTitle":"Federated Login Attempts Over Time"}},"widgetID":"IsAnalyticsAttemptsOverTime"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":24.5,"content":[{"title":"[IS Analytics Compact Summary]","type":"component","component":"IsAnalyticsCompactSummary","props":{"id":"d4209d95-5392-4bd1-9c8c-0b1f168d2626","configs":{"pubsub":{"types":["subscriber"],"publishers":["e79cd86d-451b-4176-a496-c41b51424d22","6e7c0745-c85d-4c02-a303-8888a6628c55"]},"isGenerated":false,"options":{"widgetType":"Federated","headerTitle":"Federated Login Attempts Compact Summary"}},"widgetID":"IsAnalyticsCompactSummary"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":42.5,"content":[{"title":"[IS Analytics Login Attempts Map]","type":"component","component":"IsAnalyticsLoginAttemptsMap","props":{"id":"335d3801-c71d-41d6-b2e6-cf94a1d84f10","configs":{"pubsub":{"types":["subscriber",null],"publishers":["e79cd86d-451b-4176-a496-c41b51424d22","6e7c0745-c85d-4c02-a303-8888a6628c55"]},"isGenerated":false,"options":{"widgetType":"Federated","headerTitle":"Federated Login Attempts Map"}},"widgetID":"IsAnalyticsLoginAttemptsMap"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"row","isClosable":true,"title":"","height":34.47,"content":[{"type":"stack","isClosable":true,"title":"","height":100.0,"width":33.333333,"content":[{"title":"[IS Analytics Attempts By Type]","type":"component","component":"IsAnalyticsAttemptsByType","props":{"id":"5ac4058e-9a7c-4202-a40a-e8d3ea430a7f","configs":{"pubsub":{"types":["subscriber","publisher"],"publisherWidgetOutputs":["header","body"],"publishers":["e79cd86d-451b-4176-a496-c41b51424d22","6e7c0745-c85d-4c02-a303-8888a6628c55"]},"isGenerated":false,"options":{"widgetType":"Federated","xAxis":"Service Provider","headerTitle":"By Service Provider"}},"widgetID":"IsAnalyticsAttemptsByType"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":33.333333,"content":[{"title":"[IS Analytics Attempts By Type]","type":"component","component":"IsAnalyticsAttemptsByType","props":{"id":"74ab53ce-6dfa-412f-bb11-ba5e9848a69c","configs":{"pubsub":{"types":["subscriber","publisher"],"publisherWidgetOutputs":["header","body"],"publishers":["e79cd86d-451b-4176-a496-c41b51424d22","6e7c0745-c85d-4c02-a303-8888a6628c55"]},"isGenerated":false,"options":{"widgetType":"Federated","xAxis":"Identity Provider","headerTitle":"By Identity Provider"}},"widgetID":"IsAnalyticsAttemptsByType"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":100.0,"width":33.333334,"content":[{"title":"[IS Analytics Attempts By Type]","type":"component","component":"IsAnalyticsAttemptsByType","props":{"id":"ef9c3929-00c3-4385-bc7a-9522c800dbbf","configs":{"pubsub":{"types":["subscriber","publisher"],"publisherWidgetOutputs":["header","body"],"publishers":["e79cd86d-451b-4176-a496-c41b51424d22","6e7c0745-c85d-4c02-a303-8888a6628c55"]},"isGenerated":false,"options":{"widgetType":"Federated","xAxis":"Username","headerTitle":"By Username"}},"widgetID":"IsAnalyticsAttemptsByType"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":13.02,"content":[{"title":"[IS Analytics Messages]","type":"component","component":"IsAnalyticsMessages","props":{"id":"ffec8c9d-c958-4365-9308-7e75cba2c4a2","configs":{"pubsub":{"types":["subscriber"],"publishers":["e79cd86d-451b-4176-a496-c41b51424d22","6e7c0745-c85d-4c02-a303-8888a6628c55"]},"isGenerated":false,"options":{"widgetType":"Federated","headerTitle":"Federated Login Attempts Messages"}},"widgetID":"IsAnalyticsMessages"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":"2000"},{"id":"login_sessions","name":"Login Session","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"row","isClosable":true,"title":"","height":81.93548387096774,"content":[{"type":"row","isClosable":true,"title":"","height":100.0,"width":100.0,"content":[{"type":"column","isClosable":true,"title":"","width":100.0,"content":[{"type":"row","isClosable":true,"title":"","height":17.377978670562698,"content":[{"type":"stack","isClosable":true,"title":"","height":17.377978670562698,"width":88.02469135802468,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"4b281c21-dcb9-441a-8e41-d082a98526cb","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"],"publishers":[]},"isGenerated":false,"options":{"header":false,"defaultValue":"3 Months","availableGranularities":"From Second","autoSyncInterval":"10"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":11.975308641975314,"content":[{"title":"IS Analytics Active Sessions","type":"component","component":"UniversalWidget","props":{"id":"b4ce32d3-19de-4234-a8cf-da59b3274205","configs":{"pubsub":{"types":[]},"isGenerated":true,"options":{}},"widgetID":"IS-Analytics-Active-Sessions"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]},{"type":"stack","isClosable":true,"title":"","height":35.838184465546526,"content":[{"title":"IS Analytics Session Count Over Time","type":"component","component":"IsAnalyticsSessionCountOverTime","props":{"id":"de98a144-23b1-4886-954f-6c28b7d77273","configs":{"pubsub":{"types":["subscriber"],"publishers":["4b281c21-dcb9-441a-8e41-d082a98526cb"]},"isGenerated":false,"options":{}},"widgetID":"IsAnalyticsSessionCountOverTime"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"row","isClosable":true,"title":"","height":46.78383686389078,"content":[{"type":"stack","isClosable":true,"title":"","height":50.0,"width":33.371074429414215,"content":[{"title":"IS Analytics Top Longest Session","type":"component","component":"IsAnalyticsTopLongestSession","props":{"id":"eb6b0350-a33f-416a-9511-6f0d0f85872f","configs":{"pubsub":{"types":["subscriber"],"publishers":["4b281c21-dcb9-441a-8e41-d082a98526cb"]},"isGenerated":false,"options":{}},"widgetID":"IsAnalyticsTopLongestSession"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":32.69003209412005,"content":[{"title":"IS Analytics AverageSession Duration","type":"component","component":"IsAnalyticsAverageSessionDuration","props":{"id":"54ea9b6b-ba30-4358-989c-f2d2103e2de6","configs":{"pubsub":{"types":["subscriber"],"publishers":["4b281c21-dcb9-441a-8e41-d082a98526cb"]},"isGenerated":false,"options":{}},"widgetID":"IsAnalyticsAverageSessionDuration"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","width":33.938893476465736,"content":[{"title":"IS Analytics Session Count","type":"component","component":"IsAnalyticsSessionCount","props":{"id":"639fa008-6cf1-45bb-9344-85bfbbfad098","configs":{"pubsub":{"types":["subscriber"],"publishers":["4b281c21-dcb9-441a-8e41-d082a98526cb"]},"isGenerated":false,"options":{}},"widgetID":"IsAnalyticsSessionCount"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}]}]}]},{"type":"stack","isClosable":true,"title":"","height":18.06451612903226,"content":[{"title":"IS Analytics Session Messages","type":"component","component":"IsAnalyticsSessionMessages","props":{"id":"43c22955-747c-4487-ac1e-39e76dfd17bf","configs":{"pubsub":{"types":["subscriber"],"publishers":["4b281c21-dcb9-441a-8e41-d082a98526cb"]},"isGenerated":false,"options":{}},"widgetID":"IsAnalyticsSessionMessages"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":1400.0},{"id":"alert_type","name":"Alert Type","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"stack","isClosable":true,"title":"","height":20.27972027972028,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"cb315c98-64df-4ef8-b4d7-f08c47444857","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"],"publishers":[]},"isGenerated":false,"options":{"header":false,"defaultValue":"1 Min","availableGranularities":"From Second","autoSyncInterval":"10"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":79.72027972027972,"content":[{"title":"IS Analytics Alerts","type":"component","component":"UniversalWidget","props":{"id":"7787d673-1959-41e9-a730-2d2a129880a2","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["from","to"],"publishers":["cb315c98-64df-4ef8-b4d7-f08c47444857"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"from","publisherId":"cb315c98-64df-4ef8-b4d7-f08c47444857","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"to","publisherId":"cb315c98-64df-4ef8-b4d7-f08c47444857","publisherWidgetOutput":"to"}]},"isGenerated":true,"options":{}},"widgetID":"IS-Analytics-Alerts"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}],"height":863.0},{"id":"suspicious_login","name":"Suspicious Login Alerts","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"stack","isClosable":true,"title":"","height":19.46386946386946,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"8a7d2341-e305-4d4d-bd93-88e3bf5821a8","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"],"publishers":[],"widgetInputOutputMapping":[]},"isGenerated":false,"options":{"header":false,"defaultValue":"1 Min","availableGranularities":"From Second","autoSyncInterval":"10"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":80.53613053613053,"content":[{"title":"IS Analytics Suspicious Login Alerts","type":"component","component":"UniversalWidget","props":{"id":"fb96bbd0-82b5-42c0-a6eb-bb55c249a6fa","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["from","to"],"publishers":["8a7d2341-e305-4d4d-bd93-88e3bf5821a8"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"from","publisherId":"8a7d2341-e305-4d4d-bd93-88e3bf5821a8","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"to","publisherId":"8a7d2341-e305-4d4d-bd93-88e3bf5821a8","publisherWidgetOutput":"to"}]},"isGenerated":true,"options":{}},"widgetID":"IS-Analytics-Suspicious-Login-Alerts"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}]},{"id":"long_session","name":"Long Session Alerts","content":[{"type":"column","isClosable":true,"title":"","content":[{"type":"stack","isClosable":true,"title":"","height":19.813519813519815,"content":[{"title":"Date Time Range","type":"component","component":"DateRangePicker","props":{"id":"2ec41fee-f800-442e-94f2-b7d573cd0636","configs":{"pubsub":{"types":["publisher"],"publisherWidgetOutputs":["granularity","from","to"],"publishers":[]},"isGenerated":false,"options":{"header":false,"defaultValue":"1 Min","availableGranularities":"From Second","autoSyncInterval":"10"}},"widgetID":"DateRangePicker"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]},{"type":"stack","isClosable":true,"title":"","height":80.18648018648018,"content":[{"title":"IS Analytics Abnormal Long Sessions Alert","type":"component","component":"UniversalWidget","props":{"id":"69139824-9e62-4971-a25c-83d2ff273bc4","configs":{"pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["from","to"],"publishers":["2ec41fee-f800-442e-94f2-b7d573cd0636"],"widgetInputOutputMapping":[{"subscriberWidgetInput":"from","publisherId":"2ec41fee-f800-442e-94f2-b7d573cd0636","publisherWidgetOutput":"from"},{"subscriberWidgetInput":"to","publisherId":"2ec41fee-f800-442e-94f2-b7d573cd0636","publisherWidgetOutput":"to"}]},"isGenerated":true,"options":{}},"widgetID":"IS-Analytics-Abnormal-Long-Sessions-Alert"},"isClosable":false,"header":{"show":true},"componentName":"lm-react-component"}]}]}]}],"hasOwnerPermission":false,"hasDesignerPermission":false,"hasViewerPermission":false},"widgets":{"generated":[{"name":"IS Analytics Suspicious Login Alerts","id":"IS-Analytics-Suspicious-Login-Alerts","chartConfig":{"charts":[{"type":"table","columns":[{"name":"currentTime","title":"Timestamp","colorBasedStyle":false},{"name":"tenantDomain","title":"Tenant  Domain","colorBasedStyle":false},{"name":"username","title":"User","colorBasedStyle":false},{"name":"msg","title":"Message","colorBasedStyle":false}],"columnTitles":[]}],"maxLength":100,"filterable":true,"pagination":true,"append":false},"providerConfig":{"configs":{"type":"SiddhiStoreDataProvider","config":{"siddhiApp":"@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table SuspiciousLoginAlertTable(meta_tenantId int, username string, severity int, msg string, tenantDomain string, timestamp long,  currentTime string)\n","queryData":{"queryFunction":"this.getQuery \u003d function (username,from,to){let query \u003d \"from SuspiciousLoginAlertTable on timestamp \u003e\u003d \"+from+\"L and timestamp \u003c\u003d \"+to+\"L select currentTime, tenantDomain, username, msg order by username\";\nreturn query;}","customWidgetInputs":[{"name":"from","defaultValue":"0"},{"name":"to","defaultValue":"4102425000000"}],"systemWidgetInputs":[{"name":"username","defaultValue":"admin"}],"query":"from SuspiciousLoginAlertTable on timestamp \u003e\u003d 0L and timestamp \u003c\u003d 4102425000000L select currentTime, tenantDomain, username, msg order by username"},"publishingInterval":5,"timeColumns":""}}},"metadata":{"names":["currentTime","tenantDomain","username","msg"],"types":["ORDINAL","ORDINAL","ORDINAL","ORDINAL"]},"version":"1.0.0","pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["from","to"]}},{"name":"IS Analytics Alerts","id":"IS-Analytics-Alerts","chartConfig":{"charts":[{"type":"table","columns":[{"name":"type","title":"Alert Type","colorBasedStyle":false},{"name":"ans","title":"Count","colorBasedStyle":false}],"columnTitles":[]}],"maxLength":100,"filterable":true,"pagination":true,"append":false},"providerConfig":{"configs":{"type":"SiddhiStoreDataProvider","config":{"siddhiApp":"@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table SecurityAlertTypeTable(meta_tenantId int, alertId string, type string,  tenantDomain string, msg string, severity int, alertTimestamp long, userReadableTime string)\n","queryData":{"queryFunction":"this.getQuery \u003d function (username,from,to){let query \u003d \"from SecurityAlertTypeTable on alertTimestamp \u003e\u003d \"+from+\"L and alertTimestamp \u003c\u003d \"+to+\"L select type, count() as ans group by type\";\nreturn query;}","customWidgetInputs":[{"name":"from","defaultValue":"0"},{"name":"to","defaultValue":"4102425000000"}],"systemWidgetInputs":[{"name":"username","defaultValue":"admin"}],"query":"from SecurityAlertTypeTable on alertTimestamp \u003e\u003d 0L and alertTimestamp \u003c\u003d 4102425000000L select type, count() as ans group by type"},"publishingInterval":5,"timeColumns":""}}},"metadata":{"names":["type","ans"],"types":["ORDINAL","LINEAR"]},"version":"1.0.0","pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["from","to"]}},{"name":"IS Analytics Active Sessions","id":"IS-Analytics-Active-Sessions","chartConfig":{"x":"active","title":"Active Sessions","charts":[{"type":"number"}]},"providerConfig":{"configs":{"type":"SiddhiStoreDataProvider","config":{"siddhiApp":"@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027IS_ANALYTICS_DB\u0027)\ndefine table ActiveSessionsTable (meta_tenantId int,  sessionId string, startTimestamp long, renewTimestamp long, terminationTimestamp long, action int,  username string,  userstoreDomain string, remoteIp string, region string, tenantDomain string, serviceProvider string, identityProviders string, rememberMeFlag bool,  userAgent string,  usernameWithTenantDomainAndUserstoreDomain string, timestamp long)\n","queryData":{"queryFunction":"this.getQuery \u003d function (username){let query \u003d \"from ActiveSessionsTable select count() as active\";\nreturn query;}","customWidgetInputs":[],"systemWidgetInputs":[{"name":"username","defaultValue":"admin"}],"query":"from ActiveSessionsTable select count() as active"},"publishingInterval":5,"timeColumns":""}}},"metadata":{"names":["active"],"types":["LINEAR"]},"version":"1.0.0","pubsub":{"types":[]}},{"name":"IS Analytics Abnormal Long Sessions Alert","id":"IS-Analytics-Abnormal-Long-Sessions-Alert","chartConfig":{"charts":[{"type":"table","columns":[{"name":"currentTime","title":"Timestamp","colorBasedStyle":false},{"name":"tenantDomain","title":"Tenant  Domain","colorBasedStyle":false},{"name":"username","title":"User","colorBasedStyle":false},{"name":"duration","title":"Duration (ms)","colorBasedStyle":false},{"name":"avgDuration","title":"Avg.  Duration (ms)","colorBasedStyle":false}],"columnTitles":[]}],"maxLength":100,"filterable":true,"pagination":true,"append":false},"providerConfig":{"configs":{"type":"SiddhiStoreDataProvider","config":{"siddhiApp":"@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table AlertLongSessionsTable(timestamp long, currentTime string, meta_tenantId int,  tenantDomain string, sessionId string, username string, duration long, avgDuration double)\n","queryData":{"queryFunction":"this.getQuery \u003d function (username,from,to){let query \u003d \"from AlertLongSessionsTable on timestamp \u003e\u003d \"+from+\"L and timestamp \u003c\u003d \"+to+\"L select * order by username\";\nreturn query;\n}","customWidgetInputs":[{"name":"from","defaultValue":"0"},{"name":"to","defaultValue":"4102425000000"}],"systemWidgetInputs":[{"name":"username","defaultValue":"admin"}],"query":"from AlertLongSessionsTable on timestamp \u003e\u003d 0L and timestamp \u003c\u003d 4102425000000L select * order by username"},"publishingInterval":5,"timeColumns":""}}},"metadata":{"names":["timestamp","currentTime","meta_tenantId","tenantDomain","sessionId","username","duration","avgDuration"],"types":["LINEAR","ORDINAL","LINEAR","ORDINAL","ORDINAL","ORDINAL","LINEAR","LINEAR"]},"version":"1.0.0","pubsub":{"types":["subscriber"],"subscriberWidgetInputs":["from","to"]}}],"custom":["IsAnalyticsAttemptsOverTime","IsAnalyticsLoginAttemptsMap","IsAnalyticsMessages","IsAnalyticsAverageSessionDuration","IsAnalyticsTopLongestSession","IsAnalyticsSessionCountOverTime","IsAnalyticsUserPreferences","DateRangePicker","IsAnalyticsSummary","IsAnalyticsCompactSummary","IsAnalyticsSessionMessages","IsAnalyticsAttemptsByType","IsAnalyticsSessionCount"]}}
+{
+  "dashboard": {
+    "url": "is-analytics",
+    "owner": "admin",
+    "name": "IS Analytics",
+    "description": "WSO2 Identity Server Analytics Dashboard",
+    "landingPage": "login_attempts",
+    "parentId": "0",
+    "pages": [
+      {
+        "id": "login_attempts",
+        "name": "Login Attempts",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "width": 100.0,
+                "height": 15.0,
+                "content": [
+                  {
+                    "title": "Date Time Range",
+                    "type": "component",
+                    "component": "DateRangePicker",
+                    "props": {
+                      "id": "9bd23095-62d6-4b84-8ab1-e2bbae851b35",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "granularity",
+                            "from",
+                            "to"
+                          ],
+                          "publishers": []
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "header": false,
+                          "defaultValue": "3 Months",
+                          "availableGranularities": "From Second",
+                          "autoSyncInterval": "10"
+                        }
+                      },
+                      "widgetID": "DateRangePicker"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 85.0,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 33.333333,
+                    "content": [
+                      {
+                        "title": "Is Analytics Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsSummary",
+                        "props": {
+                          "id": "cb2e4284-8e30-4144-a364-ee41b24c2eb5",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "9bd23095-62d6-4b84-8ab1-e2bbae851b35"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall",
+                              "headerTitle": "Overall Login Attempts Summary"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 33.333333,
+                    "content": [
+                      {
+                        "title": "Is Analytics Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsSummary",
+                        "props": {
+                          "id": "17f03e3c-50e3-4ba3-b865-0e8caebad18f",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "9bd23095-62d6-4b84-8ab1-e2bbae851b35"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "headerTitle": "Local Login Attempts Summary"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 33.333334,
+                    "content": [
+                      {
+                        "title": "Is Analytics Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsSummary",
+                        "props": {
+                          "id": "6f37092c-6498-480f-86d7-8ba52d571d36",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "9bd23095-62d6-4b84-8ab1-e2bbae851b35"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated",
+                              "headerTitle": "Federated Login Attempts Summary"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": ""
+      },
+      {
+        "id": "overall",
+        "name": "Overall",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "width": 100.0,
+                "height": 6.0,
+                "content": [
+                  {
+                    "title": "Date Time Range",
+                    "type": "component",
+                    "component": "DateRangePicker",
+                    "props": {
+                      "id": "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "granularity",
+                            "from",
+                            "to"
+                          ],
+                          "publishers": []
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "header": false,
+                          "defaultValue": "3 Months",
+                          "availableGranularities": "From Second",
+                          "autoSyncInterval": "10"
+                        }
+                      },
+                      "widgetID": "DateRangePicker"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "width": 100.0,
+                "height": 9.4,
+                "content": [
+                  {
+                    "title": "IS Analytics User Preferences",
+                    "type": "component",
+                    "component": "IsAnalyticsUserPreferences",
+                    "props": {
+                      "id": "9d854217-943b-4715-badc-44992f6c0b4a",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher",
+                            "subscriber"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "header",
+                            "body"
+                          ],
+                          "publishers": [
+                            "09d297b7-fce8-4682-bc6b-b4d4d6d67871",
+                            "6dc0fd3c-9543-400e-bc9d-4a114d58a4f4"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "widgetType": "Overall",
+                          "headerTitle": "User Preferences - Overall"
+                        }
+                      },
+                      "widgetID": "IsAnalyticsUserPreferences"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 27.0,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 33.3,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts Over Time",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsOverTime",
+                        "props": {
+                          "id": "e78e3c72-a8af-455c-9b3b-66a5b43382b3",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                                "9d854217-943b-4715-badc-44992f6c0b4a"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall",
+                              "headerTitle": "Overall Login Attempts Over Time"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsOverTime"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 16.7,
+                    "content": [
+                      {
+                        "title": "IS Analytics Compact Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsCompactSummary",
+                        "props": {
+                          "id": "3533b834-cdec-4780-a523-380eeaee93ae",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                                "9d854217-943b-4715-badc-44992f6c0b4a"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall",
+                              "headerTitle": "Overall Login Attempts Compact Summary"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsCompactSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics Login Attempts Map",
+                        "type": "component",
+                        "component": "IsAnalyticsLoginAttemptsMap",
+                        "props": {
+                          "id": "5d8b0759-fc39-468d-9754-d25d7e6c0124",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                                "9d854217-943b-4715-badc-44992f6c0b4a"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall",
+                              "headerTitle": "Overall Login Attempts Map"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsLoginAttemptsMap"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 41.0,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "09d297b7-fce8-4682-bc6b-b4d4d6d67871",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                                "9d854217-943b-4715-badc-44992f6c0b4a"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall",
+                              "xAxis": "Service Provider",
+                              "headerTitle": "By Service Provider"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "6dc0fd3c-9543-400e-bc9d-4a114d58a4f4",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                                "9d854217-943b-4715-badc-44992f6c0b4a"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Overall",
+                              "xAxis": "Username",
+                              "headerTitle": "By Username"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 16.6,
+                "content": [
+                  {
+                    "title": "IS Analytics Messages",
+                    "type": "component",
+                    "component": "IsAnalyticsMessages",
+                    "props": {
+                      "id": "525e2d55-ff31-4b35-bed4-811b6baa0c0d",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                            "9d854217-943b-4715-badc-44992f6c0b4a"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "widgetType": "Overall",
+                          "headerTitle": "Overall Login Attempts Messages"
+                        }
+                      },
+                      "widgetID": "IsAnalyticsMessages"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": "2000"
+      },
+      {
+        "id": "local",
+        "name": "Local",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "width": 100.0,
+                "height": 6.0,
+                "content": [
+                  {
+                    "title": "Date Time Range",
+                    "type": "component",
+                    "component": "DateRangePicker",
+                    "props": {
+                      "id": "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "granularity",
+                            "from",
+                            "to"
+                          ],
+                          "publishers": []
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "header": false,
+                          "defaultValue": "3 Months",
+                          "availableGranularities": "From Second",
+                          "autoSyncInterval": "10"
+                        }
+                      },
+                      "widgetID": "DateRangePicker"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "width": 100.0,
+                "height": 9.4,
+                "content": [
+                  {
+                    "title": "IS Analytics User Preferences",
+                    "type": "component",
+                    "component": "IsAnalyticsUserPreferences",
+                    "props": {
+                      "id": "74ec4638-14a7-48ed-a640-459cfd221643",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher",
+                            "subscriber"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "header",
+                            "body"
+                          ],
+                          "publishers": [
+                            "3550e833-b170-4c60-8e9c-302162b18fa6",
+                            "a8b995c7-2a80-4fcc-95db-5e97fefb9a29",
+                            "cb733ed6-3ecb-4114-bb13-1bd84b9fa327",
+                            "d8de75e6-dd1e-42f0-8870-74b1b1919eea"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "widgetType": "Local",
+                          "headerTitle": "User Preferences - Local"
+                        }
+                      },
+                      "widgetID": "IsAnalyticsUserPreferences"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 27.0,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 33.3,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts Over Time",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsOverTime",
+                        "props": {
+                          "id": "950da79b-9a9a-4df9-81b6-7dc32d8d3da5",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "headerTitle": "Local Login Attempts Over Time"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsOverTime"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 16.7,
+                    "content": [
+                      {
+                        "title": "IS Analytics Compact Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsCompactSummary",
+                        "props": {
+                          "id": "24a5adf0-f8bf-43de-b07b-030729002d3e",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "headerTitle": "Local Login Attempts Compact Summary"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsCompactSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics Login Attempts Map",
+                        "type": "component",
+                        "component": "IsAnalyticsLoginAttemptsMap",
+                        "props": {
+                          "id": "0b6697f9-9420-4c76-ae7a-e81db6bafca7",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "headerTitle": "Local Login Attempts Map"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsLoginAttemptsMap"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 41.0,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 25.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "3550e833-b170-4c60-8e9c-302162b18fa6",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "xAxis": "Service Provider",
+                              "headerTitle": "By Service Provider"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 25.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "a8b995c7-2a80-4fcc-95db-5e97fefb9a29",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "xAxis": "User Store Domain",
+                              "headerTitle": "By User Store Domain"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 25.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "cb733ed6-3ecb-4114-bb13-1bd84b9fa327",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "xAxis": "Role",
+                              "headerTitle": "By Role"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 25.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "d8de75e6-dd1e-42f0-8870-74b1b1919eea",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Local",
+                              "xAxis": "Username",
+                              "headerTitle": "By Username"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 16.6,
+                "content": [
+                  {
+                    "title": "IS Analytics Messages",
+                    "type": "component",
+                    "component": "IsAnalyticsMessages",
+                    "props": {
+                      "id": "85d85906-b08b-47ad-a1a6-16e13573a038",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                            "74ec4638-14a7-48ed-a640-459cfd221643"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "widgetType": "Local",
+                          "headerTitle": "Local Login Attempts Messages"
+                        }
+                      },
+                      "widgetID": "IsAnalyticsMessages"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": "2000"
+      },
+      {
+        "id": "federated",
+        "name": "Federated",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "width": 100.0,
+                "height": 6.0,
+                "content": [
+                  {
+                    "title": "Date Time Range",
+                    "type": "component",
+                    "component": "DateRangePicker",
+                    "props": {
+                      "id": "e79cd86d-451b-4176-a496-c41b51424d22",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "granularity",
+                            "from",
+                            "to"
+                          ],
+                          "publishers": []
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "header": false,
+                          "defaultValue": "3 Months",
+                          "availableGranularities": "From Second",
+                          "autoSyncInterval": "10"
+                        }
+                      },
+                      "widgetID": "DateRangePicker"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "width": 100.0,
+                "height": 9.4,
+                "content": [
+                  {
+                    "title": "IS Analytics User Preferences",
+                    "type": "component",
+                    "component": "IsAnalyticsUserPreferences",
+                    "props": {
+                      "id": "6e7c0745-c85d-4c02-a303-8888a6628c55",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher",
+                            "subscriber"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "header",
+                            "body"
+                          ],
+                          "publishers": [
+                            "5ac4058e-9a7c-4202-a40a-e8d3ea430a7f",
+                            "74ab53ce-6dfa-412f-bb11-ba5e9848a69c",
+                            "ef9c3929-00c3-4385-bc7a-9522c800dbbf"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "widgetType": "Federated",
+                          "headerTitle": "User Preferences"
+                        }
+                      },
+                      "widgetID": "IsAnalyticsUserPreferences"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 27.0,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 36.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts Over Time",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsOverTime",
+                        "props": {
+                          "id": "18f6128b-b894-451a-a449-9fc7b0f6841e",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated",
+                              "headerTitle": "Federated Login Attempts Over Time"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsOverTime"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 16.7,
+                    "content": [
+                      {
+                        "title": "IS Analytics Compact Summary",
+                        "type": "component",
+                        "component": "IsAnalyticsCompactSummary",
+                        "props": {
+                          "id": "d4209d95-5392-4bd1-9c8c-0b1f168d2626",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber"
+                              ],
+                              "publishers": [
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated",
+                              "headerTitle": "Federated Login Attempts Compact Summary"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsCompactSummary"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 50.0,
+                    "content": [
+                      {
+                        "title": "IS Analytics Login Attempts Map",
+                        "type": "component",
+                        "component": "IsAnalyticsLoginAttemptsMap",
+                        "props": {
+                          "id": "335d3801-c71d-41d6-b2e6-cf94a1d84f10",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                null
+                              ],
+                              "publishers": [
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated",
+                              "headerTitle": "Federated Login Attempts Map"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsLoginAttemptsMap"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 41.0,
+                "content": [
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 33.333333,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "5ac4058e-9a7c-4202-a40a-e8d3ea430a7f",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated",
+                              "xAxis": "Service Provider",
+                              "headerTitle": "By Service Provider"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 33.333333,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "74ab53ce-6dfa-412f-bb11-ba5e9848a69c",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated",
+                              "xAxis": "Identity Provider",
+                              "headerTitle": "By Identity Provider"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "stack",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 33.333334,
+                    "content": [
+                      {
+                        "title": "IS Analytics Attempts By Type",
+                        "type": "component",
+                        "component": "IsAnalyticsAttemptsByType",
+                        "props": {
+                          "id": "ef9c3929-00c3-4385-bc7a-9522c800dbbf",
+                          "configs": {
+                            "pubsub": {
+                              "types": [
+                                "subscriber",
+                                "publisher"
+                              ],
+                              "publisherWidgetOutputs": [
+                                "header",
+                                "body"
+                              ],
+                              "publishers": [
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
+                              ]
+                            },
+                            "isGenerated": false,
+                            "options": {
+                              "widgetType": "Federated",
+                              "xAxis": "Username",
+                              "headerTitle": "By Username"
+                            }
+                          },
+                          "widgetID": "IsAnalyticsAttemptsByType"
+                        },
+                        "isClosable": false,
+                        "header": {
+                          "show": true
+                        },
+                        "componentName": "lm-react-component"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 16.6,
+                "content": [
+                  {
+                    "title": "IS Analytics Messages",
+                    "type": "component",
+                    "component": "IsAnalyticsMessages",
+                    "props": {
+                      "id": "ffec8c9d-c958-4365-9308-7e75cba2c4a2",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "e79cd86d-451b-4176-a496-c41b51424d22",
+                            "6e7c0745-c85d-4c02-a303-8888a6628c55"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "widgetType": "Federated",
+                          "headerTitle": "Federated Login Attempts Messages"
+                        }
+                      },
+                      "widgetID": "IsAnalyticsMessages"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": "2000"
+      },
+      {
+        "id": "login_sessions",
+        "name": "Login Session",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "row",
+                "isClosable": true,
+                "title": "",
+                "height": 81.93548387096774,
+                "content": [
+                  {
+                    "type": "row",
+                    "isClosable": true,
+                    "title": "",
+                    "height": 100.0,
+                    "width": 100.0,
+                    "content": [
+                      {
+                        "type": "column",
+                        "isClosable": true,
+                        "title": "",
+                        "width": 100.0,
+                        "content": [
+                          {
+                            "type": "row",
+                            "isClosable": true,
+                            "title": "",
+                            "height": 17.377978670562698,
+                            "content": [
+                              {
+                                "type": "stack",
+                                "isClosable": true,
+                                "title": "",
+                                "height": 17.377978670562698,
+                                "width": 88.02469135802468,
+                                "content": [
+                                  {
+                                    "title": "Date Time Range",
+                                    "type": "component",
+                                    "component": "DateRangePicker",
+                                    "props": {
+                                      "id": "4b281c21-dcb9-441a-8e41-d082a98526cb",
+                                      "configs": {
+                                        "pubsub": {
+                                          "types": [
+                                            "publisher"
+                                          ],
+                                          "publisherWidgetOutputs": [
+                                            "granularity",
+                                            "from",
+                                            "to"
+                                          ],
+                                          "publishers": []
+                                        },
+                                        "isGenerated": false,
+                                        "options": {
+                                          "header": false,
+                                          "defaultValue": "3 Months",
+                                          "availableGranularities": "From Second",
+                                          "autoSyncInterval": "10"
+                                        }
+                                      },
+                                      "widgetID": "DateRangePicker"
+                                    },
+                                    "isClosable": false,
+                                    "header": {
+                                      "show": true
+                                    },
+                                    "componentName": "lm-react-component"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "stack",
+                                "isClosable": true,
+                                "title": "",
+                                "width": 11.975308641975314,
+                                "content": [
+                                  {
+                                    "title": "IS Analytics Active Sessions",
+                                    "type": "component",
+                                    "component": "UniversalWidget",
+                                    "props": {
+                                      "id": "b4ce32d3-19de-4234-a8cf-da59b3274205",
+                                      "configs": {
+                                        "pubsub": {
+                                          "types": []
+                                        },
+                                        "isGenerated": true,
+                                        "options": {}
+                                      },
+                                      "widgetID": "IS-Analytics-Active-Sessions"
+                                    },
+                                    "isClosable": false,
+                                    "header": {
+                                      "show": true
+                                    },
+                                    "componentName": "lm-react-component"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "stack",
+                            "isClosable": true,
+                            "title": "",
+                            "height": 35.838184465546526,
+                            "content": [
+                              {
+                                "title": "IS Analytics Session Count Over Time",
+                                "type": "component",
+                                "component": "IsAnalyticsSessionCountOverTime",
+                                "props": {
+                                  "id": "de98a144-23b1-4886-954f-6c28b7d77273",
+                                  "configs": {
+                                    "pubsub": {
+                                      "types": [
+                                        "subscriber"
+                                      ],
+                                      "publishers": [
+                                        "4b281c21-dcb9-441a-8e41-d082a98526cb"
+                                      ]
+                                    },
+                                    "isGenerated": false,
+                                    "options": {}
+                                  },
+                                  "widgetID": "IsAnalyticsSessionCountOverTime"
+                                },
+                                "isClosable": false,
+                                "header": {
+                                  "show": true
+                                },
+                                "componentName": "lm-react-component"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "row",
+                            "isClosable": true,
+                            "title": "",
+                            "height": 46.78383686389078,
+                            "content": [
+                              {
+                                "type": "stack",
+                                "isClosable": true,
+                                "title": "",
+                                "height": 50.0,
+                                "width": 33.371074429414215,
+                                "content": [
+                                  {
+                                    "title": "IS Analytics Top Longest Session",
+                                    "type": "component",
+                                    "component": "IsAnalyticsTopLongestSession",
+                                    "props": {
+                                      "id": "eb6b0350-a33f-416a-9511-6f0d0f85872f",
+                                      "configs": {
+                                        "pubsub": {
+                                          "types": [
+                                            "subscriber"
+                                          ],
+                                          "publishers": [
+                                            "4b281c21-dcb9-441a-8e41-d082a98526cb"
+                                          ]
+                                        },
+                                        "isGenerated": false,
+                                        "options": {}
+                                      },
+                                      "widgetID": "IsAnalyticsTopLongestSession"
+                                    },
+                                    "isClosable": false,
+                                    "header": {
+                                      "show": true
+                                    },
+                                    "componentName": "lm-react-component"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "stack",
+                                "isClosable": true,
+                                "title": "",
+                                "width": 32.69003209412005,
+                                "content": [
+                                  {
+                                    "title": "IS Analytics AverageSession Duration",
+                                    "type": "component",
+                                    "component": "IsAnalyticsAverageSessionDuration",
+                                    "props": {
+                                      "id": "54ea9b6b-ba30-4358-989c-f2d2103e2de6",
+                                      "configs": {
+                                        "pubsub": {
+                                          "types": [
+                                            "subscriber"
+                                          ],
+                                          "publishers": [
+                                            "4b281c21-dcb9-441a-8e41-d082a98526cb"
+                                          ]
+                                        },
+                                        "isGenerated": false,
+                                        "options": {}
+                                      },
+                                      "widgetID": "IsAnalyticsAverageSessionDuration"
+                                    },
+                                    "isClosable": false,
+                                    "header": {
+                                      "show": true
+                                    },
+                                    "componentName": "lm-react-component"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "stack",
+                                "isClosable": true,
+                                "title": "",
+                                "width": 33.938893476465736,
+                                "content": [
+                                  {
+                                    "title": "IS Analytics Session Count",
+                                    "type": "component",
+                                    "component": "IsAnalyticsSessionCount",
+                                    "props": {
+                                      "id": "639fa008-6cf1-45bb-9344-85bfbbfad098",
+                                      "configs": {
+                                        "pubsub": {
+                                          "types": [
+                                            "subscriber"
+                                          ],
+                                          "publishers": [
+                                            "4b281c21-dcb9-441a-8e41-d082a98526cb"
+                                          ]
+                                        },
+                                        "isGenerated": false,
+                                        "options": {}
+                                      },
+                                      "widgetID": "IsAnalyticsSessionCount"
+                                    },
+                                    "isClosable": false,
+                                    "header": {
+                                      "show": true
+                                    },
+                                    "componentName": "lm-react-component"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 18.06451612903226,
+                "content": [
+                  {
+                    "title": "IS Analytics Session Messages",
+                    "type": "component",
+                    "component": "IsAnalyticsSessionMessages",
+                    "props": {
+                      "id": "43c22955-747c-4487-ac1e-39e76dfd17bf",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "publishers": [
+                            "4b281c21-dcb9-441a-8e41-d082a98526cb"
+                          ]
+                        },
+                        "isGenerated": false,
+                        "options": {}
+                      },
+                      "widgetID": "IsAnalyticsSessionMessages"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 1400.0
+      },
+      {
+        "id": "alert_type",
+        "name": "Alert Type",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 20.27972027972028,
+                "content": [
+                  {
+                    "title": "Date Time Range",
+                    "type": "component",
+                    "component": "DateRangePicker",
+                    "props": {
+                      "id": "cb315c98-64df-4ef8-b4d7-f08c47444857",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "granularity",
+                            "from",
+                            "to"
+                          ],
+                          "publishers": []
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "header": false,
+                          "defaultValue": "1 Min",
+                          "availableGranularities": "From Second",
+                          "autoSyncInterval": "10"
+                        }
+                      },
+                      "widgetID": "DateRangePicker"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 79.72027972027972,
+                "content": [
+                  {
+                    "title": "IS Analytics Alerts",
+                    "type": "component",
+                    "component": "UniversalWidget",
+                    "props": {
+                      "id": "7787d673-1959-41e9-a730-2d2a129880a2",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "subscriberWidgetInputs": [
+                            "from",
+                            "to"
+                          ],
+                          "publishers": [
+                            "cb315c98-64df-4ef8-b4d7-f08c47444857"
+                          ],
+                          "widgetInputOutputMapping": [
+                            {
+                              "subscriberWidgetInput": "from",
+                              "publisherId": "cb315c98-64df-4ef8-b4d7-f08c47444857",
+                              "publisherWidgetOutput": "from"
+                            },
+                            {
+                              "subscriberWidgetInput": "to",
+                              "publisherId": "cb315c98-64df-4ef8-b4d7-f08c47444857",
+                              "publisherWidgetOutput": "to"
+                            }
+                          ]
+                        },
+                        "isGenerated": true,
+                        "options": {}
+                      },
+                      "widgetID": "IS-Analytics-Alerts"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "height": 863.0
+      },
+      {
+        "id": "suspicious_login",
+        "name": "Suspicious Login Alerts",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 19.46386946386946,
+                "content": [
+                  {
+                    "title": "Date Time Range",
+                    "type": "component",
+                    "component": "DateRangePicker",
+                    "props": {
+                      "id": "8a7d2341-e305-4d4d-bd93-88e3bf5821a8",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "granularity",
+                            "from",
+                            "to"
+                          ],
+                          "publishers": [],
+                          "widgetInputOutputMapping": []
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "header": false,
+                          "defaultValue": "1 Min",
+                          "availableGranularities": "From Second",
+                          "autoSyncInterval": "10"
+                        }
+                      },
+                      "widgetID": "DateRangePicker"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 80.53613053613053,
+                "content": [
+                  {
+                    "title": "IS Analytics Suspicious Login Alerts",
+                    "type": "component",
+                    "component": "UniversalWidget",
+                    "props": {
+                      "id": "fb96bbd0-82b5-42c0-a6eb-bb55c249a6fa",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "subscriberWidgetInputs": [
+                            "from",
+                            "to"
+                          ],
+                          "publishers": [
+                            "8a7d2341-e305-4d4d-bd93-88e3bf5821a8"
+                          ],
+                          "widgetInputOutputMapping": [
+                            {
+                              "subscriberWidgetInput": "from",
+                              "publisherId": "8a7d2341-e305-4d4d-bd93-88e3bf5821a8",
+                              "publisherWidgetOutput": "from"
+                            },
+                            {
+                              "subscriberWidgetInput": "to",
+                              "publisherId": "8a7d2341-e305-4d4d-bd93-88e3bf5821a8",
+                              "publisherWidgetOutput": "to"
+                            }
+                          ]
+                        },
+                        "isGenerated": true,
+                        "options": {}
+                      },
+                      "widgetID": "IS-Analytics-Suspicious-Login-Alerts"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "long_session",
+        "name": "Long Session Alerts",
+        "content": [
+          {
+            "type": "column",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 19.813519813519815,
+                "content": [
+                  {
+                    "title": "Date Time Range",
+                    "type": "component",
+                    "component": "DateRangePicker",
+                    "props": {
+                      "id": "2ec41fee-f800-442e-94f2-b7d573cd0636",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "publisher"
+                          ],
+                          "publisherWidgetOutputs": [
+                            "granularity",
+                            "from",
+                            "to"
+                          ],
+                          "publishers": []
+                        },
+                        "isGenerated": false,
+                        "options": {
+                          "header": false,
+                          "defaultValue": "1 Min",
+                          "availableGranularities": "From Second",
+                          "autoSyncInterval": "10"
+                        }
+                      },
+                      "widgetID": "DateRangePicker"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              },
+              {
+                "type": "stack",
+                "isClosable": true,
+                "title": "",
+                "height": 80.18648018648018,
+                "content": [
+                  {
+                    "title": "IS Analytics Abnormal Long Sessions Alert",
+                    "type": "component",
+                    "component": "UniversalWidget",
+                    "props": {
+                      "id": "69139824-9e62-4971-a25c-83d2ff273bc4",
+                      "configs": {
+                        "pubsub": {
+                          "types": [
+                            "subscriber"
+                          ],
+                          "subscriberWidgetInputs": [
+                            "from",
+                            "to"
+                          ],
+                          "publishers": [
+                            "2ec41fee-f800-442e-94f2-b7d573cd0636"
+                          ],
+                          "widgetInputOutputMapping": [
+                            {
+                              "subscriberWidgetInput": "from",
+                              "publisherId": "2ec41fee-f800-442e-94f2-b7d573cd0636",
+                              "publisherWidgetOutput": "from"
+                            },
+                            {
+                              "subscriberWidgetInput": "to",
+                              "publisherId": "2ec41fee-f800-442e-94f2-b7d573cd0636",
+                              "publisherWidgetOutput": "to"
+                            }
+                          ]
+                        },
+                        "isGenerated": true,
+                        "options": {}
+                      },
+                      "widgetID": "IS-Analytics-Abnormal-Long-Sessions-Alert"
+                    },
+                    "isClosable": false,
+                    "header": {
+                      "show": true
+                    },
+                    "componentName": "lm-react-component"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "hasOwnerPermission": false,
+    "hasDesignerPermission": false,
+    "hasViewerPermission": false
+  },
+  "widgets": {
+    "generated": [
+      {
+        "name": "IS Analytics Suspicious Login Alerts",
+        "id": "IS-Analytics-Suspicious-Login-Alerts",
+        "chartConfig": {
+          "charts": [
+            {
+              "type": "table",
+              "columns": [
+                {
+                  "name": "currentTime",
+                  "title": "Timestamp",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "tenantDomain",
+                  "title": "Tenant  Domain",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "username",
+                  "title": "User",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "msg",
+                  "title": "Message",
+                  "colorBasedStyle": false
+                }
+              ],
+              "columnTitles": []
+            }
+          ],
+          "maxLength": 100,
+          "filterable": true,
+          "pagination": true,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table SuspiciousLoginAlertTable(meta_tenantId int, username string, severity int, msg string, tenantDomain string, timestamp long,  currentTime string)\n",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,from,to){let query \u003d \"from SuspiciousLoginAlertTable on timestamp \u003e\u003d \"+from+\"L and timestamp \u003c\u003d \"+to+\"L select currentTime, tenantDomain, username, msg order by username\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "from",
+                    "defaultValue": "0"
+                  },
+                  {
+                    "name": "to",
+                    "defaultValue": "4102425000000"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from SuspiciousLoginAlertTable on timestamp \u003e\u003d 0L and timestamp \u003c\u003d 4102425000000L select currentTime, tenantDomain, username, msg order by username"
+              },
+              "publishingInterval": 5,
+              "timeColumns": ""
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "currentTime",
+            "tenantDomain",
+            "username",
+            "msg"
+          ],
+          "types": [
+            "ORDINAL",
+            "ORDINAL",
+            "ORDINAL",
+            "ORDINAL"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "from",
+            "to"
+          ]
+        }
+      },
+      {
+        "name": "IS Analytics Alerts",
+        "id": "IS-Analytics-Alerts",
+        "chartConfig": {
+          "charts": [
+            {
+              "type": "table",
+              "columns": [
+                {
+                  "name": "type",
+                  "title": "Alert Type",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "ans",
+                  "title": "Count",
+                  "colorBasedStyle": false
+                }
+              ],
+              "columnTitles": []
+            }
+          ],
+          "maxLength": 100,
+          "filterable": true,
+          "pagination": true,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table SecurityAlertTypeTable(meta_tenantId int, alertId string, type string,  tenantDomain string, msg string, severity int, alertTimestamp long, userReadableTime string)\n",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,from,to){let query \u003d \"from SecurityAlertTypeTable on alertTimestamp \u003e\u003d \"+from+\"L and alertTimestamp \u003c\u003d \"+to+\"L select type, count() as ans group by type\";\nreturn query;}",
+                "customWidgetInputs": [
+                  {
+                    "name": "from",
+                    "defaultValue": "0"
+                  },
+                  {
+                    "name": "to",
+                    "defaultValue": "4102425000000"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from SecurityAlertTypeTable on alertTimestamp \u003e\u003d 0L and alertTimestamp \u003c\u003d 4102425000000L select type, count() as ans group by type"
+              },
+              "publishingInterval": 5,
+              "timeColumns": ""
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "type",
+            "ans"
+          ],
+          "types": [
+            "ORDINAL",
+            "LINEAR"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "from",
+            "to"
+          ]
+        }
+      },
+      {
+        "name": "IS Analytics Active Sessions",
+        "id": "IS-Analytics-Active-Sessions",
+        "chartConfig": {
+          "x": "active",
+          "title": "Active Sessions",
+          "charts": [
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027IS_ANALYTICS_DB\u0027)\ndefine table ActiveSessionsTable (meta_tenantId int,  sessionId string, startTimestamp long, renewTimestamp long, terminationTimestamp long, action int,  username string,  userstoreDomain string, remoteIp string, region string, tenantDomain string, serviceProvider string, identityProviders string, rememberMeFlag bool,  userAgent string,  usernameWithTenantDomainAndUserstoreDomain string, timestamp long)\n",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username){let query \u003d \"from ActiveSessionsTable select count() as active\";\nreturn query;}",
+                "customWidgetInputs": [],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from ActiveSessionsTable select count() as active"
+              },
+              "publishingInterval": 5,
+              "timeColumns": ""
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "active"
+          ],
+          "types": [
+            "LINEAR"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": []
+        }
+      },
+      {
+        "name": "IS Analytics Abnormal Long Sessions Alert",
+        "id": "IS-Analytics-Abnormal-Long-Sessions-Alert",
+        "chartConfig": {
+          "charts": [
+            {
+              "type": "table",
+              "columns": [
+                {
+                  "name": "currentTime",
+                  "title": "Timestamp",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "tenantDomain",
+                  "title": "Tenant  Domain",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "username",
+                  "title": "User",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "duration",
+                  "title": "Duration (ms)",
+                  "colorBasedStyle": false
+                },
+                {
+                  "name": "avgDuration",
+                  "title": "Avg.  Duration (ms)",
+                  "colorBasedStyle": false
+                }
+              ],
+              "columnTitles": []
+            }
+          ],
+          "maxLength": 100,
+          "filterable": true,
+          "pagination": true,
+          "append": false
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table AlertLongSessionsTable(timestamp long, currentTime string, meta_tenantId int,  tenantDomain string, sessionId string, username string, duration long, avgDuration double)\n",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username,from,to){let query \u003d \"from AlertLongSessionsTable on timestamp \u003e\u003d \"+from+\"L and timestamp \u003c\u003d \"+to+\"L select * order by username\";\nreturn query;\n}",
+                "customWidgetInputs": [
+                  {
+                    "name": "from",
+                    "defaultValue": "0"
+                  },
+                  {
+                    "name": "to",
+                    "defaultValue": "4102425000000"
+                  }
+                ],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from AlertLongSessionsTable on timestamp \u003e\u003d 0L and timestamp \u003c\u003d 4102425000000L select * order by username"
+              },
+              "publishingInterval": 5,
+              "timeColumns": ""
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "timestamp",
+            "currentTime",
+            "meta_tenantId",
+            "tenantDomain",
+            "sessionId",
+            "username",
+            "duration",
+            "avgDuration"
+          ],
+          "types": [
+            "LINEAR",
+            "ORDINAL",
+            "LINEAR",
+            "ORDINAL",
+            "ORDINAL",
+            "ORDINAL",
+            "LINEAR",
+            "LINEAR"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": [
+            "subscriber"
+          ],
+          "subscriberWidgetInputs": [
+            "from",
+            "to"
+          ]
+        }
+      }
+    ],
+    "custom": [
+      "IsAnalyticsAttemptsOverTime",
+      "IsAnalyticsLoginAttemptsMap",
+      "IsAnalyticsMessages",
+      "IsAnalyticsAverageSessionDuration",
+      "IsAnalyticsTopLongestSession",
+      "IsAnalyticsSessionCountOverTime",
+      "IsAnalyticsUserPreferences",
+      "DateRangePicker",
+      "IsAnalyticsSummary",
+      "IsAnalyticsCompactSummary",
+      "IsAnalyticsSessionMessages",
+      "IsAnalyticsAttemptsByType",
+      "IsAnalyticsSessionCount"
+    ]
+  }
+}
