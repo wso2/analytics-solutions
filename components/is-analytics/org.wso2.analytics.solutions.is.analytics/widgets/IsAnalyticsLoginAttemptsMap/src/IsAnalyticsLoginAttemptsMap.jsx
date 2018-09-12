@@ -20,9 +20,8 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
-import { MuiThemeProvider } from 'material-ui';
+import { MuiThemeProvider, Toggle } from 'material-ui';
 import _ from 'lodash';
-import Toggle from 'material-ui/Toggle';
 
 const colorWhite = '#FFFFFF';
 const colorGreen = '#6ED460';
