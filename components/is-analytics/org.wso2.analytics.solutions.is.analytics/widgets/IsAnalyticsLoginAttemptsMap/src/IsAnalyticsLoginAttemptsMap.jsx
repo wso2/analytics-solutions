@@ -80,7 +80,7 @@ let classCounter = 0;
 
 // This is not the default export
 // eslint-disable-next-line import/prefer-default-export
-export const generateClassName = (rule, styleSheet) => {
+export const LoginAttemptsMapStylesClass = (rule, styleSheet) => {
     classCounter += 1;
 
     if (process.env.NODE_ENV === 'production') {
@@ -287,7 +287,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
 
         if (this.state.isDataProviderConfigFault) {
             return (
-                <JssProvider generateClassName={generateClassName}>
+                <JssProvider generateClassName={LoginAttemptsMapStylesClass}>
                     <MuiThemeProvider theme={theme}>
                         <div style={divSpacings}>
                             <Typography variant="body1" gutterBottom align="center">
@@ -300,7 +300,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             );
         }
         return (
-            <JssProvider generateClassName={generateClassName}>
+            <JssProvider generateClassName={LoginAttemptsMapStylesClass}>
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
                         <div style={{ height: height * 0.6, width: width * 0.9 }}>

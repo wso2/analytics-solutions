@@ -83,7 +83,7 @@ const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
 
 // eslint-disable-next-line import/prefer-default-export
-export const generateClassName = (rule, styleSheet) => {
+export const userPreferencesStylesClass = (rule, styleSheet) => {
     classCounter += 1;
 
     if (process.env.NODE_ENV === 'production') {
@@ -254,7 +254,7 @@ class IsAnalyticsUserPreferences extends Widget {
         }
 
         return (
-            <JssProvider generateClassName={generateClassName}>
+            <JssProvider generateClassName={userPreferencesStylesClass}>
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
                         <div style={{ height: height * 0.6, width: width * 0.9 }}>
