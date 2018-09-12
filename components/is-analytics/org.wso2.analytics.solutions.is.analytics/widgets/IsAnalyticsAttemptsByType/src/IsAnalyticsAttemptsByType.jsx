@@ -403,8 +403,9 @@ class IsAnalyticsAttemptsByType extends Widget {
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
             paddingBottom: height * 0.05,
-            height,
-            width,
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
         };
 
         let theme = darkTheme;
