@@ -1,5 +1,5 @@
 {
-  "name": "EIAnalyticsStatsChart",
+  "name": "EI Analytics Stats Chart",
   "id": "EIAnalyticsStatsChart",
   "thumbnailURL": "",
   "configs": {
@@ -21,6 +21,17 @@
           "publishingInterval": 60
         }
       }
-    }
+    },
+    "options": [
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "TEXT",
+          "possibleValues": []
+        },
+        "defaultValue": "EI Analytics Stats Chart"
+      }
+    ]
   }
 }

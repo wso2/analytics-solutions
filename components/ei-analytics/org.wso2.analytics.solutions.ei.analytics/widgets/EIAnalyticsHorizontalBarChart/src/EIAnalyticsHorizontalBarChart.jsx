@@ -37,9 +37,6 @@ class EIAnalyticsHorizontalBarChart extends Widget {
      */
     constructor(props) {
         super(props);
-        this.props.glContainer.setTitle(
-            'Top ' + props.configs.options[BAR_GRAPH_TYPE] + 's by Request Count'
-        );
         const config = {
             'x': 'Name',
             charts: [

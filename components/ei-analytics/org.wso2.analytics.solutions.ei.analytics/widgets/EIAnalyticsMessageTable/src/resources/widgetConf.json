@@ -19,6 +19,17 @@
           "publishingInterval": 60
         }
       }
-    }
+    },
+    "options": [
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "TEXT",
+          "possibleValues": []
+        },
+        "defaultValue": "EI Analytics Message Table"
+      }
+    ]
   }
 }

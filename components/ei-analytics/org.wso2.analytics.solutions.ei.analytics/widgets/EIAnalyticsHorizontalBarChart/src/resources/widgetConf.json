@@ -37,6 +37,15 @@
           ]
         },
         "defaultValue": "api"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "TEXT",
+          "possibleValues": []
+        },
+        "defaultValue": "EI Analytics Horizontal Bar Chart"
       }
     ]
   }

@@ -97,28 +97,10 @@ class EIAnalyticsStatsChart extends Widget {
         };
 
         this.props.glContainer.on('resize', this.handleResize.bind(this));
-
-        this.setWidgetTitle();
     }
 
     handleResize() {
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
-    }
-
-    setWidgetTitle() {
-        let pageName = window.location.pathname.split('/').pop();
-        let title = 'StatChart';
-
-        if (pageName === 'overview') {
-            title = 'REQUEST SUMMARY';
-        }
-        else {
-            title = pageName.toUpperCase() + "  REQUEST COUNT";
-        }
-
-        this.props.glContainer.setTitle(
-            title
-        );
     }
 
     componentDidMount() {
