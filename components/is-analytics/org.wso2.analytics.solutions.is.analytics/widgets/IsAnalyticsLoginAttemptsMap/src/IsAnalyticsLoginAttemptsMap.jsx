@@ -251,8 +251,8 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
             paddingBottom: height * 0.05,
-            height: '100%',
-            width: '100%',
+            display: 'flex',
+            'flex-direction': 'column',
         };
 
         if (this.state.isDataProviderConfigFault) {

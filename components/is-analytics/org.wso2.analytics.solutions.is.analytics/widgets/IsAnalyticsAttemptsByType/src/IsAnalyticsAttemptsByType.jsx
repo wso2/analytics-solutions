@@ -403,8 +403,8 @@ class IsAnalyticsAttemptsByType extends Widget {
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
             paddingBottom: height * 0.05,
-            height,
-            width,
+            display: 'flex',
+            'flex-direction': 'column',
         };
 
         let theme = darkTheme;
