@@ -21,6 +21,9 @@
 
 -- Streams
 
+-- temporary stream to store ESBStat data
+define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);
+
 -- temporary stream to store MediatorStat data
 define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);
 
@@ -28,9 +31,6 @@ define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint strin
 @source(type = 'wso2event', wso2.stream.id = 'org.wso2.esb.analytics.stream.FlowEntry:1.0.0',
 	@map(type = 'wso2event'))
 define stream FlowEntryEventStream (meta_compressed bool, meta_tenantId int, messageId string, flowData string);
-
--- temporary stream to store ESBStat data
-define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);
 
 -- maps Config entry into ConfigEntryEventStream
 @source(type = 'wso2event', wso2.stream.id = 'org.wso2.esb.analytics.stream.ConfigEntry:1.0.0',
@@ -61,7 +61,7 @@ define table ConfigEntryTable (metaTenantId int, hashcode string, entryName stri
 @purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
 define aggregation MediatorStatAgg
 from PreProcessedMediatorStatStream
- select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime
+ select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime
 	group by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode
 	aggregate by startTime every sec...years;
 
@@ -71,7 +71,7 @@ from PreProcessedMediatorStatStream
 @info(name = 'ESBStat')
 define aggregation ESBStatAgg
 from PreProcessedESBStatStream
- select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp
+ select componentId, componentName, componentType, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp
 	group by metaTenantId, componentId, componentName, componentType, entryPoint
 	aggregate by startTime every sec...years;
 
@@ -114,5 +114,3 @@ from    TablePurgingTriggerStream
 select  time:dateSub(triggered_time, 2, 'week') as purgingTime
 delete  ESBEventTable
 on      ESBEventTable.eventTimestamp < purgingTime;
-
-
