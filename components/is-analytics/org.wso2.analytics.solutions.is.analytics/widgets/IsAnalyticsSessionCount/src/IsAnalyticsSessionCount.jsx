@@ -91,7 +91,7 @@ class IsAnalyticsSessionCount extends Widget {
             height: this.props.glContainer.height,
         };
 
-        this.tempData = [];
+        this.appendArray = [];
 
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
@@ -122,16 +122,16 @@ class IsAnalyticsSessionCount extends Widget {
     handleDataReceived(message) {
         let receivedData = message.data;
         if (!receivedData.length) {
-            receivedData = [[templateFillers[this.tempData.length].duration, 0]];
+            receivedData = [[templateFillers[this.appendArray.length].duration, 0]];
         }
 
-        this.tempData.push(receivedData[0]);
-        if (this.tempData.length < 5) {
-            this.sendQuery(this.tempData.length);
-        } else if (this.tempData.length === 5) {
+        this.appendArray.push(receivedData[0]);
+        if (this.appendArray.length < 5) {
+            this.sendQuery(this.appendArray.length);
+        } else if (this.appendArray.length === 5) {
             this.setState({
-                data: this.tempData,
-            }, () => { this.tempData = []; });
+                data: this.appendArray,
+            }, () => { this.appendArray = []; });
         }
     }
 
@@ -146,21 +146,21 @@ class IsAnalyticsSessionCount extends Widget {
         this.sendQuery(0);
     }
 
-    sendQuery(i) {
+    sendQuery(queryIndex) {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
         const query = dataProviderConfigs.configs.config.queryData.query
-            .replace('{{durationRange}}', templateFillers[i].durationRange)
-            .replace('{{startTimestampRange}}', templateFillers[i].startTimestampRange)
-            .replace('{{endTimestampRange}}', templateFillers[i].endTimestampRange)
-            .replace('{{duration}}', templateFillers[i].duration)
+            .replace('{{durationRange}}', templateFillers[queryIndex].durationRange)
+            .replace('{{startTimestampRange}}', templateFillers[queryIndex].startTimestampRange)
+            .replace('{{endTimestampRange}}', templateFillers[queryIndex].endTimestampRange)
+            .replace('{{duration}}', templateFillers[queryIndex].duration)
             .replace('{{from}}', this.state.fromDate)
             .replace('{{to}}', this.state.toDate)
             .replace('{{now}}', new Date().getTime());
         dataProviderConfigs.configs.config.queryData.query = query;
 
         super.getWidgetChannelManager()
-            .subscribeWidget(this.props.id + i, this.handleDataReceived, dataProviderConfigs);
+            .subscribeWidget(this.props.id + queryIndex, this.handleDataReceived, dataProviderConfigs);
     }
 
     render() {
