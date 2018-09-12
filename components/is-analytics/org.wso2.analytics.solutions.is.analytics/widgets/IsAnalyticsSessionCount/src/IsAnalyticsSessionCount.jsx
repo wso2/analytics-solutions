@@ -23,6 +23,39 @@ import Widget from '@wso2-dashboards/widget';
 import { MuiThemeProvider } from 'material-ui/styles';
 import _ from 'lodash';
 
+const templateFillers = [
+    {
+        durationRange: '(duration >= 0 and duration <= 900001)',
+        startTimestampRange: '(startTimestamp >= 0 AND startTimestamp <= {{to}}L )',
+        endTimestampRange: '(endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L)',
+        duration: ' < 15 mins',
+    },
+    {
+        durationRange: '(duration >= 900001 and duration <= 3600001)',
+        startTimestampRange: '(startTimestamp >= 0 AND startTimestamp <= {{to}}L )',
+        endTimestampRange: '(endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L)',
+        duration: ' < 1 hr',
+    },
+    {
+        durationRange: '(duration >= 3600001 and duration <= 43200001)',
+        startTimestampRange: '(startTimestamp >= 0 AND startTimestamp <= {{to}}L )',
+        endTimestampRange: '(endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L)',
+        duration: ' < 12 hrs',
+    },
+    {
+        durationRange: '(duration >= 43200001 and duration <= 86400001)',
+        startTimestampRange: '(startTimestamp >= 0 AND startTimestamp <= {{to}}L )',
+        endTimestampRange: '(endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L)',
+        duration: ' < 24 hrs',
+    },
+    {
+        durationRange: '(duration >= 86400001 and duration <= 9223372036854775807L)',
+        startTimestampRange: '(startTimestamp >= 0 AND startTimestamp <= {{to}}L )',
+        endTimestampRange: '(endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L)',
+        duration: ' > 24 hrs',
+    },
+];
+
 class IsAnalyticsSessionCount extends Widget {
     constructor(props) {
         super(props);
@@ -42,6 +75,7 @@ class IsAnalyticsSessionCount extends Widget {
             pagination: 'true',
             maxLength: 10,
             legend: false,
+            yDomain: [0, 10],
         };
 
         this.metadata = {
@@ -51,20 +85,20 @@ class IsAnalyticsSessionCount extends Widget {
 
         this.state = {
             data: [],
-            tempData: [],
             metadata: this.metadata,
             providerConfig: null,
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
         };
 
-        this.qCount = 0;
+        this.tempData = [];
 
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this.handleDataReceived = this.handleDataReceived.bind(this);
         this.handleUserSelection = this.handleUserSelection.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
+        this.sendQuery = this.sendQuery.bind(this);
     }
 
     handleResize() {
@@ -86,20 +120,19 @@ class IsAnalyticsSessionCount extends Widget {
     }
 
     handleDataReceived(message) {
-        console.log(' message\n ', message.data);
-        this.qCount++;
-        console.log(' num\n ', this.qCount);
-        this.state.tempData = this.state.tempData.concat(message.data);
-        console.log(' temp data\n ', this.state.tempData);
-        if (this.qCount === 2) {
-            this.qCount = 0;
-            console.log('hit\n');
-            this.setState((ps) => {
-                return {
-                    metadata: message.metadata,
-                    data: ps.tempData,
-                };
-            });
+        let receivedData = message.data;
+        if (!receivedData.length) {
+            receivedData = [[templateFillers[this.tempData.length].duration, 0]];
+        }
+
+        this.tempData.push(receivedData[0]);
+        if (this.tempData.length < 5) {
+            this.sendQuery(this.tempData.length);
+        } else if (this.tempData.length === 5) {
+            console.log(this.tempData);
+            this.setState({
+                data: this.tempData,
+            }, () => { this.tempData = []; });
         }
     }
 
@@ -111,27 +144,33 @@ class IsAnalyticsSessionCount extends Widget {
     }
 
     assembleQuery() {
+        this.sendQuery(0);
+    }
+
+    sendQuery(i) {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
-        let { query } = dataProviderConfigs.configs.config.queryData;
-        query = query
+        const query = dataProviderConfigs.configs.config.queryData.query
+            .replace('{{durationRange}}', templateFillers[i].durationRange)
+            .replace('{{startTimestampRange}}', templateFillers[i].startTimestampRange)
+            .replace('{{endTimestampRange}}', templateFillers[i].endTimestampRange)
+            .replace('{{duration}}', templateFillers[i].duration)
             .replace('{{from}}', this.state.fromDate)
             .replace('{{to}}', this.state.toDate)
             .replace('{{now}}', new Date().getTime());
         dataProviderConfigs.configs.config.queryData.query = query;
+        console.log(i, query);
+
         super.getWidgetChannelManager()
-            .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
-        let { query2 } = dataProviderConfigs.configs.config.queryData;
-        query2 = query2
-            .replace('{{from}}', this.state.fromDate)
-            .replace('{{to}}', this.state.toDate)
-            .replace('{{now}}', new Date().getTime());
-        dataProviderConfigs.configs.config.queryData.query = query2;
-        super.getWidgetChannelManager()
-            .subscribeWidget(this.props.id + '2', this.handleDataReceived, dataProviderConfigs);
+            .subscribeWidget(this.props.id + i, this.handleDataReceived, dataProviderConfigs);
     }
 
     render() {
+        if (this.state.data.length) {
+            const maxDataPoint = _.maxBy(this.state.data, element => element[1]);
+            this.chartConfig.yDomain = [0, maxDataPoint[1]];
+        }
+
         return (
             <MuiThemeProvider muiTheme={this.props.muiTheme}>
                 <VizG
