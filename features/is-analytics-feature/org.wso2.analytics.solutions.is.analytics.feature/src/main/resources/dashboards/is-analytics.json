@@ -20,14 +20,15 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 19.0,
+                "width": 100.0,
+                "height": 15.0,
                 "content": [
                   {
                     "title": "Date Time Range",
                     "type": "component",
                     "component": "DateRangePicker",
                     "props": {
-                      "id": "1826bc6e-fcf2-4b55-b886-6289022cdb37",
+                      "id": "9bd23095-62d6-4b84-8ab1-e2bbae851b35",
                       "configs": {
                         "pubsub": {
                           "types": [
@@ -38,11 +39,11 @@
                             "from",
                             "to"
                           ],
-                          "publishers": [
-                          ]
+                          "publishers": []
                         },
                         "isGenerated": false,
                         "options": {
+                          "header": false,
                           "defaultValue": "3 Months",
                           "availableGranularities": "From Second",
                           "autoSyncInterval": "10"
@@ -62,12 +63,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 81.0,
+                "height": 85.0,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
+                    "height": 100.0,
                     "width": 33.333333,
                     "content": [
                       {
@@ -75,19 +77,20 @@
                         "type": "component",
                         "component": "IsAnalyticsSummary",
                         "props": {
-                          "id": "2199cd09-453b-44cd-b71e-1df9bbbef471",
+                          "id": "cb2e4284-8e30-4144-a364-ee41b24c2eb5",
                           "configs": {
                             "pubsub": {
                               "types": [
                                 "subscriber"
                               ],
                               "publishers": [
-                                "1826bc6e-fcf2-4b55-b886-6289022cdb37"
+                                "9bd23095-62d6-4b84-8ab1-e2bbae851b35"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Overall"
+                              "widgetType": "Overall",
+                              "headerTitle": "Overall Login Attempts Summary"
                             }
                           },
                           "widgetID": "IsAnalyticsSummary"
@@ -104,7 +107,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 50.0,
+                    "height": 100.0,
                     "width": 33.333333,
                     "content": [
                       {
@@ -112,19 +115,20 @@
                         "type": "component",
                         "component": "IsAnalyticsSummary",
                         "props": {
-                          "id": "f86ae70f-3ec7-4225-b9ee-53d0ebb8e7d2",
+                          "id": "17f03e3c-50e3-4ba3-b865-0e8caebad18f",
                           "configs": {
                             "pubsub": {
                               "types": [
                                 "subscriber"
                               ],
                               "publishers": [
-                                "1826bc6e-fcf2-4b55-b886-6289022cdb37"
+                                "9bd23095-62d6-4b84-8ab1-e2bbae851b35"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Local"
+                              "widgetType": "Local",
+                              "headerTitle": "Local Login Attempts Summary"
                             }
                           },
                           "widgetID": "IsAnalyticsSummary"
@@ -141,6 +145,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
+                    "height": 100.0,
                     "width": 33.333334,
                     "content": [
                       {
@@ -148,19 +153,20 @@
                         "type": "component",
                         "component": "IsAnalyticsSummary",
                         "props": {
-                          "id": "d5527c98-d4f7-4c7b-9ab4-b9bc32815c39",
+                          "id": "6f37092c-6498-480f-86d7-8ba52d571d36",
                           "configs": {
                             "pubsub": {
                               "types": [
                                 "subscriber"
                               ],
                               "publishers": [
-                                "1826bc6e-fcf2-4b55-b886-6289022cdb37"
+                                "9bd23095-62d6-4b84-8ab1-e2bbae851b35"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Federated"
+                              "widgetType": "Federated",
+                              "headerTitle": "Federated Login Attempts Summary"
                             }
                           },
                           "widgetID": "IsAnalyticsSummary"
@@ -177,7 +183,8 @@
               }
             ]
           }
-        ]
+        ],
+        "height": ""
       },
       {
         "id": "overall",
@@ -192,14 +199,15 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 8.0,
+                "width": 100.0,
+                "height": 6.0,
                 "content": [
                   {
                     "title": "Date Time Range",
                     "type": "component",
                     "component": "DateRangePicker",
                     "props": {
-                      "id": "8ccc1528-6d3c-40e1-a769-f88546d517ca",
+                      "id": "664de114-52ef-4a1f-9a9d-5f3121d76877",
                       "configs": {
                         "pubsub": {
                           "types": [
@@ -209,10 +217,12 @@
                             "granularity",
                             "from",
                             "to"
-                          ]
+                          ],
+                          "publishers": []
                         },
                         "isGenerated": false,
                         "options": {
+                          "header": false,
                           "defaultValue": "3 Months",
                           "availableGranularities": "From Second",
                           "autoSyncInterval": "10"
@@ -232,14 +242,15 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 9.6,
+                "width": 100.0,
+                "height": 9.4,
                 "content": [
                   {
-                    "title": "Is Analytics User Preferences",
+                    "title": "IS Analytics User Preferences",
                     "type": "component",
                     "component": "IsAnalyticsUserPreferences",
                     "props": {
-                      "id": "ddb0f253-7dd4-44af-bcc8-3c8906760432",
+                      "id": "9d854217-943b-4715-badc-44992f6c0b4a",
                       "configs": {
                         "pubsub": {
                           "types": [
@@ -251,14 +262,14 @@
                             "body"
                           ],
                           "publishers": [
-                            "a8e8ebc5-82ee-4e75-b6ae-f6248e758a88",
-                            "3361a356-dc9d-4280-bbbe-fe74f195df38",
-                            "0ae3091c-e0ba-4e05-890f-fa2b94934ad4"
+                            "09d297b7-fce8-4682-bc6b-b4d4d6d67871",
+                            "6dc0fd3c-9543-400e-bc9d-4a114d58a4f4"
                           ]
                         },
                         "isGenerated": false,
                         "options": {
-                          "widgetType": "Overall"
+                          "widgetType": "Overall",
+                          "headerTitle": "User Preferences - Overall"
                         }
                       },
                       "widgetID": "IsAnalyticsUserPreferences"
@@ -275,21 +286,21 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 28.4,
+                "height": 27.0,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 74.66506734707127,
-                    "width": 33.0,
+                    "height": 100.0,
+                    "width": 33.3,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts Over Time",
+                        "title": "IS Analytics Attempts Over Time",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsOverTime",
                         "props": {
-                          "id": "62964be0-a936-4709-92fe-4b4c8789e6e7",
+                          "id": "e78e3c72-a8af-455c-9b3b-66a5b43382b3",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -297,13 +308,14 @@
                                 null
                               ],
                               "publishers": [
-                                "8ccc1528-6d3c-40e1-a769-f88546d517ca",
-                                "ddb0f253-7dd4-44af-bcc8-3c8906760432"
+                                "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                                "9d854217-943b-4715-badc-44992f6c0b4a"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Overall"
+                              "widgetType": "Overall",
+                              "headerTitle": "Overall Login Attempts Over Time"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsOverTime"
@@ -320,27 +332,29 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 24.5,
+                    "height": 100.0,
+                    "width": 16.7,
                     "content": [
                       {
-                        "title": "Is Analytics Compact Summary",
+                        "title": "IS Analytics Compact Summary",
                         "type": "component",
                         "component": "IsAnalyticsCompactSummary",
                         "props": {
-                          "id": "9be1a125-9120-45ea-94a1-ce4c11094a54",
+                          "id": "3533b834-cdec-4780-a523-380eeaee93ae",
                           "configs": {
                             "pubsub": {
                               "types": [
                                 "subscriber"
                               ],
                               "publishers": [
-                                "8ccc1528-6d3c-40e1-a769-f88546d517ca",
-                                "ddb0f253-7dd4-44af-bcc8-3c8906760432"
+                                "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                                "9d854217-943b-4715-badc-44992f6c0b4a"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Overall"
+                              "widgetType": "Overall",
+                              "headerTitle": "Overall Login Attempts Compact Summary"
                             }
                           },
                           "widgetID": "IsAnalyticsCompactSummary"
@@ -357,14 +371,15 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 42.5,
+                    "height": 100.0,
+                    "width": 50.0,
                     "content": [
                       {
-                        "title": "Is Analytics Login Attempts Map",
+                        "title": "IS Analytics Login Attempts Map",
                         "type": "component",
                         "component": "IsAnalyticsLoginAttemptsMap",
                         "props": {
-                          "id": "a5ffae06-01b5-45f3-a378-58841a2315ff",
+                          "id": "5d8b0759-fc39-468d-9754-d25d7e6c0124",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -372,13 +387,14 @@
                                 null
                               ],
                               "publishers": [
-                                "8ccc1528-6d3c-40e1-a769-f88546d517ca",
-                                "ddb0f253-7dd4-44af-bcc8-3c8906760432"
+                                "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                                "9d854217-943b-4715-badc-44992f6c0b4a"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Overall"
+                              "widgetType": "Overall",
+                              "headerTitle": "Overall Login Attempts Map"
                             }
                           },
                           "widgetID": "IsAnalyticsLoginAttemptsMap"
@@ -397,20 +413,21 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 32.3,
+                "height": 41.0,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
+                    "height": 100.0,
                     "width": 50.0,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts By Type",
+                        "title": "IS Analytics Attempts By Type",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsByType",
                         "props": {
-                          "id": "a8e8ebc5-82ee-4e75-b6ae-f6248e758a88",
+                          "id": "09d297b7-fce8-4682-bc6b-b4d4d6d67871",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -422,14 +439,15 @@
                                 "body"
                               ],
                               "publishers": [
-                                "8ccc1528-6d3c-40e1-a769-f88546d517ca",
-                                "ddb0f253-7dd4-44af-bcc8-3c8906760432"
+                                "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                                "9d854217-943b-4715-badc-44992f6c0b4a"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
                               "widgetType": "Overall",
-                              "xAxis": "Service Provider"
+                              "xAxis": "Service Provider",
+                              "headerTitle": "By Service Provider"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsByType"
@@ -446,15 +464,15 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 37.332533673535636,
+                    "height": 100.0,
                     "width": 50.0,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts By Type",
+                        "title": "IS Analytics Attempts By Type",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsByType",
                         "props": {
-                          "id": "0ae3091c-e0ba-4e05-890f-fa2b94934ad4",
+                          "id": "6dc0fd3c-9543-400e-bc9d-4a114d58a4f4",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -466,14 +484,15 @@
                                 "body"
                               ],
                               "publishers": [
-                                "8ccc1528-6d3c-40e1-a769-f88546d517ca",
-                                "ddb0f253-7dd4-44af-bcc8-3c8906760432"
+                                "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                                "9d854217-943b-4715-badc-44992f6c0b4a"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
                               "widgetType": "Overall",
-                              "xAxis": "Username"
+                              "xAxis": "Username",
+                              "headerTitle": "By Username"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsByType"
@@ -492,27 +511,28 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 21.7,
+                "height": 16.6,
                 "content": [
                   {
-                    "title": "Is Analytics Messages",
+                    "title": "IS Analytics Messages",
                     "type": "component",
                     "component": "IsAnalyticsMessages",
                     "props": {
-                      "id": "c85884e1-1821-4d9f-af6d-088c146bfd37",
+                      "id": "525e2d55-ff31-4b35-bed4-811b6baa0c0d",
                       "configs": {
                         "pubsub": {
                           "types": [
                             "subscriber"
                           ],
                           "publishers": [
-                            "8ccc1528-6d3c-40e1-a769-f88546d517ca",
-                            "ddb0f253-7dd4-44af-bcc8-3c8906760432"
+                            "664de114-52ef-4a1f-9a9d-5f3121d76877",
+                            "9d854217-943b-4715-badc-44992f6c0b4a"
                           ]
                         },
                         "isGenerated": false,
                         "options": {
-                          "widgetType": "Overall"
+                          "widgetType": "Overall",
+                          "headerTitle": "Overall Login Attempts Messages"
                         }
                       },
                       "widgetID": "IsAnalyticsMessages"
@@ -543,14 +563,15 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 8.0,
+                "width": 100.0,
+                "height": 6.0,
                 "content": [
                   {
                     "title": "Date Time Range",
                     "type": "component",
                     "component": "DateRangePicker",
                     "props": {
-                      "id": "fdee9dea-2e02-445a-9407-ca93645baf8c",
+                      "id": "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
                       "configs": {
                         "pubsub": {
                           "types": [
@@ -560,10 +581,12 @@
                             "granularity",
                             "from",
                             "to"
-                          ]
+                          ],
+                          "publishers": []
                         },
                         "isGenerated": false,
                         "options": {
+                          "header": false,
                           "defaultValue": "3 Months",
                           "availableGranularities": "From Second",
                           "autoSyncInterval": "10"
@@ -583,14 +606,15 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 9.6,
+                "width": 100.0,
+                "height": 9.4,
                 "content": [
                   {
-                    "title": "Is Analytics User Preferences",
+                    "title": "IS Analytics User Preferences",
                     "type": "component",
                     "component": "IsAnalyticsUserPreferences",
                     "props": {
-                      "id": "e85d20af-f235-47ea-b67b-a10c07c2931d",
+                      "id": "74ec4638-14a7-48ed-a640-459cfd221643",
                       "configs": {
                         "pubsub": {
                           "types": [
@@ -602,15 +626,16 @@
                             "body"
                           ],
                           "publishers": [
-                            "6b397ea7-b7d5-4ffb-8c4f-f82a53c16391",
-                            "fa7859da-f312-49b4-9bd3-d04bff4687ca",
-                            "5293c575-e362-48fa-9667-18b4d5bdc8fc",
-                            "0b320bc1-4027-45b4-b450-9fb94f8ccafc"
+                            "3550e833-b170-4c60-8e9c-302162b18fa6",
+                            "a8b995c7-2a80-4fcc-95db-5e97fefb9a29",
+                            "cb733ed6-3ecb-4114-bb13-1bd84b9fa327",
+                            "d8de75e6-dd1e-42f0-8870-74b1b1919eea"
                           ]
                         },
                         "isGenerated": false,
                         "options": {
-                          "widgetType": "Local"
+                          "widgetType": "Local",
+                          "headerTitle": "User Preferences - Local"
                         }
                       },
                       "widgetID": "IsAnalyticsUserPreferences"
@@ -627,21 +652,21 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 28.4,
+                "height": 27.0,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 45.689223057644114,
-                    "width": 33.0,
+                    "height": 100.0,
+                    "width": 33.3,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts Over Time",
+                        "title": "IS Analytics Attempts Over Time",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsOverTime",
                         "props": {
-                          "id": "f5011216-06ae-40df-962d-741b644d7739",
+                          "id": "950da79b-9a9a-4df9-81b6-7dc32d8d3da5",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -649,13 +674,14 @@
                                 null
                               ],
                               "publishers": [
-                                "fdee9dea-2e02-445a-9407-ca93645baf8c",
-                                "e85d20af-f235-47ea-b67b-a10c07c2931d"
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Local"
+                              "widgetType": "Local",
+                              "headerTitle": "Local Login Attempts Over Time"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsOverTime"
@@ -672,27 +698,29 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 24.5,
+                    "height": 100.0,
+                    "width": 16.7,
                     "content": [
                       {
-                        "title": "Is Analytics Compact Summary",
+                        "title": "IS Analytics Compact Summary",
                         "type": "component",
                         "component": "IsAnalyticsCompactSummary",
                         "props": {
-                          "id": "795eb7d5-d9d9-4b98-955b-a249d80228a4",
+                          "id": "24a5adf0-f8bf-43de-b07b-030729002d3e",
                           "configs": {
                             "pubsub": {
                               "types": [
                                 "subscriber"
                               ],
                               "publishers": [
-                                "fdee9dea-2e02-445a-9407-ca93645baf8c",
-                                "e85d20af-f235-47ea-b67b-a10c07c2931d"
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Local"
+                              "widgetType": "Local",
+                              "headerTitle": "Local Login Attempts Compact Summary"
                             }
                           },
                           "widgetID": "IsAnalyticsCompactSummary"
@@ -709,14 +737,15 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 42.5,
+                    "height": 100.0,
+                    "width": 50.0,
                     "content": [
                       {
-                        "title": "Is Analytics Login Attempts Map",
+                        "title": "IS Analytics Login Attempts Map",
                         "type": "component",
                         "component": "IsAnalyticsLoginAttemptsMap",
                         "props": {
-                          "id": "df5f849b-0496-45c8-b53b-fe5ac3ff5752",
+                          "id": "0b6697f9-9420-4c76-ae7a-e81db6bafca7",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -724,13 +753,14 @@
                                 null
                               ],
                               "publishers": [
-                                "fdee9dea-2e02-445a-9407-ca93645baf8c",
-                                "e85d20af-f235-47ea-b67b-a10c07c2931d"
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Local"
+                              "widgetType": "Local",
+                              "headerTitle": "Local Login Attempts Map"
                             }
                           },
                           "widgetID": "IsAnalyticsLoginAttemptsMap"
@@ -749,20 +779,21 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 32.3,
+                "height": 41.0,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
+                    "height": 100.0,
                     "width": 25.0,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts By Type",
+                        "title": "IS Analytics Attempts By Type",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsByType",
                         "props": {
-                          "id": "6b397ea7-b7d5-4ffb-8c4f-f82a53c16391",
+                          "id": "3550e833-b170-4c60-8e9c-302162b18fa6",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -774,14 +805,15 @@
                                 "body"
                               ],
                               "publishers": [
-                                "fdee9dea-2e02-445a-9407-ca93645baf8c",
-                                "e85d20af-f235-47ea-b67b-a10c07c2931d"
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
                               "widgetType": "Local",
-                              "xAxis": "Service Provider"
+                              "xAxis": "Service Provider",
+                              "headerTitle": "By Service Provider"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsByType"
@@ -798,14 +830,15 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
+                    "height": 100.0,
                     "width": 25.0,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts By Type",
+                        "title": "IS Analytics Attempts By Type",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsByType",
                         "props": {
-                          "id": "fa7859da-f312-49b4-9bd3-d04bff4687ca",
+                          "id": "a8b995c7-2a80-4fcc-95db-5e97fefb9a29",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -817,14 +850,15 @@
                                 "body"
                               ],
                               "publishers": [
-                                "fdee9dea-2e02-445a-9407-ca93645baf8c",
-                                "e85d20af-f235-47ea-b67b-a10c07c2931d"
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
                               "widgetType": "Local",
-                              "xAxis": "User Store Domain"
+                              "xAxis": "User Store Domain",
+                              "headerTitle": "By User Store Domain"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsByType"
@@ -841,14 +875,15 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
+                    "height": 100.0,
                     "width": 25.0,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts By Type",
+                        "title": "IS Analytics Attempts By Type",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsByType",
                         "props": {
-                          "id": "0b320bc1-4027-45b4-b450-9fb94f8ccafc",
+                          "id": "cb733ed6-3ecb-4114-bb13-1bd84b9fa327",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -860,14 +895,15 @@
                                 "body"
                               ],
                               "publishers": [
-                                "fdee9dea-2e02-445a-9407-ca93645baf8c",
-                                "e85d20af-f235-47ea-b67b-a10c07c2931d"
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
                               "widgetType": "Local",
-                              "xAxis": "Role"
+                              "xAxis": "Role",
+                              "headerTitle": "By Role"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsByType"
@@ -884,15 +920,15 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 22.844611528822057,
+                    "height": 100.0,
                     "width": 25.0,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts By Type",
+                        "title": "IS Analytics Attempts By Type",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsByType",
                         "props": {
-                          "id": "5293c575-e362-48fa-9667-18b4d5bdc8fc",
+                          "id": "d8de75e6-dd1e-42f0-8870-74b1b1919eea",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -904,14 +940,15 @@
                                 "body"
                               ],
                               "publishers": [
-                                "fdee9dea-2e02-445a-9407-ca93645baf8c",
-                                "e85d20af-f235-47ea-b67b-a10c07c2931d"
+                                "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                                "74ec4638-14a7-48ed-a640-459cfd221643"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
                               "widgetType": "Local",
-                              "xAxis": "Username"
+                              "xAxis": "Username",
+                              "headerTitle": "By Username"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsByType"
@@ -930,27 +967,28 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 21.7,
+                "height": 16.6,
                 "content": [
                   {
-                    "title": "Is Analytics Messages",
+                    "title": "IS Analytics Messages",
                     "type": "component",
                     "component": "IsAnalyticsMessages",
                     "props": {
-                      "id": "8534432e-590d-4939-a622-2a8720ad135b",
+                      "id": "85d85906-b08b-47ad-a1a6-16e13573a038",
                       "configs": {
                         "pubsub": {
                           "types": [
                             "subscriber"
                           ],
                           "publishers": [
-                            "fdee9dea-2e02-445a-9407-ca93645baf8c",
-                            "e85d20af-f235-47ea-b67b-a10c07c2931d"
+                            "6b5fb4d1-37a3-4afa-9f7d-b09a50307817",
+                            "74ec4638-14a7-48ed-a640-459cfd221643"
                           ]
                         },
                         "isGenerated": false,
                         "options": {
-                          "widgetType": "Local"
+                          "widgetType": "Local",
+                          "headerTitle": "Local Login Attempts Messages"
                         }
                       },
                       "widgetID": "IsAnalyticsMessages"
@@ -981,14 +1019,15 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 8.0,
+                "width": 100.0,
+                "height": 6.0,
                 "content": [
                   {
                     "title": "Date Time Range",
                     "type": "component",
                     "component": "DateRangePicker",
                     "props": {
-                      "id": "08a6246f-a49a-4a5a-9e1c-df31823fceef",
+                      "id": "e79cd86d-451b-4176-a496-c41b51424d22",
                       "configs": {
                         "pubsub": {
                           "types": [
@@ -998,10 +1037,12 @@
                             "granularity",
                             "from",
                             "to"
-                          ]
+                          ],
+                          "publishers": []
                         },
                         "isGenerated": false,
                         "options": {
+                          "header": false,
                           "defaultValue": "3 Months",
                           "availableGranularities": "From Second",
                           "autoSyncInterval": "10"
@@ -1021,15 +1062,15 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 9.6,
                 "width": 100.0,
+                "height": 9.4,
                 "content": [
                   {
-                    "title": "Is Analytics User Preferences",
+                    "title": "IS Analytics User Preferences",
                     "type": "component",
                     "component": "IsAnalyticsUserPreferences",
                     "props": {
-                      "id": "6a63a11d-70f6-42cc-96b0-ace6dc875aed",
+                      "id": "6e7c0745-c85d-4c02-a303-8888a6628c55",
                       "configs": {
                         "pubsub": {
                           "types": [
@@ -1041,14 +1082,15 @@
                             "body"
                           ],
                           "publishers": [
-                            "d48ce641-1a79-4867-8d7a-a285bac11434",
-                            "503f35e6-6986-4c0b-8d9c-9dc122d6d5f7",
-                            "0e4e8a5d-537f-4d3f-920c-475f14d9bb2b"
+                            "5ac4058e-9a7c-4202-a40a-e8d3ea430a7f",
+                            "74ab53ce-6dfa-412f-bb11-ba5e9848a69c",
+                            "ef9c3929-00c3-4385-bc7a-9522c800dbbf"
                           ]
                         },
                         "isGenerated": false,
                         "options": {
-                          "widgetType": "Federated"
+                          "widgetType": "Federated",
+                          "headerTitle": "User Preferences"
                         }
                       },
                       "widgetID": "IsAnalyticsUserPreferences"
@@ -1065,21 +1107,21 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 28.4,
+                "height": 27.0,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 43.55889724310777,
-                    "width": 33.0,
+                    "height": 100.0,
+                    "width": 36.0,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts Over Time",
+                        "title": "IS Analytics Attempts Over Time",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsOverTime",
                         "props": {
-                          "id": "827d05d1-a667-4896-9f49-33b0d33761bb",
+                          "id": "18f6128b-b894-451a-a449-9fc7b0f6841e",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -1087,13 +1129,14 @@
                                 null
                               ],
                               "publishers": [
-                                "08a6246f-a49a-4a5a-9e1c-df31823fceef",
-                                "6a63a11d-70f6-42cc-96b0-ace6dc875aed"
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Federated"
+                              "widgetType": "Federated",
+                              "headerTitle": "Federated Login Attempts Over Time"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsOverTime"
@@ -1110,27 +1153,29 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 24.5,
+                    "height": 100.0,
+                    "width": 16.7,
                     "content": [
                       {
-                        "title": "Is Analytics Compact Summary",
+                        "title": "IS Analytics Compact Summary",
                         "type": "component",
                         "component": "IsAnalyticsCompactSummary",
                         "props": {
-                          "id": "1b3d4258-e02c-46c0-9e26-0de8f2a0bbf7",
+                          "id": "d4209d95-5392-4bd1-9c8c-0b1f168d2626",
                           "configs": {
                             "pubsub": {
                               "types": [
                                 "subscriber"
                               ],
                               "publishers": [
-                                "08a6246f-a49a-4a5a-9e1c-df31823fceef",
-                                "6a63a11d-70f6-42cc-96b0-ace6dc875aed"
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Federated"
+                              "widgetType": "Federated",
+                              "headerTitle": "Federated Login Attempts Compact Summary"
                             }
                           },
                           "widgetID": "IsAnalyticsCompactSummary"
@@ -1147,14 +1192,15 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "width": 42.5,
+                    "height": 100.0,
+                    "width": 50.0,
                     "content": [
                       {
-                        "title": "Is Analytics Login Attempts Map",
+                        "title": "IS Analytics Login Attempts Map",
                         "type": "component",
                         "component": "IsAnalyticsLoginAttemptsMap",
                         "props": {
-                          "id": "0c18ccdc-d5d4-492a-bc4f-074b46756bd7",
+                          "id": "335d3801-c71d-41d6-b2e6-cf94a1d84f10",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -1162,13 +1208,14 @@
                                 null
                               ],
                               "publishers": [
-                                "08a6246f-a49a-4a5a-9e1c-df31823fceef",
-                                "6a63a11d-70f6-42cc-96b0-ace6dc875aed"
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
-                              "widgetType": "Federated"
+                              "widgetType": "Federated",
+                              "headerTitle": "Federated Login Attempts Map"
                             }
                           },
                           "widgetID": "IsAnalyticsLoginAttemptsMap"
@@ -1187,21 +1234,21 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 32.3,
+                "height": 41.0,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 21.779448621553886,
+                    "height": 100.0,
                     "width": 33.333333,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts By Type",
+                        "title": "IS Analytics Attempts By Type",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsByType",
                         "props": {
-                          "id": "d48ce641-1a79-4867-8d7a-a285bac11434",
+                          "id": "5ac4058e-9a7c-4202-a40a-e8d3ea430a7f",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -1213,14 +1260,15 @@
                                 "body"
                               ],
                               "publishers": [
-                                "08a6246f-a49a-4a5a-9e1c-df31823fceef",
-                                "6a63a11d-70f6-42cc-96b0-ace6dc875aed"
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
                               "widgetType": "Federated",
-                              "xAxis": "Service Provider"
+                              "xAxis": "Service Provider",
+                              "headerTitle": "By Service Provider"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsByType"
@@ -1237,14 +1285,15 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
+                    "height": 100.0,
                     "width": 33.333333,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts By Type",
+                        "title": "IS Analytics Attempts By Type",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsByType",
                         "props": {
-                          "id": "503f35e6-6986-4c0b-8d9c-9dc122d6d5f7",
+                          "id": "74ab53ce-6dfa-412f-bb11-ba5e9848a69c",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -1256,14 +1305,15 @@
                                 "body"
                               ],
                               "publishers": [
-                                "08a6246f-a49a-4a5a-9e1c-df31823fceef",
-                                "6a63a11d-70f6-42cc-96b0-ace6dc875aed"
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
                               "widgetType": "Federated",
-                              "xAxis": "Identity Provider"
+                              "xAxis": "Identity Provider",
+                              "headerTitle": "By Identity Provider"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsByType"
@@ -1280,14 +1330,15 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
+                    "height": 100.0,
                     "width": 33.333334,
                     "content": [
                       {
-                        "title": "Is Analytics Attempts By Type",
+                        "title": "IS Analytics Attempts By Type",
                         "type": "component",
                         "component": "IsAnalyticsAttemptsByType",
                         "props": {
-                          "id": "0e4e8a5d-537f-4d3f-920c-475f14d9bb2b",
+                          "id": "ef9c3929-00c3-4385-bc7a-9522c800dbbf",
                           "configs": {
                             "pubsub": {
                               "types": [
@@ -1299,14 +1350,15 @@
                                 "body"
                               ],
                               "publishers": [
-                                "08a6246f-a49a-4a5a-9e1c-df31823fceef",
-                                "6a63a11d-70f6-42cc-96b0-ace6dc875aed"
+                                "e79cd86d-451b-4176-a496-c41b51424d22",
+                                "6e7c0745-c85d-4c02-a303-8888a6628c55"
                               ]
                             },
                             "isGenerated": false,
                             "options": {
                               "widgetType": "Federated",
-                              "xAxis": "Username"
+                              "xAxis": "Username",
+                              "headerTitle": "By Username"
                             }
                           },
                           "widgetID": "IsAnalyticsAttemptsByType"
@@ -1325,27 +1377,28 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "height": 21.7,
+                "height": 16.6,
                 "content": [
                   {
-                    "title": "Is Analytics Messages",
+                    "title": "IS Analytics Messages",
                     "type": "component",
                     "component": "IsAnalyticsMessages",
                     "props": {
-                      "id": "987f237d-5e9a-4096-ade2-32a0f329e00e",
+                      "id": "ffec8c9d-c958-4365-9308-7e75cba2c4a2",
                       "configs": {
                         "pubsub": {
                           "types": [
                             "subscriber"
                           ],
                           "publishers": [
-                            "08a6246f-a49a-4a5a-9e1c-df31823fceef",
-                            "6a63a11d-70f6-42cc-96b0-ace6dc875aed"
+                            "e79cd86d-451b-4176-a496-c41b51424d22",
+                            "6e7c0745-c85d-4c02-a303-8888a6628c55"
                           ]
                         },
                         "isGenerated": false,
                         "options": {
-                          "widgetType": "Federated"
+                          "widgetType": "Federated",
+                          "headerTitle": "Federated Login Attempts Messages"
                         }
                       },
                       "widgetID": "IsAnalyticsMessages"
@@ -1420,8 +1473,7 @@
                                             "from",
                                             "to"
                                           ],
-                                          "publishers": [
-                                          ]
+                                          "publishers": []
                                         },
                                         "isGenerated": false,
                                         "options": {
@@ -1455,12 +1507,10 @@
                                       "id": "b4ce32d3-19de-4234-a8cf-da59b3274205",
                                       "configs": {
                                         "pubsub": {
-                                          "types": [
-                                          ]
+                                          "types": []
                                         },
                                         "isGenerated": true,
-                                        "options": {
-                                        }
+                                        "options": {}
                                       },
                                       "widgetID": "IS-Analytics-Active-Sessions"
                                     },
@@ -1496,8 +1546,7 @@
                                       ]
                                     },
                                     "isGenerated": false,
-                                    "options": {
-                                    }
+                                    "options": {}
                                   },
                                   "widgetID": "IsAnalyticsSessionCountOverTime"
                                 },
@@ -1538,8 +1587,7 @@
                                           ]
                                         },
                                         "isGenerated": false,
-                                        "options": {
-                                        }
+                                        "options": {}
                                       },
                                       "widgetID": "IsAnalyticsTopLongestSession"
                                     },
@@ -1573,8 +1621,7 @@
                                           ]
                                         },
                                         "isGenerated": false,
-                                        "options": {
-                                        }
+                                        "options": {}
                                       },
                                       "widgetID": "IsAnalyticsAverageSessionDuration"
                                     },
@@ -1608,8 +1655,7 @@
                                           ]
                                         },
                                         "isGenerated": false,
-                                        "options": {
-                                        }
+                                        "options": {}
                                       },
                                       "widgetID": "IsAnalyticsSessionCount"
                                     },
@@ -1651,8 +1697,7 @@
                           ]
                         },
                         "isGenerated": false,
-                        "options": {
-                        }
+                        "options": {}
                       },
                       "widgetID": "IsAnalyticsSessionMessages"
                     },
@@ -1700,8 +1745,7 @@
                             "from",
                             "to"
                           ],
-                          "publishers": [
-                          ]
+                          "publishers": []
                         },
                         "isGenerated": false,
                         "options": {
@@ -1759,8 +1803,7 @@
                           ]
                         },
                         "isGenerated": true,
-                        "options": {
-                        }
+                        "options": {}
                       },
                       "widgetID": "IS-Analytics-Alerts"
                     },
@@ -1808,10 +1851,8 @@
                             "from",
                             "to"
                           ],
-                          "publishers": [
-                          ],
-                          "widgetInputOutputMapping": [
-                          ]
+                          "publishers": [],
+                          "widgetInputOutputMapping": []
                         },
                         "isGenerated": false,
                         "options": {
@@ -1869,8 +1910,7 @@
                           ]
                         },
                         "isGenerated": true,
-                        "options": {
-                        }
+                        "options": {}
                       },
                       "widgetID": "IS-Analytics-Suspicious-Login-Alerts"
                     },
@@ -1917,8 +1957,7 @@
                             "from",
                             "to"
                           ],
-                          "publishers": [
-                          ]
+                          "publishers": []
                         },
                         "isGenerated": false,
                         "options": {
@@ -1976,8 +2015,7 @@
                           ]
                         },
                         "isGenerated": true,
-                        "options": {
-                        }
+                        "options": {}
                       },
                       "widgetID": "IS-Analytics-Abnormal-Long-Sessions-Alert"
                     },
@@ -2000,54 +2038,6 @@
   },
   "widgets": {
     "generated": [
-      {
-        "name": "IS Analytics Active Sessions",
-        "id": "IS-Analytics-Active-Sessions",
-        "chartConfig": {
-          "x": "active",
-          "title": "Active Sessions",
-          "charts": [
-            {
-              "type": "number"
-            }
-          ]
-        },
-        "providerConfig": {
-          "configs": {
-            "type": "SiddhiStoreDataProvider",
-            "config": {
-              "siddhiApp": "@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027IS_ANALYTICS_DB\u0027)\ndefine table ActiveSessionsTable (meta_tenantId int,  sessionId string, startTimestamp long, renewTimestamp long, terminationTimestamp long, action int,  username string,  userstoreDomain string, remoteIp string, region string, tenantDomain string, serviceProvider string, identityProviders string, rememberMeFlag bool,  userAgent string,  usernameWithTenantDomainAndUserstoreDomain string, timestamp long)\n",
-              "queryData": {
-                "queryFunction": "this.getQuery \u003d function (username){let query \u003d \"from ActiveSessionsTable select count() as active\";\nreturn query;}",
-                "customWidgetInputs": [
-                ],
-                "systemWidgetInputs": [
-                  {
-                    "name": "username",
-                    "defaultValue": "admin"
-                  }
-                ],
-                "query": "from ActiveSessionsTable select count() as active"
-              },
-              "publishingInterval": 5,
-              "timeColumns": ""
-            }
-          }
-        },
-        "metadata": {
-          "names": [
-            "active"
-          ],
-          "types": [
-            "LINEAR"
-          ]
-        },
-        "version": "1.0.0",
-        "pubsub": {
-          "types": [
-          ]
-        }
-      },
       {
         "name": "IS Analytics Suspicious Login Alerts",
         "id": "IS-Analytics-Suspicious-Login-Alerts",
@@ -2077,8 +2067,7 @@
                   "colorBasedStyle": false
                 }
               ],
-              "columnTitles": [
-              ]
+              "columnTitles": []
             }
           ],
           "maxLength": 100,
@@ -2160,8 +2149,7 @@
                   "colorBasedStyle": false
                 }
               ],
-              "columnTitles": [
-              ]
+              "columnTitles": []
             }
           ],
           "maxLength": 100,
@@ -2221,6 +2209,52 @@
         }
       },
       {
+        "name": "IS Analytics Active Sessions",
+        "id": "IS-Analytics-Active-Sessions",
+        "chartConfig": {
+          "x": "active",
+          "title": "Active Sessions",
+          "charts": [
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "providerConfig": {
+          "configs": {
+            "type": "SiddhiStoreDataProvider",
+            "config": {
+              "siddhiApp": "@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027IS_ANALYTICS_DB\u0027)\ndefine table ActiveSessionsTable (meta_tenantId int,  sessionId string, startTimestamp long, renewTimestamp long, terminationTimestamp long, action int,  username string,  userstoreDomain string, remoteIp string, region string, tenantDomain string, serviceProvider string, identityProviders string, rememberMeFlag bool,  userAgent string,  usernameWithTenantDomainAndUserstoreDomain string, timestamp long)\n",
+              "queryData": {
+                "queryFunction": "this.getQuery \u003d function (username){let query \u003d \"from ActiveSessionsTable select count() as active\";\nreturn query;}",
+                "customWidgetInputs": [],
+                "systemWidgetInputs": [
+                  {
+                    "name": "username",
+                    "defaultValue": "admin"
+                  }
+                ],
+                "query": "from ActiveSessionsTable select count() as active"
+              },
+              "publishingInterval": 5,
+              "timeColumns": ""
+            }
+          }
+        },
+        "metadata": {
+          "names": [
+            "active"
+          ],
+          "types": [
+            "LINEAR"
+          ]
+        },
+        "version": "1.0.0",
+        "pubsub": {
+          "types": []
+        }
+      },
+      {
         "name": "IS Analytics Abnormal Long Sessions Alert",
         "id": "IS-Analytics-Abnormal-Long-Sessions-Alert",
         "chartConfig": {
@@ -2254,8 +2288,7 @@
                   "colorBasedStyle": false
                 }
               ],
-              "columnTitles": [
-              ]
+              "columnTitles": []
             }
           ],
           "maxLength": 100,
