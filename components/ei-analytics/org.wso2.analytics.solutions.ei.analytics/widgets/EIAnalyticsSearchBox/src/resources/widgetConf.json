@@ -24,6 +24,26 @@
           "publishingInterval": 60
         }
       }
-    }
+    },
+    "options": [
+      {
+        "id": "header",
+        "title": "Header",
+        "type": {
+          "name": "BOOLEAN",
+          "possibleValues": [true, false]
+        },
+        "defaultValue": true
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "TEXT",
+          "possibleValues": []
+        },
+        "defaultValue": "EI Analytics Search Box"
+      }
+    ]
   }
 }
