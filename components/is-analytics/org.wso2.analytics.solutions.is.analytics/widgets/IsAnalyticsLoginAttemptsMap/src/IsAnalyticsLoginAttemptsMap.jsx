@@ -20,28 +20,13 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { MuiThemeProvider } from 'material-ui';
 import _ from 'lodash';
-import JssProvider from 'react-jss/lib/JssProvider';
-import Typography from '@material-ui/core/Typography';
+import Toggle from 'material-ui/Toggle';
 
 const colorWhite = '#FFFFFF';
 const colorGreen = '#6ED460';
 const colorRed = '#EC5D40';
-
-const darkTheme = createMuiTheme({
-    palette: {
-        type: 'dark',
-    },
-});
-
-const lightTheme = createMuiTheme({
-    palette: {
-        type: 'light',
-    },
-});
 
 const colorScaleSuccess = [
     colorWhite,
@@ -52,6 +37,27 @@ const colorScaleFailure = [
     colorWhite,
     colorRed,
 ];
+
+const toggleStyles = {
+    toggle: {
+        marginBottom: 16,
+    },
+    thumbOff: {
+        backgroundColor: '#00AA00',
+    },
+    trackOff: {
+        backgroundColor: colorGreen,
+    },
+    thumbSwitched: {
+        backgroundColor: '#CC0000',
+    },
+    trackSwitched: {
+        backgroundColor: colorRed,
+    },
+    labelStyle: {
+        color: 'red',
+    },
+};
 
 const metadata = {
     names: ['region', 'Count'],
@@ -70,36 +76,6 @@ const chartConfig = {
         },
     ],
     chloropethRangeLowerbound: [0],
-};
-
-// This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
-
-const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
-let classCounter = 0;
-
-
-// This is not the default export
-// eslint-disable-next-line import/prefer-default-export
-export const LoginAttemptsMapStylesClass = (rule, styleSheet) => {
-    classCounter += 1;
-
-    if (process.env.NODE_ENV === 'production') {
-        return `c${classCounter}`;
-    }
-
-    if (styleSheet && styleSheet.options.classNamePrefix) {
-        let prefix = styleSheet.options.classNamePrefix;
-        // Sanitize the string as will be used to prefix the generated class name.
-        prefix = prefix.replace(escapeRegex, '-');
-
-        if (prefix.match(/^Mui/)) {
-            return `${prefix}-${rule.key}`;
-        }
-
-        return `${prefix}-${rule.key}-${classCounter}`;
-    }
-
-    return `${rule.key}-${classCounter}`;
 };
 
 class IsAnalyticsLoginAttemptsMap extends Widget {
@@ -276,54 +252,50 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
             paddingBottom: height * 0.05,
-            height,
-            width,
+            height: '100%',
+            width: '100%',
         };
-        let theme = darkTheme;
-
-        if (this.props.muiTheme.name === 'light') {
-            theme = lightTheme;
-        }
 
         if (this.state.isDataProviderConfigFault) {
             return (
-                <JssProvider generateClassName={LoginAttemptsMapStylesClass}>
-                    <MuiThemeProvider theme={theme}>
-                        <div style={divSpacings}>
-                            <Typography variant="body1" gutterBottom align="center">
-                                Unable to fetch data from Siddhi data provider,
-                                Please check the data provider configurations.
-                            </Typography>
-                        </div>
-                    </MuiThemeProvider>
-                </JssProvider>
-            );
-        }
-        return (
-            <JssProvider generateClassName={LoginAttemptsMapStylesClass}>
-                <MuiThemeProvider theme={theme}>
+                <MuiThemeProvider muiTheme={this.props.muiTheme}>
                     <div style={divSpacings}>
-                        <div style={{ height: height * 0.8, width: width * 0.9 }}>
-                            <VizG
-                                config={this.state.chartConfig}
-                                metadata={this.state.metadata}
-                                data={this.state.data}
-                            />
-                        </div>
-                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <FormControlLabel
-                                control={(
-                                    <Switch
-                                        checked={this.state.isFailureMap}
-                                        onChange={event => this.onMapTypeChange(event)}
-                                    />
-                                )}
-                                label={this.state.switchLabel}
-                            />
+                        <div>
+                            Unable to fetch data from Siddhi data provider,
+                            Please check the data provider configurations.
                         </div>
                     </div>
                 </MuiThemeProvider>
-            </JssProvider>
+            );
+        }
+        return (
+            <MuiThemeProvider muiTheme={this.props.muiTheme}>
+                <div style={divSpacings}>
+                    <div style={{ height: height * 0.8, width: width * 0.9 }}>
+                        <VizG
+                            config={this.state.chartConfig}
+                            metadata={this.state.metadata}
+                            data={this.state.data}
+                        />
+                    </div>
+                    <div style={{
+                        height: height * 0.1,
+                        paddingLeft: width * 0.4,
+                        paddingRight: width * 0.4,
+                    }}
+                    >
+                        <Toggle
+                            label={this.state.switchLabel}
+                            checked={this.state.isFailureMap}
+                            onToggle={event => this.onMapTypeChange(event)}
+                            thumbStyle={toggleStyles.thumbOff}
+                            trackStyle={toggleStyles.trackOff}
+                            thumbSwitchedStyle={toggleStyles.thumbSwitched}
+                            trackSwitchedStyle={toggleStyles.trackSwitched}
+                        />
+                    </div>
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
