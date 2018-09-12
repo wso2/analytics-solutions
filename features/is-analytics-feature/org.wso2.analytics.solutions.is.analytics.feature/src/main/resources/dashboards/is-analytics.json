@@ -1378,56 +1378,134 @@
                 "type":"row",
                 "isClosable":true,
                 "title":"",
-                "height":45.46814913962103,
+                "height":81.93548387096774,
                 "content":[
                   {
-                    "type":"column",
+                    "type":"row",
                     "isClosable":true,
                     "title":"",
+                    "height":100.0,
                     "width":100.0,
                     "content":[
                       {
-                        "type":"row",
+                        "type":"column",
                         "isClosable":true,
                         "title":"",
-                        "height":33.18982079370121,
+                        "width":100.0,
                         "content":[
+                          {
+                            "type":"row",
+                            "isClosable":true,
+                            "title":"",
+                            "height":17.377978670562698,
+                            "content":[
+                              {
+                                "type":"stack",
+                                "isClosable":true,
+                                "title":"",
+                                "height":17.377978670562698,
+                                "width":88.02469135802468,
+                                "content":[
+                                  {
+                                    "title":"[Date Time Range]",
+                                    "type":"component",
+                                    "component":"DateRangePicker",
+                                    "props":{
+                                      "id":"4b281c21-dcb9-441a-8e41-d082a98526cb",
+                                      "configs":{
+                                        "pubsub":{
+                                          "types":[
+                                            "publisher"
+                                          ],
+                                          "publisherWidgetOutputs":[
+                                            "granularity",
+                                            "from",
+                                            "to"
+                                          ],
+                                          "publishers":[
+
+                                          ]
+                                        },
+                                        "isGenerated":false,
+                                        "options":{
+                                          "header":false,
+                                          "defaultValue":"3 Months",
+                                          "availableGranularities":"From Second",
+                                          "autoSyncInterval":"10"
+                                        }
+                                      },
+                                      "widgetID":"DateRangePicker"
+                                    },
+                                    "isClosable":false,
+                                    "header":{
+                                      "show":true
+                                    },
+                                    "componentName":"lm-react-component"
+                                  }
+                                ]
+                              },
+                              {
+                                "type":"stack",
+                                "isClosable":true,
+                                "title":"",
+                                "width":11.975308641975314,
+                                "content":[
+                                  {
+                                    "title":"[IS Analytics Active Sessions]",
+                                    "type":"component",
+                                    "component":"UniversalWidget",
+                                    "props":{
+                                      "id":"b4ce32d3-19de-4234-a8cf-da59b3274205",
+                                      "configs":{
+                                        "pubsub":{
+                                          "types":[
+
+                                          ]
+                                        },
+                                        "isGenerated":true,
+                                        "options":{
+
+                                        }
+                                      },
+                                      "widgetID":"IS-Analytics-Active-Sessions"
+                                    },
+                                    "isClosable":false,
+                                    "header":{
+                                      "show":true
+                                    },
+                                    "componentName":"lm-react-component"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
                           {
                             "type":"stack",
                             "isClosable":true,
                             "title":"",
-                            "height":33.18982079370121,
-                            "width":88.45679012345678,
+                            "height":35.838184465546526,
                             "content":[
                               {
-                                "title":"[Date Time Range]",
+                                "title":"[IS Analytics Session Count Over Time]",
                                 "type":"component",
-                                "component":"DateRangePicker",
+                                "component":"IsAnalyticsSessionCountOverTime",
                                 "props":{
-                                  "id":"4b281c21-dcb9-441a-8e41-d082a98526cb",
+                                  "id":"de98a144-23b1-4886-954f-6c28b7d77273",
                                   "configs":{
                                     "pubsub":{
                                       "types":[
-                                        "publisher"
-                                      ],
-                                      "publisherWidgetOutputs":[
-                                        "granularity",
-                                        "from",
-                                        "to"
+                                        "subscriber"
                                       ],
                                       "publishers":[
-
+                                        "4b281c21-dcb9-441a-8e41-d082a98526cb"
                                       ]
                                     },
                                     "isGenerated":false,
                                     "options":{
-                                      "header":false,
-                                      "defaultValue":"3 Months",
-                                      "availableGranularities":"From Second",
-                                      "autoSyncInterval":"10"
+
                                     }
                                   },
-                                  "widgetID":"DateRangePicker"
+                                  "widgetID":"IsAnalyticsSessionCountOverTime"
                                 },
                                 "isClosable":false,
                                 "header":{
@@ -1438,193 +1516,123 @@
                             ]
                           },
                           {
-                            "type":"stack",
+                            "type":"row",
                             "isClosable":true,
                             "title":"",
-                            "width":11.543209876543214,
+                            "height":46.78383686389078,
                             "content":[
                               {
-                                "title":"Is Analytics Active Sessions",
-                                "type":"component",
-                                "component":"UniversalWidget",
-                                "props":{
-                                  "id":"9d86b757-f4d1-440f-8241-008115a08a68",
-                                  "configs":{
-                                    "pubsub":{
-                                      "types":[
+                                "type":"stack",
+                                "isClosable":true,
+                                "title":"",
+                                "height":50.0,
+                                "width":33.371074429414215,
+                                "content":[
+                                  {
+                                    "title":"[IS Analytics Top Longest Session]",
+                                    "type":"component",
+                                    "component":"IsAnalyticsTopLongestSession",
+                                    "props":{
+                                      "id":"eb6b0350-a33f-416a-9511-6f0d0f85872f",
+                                      "configs":{
+                                        "pubsub":{
+                                          "types":[
+                                            "subscriber"
+                                          ],
+                                          "publishers":[
+                                            "4b281c21-dcb9-441a-8e41-d082a98526cb"
+                                          ]
+                                        },
+                                        "isGenerated":false,
+                                        "options":{
 
-                                      ]
+                                        }
+                                      },
+                                      "widgetID":"IsAnalyticsTopLongestSession"
                                     },
-                                    "isGenerated":true,
-                                    "options":{
+                                    "isClosable":false,
+                                    "header":{
+                                      "show":true
+                                    },
+                                    "componentName":"lm-react-component"
+                                  }
+                                ]
+                              },
+                              {
+                                "type":"stack",
+                                "isClosable":true,
+                                "title":"",
+                                "width":32.69003209412005,
+                                "content":[
+                                  {
+                                    "title":"[IS Analytics AverageSession Duration]",
+                                    "type":"component",
+                                    "component":"IsAnalyticsAverageSessionDuration",
+                                    "props":{
+                                      "id":"54ea9b6b-ba30-4358-989c-f2d2103e2de6",
+                                      "configs":{
+                                        "pubsub":{
+                                          "types":[
+                                            "subscriber"
+                                          ],
+                                          "publishers":[
+                                            "4b281c21-dcb9-441a-8e41-d082a98526cb"
+                                          ]
+                                        },
+                                        "isGenerated":false,
+                                        "options":{
 
-                                    }
-                                  },
-                                  "widgetID":"Is-Analytics-Active-Sessions"
-                                },
-                                "isClosable":false,
-                                "header":{
-                                  "show":true
-                                },
-                                "componentName":"lm-react-component"
+                                        }
+                                      },
+                                      "widgetID":"IsAnalyticsAverageSessionDuration"
+                                    },
+                                    "isClosable":false,
+                                    "header":{
+                                      "show":true
+                                    },
+                                    "componentName":"lm-react-component"
+                                  }
+                                ]
+                              },
+                              {
+                                "type":"stack",
+                                "isClosable":true,
+                                "title":"",
+                                "width":33.938893476465736,
+                                "content":[
+                                  {
+                                    "title":"[IS Analytics Session Count]",
+                                    "type":"component",
+                                    "component":"IsAnalyticsSessionCount",
+                                    "props":{
+                                      "id":"639fa008-6cf1-45bb-9344-85bfbbfad098",
+                                      "configs":{
+                                        "pubsub":{
+                                          "types":[
+                                            "subscriber"
+                                          ],
+                                          "publishers":[
+                                            "4b281c21-dcb9-441a-8e41-d082a98526cb"
+                                          ]
+                                        },
+                                        "isGenerated":false,
+                                        "options":{
+
+                                        }
+                                      },
+                                      "widgetID":"IsAnalyticsSessionCount"
+                                    },
+                                    "isClosable":false,
+                                    "header":{
+                                      "show":true
+                                    },
+                                    "componentName":"lm-react-component"
+                                  }
+                                ]
                               }
                             ]
                           }
                         ]
-                      },
-                      {
-                        "type":"stack",
-                        "isClosable":true,
-                        "title":"",
-                        "height":66.81017920629878,
-                        "content":[
-                          {
-                            "title":"Is Analytics Session Count Over Time",
-                            "type":"component",
-                            "component":"IsAnalyticsSessionCountOverTime",
-                            "props":{
-                              "id":"327e6332-7c9c-42bb-83d4-fb4897051059",
-                              "configs":{
-                                "pubsub":{
-                                  "types":[
-                                    "subscriber"
-                                  ],
-                                  "publishers":[
-                                    "4b281c21-dcb9-441a-8e41-d082a98526cb"
-                                  ]
-                                },
-                                "isGenerated":false,
-                                "options":{
-
-                                }
-                              },
-                              "widgetID":"IsAnalyticsSessionCountOverTime"
-                            },
-                            "isClosable":false,
-                            "header":{
-                              "show":true
-                            },
-                            "componentName":"lm-react-component"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type":"row",
-                "isClosable":true,
-                "title":"",
-                "height":34.35266375785989,
-                "content":[
-                  {
-                    "type":"stack",
-                    "isClosable":true,
-                    "title":"",
-                    "width":32.56965641671086,
-                    "content":[
-                      {
-                        "title":"Is Analytics Top Longest Session",
-                        "type":"component",
-                        "component":"IsAnalyticsTopLongestSession",
-                        "props":{
-                          "id":"74f2dc15-6ae0-4de2-8949-4337a31deac4",
-                          "configs":{
-                            "pubsub":{
-                              "types":[
-                                "subscriber"
-                              ],
-                              "publishers":[
-                                "4b281c21-dcb9-441a-8e41-d082a98526cb"
-                              ]
-                            },
-                            "isGenerated":false,
-                            "options":{
-
-                            }
-                          },
-                          "widgetID":"IsAnalyticsTopLongestSession"
-                        },
-                        "isClosable":false,
-                        "header":{
-                          "show":true
-                        },
-                        "componentName":"lm-react-component"
-                      }
-                    ]
-                  },
-                  {
-                    "type":"stack",
-                    "isClosable":true,
-                    "title":"",
-                    "height":100.0,
-                    "width":33.99380957504658,
-                    "content":[
-                      {
-                        "title":"Is Analytics AverageSession Duration",
-                        "type":"component",
-                        "component":"IsAnalyticsAverageSessionDuration",
-                        "props":{
-                          "id":"105d140a-37d2-4755-8d43-f1ddd4bd09cf",
-                          "configs":{
-                            "pubsub":{
-                              "types":[
-                                "subscriber"
-                              ],
-                              "publishers":[
-                                "4b281c21-dcb9-441a-8e41-d082a98526cb"
-                              ]
-                            },
-                            "isGenerated":false,
-                            "options":{
-
-                            }
-                          },
-                          "widgetID":"IsAnalyticsAverageSessionDuration"
-                        },
-                        "isClosable":false,
-                        "header":{
-                          "show":true
-                        },
-                        "componentName":"lm-react-component"
-                      }
-                    ]
-                  },
-                  {
-                    "type":"stack",
-                    "isClosable":true,
-                    "title":"",
-                    "height":100.0,
-                    "width":33.436534008242546,
-                    "content":[
-                      {
-                        "title":"Is Analytics Session Count",
-                        "type":"component",
-                        "component":"IsAnalyticsSessionCount",
-                        "props":{
-                          "id":"ecb30a21-0e96-4134-82ad-703f78e66a86",
-                          "configs":{
-                            "pubsub":{
-                              "types":[
-                                "subscriber"
-                              ],
-                              "publishers":[
-                                "4b281c21-dcb9-441a-8e41-d082a98526cb"
-                              ]
-                            },
-                            "isGenerated":false,
-                            "options":{
-
-                            }
-                          },
-                          "widgetID":"IsAnalyticsSessionCount"
-                        },
-                        "isClosable":false,
-                        "header":{
-                          "show":true
-                        },
-                        "componentName":"lm-react-component"
                       }
                     ]
                   }
@@ -1634,14 +1642,14 @@
                 "type":"stack",
                 "isClosable":true,
                 "title":"",
-                "height":20.179187102519094,
+                "height":18.06451612903226,
                 "content":[
                   {
-                    "title":"Is Analytics Session Messages",
+                    "title":"[IS Analytics Session Messages]",
                     "type":"component",
                     "component":"IsAnalyticsSessionMessages",
                     "props":{
-                      "id":"ef1bb1b9-85a9-46b7-895d-9a6d9db6e1b2",
+                      "id":"43c22955-747c-4487-ac1e-39e76dfd17bf",
                       "configs":{
                         "pubsub":{
                           "types":[
@@ -1669,7 +1677,7 @@
             ]
           }
         ],
-        "height":1260.0
+        "height":1400.0
       },
       {
         "id":"alert_type",
@@ -1684,7 +1692,7 @@
                 "type":"stack",
                 "isClosable":true,
                 "title":"",
-                "height":19.696969696969695,
+                "height":20.27972027972028,
                 "content":[
                   {
                     "title":"[Date Time Range]",
@@ -1728,14 +1736,14 @@
                 "type":"stack",
                 "isClosable":true,
                 "title":"",
-                "height":80.3030303030303,
+                "height":79.72027972027972,
                 "content":[
                   {
-                    "title":"Is Analytics Alert Type",
+                    "title":"[IS Analytics Alerts]",
                     "type":"component",
                     "component":"UniversalWidget",
                     "props":{
-                      "id":"92c88fc9-83ad-414a-9f77-569ffcc85c09",
+                      "id":"7787d673-1959-41e9-a730-2d2a129880a2",
                       "configs":{
                         "pubsub":{
                           "types":[
@@ -1766,7 +1774,7 @@
 
                         }
                       },
-                      "widgetID":"Is-Analytics-Alert-Type"
+                      "widgetID":"IS-Analytics-Alerts"
                     },
                     "isClosable":false,
                     "header":{
@@ -1794,7 +1802,7 @@
                 "type":"stack",
                 "isClosable":true,
                 "title":"",
-                "height":23.27698309492848,
+                "height":19.46386946386946,
                 "content":[
                   {
                     "title":"[Date Time Range]",
@@ -1813,6 +1821,9 @@
                             "to"
                           ],
                           "publishers":[
+
+                          ],
+                          "widgetInputOutputMapping":[
 
                           ]
                         },
@@ -1838,14 +1849,14 @@
                 "type":"stack",
                 "isClosable":true,
                 "title":"",
-                "height":76.72301690507153,
+                "height":80.53613053613053,
                 "content":[
                   {
-                    "title":"Is Analytics Suspicious Login Alerts",
+                    "title":"[IS Analytics Suspicious Login Alerts]",
                     "type":"component",
                     "component":"UniversalWidget",
                     "props":{
-                      "id":"b40d2e75-324b-44d3-95a1-00d57c55e0b5",
+                      "id":"fb96bbd0-82b5-42c0-a6eb-bb55c249a6fa",
                       "configs":{
                         "pubsub":{
                           "types":[
@@ -1876,7 +1887,7 @@
 
                         }
                       },
-                      "widgetID":"Is-Analytics-Suspicious-Login-Alerts"
+                      "widgetID":"IS-Analytics-Suspicious-Login-Alerts"
                     },
                     "isClosable":false,
                     "header":{
@@ -1903,7 +1914,7 @@
                 "type":"stack",
                 "isClosable":true,
                 "title":"",
-                "height":22.106631989596877,
+                "height":19.813519813519815,
                 "content":[
                   {
                     "title":"[Date Time Range]",
@@ -1947,14 +1958,14 @@
                 "type":"stack",
                 "isClosable":true,
                 "title":"",
-                "height":77.89336801040312,
+                "height":80.18648018648018,
                 "content":[
                   {
-                    "title":"Is Analytics Long Session Alerts",
+                    "title":"[IS Analytics Abnormal Long Sessions Alert]",
                     "type":"component",
                     "component":"UniversalWidget",
                     "props":{
-                      "id":"31a28e73-973b-414d-8745-7565f8ef8365",
+                      "id":"69139824-9e62-4971-a25c-83d2ff273bc4",
                       "configs":{
                         "pubsub":{
                           "types":[
@@ -1985,7 +1996,7 @@
 
                         }
                       },
-                      "widgetID":"Is-Analytics-Long-Session-Alerts"
+                      "widgetID":"IS-Analytics-Abnormal-Long-Sessions-Alert"
                     },
                     "isClosable":false,
                     "header":{
@@ -2007,10 +2018,10 @@
   "widgets":{
     "generated":[
       {
-        "name":"Is Analytics Active Sessions",
-        "id":"Is-Analytics-Active-Sessions",
+        "name":"IS Analytics Active Sessions",
+        "id":"IS-Analytics-Active-Sessions",
         "chartConfig":{
-          "x":"ACTIVE",
+          "x":"active",
           "title":"Active Sessions",
           "charts":[
             {
@@ -2020,11 +2031,11 @@
         },
         "providerConfig":{
           "configs":{
-            "type":"RDBMSBatchDataProvider",
+            "type":"SiddhiStoreDataProvider",
             "config":{
-              "datasourceName":"IS_ANALYTICS_DB",
+              "siddhiApp":"@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027IS_ANALYTICS_DB\u0027)\ndefine table ActiveSessionsTable (meta_tenantId int,  sessionId string, startTimestamp long, renewTimestamp long, terminationTimestamp long, action int,  username string,  userstoreDomain string, remoteIp string, region string, tenantDomain string, serviceProvider string, identityProviders string, rememberMeFlag bool,  userAgent string,  usernameWithTenantDomainAndUserstoreDomain string, timestamp long)\n",
               "queryData":{
-                "queryFunction":"this.getQuery \u003d function (username){return \"select count(*) as active from ActiveSessionsTable\";}",
+                "queryFunction":"this.getQuery \u003d function (username){let query \u003d \"from ActiveSessionsTable select count() as active\";\nreturn query;}",
                 "customWidgetInputs":[
 
                 ],
@@ -2034,22 +2045,16 @@
                     "defaultValue":"admin"
                   }
                 ],
-                "query":"select count(*) as active from ActiveSessionsTable"
+                "query":"from ActiveSessionsTable select count() as active"
               },
-              "tableName":"ActiveSessionsTable",
-              "incrementalColumn":"active",
-              "timeColumns":"",
-              "publishingInterval":1,
-              "purgingInterval":60,
-              "publishingLimit":30,
-              "purgingLimit":30,
-              "isPurgingEnable":false
+              "publishingInterval":5,
+              "timeColumns":""
             }
           }
         },
         "metadata":{
           "names":[
-            "ACTIVE"
+            "active"
           ],
           "types":[
             "LINEAR"
@@ -2063,122 +2068,31 @@
         }
       },
       {
-        "name":"Is Analytics Alert Type",
-        "id":"Is-Analytics-Alert-Type",
+        "name":"IS Analytics Suspicious Login Alerts",
+        "id":"IS-Analytics-Suspicious-Login-Alerts",
         "chartConfig":{
           "charts":[
             {
               "type":"table",
               "columns":[
                 {
-                  "name":"TYPE",
-                  "title":" Alert Type",
-                  "colorBasedStyle":false
-                },
-                {
-                  "name":"COUNTINGS",
-                  "title":" Count",
-                  "colorBasedStyle":false
-                }
-              ],
-              "columnTitles":[
-
-              ]
-            }
-          ],
-          "maxLength":100,
-          "filterable":true,
-          "pagination":true,
-          "append":false
-        },
-        "providerConfig":{
-          "configs":{
-            "type":"RDBMSBatchDataProvider",
-            "config":{
-              "datasourceName":"IS_ANALYTICS_DB",
-              "queryData":{
-                "queryFunction":"this.getQuery \u003d function (username,from,to){return \"select type , count(type) as countings from SecurityAlertTypeTable where alertTimestamp \u003e\u003d \"+from+\" and alertTimestamp \u003c\u003d \"+to+\" group by type\";}",
-                "customWidgetInputs":[
-                  {
-                    "name":"from",
-                    "defaultValue":"0"
-                  },
-                  {
-                    "name":"to",
-                    "defaultValue":"4070889000000"
-                  }
-                ],
-                "systemWidgetInputs":[
-                  {
-                    "name":"username",
-                    "defaultValue":"admin"
-                  }
-                ],
-                "query":"select type , count(type) as countings from SecurityAlertTypeTable where alertTimestamp \u003e\u003d 0 and alertTimestamp \u003c\u003d 4070889000000 group by type"
-              },
-              "tableName":"SecurityAlertTypeTable",
-              "incrementalColumn":"type",
-              "timeColumns":"",
-              "publishingInterval":1,
-              "purgingInterval":60,
-              "publishingLimit":30,
-              "purgingLimit":30,
-              "isPurgingEnable":false
-            }
-          }
-        },
-        "metadata":{
-          "names":[
-            "TYPE",
-            "COUNTINGS"
-          ],
-          "types":[
-            "ORDINAL",
-            "LINEAR"
-          ]
-        },
-        "version":"1.0.0",
-        "pubsub":{
-          "types":[
-            "subscriber"
-          ],
-          "subscriberWidgetInputs":[
-            "from",
-            "to"
-          ]
-        }
-      },
-      {
-        "name":"Is Analytics Long Session Alerts",
-        "id":"Is-Analytics-Long-Session-Alerts",
-        "chartConfig":{
-          "charts":[
-            {
-              "type":"table",
-              "columns":[
-                {
-                  "name":"CURRENTTIME",
+                  "name":"currentTime",
                   "title":"Timestamp",
                   "colorBasedStyle":false
                 },
                 {
-                  "name":"TENANTDOMAIN",
-                  "title":" Tenant Domain",
+                  "name":"tenantDomain",
+                  "title":"Tenant  Domain",
                   "colorBasedStyle":false
                 },
                 {
-                  "name":"USERNAME",
-                  "title":" User",
+                  "name":"username",
+                  "title":"User",
                   "colorBasedStyle":false
                 },
                 {
-                  "name":"DURATION",
-                  "title":" Duration (ms)",
-                  "colorBasedStyle":false
-                },
-                {
-                  "name":"AVGDURATION",
-                  "title":" Avg. Duration (ms)",
+                  "name":"msg",
+                  "title":"Message",
                   "colorBasedStyle":false
                 }
               ],
@@ -2194,11 +2108,11 @@
         },
         "providerConfig":{
           "configs":{
-            "type":"RDBMSBatchDataProvider",
+            "type":"SiddhiStoreDataProvider",
             "config":{
-              "datasourceName":"IS_ANALYTICS_DB",
+              "siddhiApp":"@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table SuspiciousLoginAlertTable(meta_tenantId int, username string, severity int, msg string, tenantDomain string, timestamp long,  currentTime string)\n",
               "queryData":{
-                "queryFunction":"this.getQuery \u003d function (username,from,to){return \"select * from ALERTLONGSESSIONSTABLE where timestamp \u003e\u003d \"+from+\" and timestamp \u003c\u003d \"+to;}",
+                "queryFunction":"this.getQuery \u003d function (username,from,to){let query \u003d \"from SuspiciousLoginAlertTable on timestamp \u003e\u003d \"+from+\"L and timestamp \u003c\u003d \"+to+\"L select currentTime, tenantDomain, username, msg order by username\";\nreturn query;}",
                 "customWidgetInputs":[
                   {
                     "name":"from",
@@ -2206,7 +2120,7 @@
                   },
                   {
                     "name":"to",
-                    "defaultValue":"4070889000000"
+                    "defaultValue":"4102425000000"
                   }
                 ],
                 "systemWidgetInputs":[
@@ -2215,139 +2129,212 @@
                     "defaultValue":"admin"
                   }
                 ],
-                "query":"select * from ALERTLONGSESSIONSTABLE where timestamp \u003e\u003d 0 and timestamp \u003c\u003d 4070889000000"
+                "query":"from SuspiciousLoginAlertTable on timestamp \u003e\u003d 0L and timestamp \u003c\u003d 4102425000000L select currentTime, tenantDomain, username, msg order by username"
               },
-              "tableName":"ALERTLONGSESSIONSTABLE",
-              "incrementalColumn":"meta_tenantId",
-              "timeColumns":"",
-              "publishingInterval":1,
-              "purgingInterval":60,
-              "publishingLimit":30,
-              "purgingLimit":30,
-              "isPurgingEnable":false
+              "publishingInterval":5,
+              "timeColumns":""
             }
           }
         },
         "metadata":{
           "names":[
-            "TIMESTAMP",
-            "CURRENTTIME",
-            "META_TENANTID",
-            "TENANTDOMAIN",
-            "SESSIONID",
-            "USERNAME",
-            "DURATION",
-            "AVGDURATION"
-          ],
-          "types":[
-            "LINEAR",
-            "ORDINAL",
-            "LINEAR",
-            "ORDINAL",
-            "ORDINAL",
-            "ORDINAL",
-            "LINEAR",
-            "LINEAR"
-          ]
-        },
-        "version":"1.0.0",
-        "pubsub":{
-          "types":[
-            "subscriber"
-          ],
-          "subscriberWidgetInputs":[
-            "from",
-            "to"
-          ]
-        }
-      },
-      {
-        "name":"Is Analytics Suspicious Login Alerts",
-        "id":"Is-Analytics-Suspicious-Login-Alerts",
-        "chartConfig":{
-          "charts":[
-            {
-              "type":"table",
-              "columns":[
-                {
-                  "name":"CURRENTTIME",
-                  "title":"Timestamp",
-                  "colorBasedStyle":false
-                },
-                {
-                  "name":"TENANTDOMAIN",
-                  "title":" Tenant Domain",
-                  "colorBasedStyle":false
-                },
-                {
-                  "name":"USERNAME",
-                  "title":" User",
-                  "colorBasedStyle":false
-                },
-                {
-                  "name":"MSG",
-                  "title":" Message",
-                  "colorBasedStyle":false
-                }
-              ],
-              "columnTitles":[
-
-              ]
-            }
-          ],
-          "maxLength":100,
-          "filterable":true,
-          "pagination":true,
-          "append":false
-        },
-        "providerConfig":{
-          "configs":{
-            "type":"RDBMSBatchDataProvider",
-            "config":{
-              "datasourceName":"IS_ANALYTICS_DB",
-              "queryData":{
-                "queryFunction":"this.getQuery \u003d function (username,from,to){return \"select currentTime, tenantDomain, username, msg from SuspiciousLoginAlertTable where timestamp \u003e\u003d \"+from+\" and timestamp \u003c\u003d \"+to;}",
-                "customWidgetInputs":[
-                  {
-                    "name":"from",
-                    "defaultValue":"0"
-                  },
-                  {
-                    "name":"to",
-                    "defaultValue":"4070889000000"
-                  }
-                ],
-                "systemWidgetInputs":[
-                  {
-                    "name":"username",
-                    "defaultValue":"admin"
-                  }
-                ],
-                "query":"select currentTime, tenantDomain, username, msg from SuspiciousLoginAlertTable where timestamp \u003e\u003d 0 and timestamp \u003c\u003d 4070889000000"
-              },
-              "tableName":"SuspiciousLoginAlertTable",
-              "incrementalColumn":"meta_tenantId",
-              "timeColumns":"",
-              "publishingInterval":1,
-              "purgingInterval":60,
-              "publishingLimit":30,
-              "purgingLimit":30,
-              "isPurgingEnable":false
-            }
-          }
-        },
-        "metadata":{
-          "names":[
-            "CURRENTTIME",
-            "TENANTDOMAIN",
-            "USERNAME",
-            "MSG"
+            "currentTime",
+            "tenantDomain",
+            "username",
+            "msg"
           ],
           "types":[
             "ORDINAL",
             "ORDINAL",
             "ORDINAL",
             "ORDINAL"
+          ]
+        },
+        "version":"1.0.0",
+        "pubsub":{
+          "types":[
+            "subscriber"
+          ],
+          "subscriberWidgetInputs":[
+            "from",
+            "to"
+          ]
+        }
+      },
+      {
+        "name":"IS Analytics Alerts",
+        "id":"IS-Analytics-Alerts",
+        "chartConfig":{
+          "charts":[
+            {
+              "type":"table",
+              "columns":[
+                {
+                  "name":"type",
+                  "title":"Alert Type",
+                  "colorBasedStyle":false
+                },
+                {
+                  "name":"ans",
+                  "title":"Count",
+                  "colorBasedStyle":false
+                }
+              ],
+              "columnTitles":[
+
+              ]
+            }
+          ],
+          "maxLength":100,
+          "filterable":true,
+          "pagination":true,
+          "append":false
+        },
+        "providerConfig":{
+          "configs":{
+            "type":"SiddhiStoreDataProvider",
+            "config":{
+              "siddhiApp":"@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table SecurityAlertTypeTable(meta_tenantId int, alertId string, type string,  tenantDomain string, msg string, severity int, alertTimestamp long, userReadableTime string)\n",
+              "queryData":{
+                "queryFunction":"this.getQuery \u003d function (username,from,to){let query \u003d \"from SecurityAlertTypeTable on alertTimestamp \u003e\u003d \"+from+\"L and alertTimestamp \u003c\u003d \"+to+\"L select type, count() as ans group by type\";\nreturn query;}",
+                "customWidgetInputs":[
+                  {
+                    "name":"from",
+                    "defaultValue":"0"
+                  },
+                  {
+                    "name":"to",
+                    "defaultValue":"4102425000000"
+                  }
+                ],
+                "systemWidgetInputs":[
+                  {
+                    "name":"username",
+                    "defaultValue":"admin"
+                  }
+                ],
+                "query":"from SecurityAlertTypeTable on alertTimestamp \u003e\u003d 0L and alertTimestamp \u003c\u003d 4102425000000L select type, count() as ans group by type"
+              },
+              "publishingInterval":5,
+              "timeColumns":""
+            }
+          }
+        },
+        "metadata":{
+          "names":[
+            "type",
+            "ans"
+          ],
+          "types":[
+            "ORDINAL",
+            "LINEAR"
+          ]
+        },
+        "version":"1.0.0",
+        "pubsub":{
+          "types":[
+            "subscriber"
+          ],
+          "subscriberWidgetInputs":[
+            "from",
+            "to"
+          ]
+        }
+      },
+      {
+        "name":"IS Analytics Abnormal Long Sessions Alert",
+        "id":"IS-Analytics-Abnormal-Long-Sessions-Alert",
+        "chartConfig":{
+          "charts":[
+            {
+              "type":"table",
+              "columns":[
+                {
+                  "name":"currentTime",
+                  "title":"Timestamp",
+                  "colorBasedStyle":false
+                },
+                {
+                  "name":"tenantDomain",
+                  "title":"Tenant  Domain",
+                  "colorBasedStyle":false
+                },
+                {
+                  "name":"username",
+                  "title":"User",
+                  "colorBasedStyle":false
+                },
+                {
+                  "name":"duration",
+                  "title":"Duration (ms)",
+                  "colorBasedStyle":false
+                },
+                {
+                  "name":"avgDuration",
+                  "title":"Avg.  Duration (ms)",
+                  "colorBasedStyle":false
+                }
+              ],
+              "columnTitles":[
+
+              ]
+            }
+          ],
+          "maxLength":100,
+          "filterable":true,
+          "pagination":true,
+          "append":false
+        },
+        "providerConfig":{
+          "configs":{
+            "type":"SiddhiStoreDataProvider",
+            "config":{
+              "siddhiApp":"@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table AlertLongSessionsTable(timestamp long, currentTime string, meta_tenantId int,  tenantDomain string, sessionId string, username string, duration long, avgDuration double)\n",
+              "queryData":{
+                "queryFunction":"this.getQuery \u003d function (username,from,to){let query \u003d \"from AlertLongSessionsTable on timestamp \u003e\u003d \"+from+\"L and timestamp \u003c\u003d \"+to+\"L select * order by username\";\nreturn query;\n}",
+                "customWidgetInputs":[
+                  {
+                    "name":"from",
+                    "defaultValue":"0"
+                  },
+                  {
+                    "name":"to",
+                    "defaultValue":"4102425000000"
+                  }
+                ],
+                "systemWidgetInputs":[
+                  {
+                    "name":"username",
+                    "defaultValue":"admin"
+                  }
+                ],
+                "query":"from AlertLongSessionsTable on timestamp \u003e\u003d 0L and timestamp \u003c\u003d 4102425000000L select * order by username"
+              },
+              "publishingInterval":5,
+              "timeColumns":""
+            }
+          }
+        },
+        "metadata":{
+          "names":[
+            "timestamp",
+            "currentTime",
+            "meta_tenantId",
+            "tenantDomain",
+            "sessionId",
+            "username",
+            "duration",
+            "avgDuration"
+          ],
+          "types":[
+            "LINEAR",
+            "ORDINAL",
+            "LINEAR",
+            "ORDINAL",
+            "ORDINAL",
+            "ORDINAL",
+            "LINEAR",
+            "LINEAR"
           ]
         },
         "version":"1.0.0",
