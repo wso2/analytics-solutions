@@ -64,6 +64,7 @@ class EIAnalyticsMessageFlow extends Widget {
             lastDrawnGraphData: null
         };
         this.handleRecievedMessage = this.handleMessage.bind(this);
+        this.handleAggregateData = this.handleAggregateData.bind(this);
         this.state = {
             dataUnavailable: true,
             height: this.props.glContainer.height,
@@ -321,7 +322,7 @@ class EIAnalyticsMessageFlow extends Widget {
                         dataProviderConf.configs.providerConfig.configs.config.queryData = {query: formattedQuery};
                         super.getWidgetChannelManager().subscribeWidget(
                             this.props.id,
-                            this.handleAggregateData(configEntryData, entryName).bind(this),
+                            (data) => this.handleAggregateData(configEntryData, entryName, data),
                             dataProviderConf.configs.providerConfig
                         );
                     });
@@ -329,8 +330,8 @@ class EIAnalyticsMessageFlow extends Widget {
         }
     }
 
-    handleAggregateData(configEntryData, entryName) {
-        return function (aggregateData) {
+    handleAggregateData(configEntryData, entryName, aggregateData) {
+        //return function (aggregateData) {
             if (aggregateData) {
                 this.setState({
                     dataUnavailable: false
@@ -341,7 +342,6 @@ class EIAnalyticsMessageFlow extends Widget {
                     configEntryDataTableIndex[value] = index;
                 })
 
-                // console.log(aggregateData);
                 let schema = JSON.parse(configEntryData.data[0][configEntryDataTableIndex["configData"]]);
 
                 // Aggregate table and prepare component map
@@ -415,8 +415,8 @@ class EIAnalyticsMessageFlow extends Widget {
                             }
                         }
 
-
                         var componentInfo = componentMap[componentId];
+
                         var dataAttributes = [];
 
                         // Find unique groups
@@ -492,7 +492,7 @@ class EIAnalyticsMessageFlow extends Widget {
                 // Draw message flow with the processed data
                 this.drawMessageFlow($, result);
             }
-        }
+        //}
     }
 
     /**
