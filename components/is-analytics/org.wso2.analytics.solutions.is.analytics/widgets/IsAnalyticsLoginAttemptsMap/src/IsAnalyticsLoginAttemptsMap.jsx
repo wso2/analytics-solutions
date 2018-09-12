@@ -303,14 +303,14 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             <JssProvider generateClassName={LoginAttemptsMapStylesClass}>
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div style={{ height: height * 0.6, width: width * 0.9 }}>
+                        <div style={{ height: height * 0.8, width: width * 0.9 }}>
                             <VizG
                                 config={this.state.chartConfig}
                                 metadata={this.state.metadata}
                                 data={this.state.data}
                             />
                         </div>
-                        <div style={{ height: height * 0.2, width: width * 0.9 }}>
+                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
                             <FormControlLabel
                                 control={(
                                     <Switch

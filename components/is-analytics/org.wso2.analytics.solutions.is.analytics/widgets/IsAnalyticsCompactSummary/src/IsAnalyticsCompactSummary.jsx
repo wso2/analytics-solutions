@@ -272,11 +272,7 @@ class IsAnalyticsCompactSummary extends Widget {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={divSpacings}>
-                    <div style={{
-                        height: height * 0.45,
-                        width: width * 0.9,
-                    }}
-                    >
+                    <div style={{ height: height * 0.45, width: width * 0.9 }}>
                         <VizG
                             config={numChartConfig}
                             metadata={this.state.numChartMetadata}
@@ -287,16 +283,8 @@ class IsAnalyticsCompactSummary extends Widget {
                     {
                         (this.state.totalAttempts !== 0)
                         && (
-                            <div style={{
-                                height: height * 0.55,
-                                width: width * 0.9,
-                            }}
-                            >
-                                <div style={{
-                                    height: height * 0.05,
-                                    width: width * 0.9,
-                                }}
-                                >
+                            <div style={{ height: height * 0.55, width: width * 0.9 }}>
+                                <div style={{ height: height * 0.05, width: width * 0.9 }}>
                                     <Typography
                                         variant="body1"
                                         gutterBottom
