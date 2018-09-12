@@ -121,7 +121,9 @@
                                                             "publishers": [
                                                                 "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
                                                             ],
-                                                            "widgetInputOutputMapping": []
+                                                            "widgetInputOutputMapping": [
+
+                                                            ]
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
@@ -522,7 +524,9 @@
                                                         "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
                                                         "ea185ba1-a50a-449e-a4f3-3200c78e391c"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
@@ -739,7 +743,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
                                         },
@@ -872,7 +878,9 @@
                                                         "f4fea18c-d358-431e-81ad-49ae24bd7c90",
                                                         "cd941660-27d6-42eb-acbe-9e92de5fd144"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
@@ -1089,7 +1097,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
                                         },
@@ -1223,7 +1233,9 @@
                                                         "a93d734b-c943-4460-ba0b-b7a894433ffa",
                                                         "00674be1-08d6-4446-a4c9-06d062376a28"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
@@ -1440,7 +1452,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
                                         },
@@ -1573,7 +1587,9 @@
                                                         "3865a05b-8f2e-40b3-a9a0-babbff15b622",
                                                         "84e1a9ea-64c0-412a-a99e-1ffb88502778"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
@@ -1845,7 +1861,9 @@
                                                                 "from",
                                                                 "to"
                                                             ],
-                                                            "publishers": []
+                                                            "publishers": [
+
+                                                            ]
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
@@ -1888,7 +1906,9 @@
                                                         "fb49be68-14e3-472b-b371-daf6bfef58cb",
                                                         "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
@@ -2067,7 +2087,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageTable"
                                         },
@@ -2101,10 +2123,14 @@
                                                         "fb49be68-14e3-472b-b371-daf6bfef58cb",
                                                         "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
                                         },
@@ -2150,7 +2176,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
                                         },
@@ -2184,7 +2212,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMediatorProperties"
                                         },
@@ -2236,7 +2266,9 @@
                                                             "types": [
                                                                 "subscriber"
                                                             ],
-                                                            "widgetInputOutputMapping": [],
+                                                            "widgetInputOutputMapping": [
+
+                                                            ],
                                                             "publishers": [
                                                                 "afb5839d-3770-4f79-a00a-37d4d5e5821c"
                                                             ]
@@ -2469,9 +2501,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit ,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit ,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2496,7 +2528,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2557,9 +2589,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \" + timeTo + \"L per \u0027\"  + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \" + timeTo + \"L per '\"  + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2584,7 +2616,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2651,9 +2683,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2678,7 +2710,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2745,9 +2777,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2772,7 +2804,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2833,9 +2865,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit){let query \u003d \"from ESBStatAgg on not(AGG_TIMESTAMP is null) within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \"\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit){let query = \"from ESBStatAgg on not(AGG_TIMESTAMP is null) within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ \"' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2856,7 +2888,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on not(AGG_TIMESTAMP is null) within 1530816178000L, 1530816609000L per \u0027seconds\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on not(AGG_TIMESTAMP is null) within 1530816178000L, 1530816609000L per 'seconds' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2924,9 +2956,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom ,timeTo,timeUnit){let entryPoint \u003d null;\nlet id \u003d true;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.mediator_page_entryPoint;\n\tid \u003d hashObject.mediator_page_id;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentId\u003d\u003d\u0027\" + id + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom ,timeTo,timeUnit){let entryPoint = null;\nlet id = true;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.mediator_page_entryPoint;\n\tid = hashObject.mediator_page_id;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentId=='\" + id + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom ",
@@ -2947,7 +2979,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on true AND componentId\u003d\u003d\u0027true\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on true AND componentId=='true' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3013,9 +3045,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.sequence_page_entryPoint;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\n\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.sequence_page_entryPoint;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\n\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3040,7 +3072,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on true AND componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on true AND componentName=='test' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3101,9 +3133,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.sequence_page_entryPoint;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" +  timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.sequence_page_entryPoint;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" +  timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3128,7 +3160,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on true AND componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on true AND componentName=='test' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3189,9 +3221,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.endpoint_page_entryPoint;\n}\n\t\nlet query \u003d \u0027\u0027;\n\nif (entryPoint \u003d\u003d \u0027undefined\u0027 || entryPoint \u003d\u003d null) {\n    query \u003d \"from MediatorStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027) + \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query \u003d \"from MediatorStatAgg on entryPoint\u003d\u003d\u0027\" + entryPoint + \"\u0027 AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\"  + (timeUnit + \u0027s\u0027) + \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.endpoint_page_entryPoint;\n}\n\t\nlet query = '';\n\nif (entryPoint == 'undefined' || entryPoint == null) {\n    query = \"from MediatorStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's') + '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query = \"from MediatorStatAgg on entryPoint=='\" + entryPoint + \"' AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\"  + (timeUnit + 's') + '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3216,7 +3248,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3277,9 +3309,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \" + timeTo + \"L per \u0027\"  + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \" + timeTo + \"L per '\"  + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3304,7 +3336,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3371,9 +3403,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.endpoint_page_entryPoint;\n}\nlet query \u003d \u0027\u0027;\nif (entryPoint \u003d\u003d \u0027undefined\u0027 || entryPoint \u003d\u003d null) {\n    query \u003d \"from MediatorStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\"  + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query \u003d \"from MediatorStatAgg on entryPoint\u003d\u003d\u0027\" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.endpoint_page_entryPoint;\n}\nlet query = '';\nif (entryPoint == 'undefined' || entryPoint == null) {\n    query = \"from MediatorStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\"  + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query = \"from MediatorStatAgg on entryPoint=='\" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3398,7 +3430,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3459,9 +3491,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit){let entryPoint \u003d null;\nlet id \u003d true;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.mediator_page_entryPoint;\n\tid \u003d hashObject.mediator_page_id;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentId\u003d\u003d\u0027\" + id + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit){let entryPoint = null;\nlet id = true;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.mediator_page_entryPoint;\n\tid = hashObject.mediator_page_id;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentId=='\" + id + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3482,7 +3514,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on true AND componentId\u003d\u003d\u0027true\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on true AND componentId=='true' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3542,9 +3574,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \" + timeTo + \"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \" + timeTo + \"L per '\" + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3569,7 +3601,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"

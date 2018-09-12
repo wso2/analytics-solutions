@@ -1,5 +1,5 @@
 {
-  "name": "IS Analytics Session Count",
+  "name": "Is Analytics Session Count",
   "id": "IsAnalyticsSessionCount",
   "thumbnailURL": "",
   "configs": {
@@ -10,19 +10,16 @@
     },
     "providerConfig": {
       "configs": {
-        "type": "RDBMSBatchDataProvider",
+        "type": "SiddhiStoreDataProvider",
         "config": {
-          "datasourceName": "IS_ANALYTICS_DB",
+          "siddhiApp": "@store(type='rdbms', datasource='IS_ANALYTICS_DB') @primaryKey('meta_tenantId', 'sessionId') @Index('username','userstoreDomain','tenantDomain') define table SessionInformationTable ( meta_tenantId int, sessionId string, startTime string, terminateTime string, endTime string, duration long, isActive bool, username string, userstoreDomain string, remoteIp string, region string, tenantDomain string, serviceProvider string, identityProviders string, rememberMeFlag bool, userAgent string, usernameWithTenantDomainAndUserstoreDomain string, currentTime string, startTimestamp long, renewTimestamp long, terminationTimestamp long, endTimestamp long, timestamp long);",
           "queryData": {
-            "query": "select '1' as id,' < 15 mins' as duration, count(sessionId) as count1 from SessionInformationTable where duration >= 0 and duration <= 900001 and (startTimestamp >= 0 and startTimestamp <= {{to}}L) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive = 1) union select '2' as id,' < 1 hr' as duration, count(sessionId) as count1 from SessionInformationTable where duration >= 900001 and duration <= 3600001 and (startTimestamp >= 0 and startTimestamp <= {{to}}L) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive = 1) union all select '3' as id, ' < 12 hrs' as duration, count(sessionId) as count1 from SessionInformationTable where duration >= 3600001 and duration <= 43200001 and (startTimestamp >= 0 and startTimestamp <= {{to}}L) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive = 1) union all select '4' as id, ' < 24 hrs' as duration, count(sessionId) as count1 from SessionInformationTable where duration >= 43200001 and duration <= 86400001 and (startTimestamp >= 0 and startTimestamp <= {{to}}L) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive = 1) union all select '5' as id, ' > 24 hrs' as duration, count(sessionId) as count1 from SessionInformationTable where duration >= 86400001 and duration <= 9223372036854775808 and (startTimestamp >= 0 and startTimestamp <= {{to}}L) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive = 1)"
+            "query": "from SessionInformationTable on {{durationRange}} and {{startTimestampRange}} AND ({{endTimestampRange}} OR isActive == true) select '{{duration}}' as duration, count() as count1"
           },
-          "incrementalColumn": "id",
           "publishingInterval": 60
-
         }
       }
     }
   }
 }
-
-
+  
