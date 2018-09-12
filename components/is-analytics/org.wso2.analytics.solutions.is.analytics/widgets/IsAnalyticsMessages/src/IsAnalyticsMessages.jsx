@@ -419,6 +419,7 @@ class IsAnalyticsMessages extends Widget {
             paddingBottom: height * 0.02,
             width: '100%',
             height: '100%',
+            boxSizing: 'border-box',
         };
         let theme = darkTheme;
 

@@ -246,6 +246,7 @@ class IsAnalyticsUserPreferences extends Widget {
             paddingBottom: height * 0.05,
             width: '100%',
             height: '100%',
+            boxSizing: 'border-box',
         };
         let theme = darkTheme;
 
