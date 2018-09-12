@@ -417,8 +417,8 @@ class IsAnalyticsMessages extends Widget {
             paddingRight: width * 0.02,
             paddingTop: height * 0.02,
             paddingBottom: height * 0.02,
-            display: 'flex',
-            'flex-direction': 'column',
+            width: '100%',
+            height: '100%',
         };
         let theme = darkTheme;
 
