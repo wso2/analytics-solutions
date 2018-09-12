@@ -429,30 +429,37 @@ class IsAnalyticsAttemptsByType extends Widget {
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
                         <div style={{ height: height * 0.8, width: width * 0.9 }}>
-                            <VizG
-                                config={this.state.chartConfigFailure}
-                                metadata={this.state.failureMetadata}
-                                data={this.state.currentFailureDataSet}
-                                onClick={data => this.onChartClick(data)}
-                            />
-                        </div>
-                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
-                                {
-                                    this.state.failureData.length > dataPerPage
-                                    && (
-                                        <Pagination
-                                            total={this.state.failurePageCount}
-                                            current={this.state.currentFailurePageNumber}
-                                            display={noOfPagesInPaginationNavigation}
-                                            onChange={
-                                                number => this.updateTable(this.state.failureData, number, false)
-                                            }
-                                            style={{ float: 'center' }}
-                                        />
-                                    )
-                                }
-                            </V0MuiThemeProvider>
+                            <div style={{ height: height * 0.7, width: width * 0.9 }}>
+                                <VizG
+                                    config={this.state.chartConfigFailure}
+                                    metadata={this.state.failureMetadata}
+                                    data={this.state.currentFailureDataSet}
+                                    onClick={data => this.onChartClick(data)}
+                                />
+                            </div>
+                            <div style={{
+                                height: height * 0.1,
+                                width: width * 0.9,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                            >
+                                <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
+                                    {
+                                        this.state.failureData.length > dataPerPage
+                                        && (
+                                            <Pagination
+                                                total={this.state.failurePageCount}
+                                                current={this.state.currentFailurePageNumber}
+                                                display={noOfPagesInPaginationNavigation}
+                                                onChange={
+                                                    number => this.updateTable(this.state.failureData, number, false)
+                                                }
+                                            />
+                                        )
+                                    }
+                                </V0MuiThemeProvider>
+                            </div>
                         </div>
                     </div>
                 </MuiThemeProvider>
@@ -461,41 +468,16 @@ class IsAnalyticsAttemptsByType extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div style={{ height: height * 0.8, width: width * 0.9 }}>
-                            <VizG
-                                config={this.state.chartConfigSuccess}
-                                metadata={this.state.successMetadata}
-                                data={this.state.currentSuccessDataSet}
-                                onClick={data => this.onChartClick(data)}
-                            />
-                        </div>
-                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
-                                {
-                                    this.state.successData.length > dataPerPage
-                                    && (
-                                        <Pagination
-                                            total={this.state.successPageCount}
-                                            current={this.state.currentSuccessPageNumber}
-                                            display={noOfPagesInPaginationNavigation}
-                                            onChange={
-                                                number => this.updateTable(this.state.successData, number, true)
-                                            }
-                                            style={{ float: 'center' }}
-                                        />
-                                    )
-                                }
-                            </V0MuiThemeProvider>
-                        </div>
-                    </div>
-                </MuiThemeProvider>
-            );
-        } else {
-            return (
-                <MuiThemeProvider theme={theme}>
-                    <div style={divSpacings}>
-                        <div style={{ height: height * 0.5, width: width * 0.9 }}>
-                            <div style={{ height: height * 0.4, width: width * 0.9 }}>
+                        <div style={{
+                            height: height * 0.8,
+                            width: width * 0.9,
+                        }}
+                        >
+                            <div style={{
+                                height: height * 0.7,
+                                width: width * 0.9,
+                            }}
+                            >
                                 <VizG
                                     config={this.state.chartConfigSuccess}
                                     metadata={this.state.successMetadata}
@@ -503,7 +485,11 @@ class IsAnalyticsAttemptsByType extends Widget {
                                     onClick={data => this.onChartClick(data)}
                                 />
                             </div>
-                            <div style={{ height: height * 0.1, width: width * 0.9 }}>
+                            <div style={{
+                                height: height * 0.1,
+                                width: width * 0.9,
+                            }}
+                            >
                                 <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.successData.length > dataPerPage
@@ -515,15 +501,54 @@ class IsAnalyticsAttemptsByType extends Widget {
                                                 onChange={
                                                     number => this.updateTable(this.state.successData, number, true)
                                                 }
-                                                style={{ float: 'center' }}
                                             />
                                         )
                                     }
                                 </V0MuiThemeProvider>
                             </div>
                         </div>
-                        <div style={{ height: height * 0.5, width: width * 0.9 }}>
-                            <div style={{ height: height * 0.4, width: width * 0.9 }}>
+                    </div>
+                </MuiThemeProvider>
+            );
+        } else {
+            return (
+                <MuiThemeProvider theme={theme}>
+                    <div style={divSpacings}>
+                        <div style={{ height: height * 0.4, width: width * 0.9 }}>
+                            <div style={{ height: height * 0.3, width: width * 0.9 }}>
+                                <VizG
+                                    config={this.state.chartConfigSuccess}
+                                    metadata={this.state.successMetadata}
+                                    data={this.state.currentSuccessDataSet}
+                                    onClick={data => this.onChartClick(data)}
+                                />
+                            </div>
+                            <div style={{
+                                height: height * 0.1,
+                                width: width * 0.9,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                            >
+                                <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
+                                    {
+                                        this.state.successData.length > dataPerPage
+                                        && (
+                                            <Pagination
+                                                total={this.state.successPageCount}
+                                                current={this.state.currentSuccessPageNumber}
+                                                display={noOfPagesInPaginationNavigation}
+                                                onChange={
+                                                    number => this.updateTable(this.state.successData, number, true)
+                                                }
+                                            />
+                                        )
+                                    }
+                                </V0MuiThemeProvider>
+                            </div>
+                        </div>
+                        <div style={{ height: height * 0.4, width: width * 0.9 }}>
+                            <div style={{ height: height * 0.3, width: width * 0.9 }}>
                                 <VizG
                                     config={this.state.chartConfigFailure}
                                     metadata={this.state.failureMetadata}
@@ -543,7 +568,6 @@ class IsAnalyticsAttemptsByType extends Widget {
                                                 onChange={
                                                     number => this.updateTable(this.state.failureData, number, false)
                                                 }
-                                                style={{ float: 'center' }}
                                             />
                                         )
                                     }
