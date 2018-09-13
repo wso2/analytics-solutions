@@ -744,7 +744,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -1098,7 +1098,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -1453,7 +1453,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -2129,7 +2129,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -2177,7 +2177,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
