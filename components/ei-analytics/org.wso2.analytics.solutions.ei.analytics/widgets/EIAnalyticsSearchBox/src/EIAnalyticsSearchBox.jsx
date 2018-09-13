@@ -42,13 +42,14 @@ const lightTheme = createMuiTheme({
     }
 });
 
+//todo move select to a different component
 // Following functions are used by material ui to implement autocomplete using react-select. For more information see
 // see https://v1-5-0.material-ui.com/demos/autocomplete/
 let openPopper = false;
 const popperAnchor = 'popper-anchor-ei-analytics-search-box';
 const textInputElement = '#popper-anchor-ei-analytics-search-box div div div input';
 
-const NoOptionsMessage = function(props) {
+const NoOptionsMessage = function (props) {
     return (
         <Typography
             style={{
@@ -61,13 +62,13 @@ const NoOptionsMessage = function(props) {
     );
 };
 
-const inputComponent = function({inputRef, ...props}) {
+const inputComponent = function ({inputRef, ...props}) {
     return <div
         ref={inputRef}
         {...props}/>;
 };
 
-const Control = function(props) {
+const Control = function (props) {
     openPopper = props.selectProps.menuIsOpen;
     return (
         <TextField
@@ -85,7 +86,7 @@ const Control = function(props) {
     );
 };
 
-const Option = function(props) {
+const Option = function (props) {
     return (
         <MenuItem
             buttonRef={props.innerRef}
@@ -96,9 +97,9 @@ const Option = function(props) {
             {props.children}
         </MenuItem>
     );
-}
+};
 
-const Placeholder = function(props) {
+const Placeholder = function (props) {
     return (
         <Typography
             style={{
@@ -113,7 +114,7 @@ const Placeholder = function(props) {
     );
 };
 
-const SingleValue = function(props) {
+const SingleValue = function (props) {
     return (
         <Typography
             style={{
@@ -128,7 +129,7 @@ const SingleValue = function(props) {
     );
 };
 
-const ValueContainer = function(props) {
+const ValueContainer = function (props) {
     return (
         <div
             style={{
@@ -141,7 +142,7 @@ const ValueContainer = function(props) {
         </div>);
 };
 
-const MultiValue = function(props) {
+const MultiValue = function (props) {
     return (
         <Chip
             tabIndex={-1}
@@ -165,7 +166,7 @@ const MultiValue = function(props) {
     );
 };
 
-const Menu = function(props) {
+const Menu = function (props) {
     let popperNode = document.getElementById(popperAnchor);
     return (
         <Popper
@@ -201,6 +202,7 @@ class EIAnalyticsSearchBox extends Widget {
         this.state = {
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
+            options: [],
             availableOptions: [],
             selectedOption: null,
             faultyProviderConf: false
@@ -237,11 +239,6 @@ class EIAnalyticsSearchBox extends Widget {
         if (document.getElementById(popperAnchor)) {
             document.getElementById(popperAnchor).style = 'display: flex; padding: 0';
         }
-        // if a component is already selected, preserve the selection
-        let selected = super.getGlobalState(this.getKey(this.pageName,SELECTED_COMPONENT));
-        if (selected) {
-            this.publishMessage(selected);
-        }
 
         let query;
         let componentType = this.pageName;
@@ -263,8 +260,10 @@ class EIAnalyticsSearchBox extends Widget {
                 } else {
                     query = message.data.configs.providerConfig.configs.config.queryData.queryMediator;
                 }
-                message.data.configs.providerConfig.configs.config.queryData.query = query.replace('{{paramComponentType}}', componentType);
-                super.getWidgetChannelManager().subscribeWidget(this.props.id, this.handleDataReceived, message.data.configs.providerConfig);
+                message.data.configs.providerConfig.configs.config.queryData.query = query
+                    .replace('{{paramComponentType}}', componentType);
+                super.getWidgetChannelManager().subscribeWidget(this.props.id,
+                    this.handleDataReceived, message.data.configs.providerConfig);
 
             })
             .catch((error) => {
@@ -288,7 +287,6 @@ class EIAnalyticsSearchBox extends Widget {
             function (nameArr) {
                 return nameArr[0];
             });
-
         // remove endpoints in the excludeEndpoints-array from the options
         if (this.pageName == this.pgEndpoint) {
             let excludeEndpoints = ["AnonymousEndpoint"];
@@ -302,17 +300,31 @@ class EIAnalyticsSearchBox extends Widget {
             this.excludeComponets(componentNameArr, excludeSequences);
         }
 
+        let availableOptions = componentNameArr.map(option => ({
+            value: option,
+            label: option,
+            disabled: false
+        }));
+        let selected = null;
+        let queryParam = super.getGlobalState(this.getKey(this.pageName, SELECTED_COMPONENT));
+        if (queryParam.length) {
+            if (componentNameArr.indexOf(queryParam) > -1) {
+                selected = [{
+                    value: queryParam,
+                    label: queryParam,
+                    disabled: false
+                }];
+            }
+        }
         this.setState({
-            availableOptions: componentNameArr.map(option => ({
-                value: option,
-                label: option,
-                disabled: false
-            }))
-        });
+            options: componentNameArr,
+            availableOptions: availableOptions,
+            selectedOption: selected
+        }, this.publishMessage);
     }
 
     handleChange(event) {
-        let options = this.state.availableOptions;
+        let options = this.state.options;
         let updatedOptions;
         let selectedValues = [];
         selectedValues[0] = event;
@@ -366,11 +378,11 @@ class EIAnalyticsSearchBox extends Widget {
     updateStyleColor(existingStyles, color) {
         let result = '';
         existingStyles.split(';').forEach((item) => {
-            if(item.length > 0) {
+            if (item.length > 0) {
                 const itemPair = item.split(':');
-                if(itemPair[0].trim() !== 'color') {
+                if (itemPair[0].trim() !== 'color') {
                     result = result + itemPair[0] + ': ' + itemPair[1] + ';'
-                } else{
+                } else {
                     result = result + 'color: ' + color + ';'
                 }
             }
@@ -386,27 +398,21 @@ class EIAnalyticsSearchBox extends Widget {
         }
     }
 
-    getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        let results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    };
-
     componentWillUnmount() {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
     }
 
     publishMessage() {
-        const pubMessage = this.state.selectedOption;
-        this.publishedMsgSet.push({time: new Date(), value: pubMessage});
+        let pubMessage = this.state.selectedOption;
         if (pubMessage) {
-            super.publish({"selectedComponent": pubMessage[0].value});
+            pubMessage = pubMessage[0].value;
+            this.publishedMsgSet.push({time: new Date(), value: pubMessage});
+            super.publish({"selectedComponent": pubMessage});
         }
     }
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         this.updateTextBoxColor();
         return (
             <JssProvider

@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Login Attempts Map",
+  "name": "IS Analytics Login Attempts Map",
   "id": "IsAnalyticsLoginAttemptsMap",
   "thumbnailURL": "",
   "configs": {
@@ -21,6 +21,15 @@
           ]
         },
         "defaultValue": "Overall"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "TEXT",
+          "possibleValues": []
+        },
+        "defaultValue": "Login Attempts Map"
       }
     ],
     "providerConfig": {

@@ -77,6 +77,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             chartConfig,
             data: [],
             metadata,
+            dataProviderConf: null,
             isProviderConfigFault: false,
             options: this.props.configs.options,
         };
@@ -92,12 +93,11 @@ class IsAnalyticsAttemptsOverTime extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
@@ -142,17 +142,19 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         if (this.state.additionalFilterConditions !== undefined) {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
             for (const key in additionalFilterConditionsClone) {
-                if (additionalFilterConditionsClone[key] !== '') {
-                    if (key === 'role') {
-                        filterCondition = filterCondition
-                            + ' and str:contains(rolesCommaSeparated, \''
-                            + additionalFilterConditionsClone[key] + '\') ';
-                    } else if (key === 'isFirstLogin') {
-                        filterCondition = filterCondition
-                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
-                    } else {
-                        filterCondition = filterCondition
-                            + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
+                if (Object.hasOwnProperty.call(additionalFilterConditionsClone, key)) {
+                    if (additionalFilterConditionsClone[key] !== '') {
+                        if (key === 'role') {
+                            filterCondition = filterCondition
+                                + ' and str:contains(rolesCommaSeparated, \''
+                                + additionalFilterConditionsClone[key] + '\') ';
+                        } else if (key === 'isFirstLogin') {
+                            filterCondition = filterCondition
+                                + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
+                        } else {
+                            filterCondition = filterCondition
+                                + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
+                        }
                     }
                 }
             }
@@ -195,8 +197,9 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
             paddingBottom: height * 0.05,
-            height,
-            width,
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
         };
         let theme = darkTheme;
 
@@ -207,11 +210,9 @@ class IsAnalyticsAttemptsOverTime extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <Typography variant="title" gutterBottom align="center">
-                            Login Attempts Over Time
-                        </Typography>
                         <Typography variant="body1" gutterBottom align="center">
-                            No data found
+                            Unable to fetch data from Siddhi data provider,
+                            Please check the data provider configurations.
                         </Typography>
                     </div>
                 </MuiThemeProvider>
@@ -220,11 +221,6 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={divSpacings}>
-                    <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                        <Typography variant="title" gutterBottom align="center">
-                            Login Attempts Over Time
-                        </Typography>
-                    </div>
                     <div style={{ height: height * 0.9, width: width * 0.9 }}>
                         <VizG
                             config={this.state.chartConfig}

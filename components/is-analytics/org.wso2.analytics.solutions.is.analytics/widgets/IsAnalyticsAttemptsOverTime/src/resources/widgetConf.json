@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Attempts Over Time",
+  "name": "IS Analytics Attempts Over Time",
   "id": "IsAnalyticsAttemptsOverTime",
   "thumbnailURL": "",
   "configs": {
@@ -21,6 +21,15 @@
           ]
         },
         "defaultValue": "Overall"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "TEXT",
+          "possibleValues": []
+        },
+        "defaultValue": "Login Attempts Over Time"
       }
     ],
     "providerConfig": {

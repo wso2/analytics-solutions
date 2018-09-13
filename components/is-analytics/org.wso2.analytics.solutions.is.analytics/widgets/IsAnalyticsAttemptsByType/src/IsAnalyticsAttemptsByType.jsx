@@ -108,7 +108,8 @@ class IsAnalyticsAttemptsByType extends Widget {
             options: this.props.configs.options,
             currentSuccessPageNumber: 1,
             currentFailurePageNumber: 1,
-            faultyProviderConf: false,
+            dataProviderConf: null,
+            isDataProviderConfigFault: false,
         };
 
         this.handleReceivedSuccessData = this.handleReceivedSuccessData.bind(this);
@@ -124,7 +125,6 @@ class IsAnalyticsAttemptsByType extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         const successMetadataClone = _.cloneDeep(successMetadata);
         const failureMetadataClone = _.cloneDeep(failureMetadata);
         const chartConfigSuccessClone = _.cloneDeep(chartConfigSuccess);
@@ -132,32 +132,26 @@ class IsAnalyticsAttemptsByType extends Widget {
 
         let xAxisLabel = '';
         let xAxisValue = '';
-        let header = 'By ';
 
         switch (this.state.options.xAxis) {
             case 'Service Provider':
                 xAxisLabel = 'Service Provider';
-                header += 'Service Provider';
                 xAxisValue = 'serviceProvider';
                 break;
             case 'User Store Domain':
                 xAxisLabel = 'User Store Domain';
-                header += 'User Store Domain';
                 xAxisValue = 'userStoreDomain';
                 break;
             case 'Role':
                 xAxisLabel = 'Role';
-                header += 'Role';
                 xAxisValue = 'role';
                 break;
             case 'Identity Provider':
                 xAxisLabel = 'Identity Provider';
-                header += 'Identity Provider';
                 xAxisValue = 'identityProvider';
                 break;
             default:
                 xAxisLabel = 'Username';
-                header += 'Username';
                 xAxisValue = 'username';
         }
 
@@ -190,12 +184,11 @@ class IsAnalyticsAttemptsByType extends Widget {
                     chartConfigSuccess: chartConfigSuccessClone,
                     chartConfigFailure: chartConfigFailureClone,
                     widgetPseudoId,
-                    header,
-                });
+                }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
-                    faultyProviderConf: true,
+                    isDataProviderConfigFault: true,
                 });
             });
     }
@@ -273,12 +266,13 @@ class IsAnalyticsAttemptsByType extends Widget {
     }
 
     assembleQuery() {
-        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+        super.getWidgetChannelManager()
+            .unsubscribeWidget(this.props.id);
         const dataProviderConfigsSuccess = _.cloneDeep(this.state.dataProviderConf);
         let { query } = dataProviderConfigsSuccess.configs.config.queryData;
         let countType = 'authStepSuccessCount';
         let filterCondition = ' on ';
-        let idpFilter = " identityProviderType=='{{idpType}}' ";
+        let idpFilter = ' identityProviderType==\'{{idpType}}\' ';
         let additionalFilters = '';
         let doIdpFilter = false;
         let xAxisValue = '';
@@ -307,23 +301,25 @@ class IsAnalyticsAttemptsByType extends Widget {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
 
             for (const key in additionalFilterConditionsClone) {
-                if (additionalFilterConditionsClone[key] !== '') {
-                    if (key === 'role') {
-                        if (this.state.options.xAxis === 'Role') {
+                if (Object.hasOwnProperty.call(additionalFilterConditionsClone, key)) {
+                    if (additionalFilterConditionsClone[key] !== '') {
+                        if (key === 'role') {
+                            if (this.state.options.xAxis === 'Role') {
+                                additionalFilters = additionalFilters
+                                    + ' and ' + key + '== \'' + additionalFilterConditionsClone[key] + '\'';
+                            } else {
+                                additionalFilters = additionalFilters
+                                    + ' and str:contains(rolesCommaSeparated, \''
+                                    + additionalFilterConditionsClone[key]
+                                    + '\')';
+                            }
+                        } else if (key === 'isFirstLogin') {
                             additionalFilters = additionalFilters
-                                + ' and ' + key + '== \'' + additionalFilterConditionsClone[key] + '\'';
+                                + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                         } else {
                             additionalFilters = additionalFilters
-                                + ' and str:contains(rolesCommaSeparated, \''
-                                + additionalFilterConditionsClone[key]
-                                + '\')';
+                                + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
                         }
-                    } else if (key === 'isFirstLogin') {
-                        additionalFilters = additionalFilters
-                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
-                    } else {
-                        additionalFilters = additionalFilters
-                            + ' and ' + key + "=='" + additionalFilterConditionsClone[key] + "' ";
                     }
                 }
             }
@@ -373,18 +369,21 @@ class IsAnalyticsAttemptsByType extends Widget {
         const querySuccess = query.replace(/{{yAxisValue}}/g, countType);
         dataProviderConfigsSuccess.configs.config.queryData.query = querySuccess;
 
-        super.getWidgetChannelManager().subscribeWidget(this.props.id,
-            this.handleReceivedSuccessData, dataProviderConfigsSuccess);
+        super.getWidgetChannelManager()
+            .subscribeWidget(this.props.id,
+                this.handleReceivedSuccessData, dataProviderConfigsSuccess);
 
-        super.getWidgetChannelManager().unsubscribeWidget(this.state.widgetPseudoId);
+        super.getWidgetChannelManager()
+            .unsubscribeWidget(this.state.widgetPseudoId);
 
         const dataProviderConfigsFailure = _.cloneDeep(this.state.dataProviderConf);
         const queryFailure = query
             .replace()
             .replace(/{{yAxisValue}}/g, 'authFailureCount');
         dataProviderConfigsFailure.configs.config.queryData.query = queryFailure;
-        super.getWidgetChannelManager().subscribeWidget(this.state.widgetPseudoId,
-            this.handleReceivedFailureData, dataProviderConfigsFailure);
+        super.getWidgetChannelManager()
+            .subscribeWidget(this.state.widgetPseudoId,
+                this.handleReceivedFailureData, dataProviderConfigsFailure);
     }
 
     onChartClick(data) {
@@ -404,8 +403,9 @@ class IsAnalyticsAttemptsByType extends Widget {
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
             paddingBottom: height * 0.05,
-            height,
-            width,
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
         };
 
         let theme = darkTheme;
@@ -414,15 +414,13 @@ class IsAnalyticsAttemptsByType extends Widget {
             theme = lightTheme;
         }
 
-        if (this.state.faultyProviderConf) {
+        if (this.state.isDataProviderConfigFault) {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <Typography variant="title" gutterBottom align="center">
-                            {this.state.header}
-                        </Typography>
                         <Typography variant="body1" gutterBottom align="center">
-                            Unable to fetch data, please check the data provider configurations.
+                            Unable to fetch data from Siddhi data provider,
+                            Please check the data provider configurations.
                         </Typography>
                     </div>
                 </MuiThemeProvider>
@@ -431,11 +429,6 @@ class IsAnalyticsAttemptsByType extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <Typography variant="title" gutterBottom align="center">
-                                {this.state.header}
-                            </Typography>
-                        </div>
                         <div style={{ height: height * 0.8, width: width * 0.9 }}>
                             <div style={{ height: height * 0.7, width: width * 0.9 }}>
                                 <VizG
@@ -476,13 +469,16 @@ class IsAnalyticsAttemptsByType extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <Typography variant="title" gutterBottom align="center">
-                                {this.state.header}
-                            </Typography>
-                        </div>
-                        <div style={{ height: height * 0.8, width: width * 0.9 }}>
-                            <div style={{ height: height * 0.7, width: width * 0.9 }}>
+                        <div style={{
+                            height: height * 0.8,
+                            width: width * 0.9,
+                        }}
+                        >
+                            <div style={{
+                                height: height * 0.7,
+                                width: width * 0.9,
+                            }}
+                            >
                                 <VizG
                                     config={this.state.chartConfigSuccess}
                                     metadata={this.state.successMetadata}
@@ -490,7 +486,11 @@ class IsAnalyticsAttemptsByType extends Widget {
                                     onClick={data => this.onChartClick(data)}
                                 />
                             </div>
-                            <div style={{ height: height * 0.1, width: width * 0.9 }}>
+                            <div style={{
+                                height: height * 0.1,
+                                width: width * 0.9,
+                            }}
+                            >
                                 <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.successData.length > dataPerPage
@@ -515,11 +515,6 @@ class IsAnalyticsAttemptsByType extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div style={{ height: height * 0.1, width: width * 0.9 }}>
-                            <Typography variant="title" gutterBottom align="center">
-                                {this.state.header}
-                            </Typography>
-                        </div>
                         <div style={{ height: height * 0.4, width: width * 0.9 }}>
                             <div style={{ height: height * 0.3, width: width * 0.9 }}>
                                 <VizG

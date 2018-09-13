@@ -277,6 +277,7 @@ class IsAnalyticsMessages extends Widget {
         this.state = {
             tableConfig,
             data: [],
+            dataProviderConf: null,
             isProviderConfigsFaulty: false,
             options: this.props.configs.options,
             width: this.props.glContainer.width,
@@ -294,12 +295,11 @@ class IsAnalyticsMessages extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
@@ -379,17 +379,19 @@ class IsAnalyticsMessages extends Widget {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
 
             for (const key in additionalFilterConditionsClone) {
-                if (additionalFilterConditionsClone[key] !== '') {
-                    if (key === 'role') {
-                        additionalFilters = additionalFilters
-                            + ' and str:contains(rolesCommaSeparated, \''
-                            + additionalFilterConditionsClone[key] + '\') ';
-                    } else if (key === 'isFirstLogin') {
-                        additionalFilters = additionalFilters
-                            + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
-                    } else {
-                        additionalFilters = additionalFilters
-                            + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
+                if (Object.hasOwnProperty.call(additionalFilterConditionsClone, key)) {
+                    if (additionalFilterConditionsClone[key] !== '') {
+                        if (key === 'role') {
+                            additionalFilters = additionalFilters
+                                + ' and str:contains(rolesCommaSeparated, \''
+                                + additionalFilterConditionsClone[key] + '\') ';
+                        } else if (key === 'isFirstLogin') {
+                            additionalFilters = additionalFilters
+                                + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
+                        } else {
+                            additionalFilters = additionalFilters
+                                + ' and ' + key + '==\'' + additionalFilterConditionsClone[key] + '\' ';
+                        }
                     }
                 }
             }
@@ -415,8 +417,9 @@ class IsAnalyticsMessages extends Widget {
             paddingRight: width * 0.02,
             paddingTop: height * 0.02,
             paddingBottom: height * 0.02,
-            height,
-            width,
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
         };
         let theme = darkTheme;
 
@@ -429,11 +432,9 @@ class IsAnalyticsMessages extends Widget {
                     <Scrollbars style={{ height, width }}>
                         <div style={divSpacings}>
                             <div>
-                                <Typography variant="title" gutterBottom align="center">
-                                    Messages
-                                </Typography>
-                                <Typography variant="title" gutterBottom align="center">
-                                    [ERROR]: Cannot connect with the data provider
+                                <Typography variant="body1" gutterBottom align="center">
+                                    Unable to fetch data from Siddhi data provider,
+                                    Please check the data provider configurations.
                                 </Typography>
                             </div>
                         </div>
@@ -445,12 +446,7 @@ class IsAnalyticsMessages extends Widget {
             <MuiThemeProvider theme={theme}>
                 <Scrollbars style={{ height, width }}>
                     <div style={divSpacings}>
-                        <div style={{ height: height * 0.05, width: width * 0.96 }}>
-                            <Typography variant="title" gutterBottom align="center">
-                                Messages
-                            </Typography>
-                        </div>
-                        <div style={{ height: height * 0.8, width: width * 0.96 }}>
+                        <div style={{ height: height * 0.9, width: width * 0.96 }}>
                             <VizG
                                 config={this.state.tableConfig}
                                 metadata={this.state.metadata}

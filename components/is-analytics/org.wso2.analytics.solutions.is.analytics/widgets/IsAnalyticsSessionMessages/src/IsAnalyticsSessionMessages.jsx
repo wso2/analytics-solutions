@@ -33,47 +33,47 @@ class IsAnalyticsSessionMessages extends Widget {
                     type: 'table',
                     columns: [
                         {
-                            name: 'USERNAME',
+                            name: 'username',
                             title: 'Username',
                         },
                         {
-                            name: 'STARTTIME',
+                            name: 'startTime',
                             title: 'Start Time',
                         },
                         {
-                            name: 'TERMINATETIME',
+                            name: 'terminateTime',
                             title: 'Termination Time',
                         },
                         {
-                            name: 'ENDTIME',
+                            name: 'endTime',
                             title: 'End Time',
                         },
                         {
-                            name: 'DURATION',
+                            name: 'duration',
                             title: 'Duration (ms)',
                         },
                         {
-                            name: 'ISACTIVE',
+                            name: 'isActive',
                             title: 'Is Active',
                         },
                         {
-                            name: 'USERSTOREDOMAIN',
+                            name: 'userstoreDomain',
                             title: 'User Store Domain',
                         },
                         {
-                            name: 'TENANTDOMAIN',
+                            name: 'tenantDomain',
                             title: 'Tenant Domain',
                         },
                         {
-                            name: 'REMOTEIP',
+                            name: 'remoteIp',
                             title: 'Ip',
                         },
                         {
-                            name: 'REMEMBERMEFLAG',
+                            name: 'rememberMeFlag',
                             title: 'Remember Me Flag',
                         },
                         {
-                            name: 'CURRENTTIME',
+                            name: 'currentTime',
                             title: 'Timestamp',
                         },
                     ],
@@ -85,8 +85,8 @@ class IsAnalyticsSessionMessages extends Widget {
         };
 
         this.metadata = {
-            names: ['USERNAME', 'STARTTIME', 'TERMINATETIME', 'ENDTIME', 'DURATION', 'ISACTIVE',
-                'USERSTOREDOMAIN', 'TENANTDOMAIN', 'REMOTEIP', 'REMEMBERMEFLAG', 'CURRENTTIME'],
+            names: ['username', 'startTime', 'terminateTime', 'endTime', 'duration', 'isActive',
+                'userstoreDomain', 'tenantDomain', 'remoteIp', 'rememberMeFlag', 'currentTime'],
             types: ['ordinal', 'ordinal', 'ordinal', 'ordinal', 'time', 'ordinal', 'ordinal',
                 'ordinal', 'ordinal', 'ordinal', 'ordinal'],
         };
@@ -125,33 +125,6 @@ class IsAnalyticsSessionMessages extends Widget {
     }
 
     handleDataReceived(message) {
-        const date = 'January 01, 1970 05:29:59 AM IST';
-        for (let j = 0; j < message.data.length; j++) {
-            switch (message.data[j][5]) {
-                case 0:
-                    message.data[j][5] = 'False';
-                    break;
-                case 1:
-                    message.data[j][5] = ' True';
-                    break;
-                default:
-                    // This will never hit
-            }
-            if (message.data[j][3] === date) {
-                message.data[j][3] = 'Live';
-            }
-            switch (message.data[j][9]) {
-                case 0:
-                    message.data[j][9] = 'False';
-                    break;
-                case 1:
-                    message.data[j][9] = 'True';
-                    break;
-                default:
-                    // This will never hit
-            }
-        }
-
         this.setState({
             metadata: message.metadata,
             data: message.data,

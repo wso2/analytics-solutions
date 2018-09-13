@@ -28,10 +28,6 @@ class EIAnalyticsMessageTable extends Widget {
     constructor(props) {
         super(props);
 
-        this.props.glContainer.setTitle(
-            "Messages"
-        );
-
         this.chartConfig = {
             "charts": [
                 {

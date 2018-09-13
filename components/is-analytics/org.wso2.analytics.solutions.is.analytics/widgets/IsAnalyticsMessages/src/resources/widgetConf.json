@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Messages",
+  "name": "IS Analytics Messages",
   "id": "IsAnalyticsMessages",
   "thumbnailURL": "",
   "configs": {
@@ -21,6 +21,15 @@
           ]
         },
         "defaultValue": "Overall"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "TEXT",
+          "possibleValues": []
+        },
+        "defaultValue": "Login Attempts Messages"
       }
     ],
     "providerConfig": {
@@ -30,7 +39,7 @@
           "siddhiApp": "@App:name(\"IS_ANALYTICS_AUTHENTICATION_OVERALL\") @App:description(\"Handle Event from IS and save data in a table for Overall Authentication\") define stream OverallAuthenticationProcessedStream (meta_tenantId int, contextId string, eventId string, eventType string, authenticationSuccess bool, username string, localUsername string, userStoreDomain string, tenantDomain string, remoteIp string, region string, inboundAuthType string, serviceProvider string, rememberMeEnabled bool, forceAuthEnabled bool, passiveAuthEnabled bool, rolesCommaSeparated string, authenticationStep string, identityProvider string, authStepSuccess bool, stepAuthenticator string, isFirstLogin bool, identityProviderType string, timestamp long ); @store(type='rdbms', datasource='IS_ANALYTICS_DB') @primaryKey('meta_tenantId', 'contextId', 'eventId', 'eventType', 'region') define table OverallAuthenticationTable (meta_tenantId int, contextId string, eventId string, eventType string, authenticationSuccess bool, username string, localUsername string, userStoreDomain string, tenantDomain string, remoteIp string, region string, inboundAuthType string, serviceProvider string, rememberMeEnabled bool, forceAuthEnabled bool, passiveAuthEnabled bool, rolesCommaSeparated string, authenticationStep string, identityProvider string, authStepSuccess bool, stepAuthenticator string, isFirstLogin bool, identityProviderType string, utcTime string, timestamp long );",
           "queryData": {
             "query": "from OverallAuthenticationTable {{filterCondition}} select contextId, username, serviceProvider, authenticationStep, rolesCommaSeparated, tenantDomain, remoteIp, region, ifThenElse(authStepSuccess, 'Success', 'Failure') as authSuccess, utcTime",
-            "queryLocal": "from OverallAuthenticationTable {{filterCondition}} and identityProviderType=='LOCAL' select contextId, username, serviceProvider, userStoreDomain, tenantDomain, rolesCommaSeparated, remoteIp, region, ifThenElse(authenticationSuccess, 'Success', 'Failure') as authSuccess, utcTime",
+            "queryLocal": "from OverallAuthenticationTable {{filterCondition}} and identityProviderType=='LOCAL' and eventType!='Step' select contextId, username, serviceProvider, userStoreDomain, tenantDomain, rolesCommaSeparated, remoteIp, region, ifThenElse(authenticationSuccess, 'Success', 'Failure') as authSuccess, utcTime",
             "queryFederated": "from OverallAuthenticationTable {{filterCondition}} and identityProviderType=='FEDERATED' select contextId, username, serviceProvider, identityProvider, remoteIp, region, ifThenElse(authStepSuccess, 'Success', 'Failure') as authSuccess, utcTime"
           },
           "incrementalColumn": "contextId",

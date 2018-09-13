@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Compact Summary",
+  "name": "IS Analytics Compact Summary",
   "id": "IsAnalyticsCompactSummary",
   "thumbnailURL": "",
   "configs": {
@@ -21,6 +21,15 @@
           ]
         },
         "defaultValue": "Overall"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "TEXT",
+          "possibleValues": []
+        },
+        "defaultValue": "Login Attempts Compact Summary"
       }
     ],
     "providerConfig": {

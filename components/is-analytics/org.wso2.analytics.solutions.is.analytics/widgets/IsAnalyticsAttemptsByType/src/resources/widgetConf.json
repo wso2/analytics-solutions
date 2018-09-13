@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics Attempts By Type",
+  "name": "IS Analytics Attempts By Type",
   "id": "IsAnalyticsAttemptsByType",
   "thumbnailURL": "",
   "configs": {
@@ -41,6 +41,15 @@
           ]
         },
         "defaultValue": "Username"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "TEXT",
+          "possibleValues": []
+        },
+        "defaultValue": "Login Attempts By "
       }
     ],
     "providerConfig": {
