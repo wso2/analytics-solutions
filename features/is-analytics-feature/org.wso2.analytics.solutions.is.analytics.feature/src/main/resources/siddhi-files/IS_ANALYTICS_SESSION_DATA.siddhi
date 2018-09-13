@@ -64,7 +64,7 @@ define stream HandleSessionInformation (
         identityProviders string,
         rememberMeFlag bool,
         userAgent string,
-        usernameWithTenantDomainAndUserstoreDomain string,
+        userStore string,
         timestamp long);
 
 define stream CountingNewTerminatedSessionsStream (
@@ -107,7 +107,7 @@ define table ActiveSessionsTable (
         identityProviders string,
         rememberMeFlag bool,
         userAgent string,
-        usernameWithTenantDomainAndUserstoreDomain string,
+        userStore string,
         timestamp long);
 
 @primaryKey('meta_tenantId', 'sessionId')
@@ -130,7 +130,7 @@ define table SessionInformationTable(
         identityProviders string,
         rememberMeFlag bool,
         userAgent string,
-        usernameWithTenantDomainAndUserstoreDomain string,
+        userStore string,
         currentTime string,
         startTimestamp long,
         renewTimestamp long,
@@ -142,7 +142,7 @@ define table SessionInformationTable(
 
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
 @purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
-define aggregation SessionCountAggregation
+define aggregation SessionAggregation
 from    SessionStatisticsPerSecond
 select  meta_tenantId,
         activeSessionCount,
@@ -169,7 +169,7 @@ select  meta_tenantId,
         identityProviders,
         rememberMeFlag,
         userAgent,
-        ifThenElse(userstoreDomain is null OR userstoreDomain == "" OR userstoreDomain == "NOT_AVAILABLE" OR tenantDomain is null OR tenantDomain == "" OR tenantDomain == "NOT_AVAILABLE", username, str:concat(userstoreDomain, '/', username, '@', tenantDomain)) as usernameWithTenantDomainAndUserstoreDomain,
+        ifThenElse(userstoreDomain is null OR userstoreDomain == "" OR userstoreDomain == "NOT_AVAILABLE" OR tenantDomain is null OR tenantDomain == "" OR tenantDomain == "NOT_AVAILABLE", username, str:concat(userstoreDomain, '/', username, '@', tenantDomain)) as userStore,
         _timestamp as timestamp
 update or insert into
         ActiveSessionsTable
@@ -195,7 +195,7 @@ select  meta_tenantId,
         identityProviders,
         rememberMeFlag,
         userAgent,
-        ifThenElse(userstoreDomain is null OR userstoreDomain == "" OR userstoreDomain == "NOT_AVAILABLE" OR tenantDomain is null OR tenantDomain == "" OR tenantDomain == "NOT_AVAILABLE", username, str:concat(userstoreDomain, '/', username, '@', tenantDomain)) as usernameWithTenantDomainAndUserstoreDomain,
+        ifThenElse(userstoreDomain is null OR userstoreDomain == "" OR userstoreDomain == "NOT_AVAILABLE" OR tenantDomain is null OR tenantDomain == "" OR tenantDomain == "NOT_AVAILABLE", username, str:concat(userstoreDomain, '/', username, '@', tenantDomain)) as userStore,
         _timestamp as timestamp
 insert into HandleSessionInformation;
 
@@ -218,7 +218,7 @@ select  meta_tenantId,
         identityProviders,
         rememberMeFlag,
         userAgent,
-        ifThenElse(userstoreDomain is null OR userstoreDomain == "" OR userstoreDomain == "NOT_AVAILABLE" OR tenantDomain is null OR tenantDomain == "" OR tenantDomain == "NOT_AVAILABLE", username, str:concat(userstoreDomain, '/', username, '@', tenantDomain)) as usernameWithTenantDomainAndUserstoreDomain,
+        ifThenElse(userstoreDomain is null OR userstoreDomain == "" OR userstoreDomain == "NOT_AVAILABLE" OR tenantDomain is null OR tenantDomain == "" OR tenantDomain == "NOT_AVAILABLE", username, str:concat(userstoreDomain, '/', username, '@', tenantDomain)) as userStore,
         _timestamp as timestamp
 insert into HandleSessionInformation;
 
@@ -240,7 +240,7 @@ select  meta_tenantId,
         identityProviders,
         rememberMeFlag,
         userAgent,
-        usernameWithTenantDomainAndUserstoreDomain,
+        userStore,
         time:dateFormat(timestamp, "MMMM dd, yyyy hh:mm:ss a zzz") as currentTime,
         startTimestamp,
         renewTimestamp,
