@@ -20,6 +20,7 @@
 import React from 'react';
 import { MenuItem, SelectField, RaisedButton } from 'material-ui';
 import DateTimePicker from './DateTimePicker';
+import Moment from "moment";
 
 export default class CustomTimeRangeSelector extends React.Component {
     constructor(props) {
@@ -27,7 +28,7 @@ export default class CustomTimeRangeSelector extends React.Component {
 
         this.state = {
             inputType: this.getDefaultGranularity(),
-            inValidDateRange: false,
+            invalidDateRange: false
         };
 
         this.startTime = new Date();
@@ -101,10 +102,24 @@ export default class CustomTimeRangeSelector extends React.Component {
 
     handleStartTimeChange(date) {
         this.startTime = date;
+        const start = Moment(this.startTime);
+        const end = Moment(this.endTime);
+        if(end.diff(start) < 0) {
+            this.setState({ invalidDateRange: true });
+        } else {
+            this.setState({ invalidDateRange: false });
+        }
     }
 
     handleEndTimeChange(date) {
         this.endTime = date;
+        const start = Moment(this.startTime);
+        const end = Moment(this.endTime);
+        if(end.diff(start) < 0) {
+            this.setState({ invalidDateRange: true });
+        } else {
+            this.setState({ invalidDateRange: false });
+        }
     }
 
     generateGranularityMenuItems() {
@@ -117,16 +132,10 @@ export default class CustomTimeRangeSelector extends React.Component {
     }
 
     publishCustomTimeRange() {
-        if (this.startTime.getTime() < this.endTime.getTime()) {
-            const { handleClose, onChangeCustom } = this.props;
-            const { inputType } = this.state;
-            handleClose();
-            onChangeCustom('custom', this.startTime, this.endTime, inputType);
-            this.setState({ inValidDateRange: false});
-        } else {
-            this.setState({ inValidDateRange: true})
-        }
-
+        const { handleClose, onChangeCustom } = this.props;
+        const { inputType } = this.state;
+        handleClose();
+        onChangeCustom('custom', this.startTime, this.endTime, inputType);
     }
 
     render() {
@@ -181,7 +190,7 @@ export default class CustomTimeRangeSelector extends React.Component {
                         />
                     </div>
                 </div>
-                {this.state.inValidDateRange ? <div style={{color: '#dc3545', paddingTop: 10}}>
+                {this.state.invalidDateRange ? <div style={{color: '#dc3545', paddingTop: 10}}>
                     Invalid date range, Please select a valid date range. </div> : ''}
                 <RaisedButton
                     primary
@@ -190,6 +199,7 @@ export default class CustomTimeRangeSelector extends React.Component {
                         marginBottom: 10,
                         float: 'right',
                     }}
+                    disabled={this.state.invalidDateRange}
                     onClick={this.publishCustomTimeRange}
                 >
                     Apply
