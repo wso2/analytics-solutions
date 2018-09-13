@@ -2079,9 +2079,9 @@
           "configs": {
             "type": "SiddhiStoreDataProvider",
             "config": {
-              "siddhiApp": "@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table SusLoginAlrtTable(meta_tenantId int, username string, severity int, msg string, tenantDomain string, timestamp long,  currentTime string)\n",
+              "siddhiApp": "@store(type \u003d \u0027rdbms\u0027, datasource \u003d\u0027IS_ANALYTICS_DB\u0027)\ndefine table SuspiciousAlertTable(meta_tenantId int, username string, severity int, msg string, tenantDomain string, timestamp long,  currentTime string)\n",
               "queryData": {
-                "queryFunction": "this.getQuery \u003d function (username,from,to){let query \u003d \"from SusLoginAlrtTable on timestamp \u003e\u003d \"+from+\"L and timestamp \u003c\u003d \"+to+\"L select currentTime, tenantDomain, username, msg order by username\";\nreturn query;}",
+                "queryFunction": "this.getQuery \u003d function (username,from,to){let query \u003d \"from SuspiciousAlertTable on timestamp \u003e\u003d \"+from+\"L and timestamp \u003c\u003d \"+to+\"L select currentTime, tenantDomain, username, msg order by username\";\nreturn query;}",
                 "customWidgetInputs": [
                   {
                     "name": "from",
@@ -2098,7 +2098,7 @@
                     "defaultValue": "admin"
                   }
                 ],
-                "query": "from SusLoginAlrtTable on timestamp \u003e\u003d 0L and timestamp \u003c\u003d 4102425000000L select currentTime, tenantDomain, username, msg order by username"
+                "query": "from SuspiciousAlertTable on timestamp \u003e\u003d 0L and timestamp \u003c\u003d 4102425000000L select currentTime, tenantDomain, username, msg order by username"
               },
               "publishingInterval": 5,
               "timeColumns": ""
