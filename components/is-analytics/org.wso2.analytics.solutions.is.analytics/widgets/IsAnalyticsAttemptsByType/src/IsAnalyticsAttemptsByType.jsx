@@ -276,7 +276,7 @@ class IsAnalyticsAttemptsByType extends Widget {
         let additionalFilters = '';
         let doIdpFilter = false;
         let xAxisValue = '';
-        let aggregationName = 'AuthenticationStatAggregation';
+        let aggregationName = 'AuthStatAgg';
         let doAdditionalFilter = false;
 
         switch (this.state.options.xAxis) {

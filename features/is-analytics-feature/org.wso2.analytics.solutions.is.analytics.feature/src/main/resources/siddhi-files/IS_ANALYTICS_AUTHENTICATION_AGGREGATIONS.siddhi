@@ -1,4 +1,4 @@
-/*
+@App:name("IS_ANALYTICS_AUTHENTICATION_AGGREGATIONS")/*
  * Copyright (c) 2018 WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
  * WSO2 Inc. licenses this file to you under the Apache License,
@@ -16,12 +16,12 @@
  * under the License.
  */
 
-@App:name("IS_ANALYTICS_AUTHENTICATION_AGGREGATIONS")
+
 @App:description("Handle Event from IS and save data in a table for Overall Authentication")
 
 -- STREAM DEFINITIONS
 
--- Stream from the Common 
+-- Stream from the Common
 @source(type='inMemory', topic='IsAnalytics.Authentication.Common.OutputSinkFromProcessedAuthenticationDataStream', @map(type='passThrough'))
 define stream ProcessedAuthenticationDataStream (
     meta_tenantId int,
@@ -89,59 +89,61 @@ define stream PerUserRolesDuplicateEventStream (
 @index('meta_tenantId', 'username', 'identityProviderType', 'identityProvider', 'userStoreDomain', 'serviceProvider', 'region')
 define aggregation RoleAggregation
 from PerUserRolesDuplicateEventStream
-select 
-    meta_tenantId, 
-    username, 
-    serviceProvider, 
-    identityProvider, 
-    token as role, 
-    remoteIp, 
-    region, 
+select
+    meta_tenantId,
+    username,
+    serviceProvider,
+    identityProvider,
+    token as role,
+    remoteIp,
+    region,
     userStoreDomain,
     isFirstLogin,
-    sum(successValue) as authSuccessCount, 
-    sum(failureValue) as authFailureCount, 
+    sum(successValue) as authSuccessCount,
+    sum(failureValue) as authFailureCount,
     sum(stepSuccessValue) as authStepSuccessCount,
     sum(firstLoginValue) as  authFirstSuccessCount,
     identityProviderType,
     timestamp
-group by 
-    meta_tenantId, 
-    username, 
-    serviceProvider, 
+group by
+    meta_tenantId,
+    username,
+    serviceProvider,
     token
 aggregate by timestamp every second ... year;
 
 -- Authentication Stat Stream for Store everything
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
 @purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
-@index('meta_tenantId', 'username', 'identityProviderType', 'identityProvider', 'userStoreDomain', 'serviceProvider', 'region')
-define aggregation AuthenticationStatAggregation
+define aggregation AuthStatAgg
 from ProcessedAuthenticationDataStream
-select 
-    meta_tenantId, 
-    username, 
-    localUsername, 
-    rolesCommaSeparated, 
-    serviceProvider, 
-    identityProvider, 
-    remoteIp, 
-    region, 
-    userStoreDomain, 
+select
+    meta_tenantId,
+    username,
+    localUsername,
+    rolesCommaSeparated,
+    serviceProvider,
+    identityProvider,
+    remoteIp,
+    region,
+    userStoreDomain,
     isFirstLogin,
-    sum(successValue) as authSuccessCount, 
-    sum(failureValue) as authFailureCount, 
-    sum(stepSuccessValue) as authStepSuccessCount, 
-    sum(firstLoginValue) as  authFirstSuccessCount, 
+    sum(successValue) as authSuccessCount,
+    sum(failureValue) as authFailureCount,
+    sum(stepSuccessValue) as authStepSuccessCount,
+    sum(firstLoginValue) as  authFirstSuccessCount,
     identityProviderType,
     timestamp
-group by 
-    meta_tenantId, 
-    username, 
+group by
+    meta_tenantId,
+    username,
     localUsername,
     remoteIp,
     rolesCommaSeparated
 aggregate by timestamp every second ... year;
 
 from ProcessedAuthenticationDataStream#str:tokenize(rolesCommaSeparated, ',')
+insert into PerUserRolesDuplicateEventStreamNullCheck;
+
+from PerUserRolesDuplicateEventStreamNullCheck[token!=""]
 insert into PerUserRolesDuplicateEventStream;
