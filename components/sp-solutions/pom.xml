@@ -19,14 +19,14 @@
 
     <parent>
         <groupId>org.wso2.analytics.solutions</groupId>
-        <version>1.0.12</version>
+        <version>1.0.13-SNAPSHOT</version>
         <artifactId>org.wso2.analytics.solutions.parent</artifactId>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>sp-solutions</artifactId>
-    <version>1.0.12</version>
+    <version>1.0.13-SNAPSHOT</version>
     <name>WSO2 Stream Processor Solutions - Aggregator Module</name>
     <packaging>pom</packaging>
 
