@@ -121,9 +121,7 @@
                                                             "publishers": [
                                                                 "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
                                                             ],
-                                                            "widgetInputOutputMapping": [
-
-                                                            ]
+                                                            "widgetInputOutputMapping": []
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
@@ -421,7 +419,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 9.906580958757585,
+                                "height": 5.870151099366143,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -507,7 +505,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 21.27257485911709,
+                                "height": 17.241732550073248,
                                 "content": [
                                     {
                                         "title": "EI Analytics Stats Chart",
@@ -524,9 +522,7 @@
                                                         "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
                                                         "ea185ba1-a50a-449e-a4f3-3200c78e391c"
                                                     ],
-                                                    "widgetInputOutputMapping": [
-
-                                                    ]
+                                                    "widgetInputOutputMapping": []
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
@@ -547,7 +543,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 14.097111112513605,
+                                "height": 14.828573525489777,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -686,7 +682,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 21.90978006123472,
+                                "height": 17.442932958695202,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Table",
@@ -723,7 +719,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 35.45131984714732,
+                                "height": 44.61660986637564,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Flow",
@@ -744,7 +740,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-                                                  "headerTitle": "Message Flow"
+                                                    "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -760,7 +756,7 @@
                         ]
                     }
                 ],
-                "height": 1994.0
+                "height": 2299.0
             },
             {
                 "id": "api",
@@ -775,7 +771,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 11.111688025163481,
+                                "height": 5.83550067310161,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -861,7 +857,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 20.19619066543107,
+                                "height": 18.605816158664112,
                                 "content": [
                                     {
                                         "title": "EI Analytics Stats Chart",
@@ -878,9 +874,7 @@
                                                         "f4fea18c-d358-431e-81ad-49ae24bd7c90",
                                                         "cd941660-27d6-42eb-acbe-9e92de5fd144"
                                                     ],
-                                                    "widgetInputOutputMapping": [
-
-                                                    ]
+                                                    "widgetInputOutputMapping": []
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
@@ -901,7 +895,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 14.29957627455111,
+                                "height": 17.632676021709276,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1040,7 +1034,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 21.90978006123472,
+                                "height": 18.252124124126716,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Table",
@@ -1077,7 +1071,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 34.553902752602,
+                                "height": 39.673883022398286,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Flow",
@@ -1098,7 +1092,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-                                                  "headerTitle": "Message Flow"
+                                                    "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -1114,7 +1108,7 @@
                         ]
                     }
                 ],
-                "height": 2149.0
+                "height": 2388.77783203125
             },
             {
                 "id": "sequence",
@@ -1129,7 +1123,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 12.384325470861173,
+                                "height": 5.550384682445994,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1215,7 +1209,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 19.291552032784615,
+                                "height": 15.670222649213148,
                                 "width": 100.0,
                                 "content": [
                                     {
@@ -1233,9 +1227,7 @@
                                                         "a93d734b-c943-4460-ba0b-b7a894433ffa",
                                                         "00674be1-08d6-4446-a4c9-06d062376a28"
                                                     ],
-                                                    "widgetInputOutputMapping": [
-
-                                                    ]
+                                                    "widgetInputOutputMapping": []
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
@@ -1256,7 +1248,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 16.419970007797616,
+                                "height": 17.396731684519438,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1395,7 +1387,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 21.90978006123472,
+                                "height": 19.357879676063217,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Table",
@@ -1432,7 +1424,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 34.55120678966752,
+                                "height": 42.02478130775821,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Flow",
@@ -1453,7 +1445,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-                                                  "headerTitle": "Message Flow"
+                                                    "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -1469,7 +1461,7 @@
                         ]
                     }
                 ],
-                "height": 1964.0
+                "height": 2373.0
             },
             {
                 "id": "endpoint",
@@ -1484,7 +1476,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 19.498302419813626,
+                                "height": 9.584002291495787,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1570,7 +1562,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 29.408555399675294,
+                                "height": 30.798008297073498,
                                 "content": [
                                     {
                                         "title": "EI Analytics Stats Chart",
@@ -1587,9 +1579,7 @@
                                                         "3865a05b-8f2e-40b3-a9a0-babbff15b622",
                                                         "84e1a9ea-64c0-412a-a99e-1ffb88502778"
                                                     ],
-                                                    "widgetInputOutputMapping": [
-
-                                                    ]
+                                                    "widgetInputOutputMapping": []
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
@@ -1610,7 +1600,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 22.734395675502505,
+                                "height": 32.58887395629461,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1749,7 +1739,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 28.358746505008604,
+                                "height": 27.029115455136125,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Table",
@@ -1785,7 +1775,7 @@
                         ]
                     }
                 ],
-                "height": 1260.7999877929688
+                "height": 1581.77783203125
             },
             {
                 "id": "inbound",
@@ -1800,7 +1790,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 11.635631536560387,
+                                "height": 6.698651626167969,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1861,9 +1851,7 @@
                                                                 "from",
                                                                 "to"
                                                             ],
-                                                            "publishers": [
-
-                                                            ]
+                                                            "publishers": []
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
@@ -1889,7 +1877,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 20.809677862483746,
+                                "height": 17.24985414380965,
                                 "content": [
                                     {
                                         "title": "EI Analytics Stats Chart",
@@ -1906,9 +1894,7 @@
                                                         "fb49be68-14e3-472b-b371-daf6bfef58cb",
                                                         "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
                                                     ],
-                                                    "widgetInputOutputMapping": [
-
-                                                    ]
+                                                    "widgetInputOutputMapping": []
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
@@ -1929,7 +1915,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 14.295643943363249,
+                                "height": 18.996089122330925,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -2068,7 +2054,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 18.684578894866707,
+                                "height": 19.930239356955262,
                                 "content": [
                                     {
                                         "title": "Messages",
@@ -2087,9 +2073,7 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {
-
-                                                }
+                                                "options": {}
                                             },
                                             "widgetID": "EIAnalyticsMessageTable"
                                         },
@@ -2105,7 +2089,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 34.57446776272593,
+                                "height": 37.12516575073621,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Flow",
@@ -2123,13 +2107,11 @@
                                                         "fb49be68-14e3-472b-b371-daf6bfef58cb",
                                                         "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
                                                     ],
-                                                    "widgetInputOutputMapping": [
-
-                                                    ]
+                                                    "widgetInputOutputMapping": []
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-                                                  "headerTitle": "Message Flow"
+                                                    "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -2145,7 +2127,7 @@
                         ]
                     }
                 ],
-                "height": 2231.0
+                "height": 2690.0
             },
             {
                 "id": "message",
@@ -2160,7 +2142,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 50.0,
+                                "height": 47.91236850664325,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Flow",
@@ -2177,7 +2159,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-                                                  "headerTitle": "Message Flow"
+                                                    "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -2194,7 +2176,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 50.0,
+                                "height": 52.08763149335675,
                                 "content": [
                                     {
                                         "title": "EI Analytics Mediator Properties",
@@ -2212,9 +2194,7 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {
-
-                                                }
+                                                "options": {}
                                             },
                                             "widgetID": "EIAnalyticsMediatorProperties"
                                         },
@@ -2229,7 +2209,7 @@
                         ]
                     }
                 ],
-                "height": 1374.0000305175781,
+                "height": 1868.0,
                 "hidden": true
             },
             {
@@ -2253,7 +2233,7 @@
                                         "isClosable": true,
                                         "title": "",
                                         "width": 50.0,
-                                        "height": 50.0,
+                                        "height": 43.897893604298744,
                                         "content": [
                                             {
                                                 "title": "EI Analytics Stats Chart",
@@ -2266,9 +2246,7 @@
                                                             "types": [
                                                                 "subscriber"
                                                             ],
-                                                            "widgetInputOutputMapping": [
-
-                                                            ],
+                                                            "widgetInputOutputMapping": [],
                                                             "publishers": [
                                                                 "afb5839d-3770-4f79-a00a-37d4d5e5821c"
                                                             ]
@@ -2292,7 +2270,7 @@
                                         "type": "stack",
                                         "isClosable": true,
                                         "title": "",
-                                        "height": 50.0,
+                                        "height": 56.102106395701256,
                                         "content": [
                                             {
                                                 "title": "[Mediator Message Count]",
@@ -2358,7 +2336,7 @@
                                         "type": "stack",
                                         "isClosable": true,
                                         "title": "",
-                                        "height": 50.0,
+                                        "height": 44.10302538608366,
                                         "width": 50.0,
                                         "content": [
                                             {
@@ -2400,7 +2378,7 @@
                                         "type": "stack",
                                         "isClosable": true,
                                         "title": "",
-                                        "height": 50.0,
+                                        "height": 55.89697461391634,
                                         "content": [
                                             {
                                                 "title": "[Mediator Message Latency]",
