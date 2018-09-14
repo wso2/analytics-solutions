@@ -78,7 +78,7 @@ class EIAnalyticsMediatorProperties extends Widget {
                     isNoData: true,
                 }, () => {
                     const componentId = mediatorAttributes.componentId;
-                    const messageFlowId = super.getGlobalState(getKey("message" ,"id"));
+                    const messageFlowId = super.getGlobalState(getKey("message", "id"));
 
                     // Get message flow details of the mediator
                     super.getWidgetConfiguration(this.props.widgetID)
@@ -111,46 +111,48 @@ class EIAnalyticsMediatorProperties extends Widget {
 
     handleComponentMessageFlowData(messageFlowId) {
         return (messageFlowData) => {
-            const messageInfoBefore = parseDatastoreMessage(messageFlowData)[0];
-            if (messageInfoBefore.children != null && messageInfoBefore.children !== 'null') {
-                const childIndex = JSON.parse(messageInfoBefore.children)[0];
-                // Get message flow details of the child component
-                super.getWidgetConfiguration(this.props.widgetID)
-                    .then((message) => {
-                        // Get data provider sub json string from the widget configuration
-                        const dataProviderConf = message.data.configs.providerConfig;
-                        let query = dataProviderConf.configs.config.queryData
-                            .GET_CHILD_MESSAGE_FLOW_DATA_QUERY;
-                        // Insert required parameters to the query string
-                        const formattedQuery = query
-                            .replace('{{messageFlowId}}', messageFlowId)
-                            .replace('{{componentIndex}}', childIndex)
-                            .replace('{{meta_tenantId}}', META_TENANT_ID);
-                        dataProviderConf.configs.config.queryData = {query: formattedQuery};
-                        // Request data store with the modified query
-                        super.getWidgetChannelManager()
-                            .subscribeWidget(
-                                this.props.id,
-                                this.handleChildMessageFlowData(messageInfoBefore).bind(this),
-                                dataProviderConf,
-                            );
-                    })
-                    .catch((error) => {
-                        console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
-                    });
-                /*
-                If DB returned nothing, still continue the process
-                 */
-                this.handleChildMessageFlowData(messageInfoBefore)('');
+            if (JSON.stringify(messageFlowData) !== "{}") {
+                const messageInfoBefore = parseDatastoreMessage(messageFlowData)[0];
+                if (messageInfoBefore.children != null && messageInfoBefore.children !== 'null') {
+                    const childIndex = JSON.parse(messageInfoBefore.children)[0];
+                    // Get message flow details of the child component
+                    super.getWidgetConfiguration(this.props.widgetID)
+                        .then((message) => {
+                            // Get data provider sub json string from the widget configuration
+                            const dataProviderConf = message.data.configs.providerConfig;
+                            let query = dataProviderConf.configs.config.queryData
+                                .GET_CHILD_MESSAGE_FLOW_DATA_QUERY;
+                            // Insert required parameters to the query string
+                            const formattedQuery = query
+                                .replace('{{messageFlowId}}', messageFlowId)
+                                .replace('{{componentIndex}}', childIndex)
+                                .replace('{{meta_tenantId}}', META_TENANT_ID);
+                            dataProviderConf.configs.config.queryData = {query: formattedQuery};
+                            // Request data store with the modified query
+                            super.getWidgetChannelManager()
+                                .subscribeWidget(
+                                    this.props.id,
+                                    this.handleChildMessageFlowData(messageInfoBefore).bind(this),
+                                    dataProviderConf,
+                                );
+                        })
+                        .catch((error) => {
+                            console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
+                        });
+                } else {
+                    /* If child details are not available, continue  with the normal flow */
+                    this.handleChildMessageFlowData(messageInfoBefore)('');
+                }
             } else {
-                /* If child details are not available, continue  with the normal flow */
-                this.handleChildMessageFlowData(messageInfoBefore)('');
+                console.error("Data store returned with empty messageFlowData for " + this.props.widgetID);
             }
         };
     }
 
     handleChildMessageFlowData(messageInfoBefore) {
         return (childMessageDetails) => {
+            if (JSON.stringify(childMessageDetails) === "{}")
+                childMessageDetails = '';
             let messageInfoAfter = {};
             if (childMessageDetails !== '') {
                 messageInfoAfter = parseDatastoreMessage(childMessageDetails)[0];
@@ -340,9 +342,9 @@ class EIAnalyticsMediatorProperties extends Widget {
     }
 }
 
-    function getKey(pageName, parameter) {
-        return pageName + "_page_" + parameter;
-    }
+function getKey(pageName, parameter) {
+    return pageName + "_page_" + parameter;
+}
 
 /**
  * Combine meta data and data separated data store message in to an object with names as attributes

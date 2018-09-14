@@ -244,16 +244,20 @@ class EIAnalyticsStatsChart extends Widget {
      * @returns {Function}
      */
     handleStats(stats) {
-        let metadata = stats.metadata.names;
-        let data = stats.data[0];
-        let dataIndex = {};
-        metadata.forEach((value, index) => {
-            dataIndex[value] = index;
-        })
-        this.setState({
-            totalCount: data[dataIndex["noOfInvocationSum"]],
-            faultCount: data[dataIndex["faultCountSum"]]
-        });
+        if (JSON.stringify(stats) !== "{}") {
+            let metadata = stats.metadata.names;
+            let data = stats.data[0];
+            let dataIndex = {};
+            metadata.forEach((value, index) => {
+                dataIndex[value] = index;
+            });
+            this.setState({
+                totalCount: data[dataIndex["noOfInvocationSum"]],
+                faultCount: data[dataIndex["faultCountSum"]]
+            });
+        } else {
+            console.error("Data store returned with empty stats for " + this.props.widgetID);
+        }
     }
 
     getProviderConf(aggregatorDataProviderConf) {

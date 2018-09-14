@@ -37,6 +37,9 @@ class EIAnalyticsHorizontalBarChart extends Widget {
      */
     constructor(props) {
         super(props);
+        this.props.glContainer.setTitle(
+            'Top ' + props.configs.options[BAR_GRAPH_TYPE] + 's by Request Count'
+        );
         const config = {
             'x': 'Name',
             charts: [
@@ -154,44 +157,48 @@ class EIAnalyticsHorizontalBarChart extends Widget {
      * Draw the graph with the data retrieved from the data store
      */
     handleStats(stats) {
-        /* For each data point(Ex: For each API), an array of [total invocations, component name of that data point]. */
-        const dataPointArray = stats.data;
-        /* index and label mapping of each element in a data point. */
-        const labelMapper = {};
-        stats.metadata.names.forEach((value, index) => {
-            labelMapper[value] = index;
-        });
-        /* Build data for the graph. */
-        const data = [];
-        dataPointArray.forEach((dataPoint) => {
-            /* Filter well known components. */
-            let excludeEndpoints;
-            switch (this.state.graphType) {
-                case 'endpoint':
-                    excludeEndpoints = ['AnonymousEndpoint'];
-                    break;
-                case 'sequence':
-                    excludeEndpoints = ['PROXY_INSEQ', 'PROXY_OUTSEQ', 'PROXY_FAULTSEQ', 'API_OUTSEQ', 'API_INSEQ',
-                        'API_FAULTSEQ', 'AnonymousSequence', 'fault'];
-                    break;
-                default:
-                    excludeEndpoints = [];
-            }
-            const componentName = dataPoint[labelMapper.componentName];
-            const validity = excludeEndpoints.indexOf(componentName) === -1;
-            if (validity) {
-                data.push([
-                    componentName,
-                    dataPoint[labelMapper.totalInvocations],
-                ],);
-            }
-        });
-        /* Draw the graph with received stats only if data is present after filtering. */
-        if (data.length > 0) {
-            this.setState({
-                graphData: data,
-                isLoading: false,
+        if (JSON.stringify(stats) !== "{}") {
+            /* For each data point(Ex: For each API), an array of [total invocations, component name of that data point]. */
+            const dataPointArray = stats.data;
+            /* index and label mapping of each element in a data point. */
+            const labelMapper = {};
+            stats.metadata.names.forEach((value, index) => {
+                labelMapper[value] = index;
             });
+            /* Build data for the graph. */
+            const data = [];
+            dataPointArray.forEach((dataPoint) => {
+                /* Filter well known components. */
+                let excludeEndpoints;
+                switch (this.state.graphType) {
+                    case 'endpoint':
+                        excludeEndpoints = ['AnonymousEndpoint'];
+                        break;
+                    case 'sequence':
+                        excludeEndpoints = ['PROXY_INSEQ', 'PROXY_OUTSEQ', 'PROXY_FAULTSEQ', 'API_OUTSEQ', 'API_INSEQ',
+                            'API_FAULTSEQ', 'AnonymousSequence', 'fault'];
+                        break;
+                    default:
+                        excludeEndpoints = [];
+                }
+                const componentName = dataPoint[labelMapper.componentName];
+                const validity = excludeEndpoints.indexOf(componentName) === -1;
+                if (validity) {
+                    data.push([
+                        componentName,
+                        dataPoint[labelMapper.totalInvocations],
+                    ],);
+                }
+            });
+            /* Draw the graph with received stats only if data is present after filtering. */
+            if (data.length > 0) {
+                this.setState({
+                    graphData: data,
+                    isLoading: false,
+                });
+            }
+        } else {
+            console.error("Data store returned with empty stats for " + this.props.widgetID);
         }
     }
 

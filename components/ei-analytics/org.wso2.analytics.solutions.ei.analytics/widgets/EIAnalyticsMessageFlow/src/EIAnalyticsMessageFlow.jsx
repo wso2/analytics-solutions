@@ -305,7 +305,7 @@ class EIAnalyticsMessageFlow extends Widget {
 
     handleConfigEntryData(timeUnit, timeFrom, timeTo, tenantId, entryName) {
         return (configEntryData) => {
-            if (configEntryData) {
+            if (JSON.stringify(configEntryData) !== "{}") {
                 let hashcodeIndex = configEntryData.metadata.names.indexOf("hashcode");
 
                 let hashcodeData = configEntryData.data[0][hashcodeIndex];
@@ -326,12 +326,14 @@ class EIAnalyticsMessageFlow extends Widget {
                             dataProviderConf.configs.providerConfig
                         );
                     });
+            } else {
+                console.error("Data store returned with empty config data for " + this.props.widgetID);
             }
         }
     }
 
     handleAggregateData(configEntryData, entryName, aggregateData) {
-        if (aggregateData) {
+        if (JSON.stringify(aggregateData) !== "{}") {
             this.setState({
                 dataUnavailable: false
             });
@@ -489,6 +491,8 @@ class EIAnalyticsMessageFlow extends Widget {
 
             // Draw message flow with the processed data
             this.drawMessageFlow($, result);
+        } else {
+            console.error("Data store returned with empty aggregation data for " + this.props.widgetID);
         }
     }
 
@@ -530,31 +534,36 @@ class EIAnalyticsMessageFlow extends Widget {
      */
     handleMessageFlowComponentsData(tenantId) {
         return (components) => {
-            let parsedComponents = this.parseDatastoreMessage(components);
-            var entryPointHashCode = parsedComponents[0].entryPointHashcode;
-            var entryPoint = parsedComponents[0].entryPoint;
+            if (JSON.stringify(components) !== "{}") {
+                let parsedComponents = this.parseDatastoreMessage(components);
+                var entryPointHashCode = parsedComponents[0].entryPointHashcode;
+                var entryPoint = parsedComponents[0].entryPoint;
 
-            // Set query for schema and call datastore for data
-            super.getWidgetConfiguration(this.props.widgetID)
-                .then((message) => {
-                    let dataProviderConf = message.data;
-                    var query = dataProviderConf.configs.providerConfig.configs.config.queryData
-                        .MESSAGE_FLOW_QUERY_GET_FLOW_SCHEMA;
-                    let formattedQuery = query
-                        .replace("{{hashcode}}", "\'" + entryPointHashCode + "\'")
-                        .replace("{{meta_tenantId}}", tenantId);
-                    dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
-                    let formattedProviderConfig = dataProviderConf.configs.providerConfig;
-                    super.getWidgetChannelManager()
-                        .subscribeWidget(
-                            this.props.id,
-                            this.handleMessageFlowSchema(parsedComponents, entryPoint, tenantId).bind(this),
-                            formattedProviderConfig
-                        );
-                })
-                .catch(() => {
-                    console.error("Unable to load widget configurations");
-                });
+                // Set query for schema and call datastore for data
+                super.getWidgetConfiguration(this.props.widgetID)
+                    .then((message) => {
+                        let dataProviderConf = message.data;
+                        var query = dataProviderConf.configs.providerConfig.configs.config.queryData
+                            .MESSAGE_FLOW_QUERY_GET_FLOW_SCHEMA;
+                        let formattedQuery = query
+                            .replace("{{hashcode}}", "\'" + entryPointHashCode + "\'")
+                            .replace("{{meta_tenantId}}", tenantId);
+                        dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
+                        let formattedProviderConfig = dataProviderConf.configs.providerConfig;
+                        super.getWidgetChannelManager()
+                            .subscribeWidget(
+                                this.props.id,
+                                this.handleMessageFlowSchema(parsedComponents, entryPoint, tenantId).bind(this),
+                                formattedProviderConfig
+                            );
+                    })
+                    .catch(() => {
+                        console.error("Unable to load widget configurations");
+                    });
+
+            } else {
+                console.error("Data store returned with empty components for " + this.props.widgetID);
+            }
         };
     }
 
@@ -563,50 +572,45 @@ class EIAnalyticsMessageFlow extends Widget {
      */
     handleMessageFlowSchema(parsedComponents, entryPoint, tenantId) {
         return (flowSchema) => {
-            let parsedFlowScheme = this.parseDatastoreMessage(flowSchema);
-            let sequenceComponentsQuery = "("; // Query for Components which are sequences
-            parsedComponents.forEach((value) => {
-                if (value.componentType === "Sequence") {
-                    sequenceComponentsQuery += ("hashcode=='" + value.hashCode + "' OR ");
+            if (JSON.stringify(flowSchema) !== "{}") {
+                let parsedFlowScheme = this.parseDatastoreMessage(flowSchema);
+                let sequenceComponentsQuery = "("; // Query for Components which are sequences
+                parsedComponents.forEach((value) => {
+                    if (value.componentType === "Sequence") {
+                        sequenceComponentsQuery += ("hashcode=='" + value.hashCode + "' OR ");
+                    }
+                })
+
+                // If sequences exists
+                if (sequenceComponentsQuery.length > 0) {
+                    sequenceComponentsQuery += "false) "; // To fix final 'OR' in the query
+
+                    super.getWidgetConfiguration(this.props.widgetID)
+                        .then((message) => {
+                            let dataProviderConf = message.data;
+                            var query = dataProviderConf.configs.providerConfig.configs.config.queryData
+                                .MESSAGE_FLOW_QUERY_GET_COMPONENT_SCHEMA;
+                            let formattedQuery = query
+                                .replace("{{sequences}}", sequenceComponentsQuery)
+                                .replace("{{meta_tenantId}}", tenantId);
+                            dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
+                            super.getWidgetChannelManager()
+                                .subscribeWidget(
+                                    this.props.id,
+                                    this.handleMessageFlowComponentSchemas(parsedComponents, entryPoint, parsedFlowScheme).bind(this),
+                                    dataProviderConf.configs.providerConfig
+                                );
+                        })
+                        .catch(() => {
+                            console.error("Unable to load widget configurations");
+                        });
                 }
-            })
-
-            // If sequences exists
-            if (sequenceComponentsQuery.length > 0) {
-                sequenceComponentsQuery += "false) "; // To fix final 'OR' in the query
-
-                super.getWidgetConfiguration(this.props.widgetID)
-                    .then((message) => {
-                        let dataProviderConf = message.data;
-                        var query = dataProviderConf.configs.providerConfig.configs.config.queryData
-                            .MESSAGE_FLOW_QUERY_GET_COMPONENT_SCHEMA;
-                        let formattedQuery = query
-                            .replace("{{sequences}}", sequenceComponentsQuery)
-                            .replace("{{meta_tenantId}}", tenantId);
-                        dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
-                        super.getWidgetChannelManager()
-                            .subscribeWidget(
-                                this.props.id,
-                                this.handleMessageFlowComponentSchemas(parsedComponents, entryPoint, parsedFlowScheme).bind(this),
-                                dataProviderConf.configs.providerConfig
-                            );
-                    })
-                    .catch(() => {
-                        console.error("Unable to load widget configurations");
-                    });
-                /*
-                DB call for data might not return anything. But still the graph is drawn for empty data scenario.
-                If any data retrieved from the DB, graph will be redrawn accordingly in the callback function
-                 */
-                this.handleMessageFlowComponentSchemas(
-                    parsedComponents,
-                    entryPoint,
-                    parsedFlowScheme
-                )("");
-            }
-            else {
-                // If there are no sequences present, no need to make a DB call
-                this.handleMessageFlowComponentSchemas(parsedComponents, entryPoint, parsedFlowScheme)("");
+                else {
+                    // If there are no sequences present, no need to make a DB call
+                    this.handleMessageFlowComponentSchemas(parsedComponents, entryPoint, parsedFlowScheme)("");
+                }
+            } else {
+                console.error("Data store returned with empty message flow schema for " + this.props.widgetID);
             }
         }
     }
@@ -622,6 +626,8 @@ class EIAnalyticsMessageFlow extends Widget {
      */
     handleMessageFlowComponentSchemas(parsedComponents, entryPoint, flowScheme) {
         return (sequenceComponents) => {
+            if (JSON.stringify(sequenceComponents) === "{}")
+                sequenceComponents = "";
             this.setState({
                 dataUnavailable: false
             });
@@ -646,7 +652,7 @@ class EIAnalyticsMessageFlow extends Widget {
                     }
                 }
                 componentMap[component.componentId] = component;
-            })
+            });
 
             let result = [];
             let tmpResult = [];
@@ -839,7 +845,7 @@ class EIAnalyticsMessageFlow extends Widget {
 
     handleSequenceMessageFlowSchema(timeUnit, timeFrom, timeTo, tenantId, entryName) {
         return (schemaData) => {
-            if (schemaData) {
+            if (JSON.stringify(schemaData) !== "{}") {
                 let parsedSchemaData = this.parseDatastoreMessage(schemaData)[0]; // Get latest schema data
 
                 let artifactFirstEntryTime = moment(parsedSchemaData._timestamp).format("YYYY-MM-DD HH:mm:ss");
@@ -891,6 +897,8 @@ class EIAnalyticsMessageFlow extends Widget {
                     .catch((error) => {
                         console.error("Unable to load widget configurations");
                     });
+            } else {
+                console.error("Data store returned with empty message flow schema for " + this.props.widgetID);
             }
         }
     }
@@ -902,124 +910,128 @@ class EIAnalyticsMessageFlow extends Widget {
      */
     handleSequenceMessageFlowAggregateData(schema) {
         return (aggregatedData) => {
-            this.setState({
-                dataUnavailable: false
-            });
-            let parsedAggregateData = this.parseDatastoreMessage(aggregatedData);
-            let componentMap = {};
-            parsedAggregateData.forEach((eachComponent) => {
-                componentMap[eachComponent.componentId] = eachComponent;
-            });
-            let fields = ["invocations", "totalDuration", "maxDuration", "faults"];
-            let result = [];
-            // Populate tabel data
-            let componentNameRegex = new RegExp("^.*@\\d*:(.*)");
-            let groups = [];
-            for (let i = 0; i < schema.length; i++) {
-                let groupLabel;
-                let groupId = schema[i]["group"];
-                let componentId = schema[i]["id"];
+            if (JSON.stringify(aggregatedData) !== "{}") {
+                this.setState({
+                    dataUnavailable: false
+                });
+                let parsedAggregateData = this.parseDatastoreMessage(aggregatedData);
+                let componentMap = {};
+                parsedAggregateData.forEach((eachComponent) => {
+                    componentMap[eachComponent.componentId] = eachComponent;
+                });
+                let fields = ["invocations", "totalDuration", "maxDuration", "faults"];
+                let result = [];
+                // Populate tabel data
+                let componentNameRegex = new RegExp("^.*@\\d*:(.*)");
+                let groups = [];
+                for (let i = 0; i < schema.length; i++) {
+                    let groupLabel;
+                    let groupId = schema[i]["group"];
+                    let componentId = schema[i]["id"];
 
-                let isIndirectComponent = componentId.indexOf("@indirect");
-                let originalCompId = componentId;
-                if (isIndirectComponent > 0) {
-                    // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
-                    var splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
-                    var splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
-                    componentId = splitByAt[0] + "@0:" + splitByColon[1];
-                    for (var j = 0; j < schema.length; j++) {
-                        if (schema[j] != null) {
-                            var componentIdTmp = schema[j]["id"];
-                            var componentIdParentTmp = schema[j]["parentId"];
-                            var tempGroupId = schema[j]["group"];
-                            if (componentIdTmp == componentId) {
-                                schema[j]["id"] = originalCompId;
-                            } else if (componentIdParentTmp == componentId) {
-                                schema[j]["parentId"] = originalCompId;
-                            }
-                            if (tempGroupId == componentId) {
-                                schema[j]["group"] = originalCompId;
+                    let isIndirectComponent = componentId.indexOf("@indirect");
+                    let originalCompId = componentId;
+                    if (isIndirectComponent > 0) {
+                        // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
+                        var splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
+                        var splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
+                        componentId = splitByAt[0] + "@0:" + splitByColon[1];
+                        for (var j = 0; j < schema.length; j++) {
+                            if (schema[j] != null) {
+                                var componentIdTmp = schema[j]["id"];
+                                var componentIdParentTmp = schema[j]["parentId"];
+                                var tempGroupId = schema[j]["group"];
+                                if (componentIdTmp == componentId) {
+                                    schema[j]["id"] = originalCompId;
+                                } else if (componentIdParentTmp == componentId) {
+                                    schema[j]["parentId"] = originalCompId;
+                                }
+                                if (tempGroupId == componentId) {
+                                    schema[j]["group"] = originalCompId;
+                                }
                             }
                         }
                     }
-                }
 
-                var componentInfo = componentMap[componentId];
-                var dataAttributes = [];
+                    var componentInfo = componentMap[componentId];
+                    var dataAttributes = [];
 
-                // Find unique groups
-                if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) == -1) {
-                    groups.push(schema[i]["group"]);
-                }
+                    // Find unique groups
+                    if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) == -1) {
+                        groups.push(schema[i]["group"]);
+                    }
 
-                // Create data attributes
-                for (let field in fields) {
-                    var fieldName = fields[field];
-                    if (componentInfo != null) {
-                        if (fieldName == "TotalDuration") {
-                            dataAttributes.push({
-                                "name": "AvgDuration",
-                                "value": (componentInfo[fieldName] / componentInfo["Invocations"]).toFixed(2)
-                            });
+                    // Create data attributes
+                    for (let field in fields) {
+                        var fieldName = fields[field];
+                        if (componentInfo != null) {
+                            if (fieldName == "TotalDuration") {
+                                dataAttributes.push({
+                                    "name": "AvgDuration",
+                                    "value": (componentInfo[fieldName] / componentInfo["Invocations"]).toFixed(2)
+                                });
+                            } else {
+                                dataAttributes.push({"name": fieldName, "value": componentInfo[fieldName]});
+                            }
                         } else {
-                            dataAttributes.push({"name": fieldName, "value": componentInfo[fieldName]});
+                            dataAttributes.push({"name": fieldName, "value": 0});
                         }
+                    }
+
+                    var componentLabel = componentNameRegex.exec(componentId)[1];
+                    let componentType;
+                    if (componentInfo != null) {
+                        componentType = componentInfo["componentType"];
                     } else {
-                        dataAttributes.push({"name": fieldName, "value": 0});
+                        componentType = "UNKNOWN";
+                    }
+
+                    // Create hidden attributes
+                    var hiddenAttributes = [];
+                    if (componentInfo != null) {
+                        hiddenAttributes.push({"name": "entryPoint", "value": componentInfo["entryPoint"]});
+                    }
+                    if (componentType == "Endpoint" || componentType == "Sequence") {
+                        hiddenAttributes.push({"name": "id", "value": componentLabel});
+                    } else {
+                        hiddenAttributes.push({"name": "id", "value": componentId});
+                    }
+
+                    if (schema[i]["parentId"] == schema[i]["group"]) {
+                        result.push({
+                            "id": originalCompId,
+                            "label": componentLabel,
+                            "parents": [],
+                            "group": schema[i]["group"],
+                            "type": componentType,
+                            "dataAttributes": dataAttributes,
+                            "hiddenAttributes": hiddenAttributes,
+                            "modifiedId": componentId
+                        });
+                    } else {
+                        result.push({
+                            "id": originalCompId,
+                            "label": componentLabel,
+                            "parents": [schema[i]["parentId"]],
+                            "group": schema[i]["group"],
+                            "type": componentType,
+                            "dataAttributes": dataAttributes,
+                            "hiddenAttributes": hiddenAttributes,
+                            "modifiedId": componentId
+                        });
+                    }
+                }
+                // Defining groups
+                for (var j = 0; j < result.length; j++) {
+                    if (groups.indexOf(result[j]["id"]) >= 0) {
+                        result[j]["type"] = "group";
                     }
                 }
 
-                var componentLabel = componentNameRegex.exec(componentId)[1];
-                let componentType;
-                if (componentInfo != null) {
-                    componentType = componentInfo["componentType"];
-                } else {
-                    componentType = "UNKNOWN";
-                }
-
-                // Create hidden attributes
-                var hiddenAttributes = [];
-                if (componentInfo != null) {
-                    hiddenAttributes.push({"name": "entryPoint", "value": componentInfo["entryPoint"]});
-                }
-                if (componentType == "Endpoint" || componentType == "Sequence") {
-                    hiddenAttributes.push({"name": "id", "value": componentLabel});
-                } else {
-                    hiddenAttributes.push({"name": "id", "value": componentId});
-                }
-
-                if (schema[i]["parentId"] == schema[i]["group"]) {
-                    result.push({
-                        "id": originalCompId,
-                        "label": componentLabel,
-                        "parents": [],
-                        "group": schema[i]["group"],
-                        "type": componentType,
-                        "dataAttributes": dataAttributes,
-                        "hiddenAttributes": hiddenAttributes,
-                        "modifiedId": componentId
-                    });
-                } else {
-                    result.push({
-                        "id": originalCompId,
-                        "label": componentLabel,
-                        "parents": [schema[i]["parentId"]],
-                        "group": schema[i]["group"],
-                        "type": componentType,
-                        "dataAttributes": dataAttributes,
-                        "hiddenAttributes": hiddenAttributes,
-                        "modifiedId": componentId
-                    });
-                }
+                this.drawMessageFlow($, result);
+            } else {
+                console.error("Data store returned with empty aggregation data for " + this.props.widgetID);
             }
-            // Defining groups
-            for (var j = 0; j < result.length; j++) {
-                if (groups.indexOf(result[j]["id"]) >= 0) {
-                    result[j]["type"] = "group";
-                }
-            }
-
-            this.drawMessageFlow($, result);
         }
     }
 
