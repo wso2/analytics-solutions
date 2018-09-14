@@ -142,6 +142,7 @@ class IsAnalyticsSessionCount extends Widget {
     }
 
     assembleQuery() {
+        this.appendArray = [];
         this.sendQuery(0);
     }
 
