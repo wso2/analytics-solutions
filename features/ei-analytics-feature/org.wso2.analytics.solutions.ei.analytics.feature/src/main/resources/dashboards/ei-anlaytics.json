@@ -2,7 +2,7 @@
     "dashboard": {
         "url": "eianalytics",
         "owner": "admin",
-        "name": "EI Analytics",
+        "name": "Enterprise Integrator Analytics",
         "description": "A dashboard to display Enterprise Integrator Analytics",
         "landingPage": "overview",
         "parentId": "0",
@@ -44,7 +44,8 @@
                                                 "options": {
                                                     "defaultValue": "3 Months",
                                                     "availableGranularities": "From Second",
-                                                    "autoSyncInterval": "10"
+                                                    "autoSyncInterval": "10",
+                                                    "header": false
                                                 }
                                             },
                                             "widgetID": "DateRangePicker"
@@ -64,7 +65,7 @@
                                 "height": 26.072632492979032,
                                 "content": [
                                     {
-                                        "title": "OVERVIEW#{%22DTRP%22:{%22TR%22:%223MONTHS%22,%22SD%22:%222018-JUN%22,%22ED%22:%222018-SEP%22,%22G%22:%22MONTH%22,%22SYNC%22:FALSE}}  REQUEST COUNT",
+                                        "title": "EI Analytics Stats Chart",
                                         "type": "component",
                                         "component": "EIAnalyticsStatsChart",
                                         "props": {
@@ -79,7 +80,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                    "headerTitle": "Request Count"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsStatsChart"
                                         },
@@ -105,7 +108,7 @@
                                         "width": 50.0,
                                         "content": [
                                             {
-                                                "title": "OVERALL EIAnalyticsTPS",
+                                                "title": "EI Analytics TPS",
                                                 "type": "component",
                                                 "component": "EIAnalyticsTPS",
                                                 "props": {
@@ -118,10 +121,14 @@
                                                             "publishers": [
                                                                 "aa53daba-1042-4a5b-9ebb-d74bf0770f3d"
                                                             ],
-                                                            "widgetInputOutputMapping": []
+                                                            "widgetInputOutputMapping": [
+
+                                                            ]
                                                         },
                                                         "isGenerated": false,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Overall TPS"
+                                                        }
                                                     },
                                                     "widgetID": "EIAnalyticsTPS"
                                                 },
@@ -177,7 +184,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Overall Message Count"
+                                                        }
                                                     },
                                                     "widgetID": "Overall-Message-Count"
                                                 },
@@ -205,7 +214,7 @@
                                         "width": 49.92917847025496,
                                         "content": [
                                             {
-                                                "title": "Top proxy services by Request Count",
+                                                "title": "EI Analytics Horizontal Bar Chart",
                                                 "type": "component",
                                                 "component": "EIAnalyticsHorizontalBarChart",
                                                 "props": {
@@ -221,7 +230,8 @@
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
-                                                            "Component Type Selection": "proxy service"
+                                                            "Component Type Selection": "proxy service",
+                                                            "headerTitle": "Top Proxy Services by Request Count"
                                                         }
                                                     },
                                                     "widgetID": "EIAnalyticsHorizontalBarChart"
@@ -241,7 +251,7 @@
                                         "width": 50.07082152974505,
                                         "content": [
                                             {
-                                                "title": "Top apis by Request Count",
+                                                "title": "EI Analytics Horizontal Bar Chart",
                                                 "type": "component",
                                                 "component": "EIAnalyticsHorizontalBarChart",
                                                 "props": {
@@ -257,7 +267,8 @@
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
-                                                            "Component Type Selection": "api"
+                                                            "Component Type Selection": "api",
+                                                            "headerTitle": "Top APIs by Request Count"
                                                         }
                                                     },
                                                     "widgetID": "EIAnalyticsHorizontalBarChart"
@@ -286,7 +297,7 @@
                                         "width": 29.989094874591057,
                                         "content": [
                                             {
-                                                "title": "Top endpoints by Request Count",
+                                                "title": "EI Analytics Horizontal Bar Chart",
                                                 "type": "component",
                                                 "component": "EIAnalyticsHorizontalBarChart",
                                                 "props": {
@@ -302,7 +313,8 @@
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
-                                                            "Component Type Selection": "endpoint"
+                                                            "Component Type Selection": "endpoint",
+                                                            "headerTitle": "Top Endpoints by Request Count"
                                                         }
                                                     },
                                                     "widgetID": "EIAnalyticsHorizontalBarChart"
@@ -322,7 +334,7 @@
                                         "width": 35.176781902660125,
                                         "content": [
                                             {
-                                                "title": "Top sequences by Request Count",
+                                                "title": "EI Analytics Horizontal Bar Chart",
                                                 "type": "component",
                                                 "component": "EIAnalyticsHorizontalBarChart",
                                                 "props": {
@@ -338,7 +350,8 @@
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
-                                                            "Component Type Selection": "sequence"
+                                                            "Component Type Selection": "sequence",
+                                                            "headerTitle": "Top Sequences by Request Count"
                                                         }
                                                     },
                                                     "widgetID": "EIAnalyticsHorizontalBarChart"
@@ -358,7 +371,7 @@
                                         "width": 34.834123222748815,
                                         "content": [
                                             {
-                                                "title": "Top inbound endpoints by Request Count",
+                                                "title": "EI Analytics Horizontal Bar Chart",
                                                 "type": "component",
                                                 "component": "EIAnalyticsHorizontalBarChart",
                                                 "props": {
@@ -374,7 +387,8 @@
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
-                                                            "Component Type Selection": "inbound endpoint"
+                                                            "Component Type Selection": "inbound endpoint",
+                                                            "headerTitle": "Top Inbound Endpoints by Request Count"
                                                         }
                                                     },
                                                     "widgetID": "EIAnalyticsHorizontalBarChart"
@@ -432,7 +446,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": false,
-                                                        "options": {}
+                                                        "options": {
+                                                            "header": false
+                                                        }
                                                     },
                                                     "widgetID": "EIAnalyticsSearchBox"
                                                 },
@@ -471,7 +487,8 @@
                                                         "options": {
                                                             "defaultValue": "3 Months",
                                                             "availableGranularities": "From Second",
-                                                            "autoSyncInterval": "10"
+                                                            "autoSyncInterval": "10",
+                                                            "header": false
                                                         }
                                                     },
                                                     "widgetID": "DateRangePicker"
@@ -493,7 +510,7 @@
                                 "height": 21.27257485911709,
                                 "content": [
                                     {
-                                        "title": "PROXY  REQUEST COUNT",
+                                        "title": "EI Analytics Stats Chart",
                                         "type": "component",
                                         "component": "EIAnalyticsStatsChart",
                                         "props": {
@@ -507,10 +524,14 @@
                                                         "e5cf3e3f-3662-4c89-905e-9fa8f0358091",
                                                         "ea185ba1-a50a-449e-a4f3-3200c78e391c"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                    "headerTitle": "Proxy Request Count"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsStatsChart"
                                         },
@@ -580,7 +601,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Proxy Message Count"
+                                                        }
                                                     },
                                                     "widgetID": "Proxy-Message-Count"
                                                 },
@@ -643,7 +666,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Proxy Message Latency"
+                                                        }
                                                     },
                                                     "widgetID": "Proxy-Message-Latency"
                                                 },
@@ -664,7 +689,7 @@
                                 "height": 19.272413222464408,
                                 "content": [
                                     {
-                                        "title": "Messages",
+                                        "title": "EI Analytics Message Table",
                                         "type": "component",
                                         "component": "EIAnalyticsMessageTable",
                                         "props": {
@@ -680,7 +705,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                    "headerTitle": "Messages"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageTable"
                                         },
@@ -716,7 +743,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                  "headerTitle": "Message Flow"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
                                         },
@@ -771,7 +800,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": false,
-                                                        "options": {}
+                                                        "options": {
+                                                            "header": false
+                                                        }
                                                     },
                                                     "widgetID": "EIAnalyticsSearchBox"
                                                 },
@@ -810,7 +841,8 @@
                                                         "options": {
                                                             "defaultValue": "3 Months",
                                                             "availableGranularities": "From Second",
-                                                            "autoSyncInterval": "10"
+                                                            "autoSyncInterval": "10",
+                                                            "header": false
                                                         }
                                                     },
                                                     "widgetID": "DateRangePicker"
@@ -832,7 +864,7 @@
                                 "height": 20.19619066543107,
                                 "content": [
                                     {
-                                        "title": "API  REQUEST COUNT",
+                                        "title": "EI Analytics Stats Chart",
                                         "type": "component",
                                         "component": "EIAnalyticsStatsChart",
                                         "props": {
@@ -846,10 +878,14 @@
                                                         "f4fea18c-d358-431e-81ad-49ae24bd7c90",
                                                         "cd941660-27d6-42eb-acbe-9e92de5fd144"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                    "headerTitle": "API Request Count"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsStatsChart"
                                         },
@@ -919,7 +955,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "API Message Count"
+                                                        }
                                                     },
                                                     "widgetID": "API-Message-Count"
                                                 },
@@ -982,7 +1020,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "API Message Latency"
+                                                        }
                                                     },
                                                     "widgetID": "API-Message-Latency"
                                                 },
@@ -1003,7 +1043,7 @@
                                 "height": 19.838642282252355,
                                 "content": [
                                     {
-                                        "title": "Messages",
+                                        "title": "EI Analytics Message Table",
                                         "type": "component",
                                         "component": "EIAnalyticsMessageTable",
                                         "props": {
@@ -1019,7 +1059,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                    "headerTitle": "Messages"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageTable"
                                         },
@@ -1055,7 +1097,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                  "headerTitle": "Message Flow"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
                                         },
@@ -1110,7 +1154,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": false,
-                                                        "options": {}
+                                                        "options": {
+                                                            "header": false
+                                                        }
                                                     },
                                                     "widgetID": "EIAnalyticsSearchBox"
                                                 },
@@ -1149,7 +1195,8 @@
                                                         "options": {
                                                             "defaultValue": "3 Months",
                                                             "availableGranularities": "From Second",
-                                                            "autoSyncInterval": "10"
+                                                            "autoSyncInterval": "10",
+                                                            "header": false
                                                         }
                                                     },
                                                     "widgetID": "DateRangePicker"
@@ -1172,7 +1219,7 @@
                                 "width": 100.0,
                                 "content": [
                                     {
-                                        "title": "SEQUENCE  REQUEST COUNT",
+                                        "title": "EI Analytics Stats Chart",
                                         "type": "component",
                                         "component": "EIAnalyticsStatsChart",
                                         "props": {
@@ -1186,10 +1233,14 @@
                                                         "a93d734b-c943-4460-ba0b-b7a894433ffa",
                                                         "00674be1-08d6-4446-a4c9-06d062376a28"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                    "headerTitle": "Sequence Request Count"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsStatsChart"
                                         },
@@ -1259,7 +1310,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Sequence Message Count"
+                                                        }
                                                     },
                                                     "widgetID": "Sequence-Message-Count"
                                                 },
@@ -1322,7 +1375,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Sequence Message Latency"
+                                                        }
                                                     },
                                                     "widgetID": "Sequence-Message-Latency"
                                                 },
@@ -1343,7 +1398,7 @@
                                 "height": 17.35294569888908,
                                 "content": [
                                     {
-                                        "title": "Messages",
+                                        "title": "EI Analytics Message Table",
                                         "type": "component",
                                         "component": "EIAnalyticsMessageTable",
                                         "props": {
@@ -1359,7 +1414,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                    "headerTitle": "Messages"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageTable"
                                         },
@@ -1395,7 +1452,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                  "headerTitle": "Message Flow"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
                                         },
@@ -1450,7 +1509,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": false,
-                                                        "options": {}
+                                                        "options": {
+                                                            "header": false
+                                                        }
                                                     },
                                                     "widgetID": "EIAnalyticsSearchBox"
                                                 },
@@ -1489,7 +1550,8 @@
                                                         "options": {
                                                             "defaultValue": "3 Months",
                                                             "availableGranularities": "From Second",
-                                                            "autoSyncInterval": "10"
+                                                            "autoSyncInterval": "10",
+                                                            "header": false
                                                         }
                                                     },
                                                     "widgetID": "DateRangePicker"
@@ -1511,7 +1573,7 @@
                                 "height": 29.408555399675294,
                                 "content": [
                                     {
-                                        "title": "ENDPOINT  REQUEST COUNT",
+                                        "title": "EI Analytics Stats Chart",
                                         "type": "component",
                                         "component": "EIAnalyticsStatsChart",
                                         "props": {
@@ -1525,10 +1587,14 @@
                                                         "3865a05b-8f2e-40b3-a9a0-babbff15b622",
                                                         "84e1a9ea-64c0-412a-a99e-1ffb88502778"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                    "headerTitle": "Endpoint Request Count"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsStatsChart"
                                         },
@@ -1598,7 +1664,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Endpoint Message Count"
+                                                        }
                                                     },
                                                     "widgetID": "Endpoint-Message-Count"
                                                 },
@@ -1661,7 +1729,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Endpoint Message Latency"
+                                                        }
                                                     },
                                                     "widgetID": "Endpoint-Message-Latency"
                                                 },
@@ -1682,7 +1752,7 @@
                                 "height": 28.358746505008604,
                                 "content": [
                                     {
-                                        "title": "Messages",
+                                        "title": "EI Analytics Message Table",
                                         "type": "component",
                                         "component": "EIAnalyticsMessageTable",
                                         "props": {
@@ -1698,7 +1768,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                    "headerTitle": "Messages"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageTable"
                                         },
@@ -1752,7 +1824,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": false,
-                                                        "options": {}
+                                                        "options": {
+                                                            "header": false
+                                                        }
                                                     },
                                                     "widgetID": "EIAnalyticsSearchBox"
                                                 },
@@ -1787,13 +1861,16 @@
                                                                 "from",
                                                                 "to"
                                                             ],
-                                                            "publishers": []
+                                                            "publishers": [
+
+                                                            ]
                                                         },
                                                         "isGenerated": false,
                                                         "options": {
                                                             "defaultValue": "3 Months",
                                                             "availableGranularities": "From Second",
-                                                            "autoSyncInterval": "10"
+                                                            "autoSyncInterval": "10",
+                                                            "header": false
                                                         }
                                                     },
                                                     "widgetID": "DateRangePicker"
@@ -1815,7 +1892,7 @@
                                 "height": 20.809677862483746,
                                 "content": [
                                     {
-                                        "title": "INBOUND  REQUEST COUNT",
+                                        "title": "EI Analytics Stats Chart",
                                         "type": "component",
                                         "component": "EIAnalyticsStatsChart",
                                         "props": {
@@ -1829,10 +1906,14 @@
                                                         "fb49be68-14e3-472b-b371-daf6bfef58cb",
                                                         "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                    "headerTitle": "Inbound Request Count"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsStatsChart"
                                         },
@@ -1902,7 +1983,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Inbound Endpoint Message Count"
+                                                        }
                                                     },
                                                     "widgetID": "Inbound-Endpoint-Message-Count"
                                                 },
@@ -1965,7 +2048,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Inbound Endpoint Message Latency"
+                                                        }
                                                     },
                                                     "widgetID": "Inbound-Endpoint-Message-Latency"
                                                 },
@@ -2002,7 +2087,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageTable"
                                         },
@@ -2036,10 +2123,14 @@
                                                         "fb49be68-14e3-472b-b371-daf6bfef58cb",
                                                         "5ecd9b9d-08c6-4de9-9cb7-c18e74892b6a"
                                                     ],
-                                                    "widgetInputOutputMapping": []
+                                                    "widgetInputOutputMapping": [
+
+                                                    ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                  "headerTitle": "Message Flow"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
                                         },
@@ -2085,7 +2176,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+                                                  "headerTitle": "Message Flow"
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
                                         },
@@ -2119,7 +2212,9 @@
                                                     ]
                                                 },
                                                 "isGenerated": false,
-                                                "options": {}
+                                                "options": {
+
+                                                }
                                             },
                                             "widgetID": "EIAnalyticsMediatorProperties"
                                         },
@@ -2161,7 +2256,7 @@
                                         "height": 50.0,
                                         "content": [
                                             {
-                                                "title": "MEDIATOR  REQUEST COUNT",
+                                                "title": "EI Analytics Stats Chart",
                                                 "type": "component",
                                                 "component": "EIAnalyticsStatsChart",
                                                 "props": {
@@ -2171,13 +2266,17 @@
                                                             "types": [
                                                                 "subscriber"
                                                             ],
-                                                            "widgetInputOutputMapping": [],
+                                                            "widgetInputOutputMapping": [
+
+                                                            ],
                                                             "publishers": [
                                                                 "afb5839d-3770-4f79-a00a-37d4d5e5821c"
                                                             ]
                                                         },
                                                         "isGenerated": false,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Mediator Request Count"
+                                                        }
                                                     },
                                                     "widgetID": "EIAnalyticsStatsChart"
                                                 },
@@ -2233,7 +2332,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Mediator Message Count"
+                                                        }
                                                     },
                                                     "widgetID": "Mediator-Message-Count"
                                                 },
@@ -2281,7 +2382,8 @@
                                                         "options": {
                                                             "defaultValue": "3 Months",
                                                             "availableGranularities": "From Second",
-                                                            "autoSyncInterval": "10"
+                                                            "autoSyncInterval": "10",
+                                                            "header": false
                                                         }
                                                     },
                                                     "widgetID": "DateRangePicker"
@@ -2338,7 +2440,9 @@
                                                             ]
                                                         },
                                                         "isGenerated": true,
-                                                        "options": {}
+                                                        "options": {
+                                                            "headerTitle": "Mediator Message Latency"
+                                                        }
                                                     },
                                                     "widgetID": "Mediator-Message-Latency"
                                                 },
@@ -2397,9 +2501,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit ,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit ,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2424,7 +2528,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2485,9 +2589,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \" + timeTo + \"L per \u0027\"  + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \" + timeTo + \"L per '\"  + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2512,7 +2616,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2579,9 +2683,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2606,7 +2710,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2673,9 +2777,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2700,7 +2804,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2761,9 +2865,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit){let query \u003d \"from ESBStatAgg on not(AGG_TIMESTAMP is null) within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \"\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit){let query = \"from ESBStatAgg on not(AGG_TIMESTAMP is null) within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ \"' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2784,7 +2888,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on not(AGG_TIMESTAMP is null) within 1530816178000L, 1530816609000L per \u0027seconds\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on not(AGG_TIMESTAMP is null) within 1530816178000L, 1530816609000L per 'seconds' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2852,9 +2956,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom ,timeTo,timeUnit){let entryPoint \u003d null;\nlet id \u003d true;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.mediator_page_entryPoint;\n\tid \u003d hashObject.mediator_page_id;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentId\u003d\u003d\u0027\" + id + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom ,timeTo,timeUnit){let entryPoint = null;\nlet id = true;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.mediator_page_entryPoint;\n\tid = hashObject.mediator_page_id;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentId=='\" + id + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom ",
@@ -2875,7 +2979,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on true AND componentId\u003d\u003d\u0027true\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on true AND componentId=='true' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -2941,9 +3045,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.sequence_page_entryPoint;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\n\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.sequence_page_entryPoint;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\n\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -2968,7 +3072,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on true AND componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on true AND componentName=='test' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3029,9 +3133,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.sequence_page_entryPoint;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" +  timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.sequence_page_entryPoint;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" +  timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3056,7 +3160,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on true AND componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on true AND componentName=='test' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3117,9 +3221,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.endpoint_page_entryPoint;\n}\n\t\nlet query \u003d \u0027\u0027;\n\nif (entryPoint \u003d\u003d \u0027undefined\u0027 || entryPoint \u003d\u003d null) {\n    query \u003d \"from MediatorStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027) + \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query \u003d \"from MediatorStatAgg on entryPoint\u003d\u003d\u0027\" + entryPoint + \"\u0027 AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\"  + (timeUnit + \u0027s\u0027) + \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.endpoint_page_entryPoint;\n}\n\t\nlet query = '';\n\nif (entryPoint == 'undefined' || entryPoint == null) {\n    query = \"from MediatorStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's') + '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query = \"from MediatorStatAgg on entryPoint=='\" + entryPoint + \"' AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\"  + (timeUnit + 's') + '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3144,7 +3248,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3205,9 +3309,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \" + timeTo + \"L per \u0027\"  + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \" + timeTo + \"L per '\"  + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3232,7 +3336,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3299,9 +3403,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint \u003d null;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.endpoint_page_entryPoint;\n}\nlet query \u003d \u0027\u0027;\nif (entryPoint \u003d\u003d \u0027undefined\u0027 || entryPoint \u003d\u003d null) {\n    query \u003d \"from MediatorStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\"  + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query \u003d \"from MediatorStatAgg on entryPoint\u003d\u003d\u0027\" + entryPoint + \" AND componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.endpoint_page_entryPoint;\n}\nlet query = '';\nif (entryPoint == 'undefined' || entryPoint == null) {\n    query = \"from MediatorStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\"  + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query = \"from MediatorStatAgg on entryPoint=='\" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3326,7 +3430,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select minDuration as Minimum, maxDuration as Maximum, (totalDuration / noOfInvocation) as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3387,9 +3491,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027MediatorStat\u0027)\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit){let entryPoint \u003d null;\nlet id \u003d true;\nlet hashComponent \u003d window.location.hash;\nif(hashComponent !\u003d\u003d \"\") {\n\tlet hashObject \u003d JSON.stringify(hashComponent.substring(1));\n\tentryPoint \u003d hashObject.mediator_page_entryPoint;\n\tid \u003d hashObject.mediator_page_id;\n}\nif (entryPoint !\u003d null)\n    entryPoint \u003d \u0027entryPoint\u003d\u003d\\\u0027\u0027 + entryPoint + \u0027\\\u0027\u0027;\nelse\n    entryPoint \u003d \u0027true\u0027;\nlet query \u003d \"from MediatorStatAgg on \" + entryPoint + \" AND componentId\u003d\u003d\u0027\" + id + \"\u0027 within \" + timeFrom+\"L, \"+timeTo+\"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit){let entryPoint = null;\nlet id = true;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.mediator_page_entryPoint;\n\tid = hashObject.mediator_page_id;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentId=='\" + id + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3410,7 +3514,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from MediatorStatAgg on true AND componentId\u003d\u003d\u0027true\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
+                                "query": "from MediatorStatAgg on true AND componentId=='true' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"
@@ -3470,9 +3574,9 @@
                     "configs": {
                         "type": "SiddhiStoreDataProvider",
                         "config": {
-                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type \u003d \u0027rdbms\u0027, datasource \u003d \u0027EI_ANALYTICS\u0027)\n@info(name \u003d \u0027ESBStatAgg\u0027)\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
+                            "siddhiApp": "define stream PreProcessedESBStatStream (componentId string, componentName string, componentType string, duration long, faultCount int, startTime long, entryPoint string, metaTenantId int);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'ESBStatAgg')\ndefine aggregation ESBStatAgg \nfrom PreProcessedESBStatStream \n select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery \u003d function (username,timeFrom,timeTo,timeUnit,componentName){let query \u003d \"from ESBStatAgg on componentName\u003d\u003d\u0027\" + componentName + \"\u0027 within \" + timeFrom+\"L, \" + timeTo + \"L per \u0027\" + (timeUnit + \u0027s\u0027)+ \u0027\\\u0027\u0027 + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let query = \"from ESBStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \" + timeTo + \"L per '\" + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3497,7 +3601,7 @@
                                         "defaultValue": "admin"
                                     }
                                 ],
-                                "query": "from ESBStatAgg on componentName\u003d\u003d\u0027test\u0027 within 331237800000L, 394309800000L per \u0027minutes\u0027 select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP"
+                                "query": "from ESBStatAgg on componentName=='test' within 331237800000L, 394309800000L per 'minutes' select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time, AGG_TIMESTAMP as date group by AGG_TIMESTAMP"
                             },
                             "publishingInterval": 60,
                             "timeColumns": "Time"

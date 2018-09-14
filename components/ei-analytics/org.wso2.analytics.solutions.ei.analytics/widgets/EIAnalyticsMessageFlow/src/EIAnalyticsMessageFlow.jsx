@@ -64,6 +64,7 @@ class EIAnalyticsMessageFlow extends Widget {
             lastDrawnGraphData: null
         };
         this.handleRecievedMessage = this.handleMessage.bind(this);
+        this.handleAggregateData = this.handleAggregateData.bind(this);
         this.state = {
             dataUnavailable: true,
             height: this.props.glContainer.height,
@@ -321,7 +322,7 @@ class EIAnalyticsMessageFlow extends Widget {
                         dataProviderConf.configs.providerConfig.configs.config.queryData = {query: formattedQuery};
                         super.getWidgetChannelManager().subscribeWidget(
                             this.props.id,
-                            this.handleAggregateData(configEntryData, entryName).bind(this),
+                            (data) => this.handleAggregateData(configEntryData, entryName, data),
                             dataProviderConf.configs.providerConfig
                         );
                     });
@@ -329,169 +330,165 @@ class EIAnalyticsMessageFlow extends Widget {
         }
     }
 
-    handleAggregateData(configEntryData, entryName) {
-        return function (aggregateData) {
-            if (aggregateData) {
-                this.setState({
-                    dataUnavailable: false
-                });
-                // Read and store column names and the position mapping in the data arrays
-                let configEntryDataTableIndex = {};
-                configEntryData.metadata.names.forEach((value, index) => {
-                    configEntryDataTableIndex[value] = index;
-                })
+    handleAggregateData(configEntryData, entryName, aggregateData) {
+        if (aggregateData) {
+            this.setState({
+                dataUnavailable: false
+            });
+            // Read and store column names and the position mapping in the data arrays
+            let configEntryDataTableIndex = {};
+            configEntryData.metadata.names.forEach((value, index) => {
+                configEntryDataTableIndex[value] = index;
+            })
 
-                // console.log(aggregateData);
-                let schema = JSON.parse(configEntryData.data[0][configEntryDataTableIndex["configData"]]);
+            let schema = JSON.parse(configEntryData.data[0][configEntryDataTableIndex["configData"]]);
 
-                // Aggregate table and prepare component map
-                var result = [];
-                var componentMap = {};
-                var fields = ["invocations", "totalDuration", "maxDuration", "faults"];
-                var table = aggregateData.data;
-                if (table != null && table.length !== 0) {
-                    for (var j = 0; j < table.length; j++) {
-                        var componentInfo = {};
+            // Aggregate table and prepare component map
+            var result = [];
+            var componentMap = {};
+            var fields = ["invocations", "totalDuration", "maxDuration", "faults"];
+            var table = aggregateData.data;
+            if (table != null && table.length !== 0) {
+                for (var j = 0; j < table.length; j++) {
+                    var componentInfo = {};
 
-                        // Replace number based indexing with label names
-                        var row = table[j];
-                        aggregateData.metadata.names.forEach((value, index) => {
-                            componentInfo[value] = row[index];
-                        })
-                        var componentId = componentInfo["componentId"];
-                        if (componentMap[componentId] == null) {
-                            componentMap[componentId] = componentInfo;
-                        } else {
-                            for (var field in fields) {
-                                fieldName = fields[field];
-                                componentMap[componentId][fieldName] = componentMap[componentId][fieldName]
-                                    + componentInfo[fieldName];
-                            }
-                        }
-                    }
-                }
-
-                // Populate table data
-                var componentNameRegex = new RegExp("^.*@\\d*:(.*)"); // Eg: HealthCareAPI@9:Resource
-                var groups = [];
-                for (var i = 0; i < schema.length; i++) {
-                    var groupLabel;
-                    if (schema[i] != null) {
-                        var groupId = schema[i]["group"];
-                        var componentId = schema[i]["id"];
-
-
-                        /** change component id when @indirect presents **/
-                        var isIndirectComponent = componentId.indexOf("@indirect");
-
-                        var originalCompId = componentId;
-
-                        if (isIndirectComponent > 0) {
-
-                            // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
-
-                            var splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
-                            var splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
-
-                            componentId = splitByAt[0] + "@0:" + splitByColon[1];
-                            /*
-                                If any remaining entries in the schema has same name part'indirect',
-                                replace it with the newly generated component id
-                             */
-                            for (var j = 0; j < schema.length; j++) {
-                                if (schema[j] != null) {
-                                    var componentIdTmp = schema[j]["id"];
-                                    var componentIdParentTmp = schema[j]["parentId"];
-                                    var tempGroupId = schema[j]["group"];
-                                    if (componentIdTmp === componentId) {
-                                        schema[j]["id"] = originalCompId;
-                                    } else if (componentIdParentTmp === componentId) {
-                                        schema[j]["parentId"] = originalCompId;
-                                    }
-                                    if (tempGroupId === componentId) {
-                                        schema[j]["group"] = originalCompId;
-                                    }
-                                }
-                            }
-                        }
-
-
-                        var componentInfo = componentMap[componentId];
-                        var dataAttributes = [];
-
-                        // Find unique groups
-                        if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) === -1) {
-                            groups.push(schema[i]["group"]);
-                        }
-
-                        // Create data attributes
+                    // Replace number based indexing with label names
+                    var row = table[j];
+                    aggregateData.metadata.names.forEach((value, index) => {
+                        componentInfo[value] = row[index];
+                    })
+                    var componentId = componentInfo["componentId"];
+                    if (componentMap[componentId] == null) {
+                        componentMap[componentId] = componentInfo;
+                    } else {
                         for (var field in fields) {
-                            var fieldName = fields[field];
-                            if (componentInfo != null) {
-                                if (fieldName === "totalDuration") {
-                                    dataAttributes.push({ // Get the average values of multiple entries of the same path
-                                        "name": "AvgDuration",
-                                        "value": (componentInfo[fieldName] / componentInfo["invocations"]).toFixed(2)
-                                    });
-                                } else {
-                                    dataAttributes.push({"name": fieldName, "value": componentInfo[fieldName]});
+                            fieldName = fields[field];
+                            componentMap[componentId][fieldName] = componentMap[componentId][fieldName]
+                                + componentInfo[fieldName];
+                        }
+                    }
+                }
+            }
+
+            // Populate table data
+            var componentNameRegex = new RegExp("^.*@\\d*:(.*)"); // Eg: HealthCareAPI@9:Resource
+            var groups = [];
+            for (var i = 0; i < schema.length; i++) {
+                var groupLabel;
+                if (schema[i] != null) {
+                    var groupId = schema[i]["group"];
+                    var componentId = schema[i]["id"];
+
+
+                    /** change component id when @indirect presents **/
+                    var isIndirectComponent = componentId.indexOf("@indirect");
+
+                    var originalCompId = componentId;
+
+                    if (isIndirectComponent > 0) {
+
+                        // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
+
+                        var splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
+                        var splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
+
+                        componentId = splitByAt[0] + "@0:" + splitByColon[1];
+                        /*
+                            If any remaining entries in the schema has same name part'indirect',
+                            replace it with the newly generated component id
+                         */
+                        for (var j = 0; j < schema.length; j++) {
+                            if (schema[j] != null) {
+                                var componentIdTmp = schema[j]["id"];
+                                var componentIdParentTmp = schema[j]["parentId"];
+                                var tempGroupId = schema[j]["group"];
+                                if (componentIdTmp === componentId) {
+                                    schema[j]["id"] = originalCompId;
+                                } else if (componentIdParentTmp === componentId) {
+                                    schema[j]["parentId"] = originalCompId;
                                 }
-                            } else {
-                                dataAttributes.push({"name": fieldName, "value": 0});
+                                if (tempGroupId === componentId) {
+                                    schema[j]["group"] = originalCompId;
+                                }
                             }
                         }
+                    }
 
-                        var componentLabel = componentNameRegex.exec(componentId)[1];
+                    var componentInfo = componentMap[componentId];
+                    var dataAttributes = [];
+
+                    // Find unique groups
+                    if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) === -1) {
+                        groups.push(schema[i]["group"]);
+                    }
+
+                    // Create data attributes
+                    for (var field in fields) {
+                        var fieldName = fields[field];
                         if (componentInfo != null) {
-                            var componentType = componentInfo["componentType"];
+                            if (fieldName === "totalDuration") {
+                                dataAttributes.push({ // Get the average values of multiple entries of the same path
+                                    "name": "AvgDuration",
+                                    "value": (componentInfo[fieldName] / componentInfo["invocations"]).toFixed(2)
+                                });
+                            } else {
+                                dataAttributes.push({"name": fieldName, "value": componentInfo[fieldName]});
+                            }
                         } else {
-                            componentType = "UNKNOWN";
-                        }
-
-                        // Create hidden attributes
-                        var hiddenAttributes = [];
-                        hiddenAttributes.push({"name": "entryPoint", "value": entryName.slice(1, -1)});
-                        if (componentType === "Endpoint" || componentType === "Sequence") {
-                            hiddenAttributes.push({"name": "id", "value": componentLabel});
-                        } else {
-                            hiddenAttributes.push({"name": "id", "value": componentId});
-                        }
-
-                        if (schema[i]["parentId"] === schema[i]["group"]) {
-                            result.push({
-                                "id": originalCompId,
-                                "label": componentLabel,
-                                "parents": [],
-                                "group": schema[i]["group"],
-                                "type": componentType,
-                                "dataAttributes": dataAttributes,
-                                "hiddenAttributes": hiddenAttributes,
-                                "modifiedId": componentId
-                            });
-                        } else {
-                            result.push({
-                                "id": originalCompId,
-                                "label": componentLabel,
-                                "parents": [schema[i]["parentId"]],
-                                "group": schema[i]["group"],
-                                "type": componentType,
-                                "dataAttributes": dataAttributes,
-                                "hiddenAttributes": hiddenAttributes,
-                                "modifiedId": componentId
-                            });
+                            dataAttributes.push({"name": fieldName, "value": 0});
                         }
                     }
-                }
-                // Defining groups
-                for (var j = 0; j < result.length; j++) {
-                    if (groups.indexOf(result[j]["id"]) >= 0) {
-                        result[j]["type"] = "group";
+
+                    var componentLabel = componentNameRegex.exec(componentId)[1];
+                    if (componentInfo != null) {
+                        var componentType = componentInfo["componentType"];
+                    } else {
+                        componentType = "UNKNOWN";
+                    }
+
+                    // Create hidden attributes
+                    var hiddenAttributes = [];
+                    hiddenAttributes.push({"name": "entryPoint", "value": entryName.slice(1, -1)});
+                    if (componentType === "Endpoint" || componentType === "Sequence") {
+                        hiddenAttributes.push({"name": "id", "value": componentLabel});
+                    } else {
+                        hiddenAttributes.push({"name": "id", "value": componentId});
+                    }
+
+                    if (schema[i]["parentId"] === schema[i]["group"]) {
+                        result.push({
+                            "id": originalCompId,
+                            "label": componentLabel,
+                            "parents": [],
+                            "group": schema[i]["group"],
+                            "type": componentType,
+                            "dataAttributes": dataAttributes,
+                            "hiddenAttributes": hiddenAttributes,
+                            "modifiedId": componentId
+                        });
+                    } else {
+                        result.push({
+                            "id": originalCompId,
+                            "label": componentLabel,
+                            "parents": [schema[i]["parentId"]],
+                            "group": schema[i]["group"],
+                            "type": componentType,
+                            "dataAttributes": dataAttributes,
+                            "hiddenAttributes": hiddenAttributes,
+                            "modifiedId": componentId
+                        });
                     }
                 }
-
-                // Draw message flow with the processed data
-                this.drawMessageFlow($, result);
             }
+            // Defining groups
+            for (var j = 0; j < result.length; j++) {
+                if (groups.indexOf(result[j]["id"]) >= 0) {
+                    result[j]["type"] = "group";
+                }
+            }
+
+            // Draw message flow with the processed data
+            this.drawMessageFlow($, result);
         }
     }
 

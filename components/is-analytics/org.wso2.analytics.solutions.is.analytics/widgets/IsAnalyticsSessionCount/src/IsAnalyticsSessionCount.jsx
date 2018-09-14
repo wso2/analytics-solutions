@@ -23,16 +23,49 @@ import Widget from '@wso2-dashboards/widget';
 import { MuiThemeProvider } from 'material-ui/styles';
 import _ from 'lodash';
 
+const templateFillers = [
+    {
+        durationRange: '(duration >= 0 and duration <= 900001)',
+        startTimestampRange: '(startTimestamp >= 0 AND startTimestamp <= {{to}}L )',
+        endTimestampRange: '(endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L)',
+        duration: ' < 15 mins',
+    },
+    {
+        durationRange: '(duration >= 900001 and duration <= 3600001)',
+        startTimestampRange: '(startTimestamp >= 0 AND startTimestamp <= {{to}}L )',
+        endTimestampRange: '(endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L)',
+        duration: ' < 1 hr',
+    },
+    {
+        durationRange: '(duration >= 3600001 and duration <= 43200001)',
+        startTimestampRange: '(startTimestamp >= 0 AND startTimestamp <= {{to}}L )',
+        endTimestampRange: '(endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L)',
+        duration: ' < 12 hrs',
+    },
+    {
+        durationRange: '(duration >= 43200001 and duration <= 86400001)',
+        startTimestampRange: '(startTimestamp >= 0 AND startTimestamp <= {{to}}L )',
+        endTimestampRange: '(endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L)',
+        duration: ' < 24 hrs',
+    },
+    {
+        durationRange: '(duration >= 86400001 and duration <= 9223372036854775807L)',
+        startTimestampRange: '(startTimestamp >= 0 AND startTimestamp <= {{to}}L )',
+        endTimestampRange: '(endTimestamp >= {{from}}L AND endTimestamp <= {{now}}L)',
+        duration: ' > 24 hrs',
+    },
+];
+
 class IsAnalyticsSessionCount extends Widget {
     constructor(props) {
         super(props);
 
         this.chartConfig = {
-            x: 'DURATION',
+            x: 'duration',
             charts: [
                 {
                     type: 'bar',
-                    y: 'COUNT1',
+                    y: 'count1',
                     fill: '#00e600',
                     mode: 'stacked',
                 },
@@ -42,10 +75,11 @@ class IsAnalyticsSessionCount extends Widget {
             pagination: 'true',
             maxLength: 10,
             legend: false,
+            yDomain: [0, 10],
         };
 
         this.metadata = {
-            names: ['DURATION', 'COUNT1'],
+            names: ['duration', 'count1'],
             types: ['ordinal', 'linear'],
         };
 
@@ -57,11 +91,14 @@ class IsAnalyticsSessionCount extends Widget {
             height: this.props.glContainer.height,
         };
 
+        this.appendArray = [];
+
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this.handleDataReceived = this.handleDataReceived.bind(this);
         this.handleUserSelection = this.handleUserSelection.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
+        this.sendQuery = this.sendQuery.bind(this);
     }
 
     handleResize() {
@@ -69,12 +106,11 @@ class IsAnalyticsSessionCount extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.handleUserSelection);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     providerConfig: message.data.configs.providerConfig,
-                });
+                }, () => super.subscribe(this.handleUserSelection));
             });
     }
 
@@ -83,11 +119,19 @@ class IsAnalyticsSessionCount extends Widget {
     }
 
     handleDataReceived(message) {
-        message.data = message.data.reverse();
-        this.setState({
-            metadata: message.metadata,
-            data: message.data,
-        });
+        let receivedData = message.data;
+        if (!receivedData.length) {
+            receivedData = [[templateFillers[this.appendArray.length].duration, 0]];
+        }
+
+        this.appendArray.push(receivedData[0]);
+        if (this.appendArray.length < 5) {
+            this.sendQuery(this.appendArray.length);
+        } else if (this.appendArray.length === 5) {
+            this.setState({
+                data: this.appendArray,
+            }, () => { this.appendArray = []; });
+        }
     }
 
     handleUserSelection(message) {
@@ -98,22 +142,32 @@ class IsAnalyticsSessionCount extends Widget {
     }
 
     assembleQuery() {
+        this.sendQuery(0);
+    }
+
+    sendQuery(queryIndex) {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
-        const numOfGroups = 5;
-        let { query } = dataProviderConfigs.configs.config.queryData;
-        for (let i = 0; i < numOfGroups; i++) {
-            query = query
-                .replace('{{from}}', this.state.fromDate)
-                .replace('{{to}}', this.state.toDate)
-                .replace('{{now}}', new Date().getTime());
-        }
+        const query = dataProviderConfigs.configs.config.queryData.query
+            .replace('{{durationRange}}', templateFillers[queryIndex].durationRange)
+            .replace('{{startTimestampRange}}', templateFillers[queryIndex].startTimestampRange)
+            .replace('{{endTimestampRange}}', templateFillers[queryIndex].endTimestampRange)
+            .replace('{{duration}}', templateFillers[queryIndex].duration)
+            .replace('{{from}}', this.state.fromDate)
+            .replace('{{to}}', this.state.toDate)
+            .replace('{{now}}', new Date().getTime());
         dataProviderConfigs.configs.config.queryData.query = query;
+
         super.getWidgetChannelManager()
-            .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
+            .subscribeWidget(this.props.id + queryIndex, this.handleDataReceived, dataProviderConfigs);
     }
 
     render() {
+        if (this.state.data.length) {
+            const maxDataPoint = _.maxBy(this.state.data, element => element[1]);
+            this.chartConfig.yDomain = [0, maxDataPoint[1]];
+        }
+
         return (
             <MuiThemeProvider muiTheme={this.props.muiTheme}>
                 <VizG
