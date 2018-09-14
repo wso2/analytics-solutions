@@ -84,9 +84,8 @@ define stream PerUserRolesDuplicateEventStream (
 -- QUERIES
 
 -- Role Aggreagation from Duplicate Stream
-@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+@store(type='rdbms', datasource='IS_ANALYTICS_DB', field.length='serviceProvider:100, identityProvider:100, userStoreDomain:50, region:45, token:100')
 @purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
-@index('meta_tenantId', 'username', 'identityProviderType', 'identityProvider', 'userStoreDomain', 'serviceProvider', 'region')
 define aggregation RoleAggregation
 from PerUserRolesDuplicateEventStream
 select
@@ -106,14 +105,17 @@ select
     identityProviderType,
     timestamp
 group by
-    meta_tenantId,
     username,
     serviceProvider,
-    token
+    identityProvider,
+    region,
+    token,
+    userStoreDomain,
+    isFirstLogin
 aggregate by timestamp every second ... year;
 
 -- Authentication Stat Stream for Store everything
-@store(type='rdbms', datasource='IS_ANALYTICS_DB')
+@store(type='rdbms', datasource='IS_ANALYTICS_DB', field.length='serviceProvider:100, identityProvider:100, userStoreDomain:50, region:45')
 @purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
 define aggregation AuthStatAgg
 from ProcessedAuthenticationDataStream
@@ -135,11 +137,12 @@ select
     identityProviderType,
     timestamp
 group by
-    meta_tenantId,
     username,
-    localUsername,
-    remoteIp,
-    rolesCommaSeparated
+    serviceProvider,
+    identityProvider,
+    region,
+    userStoreDomain,
+    isFirstLogin
 aggregate by timestamp every second ... year;
 
 from ProcessedAuthenticationDataStream#str:tokenize(rolesCommaSeparated, ',')
