@@ -38,7 +38,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
     constructor(props) {
         super(props);
         this.props.glContainer.setTitle(
-            'Top ' + props.configs.options[BAR_GRAPH_TYPE] + 's by Request Count'
+            this.getBarChartTitle(this.props.configs.options[BAR_GRAPH_TYPE])
         );
         const config = {
             'x': 'Name',
@@ -77,7 +77,6 @@ class EIAnalyticsHorizontalBarChart extends Widget {
             timeFromParameter: null,
             timeToParameter: null,
             timeUnitParameter: null,
-            isRouteAtOnClick: false,
             redirectData: null,
         };
         this.props.glContainer.on('resize', () => {
@@ -157,7 +156,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
      * Draw the graph with the data retrieved from the data store
      */
     handleStats(stats) {
-        if (JSON.stringify(stats) !== "{}") {
+        if (stats != null && stats.data.length !== 0) {
             /* For each data point(Ex: For each API), an array of [total invocations, component name of that data point]. */
             const dataPointArray = stats.data;
             /* index and label mapping of each element in a data point. */
@@ -198,7 +197,10 @@ class EIAnalyticsHorizontalBarChart extends Widget {
                 });
             }
         } else {
-            console.error("Data store returned with empty stats for " + this.props.widgetID);
+            console.error(
+                "Data store returned with empty stats for " +
+                this.getBarChartTitle(this.props.configs.options[BAR_GRAPH_TYPE])
+            );
         }
     }
 
@@ -209,22 +211,16 @@ class EIAnalyticsHorizontalBarChart extends Widget {
      */
     renderEmptyRecordsMessage() {
         return (
-            <div className="status-message" style={{
-                color: 'white',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                padding: '5px 5px 5px 5px'
+            <div style={{
+                display: "flex",
+                justifyContent: "center",
+                background: "rgb(158, 158, 158)",
+                color: "rgb(0, 0, 0)",
+                fontWeight: "500"
             }}>
-                <div className="message message-info">
-                    <h4>
-                        <i class="icon fw fw-info"/> No records found</h4>
-                    <p>
-                        {
-                            this.isConfLoadError ? 'Error loading widget configuration file' :
-                                'Please select a valid date range to view stats.'
-                        }
-                    </p>
-                </div>
+                {
+                    this.isConfLoadError ? 'No configurations available' : 'No data available'
+                }
             </div>
         );
     }
@@ -285,14 +281,11 @@ class EIAnalyticsHorizontalBarChart extends Widget {
         return pageName + "_page_" + parameter;
     }
 
+    getBarChartTitle(componentType) {
+        return 'Top ' + componentType + 's by Request Count';
+    }
+
     render() {
-        if (this.state.isRouteAtOnClick) {
-            return (
-                <BrowserRouter>
-                    <Redirect to={this.state.redirectData}/>
-                </BrowserRouter>
-            );
-        }
         return (
             <div id={DIV_ID_GRAPH}>
                 {this.state.isLoading ? this.renderEmptyRecordsMessage() : this.renderGraph()}
