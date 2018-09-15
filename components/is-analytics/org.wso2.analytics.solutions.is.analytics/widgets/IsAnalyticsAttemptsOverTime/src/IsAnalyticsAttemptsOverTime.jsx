@@ -138,6 +138,7 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         let { query } = dataProviderConfigs.configs.config.queryData;
         let filterCondition = ' ';
         let doAdditionalFilter = false;
+        let aggregationName = 'AuthStatAgg';
 
         if (this.state.additionalFilterConditions !== undefined) {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
@@ -145,10 +146,9 @@ class IsAnalyticsAttemptsOverTime extends Widget {
                 if (Object.hasOwnProperty.call(additionalFilterConditionsClone, key)) {
                     if (additionalFilterConditionsClone[key] !== '') {
                         if (key === 'role') {
-                            filterCondition = filterCondition
-                                + ' and str:contains(rolesCommaSeparated, \''
-                                + additionalFilterConditionsClone[key] + '\') ';
-                        } else if (key === 'isFirstLogin') {
+                            aggregationName = 'RoleAggregation';
+                        }
+                        if (key === 'isFirstLogin') {
                             filterCondition = filterCondition
                                 + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                         } else {
@@ -170,7 +170,8 @@ class IsAnalyticsAttemptsOverTime extends Widget {
         query = query
             .replace('{{per}}', this.state.per)
             .replace('{{from}}', this.state.fromDate)
-            .replace('{{to}}', this.state.toDate);
+            .replace('{{to}}', this.state.toDate)
+            .replace('{{AggregationName}}', aggregationName);
 
         if (doAdditionalFilter) {
             query = query.replace('{{filterCondition}}', filterCondition);
