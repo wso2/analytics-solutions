@@ -16,7 +16,7 @@
  * under the License.
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
 import moment from 'moment';
@@ -31,14 +31,13 @@ const PAGE_INBOUND_ENDPOINT = 'inbound';
 const PAGE_MEDIATOR = 'mediator';
 const PUBLISHER_DATE_TIME_PICKER = "granularity";
 const PUBLISHER_SEARCH_BOX = "selectedComponent";
-const GRAPH_MIN_HEIGHT = '300';
-const GRAPH_MIN_WIDTH = '300';
 
-
+/**
+ * Dashboard widget class for the EIAnalyticsStatsChart widget
+ */
 class EIAnalyticsStatsChart extends Widget {
     constructor(props) {
         super(props);
-
         this.state = {
             page: null,
             componentName: null,
@@ -51,10 +50,9 @@ class EIAnalyticsStatsChart extends Widget {
             width: this.props.glContainer.width,
             height: this.props.glContainer.height
         };
-
         this.extractStatsData = this.extractStatsData.bind(this);
         this.handleStats = this.handleStats.bind(this);
-
+        this.isConfLoadError = false;
         this.successChartConfig = {
             charts: [
                 {
@@ -73,7 +71,6 @@ class EIAnalyticsStatsChart extends Widget {
             height: 100,
             "animate": true
         };
-
         this.faultChartConfig = {
             charts: [
                 {
@@ -91,24 +88,24 @@ class EIAnalyticsStatsChart extends Widget {
             height: 100,
             "animate": true
         };
-
         this.metadata = {
             "names": ["rpm", "torque", "horsepower", "EngineType"],
             "types": ["linear", "linear", "ordinal", "ordinal"]
         };
-
         this.props.glContainer.on('resize', this.handleResize.bind(this));
     }
 
     handleResize() {
-        this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
+        this.setState({
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height
+        });
     }
 
     componentDidMount() {
         this.setState({
             page: this.getCurrentPage()
         }, this.handleParameterChange);
-
         let entryPointValue = super.getGlobalState(getKey(this.getCurrentPage(), "entryPoint"));
         let selectedComponent = super.getGlobalState(getKey(this.getCurrentPage(), "id"));
         // If window url contains entryPoint, store it in the state
@@ -118,11 +115,10 @@ class EIAnalyticsStatsChart extends Widget {
                 componentName: selectedComponent,
             }, this.handleParameterChange);
         }
-        //this.extractStatsData("ALL", "ALL", null, -1234, "ESBStatAgg");
     }
 
     componentWillMount() {
-        super.subscribe(this.handleRecievedMessage.bind(this));
+        super.subscribe(this.handleReceivedMessage.bind(this));
     }
 
     handleParameterChange() {
@@ -165,15 +161,8 @@ class EIAnalyticsStatsChart extends Widget {
         }
     }
 
-    handleRecievedMessage(recievedMessage) {
-        let message;
-        if (typeof recievedMessage == "string") {
-            message = JSON.parse(recievedMessage);
-        }
-        else {
-            message = recievedMessage;
-        }
-
+    handleReceivedMessage(recievedMessage) {
+        let message = typeof recievedMessage === "string" ? JSON.parse(recievedMessage) : recievedMessage;
         if (PUBLISHER_DATE_TIME_PICKER in message) {
             this.setState({
                 timeFrom: moment(message.from).format("YYYY-MM-DD HH:mm:ss"),
@@ -196,55 +185,51 @@ class EIAnalyticsStatsChart extends Widget {
      * Get message count details from the DB  and set the state accordingly
      */
     extractStatsData(componentType, componentName, entryPoint, tenantId, aggregator, timeFrom, timeTo, timeUnit) {
-        if (componentType == PAGE_MEDIATOR || componentType == "ALL") {
-            var componentIdentifier = "componentId";
+        let componentIdentifier;
+        if (componentType === PAGE_MEDIATOR || componentType === "ALL") {
+            componentIdentifier = "componentId";
         } else {
-            var componentIdentifier = "componentName";
+            componentIdentifier = "componentName";
         }
+        this.isConfLoadError = false;
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 let dataProviderConf = this.getProviderConf(message.data);
-                if (entryPoint == 'undefined' || entryPoint === null) {
-                    var query = dataProviderConf.configs.providerConfig.configs.config.queryData.nullEntryPointStatPerQuery;
-
-                    let formattedQuery = query
+                if (entryPoint === 'undefined' || entryPoint === null) {
+                    let query = dataProviderConf.configs.providerConfig.configs.config.queryData.nullEntryPointStatPerQuery;
+                    dataProviderConf.configs.providerConfig.configs.config.queryData.query = query
                         .replace("{{aggregator}}", aggregator)
-                        .replace("{{componentIdentifier}}", (componentName == "ALL" ? 'true' : componentIdentifier))
+                        .replace("{{componentIdentifier}}", (componentName === "ALL" ? 'true' : componentIdentifier))
                         .replace("{{componentName}}", ((componentName === "ALL") ? 'true' : "\'" + componentName + "\'"))
                         .replace("{{tenantId}}", tenantId)
                         .replace("{{timeFrom}}", "\'" + timeFrom + "\'")
                         .replace("{{timeTo}}", "\'" + timeTo + "\'")
                         .replace("{{timeUnit}}", "\'" + timeUnit + "\'");
-                    dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
                 } else {
-                    var query = dataProviderConf.configs.providerConfig.configs.config.queryData.notNullEntryPointStatPerQuery;
-                    let formattedQuery = query
+                    let query = dataProviderConf.configs.providerConfig.configs.config.queryData.notNullEntryPointStatPerQuery;
+                    dataProviderConf.configs.providerConfig.configs.config.queryData.query = query
                         .replace("{{aggregator}}", aggregator)
                         .replace("{{entryPoint}}", "\'" + entryPoint + "\'")
-                        .replace("{{componentIdentifier}}", (componentName == "ALL" ? 'true' : componentIdentifier))
+                        .replace("{{componentIdentifier}}", (componentName === "ALL" ? 'true' : componentIdentifier))
                         .replace("{{componentName}}", ((componentName === "ALL") ? 'true' : "\'" + componentName + "\'"))
                         .replace("{{tenantId}}", tenantId)
                         .replace("{{timeFrom}}", "\'" + timeFrom + "\'")
                         .replace("{{timeTo}}", "\'" + timeTo + "\'")
                         .replace("{{timeUnit}}", "\'" + timeUnit + "\'");
-                    dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
                 }
-                // console.log(JSON.stringify(dataProviderConf.configs.providerConfig));
                 super.getWidgetChannelManager()
                     .subscribeWidget(this.props.id, this.handleStats, dataProviderConf.configs.providerConfig);
             })
             .catch(() => {
-                console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
+                this.isConfLoadError = true;
             });
     }
 
     /**
      * Process received data and store meaningful values
-     *
-     * @returns {Function}
      */
     handleStats(stats) {
-        if (JSON.stringify(stats) !== "{}") {
+        if (stats !== null && stats.data.length !== 0) {
             let metadata = stats.metadata.names;
             let data = stats.data[0];
             let dataIndex = {};
@@ -353,7 +338,8 @@ class EIAnalyticsStatsChart extends Widget {
                             width: '100%',
                             margin: 'auto',
                             alignContent: 'center',
-                            justifyContent: 'center'}}>
+                            justifyContent: 'center'
+                        }}>
                             <b>Failure Rate</b>
                             <br/>
                             <b>{'Failure Requests: ' + String(this.state.faultCount)}</b>
@@ -392,9 +378,25 @@ class EIAnalyticsStatsChart extends Widget {
         }
     }
 
+    renderEmptyRecordsMessage() {
+        return (
+            <div style={{
+                display: "flex",
+                justifyContent: "center",
+                background: "rgb(158, 158, 158)",
+                color: "rgb(0, 0, 0)",
+                fontWeight: "500"
+            }}>
+                {
+                    this.isConfLoadError ? 'No configurations available' : 'No data available'
+                }
+            </div>
+        );
+    }
+
     render() {
         return (
-            this.isDataRecieved() ? this.drawCharts() : <h5>{this.noParameters()}</h5>
+            this.isDataRecieved() ? this.drawCharts() : this.renderEmptyRecordsMessage()
         )
     }
 }
