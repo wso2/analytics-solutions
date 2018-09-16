@@ -20,6 +20,7 @@ import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import CodeMirror from 'codemirror/lib/codemirror';
 import {diff_match_patch, DIFF_DELETE, DIFF_EQUAL, DIFF_INSERT} from './diff_match_patch';
+import CircularProgress from '@material-ui/core/CircularProgress';
 /*
 Globally define diff_match_patch module exports for merge library
  */
@@ -64,6 +65,7 @@ class EIAnalyticsMediatorProperties extends Widget {
             widgetHeight: this.props.glContainer.height,
             widgetWidth: this.props.glContainer.width,
             enableEmptyRecordsElement: "none",
+            isLoadingData: false,
         };
         this.isConfLoadError = false;
         this.isChildDataPresent = false;
@@ -99,12 +101,16 @@ class EIAnalyticsMediatorProperties extends Widget {
                                 .replace('{{meta_tenantId}}', META_TENANT_ID);
                             dataProviderConf.configs.config.queryData = {query: formattedQuery};
                             // Request data store with the modified query
-                            super.getWidgetChannelManager()
-                                .subscribeWidget(
-                                    this.props.id,
-                                    this.handleComponentMessageFlowData(messageFlowId).bind(this),
-                                    dataProviderConf,
-                                );
+                            this.setState({
+                                isLoadingData: true
+                            }, () => {
+                                super.getWidgetChannelManager()
+                                    .subscribeWidget(
+                                        this.props.id,
+                                        this.handleComponentMessageFlowData(messageFlowId).bind(this),
+                                        dataProviderConf,
+                                    );
+                            });
                         })
                         .catch(() => {
                             this.isConfLoadError = true;
@@ -116,155 +122,168 @@ class EIAnalyticsMediatorProperties extends Widget {
 
     handleComponentMessageFlowData(messageFlowId) {
         return (messageFlowData) => {
-            if (messageFlowData != null && messageFlowData.data.length !== 0) {
-                const messageInfoBefore = parseDatastoreMessage(messageFlowData)[0];
-                if (messageInfoBefore.children != null && messageInfoBefore.children !== 'null') {
-                    const childIndex = JSON.parse(messageInfoBefore.children)[0];
-                    // Get message flow details of the child component
-                    super.getWidgetConfiguration(this.props.widgetID)
-                        .then((message) => {
-                            // Get data provider sub json string from the widget configuration
-                            const dataProviderConf = message.data.configs.providerConfig;
-                            let query = dataProviderConf.configs.config.queryData
-                                .GET_CHILD_MESSAGE_FLOW_DATA_QUERY;
-                            // Insert required parameters to the query string
-                            const formattedQuery = query
-                                .replace('{{messageFlowId}}', messageFlowId)
-                                .replace('{{componentIndex}}', childIndex)
-                                .replace('{{meta_tenantId}}', META_TENANT_ID);
-                            dataProviderConf.configs.config.queryData = {query: formattedQuery};
-                            // Request data store with the modified query
-                            super.getWidgetChannelManager()
-                                .subscribeWidget(
-                                    this.props.id,
-                                    this.handleChildMessageFlowData(messageInfoBefore).bind(this),
-                                    dataProviderConf,
-                                );
-                        })
-                        .catch(() => {
-                            console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
-                        });
+            this.setState({
+                isLoadingData: false
+            }, () => {
+                if (messageFlowData != null && messageFlowData.data.length !== 0) {
+                    const messageInfoBefore = parseDatastoreMessage(messageFlowData)[0];
+                    if (messageInfoBefore.children != null && messageInfoBefore.children !== 'null') {
+                        const childIndex = JSON.parse(messageInfoBefore.children)[0];
+                        // Get message flow details of the child component
+                        super.getWidgetConfiguration(this.props.widgetID)
+                            .then((message) => {
+                                // Get data provider sub json string from the widget configuration
+                                const dataProviderConf = message.data.configs.providerConfig;
+                                let query = dataProviderConf.configs.config.queryData
+                                    .GET_CHILD_MESSAGE_FLOW_DATA_QUERY;
+                                // Insert required parameters to the query string
+                                const formattedQuery = query
+                                    .replace('{{messageFlowId}}', messageFlowId)
+                                    .replace('{{componentIndex}}', childIndex)
+                                    .replace('{{meta_tenantId}}', META_TENANT_ID);
+                                dataProviderConf.configs.config.queryData = {query: formattedQuery};
+                                // Request data store with the modified query
+                                this.setState({
+                                    isLoadingData: true,
+                                }, () => {
+                                    super.getWidgetChannelManager()
+                                        .subscribeWidget(
+                                            this.props.id,
+                                            this.handleChildMessageFlowData(messageInfoBefore).bind(this),
+                                            dataProviderConf,
+                                        );
+                                });
+
+                            })
+                            .catch(() => {
+                                console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
+                            });
+                    } else {
+                        /* If child details are not available, continue  with the normal flow */
+                        this.handleChildMessageFlowData(messageInfoBefore)(null);
+                    }
                 } else {
-                    /* If child details are not available, continue  with the normal flow */
-                    this.handleChildMessageFlowData(messageInfoBefore)('');
+                    this.setState({
+                        enableEmptyRecordsElement: "flex"
+                    });
+                    console.error("Data store returned with empty message flow records for " + this.props.widgetID);
                 }
-            } else {
-                this.setState({
-                    enableEmptyRecordsElement: "flex"
-                });
-                console.error("Data store returned with empty message flow records for " + this.props.widgetID);
-            }
+            });
         };
     }
 
     handleChildMessageFlowData(messageInfoBefore) {
         return (childMessageDetails) => {
-            if (childMessageDetails == null || childMessageDetails.data.length === 0)
-                childMessageDetails = '';
-            let messageInfoAfter = {};
-            if (childMessageDetails !== '') {
-                messageInfoAfter = parseDatastoreMessage(childMessageDetails)[0];
-            }
-            const result = {};
-            result.payload = {
-                before: messageInfoBefore.beforePayload,
-                after: messageInfoBefore.afterPayload
-            };
-            const transportProperties = [];
-            const contextProperties = [];
-            let transportPropertyMapBefore;
-            let contextPropertyMapBefore;
+            this.setState({
+                isLoadingData: false,
+            }, () => {
+                if (childMessageDetails == null || childMessageDetails.data.length === 0)
+                    childMessageDetails = '';
+                let messageInfoAfter = {};
+                if (childMessageDetails !== '') {
+                    messageInfoAfter = parseDatastoreMessage(childMessageDetails)[0];
+                }
+                const result = {};
+                result.payload = {
+                    before: messageInfoBefore.beforePayload,
+                    after: messageInfoBefore.afterPayload
+                };
+                const transportProperties = [];
+                const contextProperties = [];
+                let transportPropertyMapBefore;
+                let contextPropertyMapBefore;
 
-            if (messageInfoBefore.transportPropertyMap != null) {
-                transportPropertyMapBefore = processProperties(messageInfoBefore.transportPropertyMap);
-            } else {
-                transportPropertyMapBefore = {};
-            }
-            if (messageInfoBefore.contextPropertyMap != null) {
-                contextPropertyMapBefore = processProperties(messageInfoBefore.contextPropertyMap);
-            } else {
-                contextPropertyMapBefore = {};
-            }
-            const allTransportProperties = Object.keys(transportPropertyMapBefore);
-            const allContextProperties = Object.keys(contextPropertyMapBefore);
-            let transportPorpertyMapAfter;
-            let contextPorpertyMapAfter;
-            if (messageInfoAfter != null) {
-                if (messageInfoAfter.transportPropertyMap != null) {
-                    transportPorpertyMapAfter = processProperties(messageInfoAfter.transportPropertyMap);
+                if (messageInfoBefore.transportPropertyMap != null) {
+                    transportPropertyMapBefore = processProperties(messageInfoBefore.transportPropertyMap);
                 } else {
-                    transportPorpertyMapAfter = {};
+                    transportPropertyMapBefore = {};
                 }
-                if (messageInfoAfter.contextPropertyMap != null) {
-                    contextPorpertyMapAfter = processProperties(messageInfoAfter.contextPropertyMap);
+                if (messageInfoBefore.contextPropertyMap != null) {
+                    contextPropertyMapBefore = processProperties(messageInfoBefore.contextPropertyMap);
                 } else {
-                    contextPorpertyMapAfter = {};
+                    contextPropertyMapBefore = {};
                 }
-
-                for (const property in transportPorpertyMapAfter) {
-                    if (allTransportProperties.indexOf(property) < 0) {
-                        allTransportProperties.push(property);
-                    }
-                }
-                for (const property in contextPorpertyMapAfter) {
-                    if (allContextProperties.indexOf(property) < 0) {
-                        allContextProperties.push(property);
-                    }
-                }
-            }
-            // Add Transport Properties
-            for (const property in allTransportProperties) {
-                const propertyName = allTransportProperties[property];
-                let beforeValue;
-                let afterValue;
-                if (transportPropertyMapBefore.hasOwnProperty(propertyName)) {
-                    beforeValue = transportPropertyMapBefore[propertyName];
-                } else {
-                    beforeValue = 'N/A';
-                }
+                const allTransportProperties = Object.keys(transportPropertyMapBefore);
+                const allContextProperties = Object.keys(contextPropertyMapBefore);
+                let transportPorpertyMapAfter;
+                let contextPorpertyMapAfter;
                 if (messageInfoAfter != null) {
-                    if (transportPorpertyMapAfter.hasOwnProperty(propertyName)) {
-                        afterValue = transportPorpertyMapAfter[propertyName];
+                    if (messageInfoAfter.transportPropertyMap != null) {
+                        transportPorpertyMapAfter = processProperties(messageInfoAfter.transportPropertyMap);
                     } else {
-                        afterValue = 'N/A';
+                        transportPorpertyMapAfter = {};
                     }
-                } else {
-                    afterValue = beforeValue;
-                }
-                transportProperties.push({"name": propertyName, before: beforeValue, 'after': afterValue});
-            }
-            result.transportProperties = transportProperties;
+                    if (messageInfoAfter.contextPropertyMap != null) {
+                        contextPorpertyMapAfter = processProperties(messageInfoAfter.contextPropertyMap);
+                    } else {
+                        contextPorpertyMapAfter = {};
+                    }
 
-            // Add Context Properties
-            for (const property in allContextProperties) {
-                const propertyName = allContextProperties[property];
-                let beforeValue;
-                let afterValue;
-                if (contextPropertyMapBefore.hasOwnProperty(propertyName)) {
-                    beforeValue = contextPropertyMapBefore[propertyName];
-                } else {
-                    beforeValue = 'N/A';
-                }
-                if (messageInfoAfter != null) {
-                    if (contextPorpertyMapAfter.hasOwnProperty(propertyName)) {
-                        afterValue = contextPorpertyMapAfter[propertyName];
-                    } else {
-                        afterValue = 'N/A';
+                    for (const property in transportPorpertyMapAfter) {
+                        if (allTransportProperties.indexOf(property) < 0) {
+                            allTransportProperties.push(property);
+                        }
                     }
-                } else {
-                    afterValue = beforeValue;
+                    for (const property in contextPorpertyMapAfter) {
+                        if (allContextProperties.indexOf(property) < 0) {
+                            allContextProperties.push(property);
+                        }
+                    }
                 }
-                contextProperties.push({"name": propertyName, 'before': beforeValue, after: afterValue});
-            }
-            result.contextProperties = contextProperties;
-            // If child data is not present in recent state update, update state
-            if (!this.isChildDataPresent) {
-                this.isChildDataPresent = childMessageDetails !== '';
-                this.setState({
-                    isNoData: false,
-                    messageComparisonData: result,
-                }, this.generateMergedView.bind(this));
-            }
+                // Add Transport Properties
+                for (const property in allTransportProperties) {
+                    const propertyName = allTransportProperties[property];
+                    let beforeValue;
+                    let afterValue;
+                    if (transportPropertyMapBefore.hasOwnProperty(propertyName)) {
+                        beforeValue = transportPropertyMapBefore[propertyName];
+                    } else {
+                        beforeValue = 'N/A';
+                    }
+                    if (messageInfoAfter != null) {
+                        if (transportPorpertyMapAfter.hasOwnProperty(propertyName)) {
+                            afterValue = transportPorpertyMapAfter[propertyName];
+                        } else {
+                            afterValue = 'N/A';
+                        }
+                    } else {
+                        afterValue = beforeValue;
+                    }
+                    transportProperties.push({"name": propertyName, before: beforeValue, 'after': afterValue});
+                }
+                result.transportProperties = transportProperties;
+
+                // Add Context Properties
+                for (const property in allContextProperties) {
+                    const propertyName = allContextProperties[property];
+                    let beforeValue;
+                    let afterValue;
+                    if (contextPropertyMapBefore.hasOwnProperty(propertyName)) {
+                        beforeValue = contextPropertyMapBefore[propertyName];
+                    } else {
+                        beforeValue = 'N/A';
+                    }
+                    if (messageInfoAfter != null) {
+                        if (contextPorpertyMapAfter.hasOwnProperty(propertyName)) {
+                            afterValue = contextPorpertyMapAfter[propertyName];
+                        } else {
+                            afterValue = 'N/A';
+                        }
+                    } else {
+                        afterValue = beforeValue;
+                    }
+                    contextProperties.push({"name": propertyName, 'before': beforeValue, after: afterValue});
+                }
+                result.contextProperties = contextProperties;
+                // If child data is not present in recent state update, update state
+                if (!this.isChildDataPresent) {
+                    this.isChildDataPresent = childMessageDetails !== '';
+                    this.setState({
+                        isNoData: false,
+                        messageComparisonData: result,
+                    }, this.generateMergedView.bind(this));
+                }
+            });
         };
     }
 
@@ -309,52 +328,49 @@ class EIAnalyticsMediatorProperties extends Widget {
     render() {
         return (
             <body className="nano">
-            <div style={{display: this.state.enableEmptyRecordsElement, margin: "10px", boxSizing: "border-box"}}>
-                <div style={{height: "100%", width: "100%"}}>
-                    <div style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        background: "rgb(158, 158, 158)",
-                        color: "rgb(0, 0, 0)",
-                        fontWeight: "500"
-                    }}>
-                        {
-                            this.isConfLoadError ? 'No configurations available' : 'No data available'
-                        }
-                    </div>
-                </div>
+            <div style={{
+                width: "100%",
+                height: "100%",
+                display: this.state.isLoadingData ? "flex" : "none",
+                padding: '10px 10px 10px 10px',
+                alignContent: 'center',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                <CircularProgress className={this.props.progress} size={100} color={"inherit"}/>
             </div>
-            <div id="gadget-message"/>
-            <div className="nano-content">
-                <table className="table table-condensed table-responsive" style={table}>
-                    <thead>
-                    <tr>
-                        <th>
-                            <h4 style={centerDiv}>
-                                <center>Before</center>
-                            </h4>
-                        </th>
-                        <th>
-                            <h4 style={centerDiv}>
-                                <center>After</center>
-                            </h4>
-                        </th>
-                    </tr>
-                    </thead>
-                </table>
-                <h4>
-                    <center>Payload</center>
-                </h4>
-                <div ref={input => (this.domElementPayloadView = input)}/>
-                <h4>
-                    <center>Transport Properties</center>
-                </h4>
-                <div ref={input => (this.domElementTransportPropView = input)}/>
-                <h4>
-                    <center>Context Properties</center>
-                </h4>
-                <div ref={input => (this.domElementContextPropView = input)}/>
+            <div style={{display: this.state.isLoadingData ? "hidden" : "flex"}}>
+                <div className="nano-content">
+                    <table className="table table-condensed table-responsive" style={table}>
+                        <thead>
+                        <tr>
+                            <th>
+                                <h4 style={centerDiv}>
+                                    <center>Before</center>
+                                </h4>
+                            </th>
+                            <th>
+                                <h4 style={centerDiv}>
+                                    <center>After</center>
+                                </h4>
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <h4>
+                        <center>Payload</center>
+                    </h4>
+                    <div ref={input => (this.domElementPayloadView = input)}/>
+                    <h4>
+                        <center>Transport Properties</center>
+                    </h4>
+                    <div ref={input => (this.domElementTransportPropView = input)}/>
+                    <h4>
+                        <center>Context Properties</center>
+                    </h4>
+                    <div ref={input => (this.domElementContextPropView = input)}/>
 
+                </div>
             </div>
             </body>
         );
