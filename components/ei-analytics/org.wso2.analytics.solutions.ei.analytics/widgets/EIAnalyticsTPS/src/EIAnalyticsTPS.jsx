@@ -20,13 +20,13 @@ import Widget from '@wso2-dashboards/widget';
 import VizG from 'react-vizgrammar';
 import moment from 'moment';
 
-var PUBLISHER_DATE_TIME_PICKER = 'granularity';
-var TENANT_ID = '-1234';
+const PUBLISHER_DATE_TIME_PICKER = 'granularity';
+const TENANT_ID = '-1234';
 
 class EIAnalyticsTPS extends Widget {
     constructor(props) {
         super(props);
-        var config = {
+        const config = {
             "x": 'Time',
             "charts": [{type: "bar", y: "TPS"}],
             "maxLength": 10,
@@ -38,8 +38,7 @@ class EIAnalyticsTPS extends Widget {
             "disableHorizontalGrid": true,
             "animate": true
         };
-
-        let metadata = {
+        const metadata = {
             "names": [
                 "Time",
                 "TPS"
@@ -48,10 +47,8 @@ class EIAnalyticsTPS extends Widget {
                 "time",
                 "linear"
             ]
-        }
-
+        };
         let data = [];
-
         this.state = {
             graphConfig: config,
             graphMetadata: metadata,
@@ -63,9 +60,8 @@ class EIAnalyticsTPS extends Widget {
             timeToParameter: null,
             timeUnitParameter: null
         };
-
+        this.isConfLoadError = false;
         this.props.glContainer.on('resize', this.handleResize.bind(this));
-
         this.handlePublisherParameters = this.handlePublisherParameters.bind(this);
         this.handleGraphUpdate = this.handleGraphUpdate.bind(this);
         this.handleStats = this.handleStats.bind(this);
@@ -100,32 +96,28 @@ class EIAnalyticsTPS extends Widget {
      * Update graph parameters according to the updated publisher widget parameters
      */
     handleGraphUpdate() {
+        this.isConfLoadError = false;
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
-
                 // Get data provider sub json string from the widget configuration
                 let dataProviderConf = this.getProviderConf(message.data);
-                var query = dataProviderConf.configs.config.queryData.query;
-
+                let query = dataProviderConf.configs.config.queryData.query;
                 let timeUnit = this.state.timeUnitParameter.concat("s");
-
                 // Insert required parameters to the query string
-                let formattedQuery = query
-                    .replace("{{tenantId}}", TENANT_ID)
+                dataProviderConf.configs.config.queryData.query = query
+                    .replace("{tenantId}}", TENANT_ID)
                     .replace("{{timeFrom}}", "\'" + this.state.timeFromParameter + "\'")
                     .replace("{{timeTo}}", "\'" + this.state.timeToParameter + "\'")
-                    .replace("{{timeunit}}", "\'" + timeUnit + "\'")
-
-                dataProviderConf.configs.config.queryData.query = formattedQuery;
-
+                    .replace("{{timeunit}}", "\'" + timeUnit + "\'");
                 // Request datastore with the modified query
+                alert("callCallback");
                 super.getWidgetChannelManager()
                     .subscribeWidget(
-                        this.props.id, this.handleStats, dataProviderConf
+                        this.props.id, this.handleStats.bind(this), dataProviderConf
                     );
             })
-            .catch((error) => {
-                console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
+            .catch(() => {
+                this.isConfLoadError = true;
             });
     }
 
@@ -138,51 +130,52 @@ class EIAnalyticsTPS extends Widget {
      * Draw the graph with the data retrieved from the data store
      */
     handleStats(stats) {
-        // For each data point(Ex: For each API), an array of [total invocations, component name of that data point]
-        let dataPointArray = stats.data;
-        let divider = 1;
-
-        // index and label mapping of each element in a data point
-        let labelMapper = {};
-        stats.metadata.names.forEach((value, index) => {
-            labelMapper[value] = index;
-        })
-
-        dataPointArray.forEach((e) => {
-            switch (this.state.timeUnitParameter) {
-                case "month":
-                    divider = 3600 * 24 * 30;
-                    let timeStamp = new Date(e[labelMapper.AGG_TIMESTAMP]);
-                    divider = new Date(timeStamp.getFullYear(), (timeStamp.getMonth() + 1), 0).getDate() * 3600 * 24;
-                    break;
-                case "day":
-                    divider = 3600 * 24;
-                    break;
-                case "hour":
-                    divider = 3600;
-                    break;
-                case "minute":
-                    divider = 60;
-                    break;
-            }
-            e[labelMapper.noOfInvocation] = (e[labelMapper.noOfInvocation]) / divider;
-        });
-
-
-        // Build data for the graph
-        let data = [];
-        dataPointArray.forEach((dataPoint) => {
-            data.push(
-                [dataPoint[labelMapper.AGG_TIMESTAMP], dataPoint[labelMapper.noOfInvocation]]
-            );
-        });
-
-        // Draw the graph with received stats only if data is present after filtering
-        if (data.length > 0) {
-            this.setState({
-                graphData: data,
-                clearGraph: false
+        alert("handleStats");
+        if (stats != null && stats.data.length !== 0) {
+            // For each data point(Ex: For each API), an array of [total invocations, component name of that data point]
+            let dataPointArray = stats.data;
+            let divider = 1;
+            // index and label mapping of each element in a data point
+            let labelMapper = {};
+            stats.metadata.names.forEach((value, index) => {
+                labelMapper[value] = index;
             });
+            dataPointArray.forEach((e) => {
+                switch (this.state.timeUnitParameter) {
+                    case "month":
+                        divider = 3600 * 24 * 30;
+                        let timeStamp = new Date(e[labelMapper.AGG_TIMESTAMP]);
+                        divider = new Date(timeStamp.getFullYear(), (timeStamp.getMonth() + 1), 0).getDate() * 3600 * 24;
+                        break;
+                    case "day":
+                        divider = 3600 * 24;
+                        break;
+                    case "hour":
+                        divider = 3600;
+                        break;
+                    case "minute":
+                        divider = 60;
+                        break;
+                }
+                e[labelMapper.noOfInvocation] = (e[labelMapper.noOfInvocation]) / divider;
+            });
+            // Build data for the graph
+            let data = [];
+            dataPointArray.forEach((dataPoint) => {
+                data.push(
+                    [dataPoint[labelMapper.AGG_TIMESTAMP], dataPoint[labelMapper.noOfInvocation]]
+                );
+            });
+            // Draw the graph with received stats only if data is present after filtering
+            if (data.length > 0) {
+                this.setState({
+                    graphData: data,
+                    clearGraph: false
+                });
+            }
+        } else {
+            alert("Data store returned with empty stats for " + this.props.widgetID);
+            console.error("Data store returned with empty stats for " + this.props.widgetID);
         }
     }
 
@@ -191,16 +184,25 @@ class EIAnalyticsTPS extends Widget {
      *
      * @returns {*} <div> element containing the notification message
      */
-    getEmptyRecordsText() {
+    renderEmptyRecordsMessage() {
         return (
-            <div class="status-message" style={{color: 'white', marginLeft: 'auto', marginRight: 'auto'}}>
-                <div class="message message-info">
-                    <h4><i class="icon fw fw-info"></i> No records found</h4>
-                    <p>Please select a valid date range to view stats.</p>
+            <div style={{margin: "10px", boxSizing: "border-box"}}>
+                <div style={{height: "100%", width: "100%"}}>
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        background: "rgb(158, 158, 158)",
+                        color: "rgb(0, 0, 0)",
+                        fontWeight: "500"
+                    }}>
+                        {
+                            this.isConfLoadError ? 'No configurations available' : 'No data available'
+                        }
+                    </div>
                 </div>
             </div>
         );
-    };
+    }
 
 
     /**
@@ -223,7 +225,7 @@ class EIAnalyticsTPS extends Widget {
     render() {
         return (
             <div>
-                {this.state.clearGraph ? this.getEmptyRecordsText() : this.drawGraph()}
+                {this.state.clearGraph ? this.renderEmptyRecordsMessage() : this.drawGraph()}
             </div>
         );
     }

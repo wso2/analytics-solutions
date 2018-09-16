@@ -211,16 +211,20 @@ class EIAnalyticsHorizontalBarChart extends Widget {
      */
     renderEmptyRecordsMessage() {
         return (
-            <div style={{
-                display: "flex",
-                justifyContent: "center",
-                background: "rgb(158, 158, 158)",
-                color: "rgb(0, 0, 0)",
-                fontWeight: "500"
-            }}>
-                {
-                    this.isConfLoadError ? 'No configurations available' : 'No data available'
-                }
+            <div style={{margin: "10px", boxSizing: "border-box"}}>
+                <div style={{height: "100%", width: "100%"}}>
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        background: "rgb(158, 158, 158)",
+                        color: "rgb(0, 0, 0)",
+                        fontWeight: "500"
+                    }}>
+                        {
+                            this.isConfLoadError ? 'No configurations available' : 'No data available'
+                        }
+                    </div>
+                </div>
             </div>
         );
     }
