@@ -21,7 +21,7 @@ import Widget from '@wso2-dashboards/widget';
 import CodeMirror from 'codemirror/lib/codemirror';
 import {diff_match_patch, DIFF_DELETE, DIFF_EQUAL, DIFF_INSERT} from './diff_match_patch';
 /*
-Define diff_match_patch module export globally for merge library
+Globally define diff_match_patch module exports for merge library
  */
 window.diff_match_patch = diff_match_patch;
 window.DIFF_EQUAL = DIFF_EQUAL;
@@ -52,6 +52,9 @@ const table = {
     overflowX: 'auto',
 };
 
+/**
+ * Dashboard widget class for the EIAnalyticsMediatorProperties widget
+ */
 class EIAnalyticsMediatorProperties extends Widget {
     constructor(props) {
         super(props);
@@ -60,7 +63,9 @@ class EIAnalyticsMediatorProperties extends Widget {
             messageComparisonData: null,
             widgetHeight: this.props.glContainer.height,
             widgetWidth: this.props.glContainer.width,
+            enableEmptyRecordsElement: "none",
         };
+        this.isConfLoadError = false;
         this.isChildDataPresent = false;
         this.domElementPayloadView = null;
         this.domElementTransportPropView = null;
@@ -79,7 +84,7 @@ class EIAnalyticsMediatorProperties extends Widget {
                 }, () => {
                     const componentId = mediatorAttributes.componentId;
                     const messageFlowId = super.getGlobalState(getKey("message", "id"));
-
+                    this.isConfLoadError = false;
                     // Get message flow details of the mediator
                     super.getWidgetConfiguration(this.props.widgetID)
                         .then((message) => {
@@ -102,7 +107,7 @@ class EIAnalyticsMediatorProperties extends Widget {
                                 );
                         })
                         .catch(() => {
-                            console.error("Unable to load widget configurations");
+                            this.isConfLoadError = true;
                         });
                 });
             }
@@ -111,7 +116,7 @@ class EIAnalyticsMediatorProperties extends Widget {
 
     handleComponentMessageFlowData(messageFlowId) {
         return (messageFlowData) => {
-            if (JSON.stringify(messageFlowData) !== "{}") {
+            if (messageFlowData != null && messageFlowData.data.length !== 0) {
                 const messageInfoBefore = parseDatastoreMessage(messageFlowData)[0];
                 if (messageInfoBefore.children != null && messageInfoBefore.children !== 'null') {
                     const childIndex = JSON.parse(messageInfoBefore.children)[0];
@@ -136,7 +141,7 @@ class EIAnalyticsMediatorProperties extends Widget {
                                     dataProviderConf,
                                 );
                         })
-                        .catch((error) => {
+                        .catch(() => {
                             console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
                         });
                 } else {
@@ -144,14 +149,17 @@ class EIAnalyticsMediatorProperties extends Widget {
                     this.handleChildMessageFlowData(messageInfoBefore)('');
                 }
             } else {
-                console.error("Data store returned with empty messageFlowData for " + this.props.widgetID);
+                this.setState({
+                    enableEmptyRecordsElement: "flex"
+                });
+                console.error("Data store returned with empty message flow records for " + this.props.widgetID);
             }
         };
     }
 
     handleChildMessageFlowData(messageInfoBefore) {
         return (childMessageDetails) => {
-            if (JSON.stringify(childMessageDetails) === "{}")
+            if (childMessageDetails == null || childMessageDetails.data.length === 0)
                 childMessageDetails = '';
             let messageInfoAfter = {};
             if (childMessageDetails !== '') {
@@ -162,7 +170,6 @@ class EIAnalyticsMediatorProperties extends Widget {
                 before: messageInfoBefore.beforePayload,
                 after: messageInfoBefore.afterPayload
             };
-
             const transportProperties = [];
             const contextProperties = [];
             let transportPropertyMapBefore;
@@ -178,12 +185,10 @@ class EIAnalyticsMediatorProperties extends Widget {
             } else {
                 contextPropertyMapBefore = {};
             }
-
             const allTransportProperties = Object.keys(transportPropertyMapBefore);
             const allContextProperties = Object.keys(contextPropertyMapBefore);
             let transportPorpertyMapAfter;
             let contextPorpertyMapAfter;
-
             if (messageInfoAfter != null) {
                 if (messageInfoAfter.transportPropertyMap != null) {
                     transportPorpertyMapAfter = processProperties(messageInfoAfter.transportPropertyMap);
@@ -252,7 +257,6 @@ class EIAnalyticsMediatorProperties extends Widget {
                 contextProperties.push({"name": propertyName, 'before': beforeValue, after: afterValue});
             }
             result.contextProperties = contextProperties;
-
             // If child data is not present in recent state update, update state
             if (!this.isChildDataPresent) {
                 this.isChildDataPresent = childMessageDetails !== '';
@@ -305,6 +309,21 @@ class EIAnalyticsMediatorProperties extends Widget {
     render() {
         return (
             <body className="nano">
+            <div style={{display: this.state.enableEmptyRecordsElement, margin: "10px", boxSizing: "border-box"}}>
+                <div style={{height: "100%", width: "100%"}}>
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        background: "rgb(158, 158, 158)",
+                        color: "rgb(0, 0, 0)",
+                        fontWeight: "500"
+                    }}>
+                        {
+                            this.isConfLoadError ? 'No configurations available' : 'No data available'
+                        }
+                    </div>
+                </div>
+            </div>
             <div id="gadget-message"/>
             <div className="nano-content">
                 <table className="table table-condensed table-responsive" style={table}>

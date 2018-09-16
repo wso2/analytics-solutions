@@ -105,12 +105,11 @@ class EIAnalyticsTPS extends Widget {
                 let timeUnit = this.state.timeUnitParameter.concat("s");
                 // Insert required parameters to the query string
                 dataProviderConf.configs.config.queryData.query = query
-                    .replace("{tenantId}}", TENANT_ID)
+                    .replace("{{tenantId}}", TENANT_ID)
                     .replace("{{timeFrom}}", "\'" + this.state.timeFromParameter + "\'")
                     .replace("{{timeTo}}", "\'" + this.state.timeToParameter + "\'")
                     .replace("{{timeunit}}", "\'" + timeUnit + "\'");
                 // Request datastore with the modified query
-                alert("callCallback");
                 super.getWidgetChannelManager()
                     .subscribeWidget(
                         this.props.id, this.handleStats.bind(this), dataProviderConf
@@ -125,12 +124,10 @@ class EIAnalyticsTPS extends Widget {
         return widgetConfiguration.configs.providerConfig;
     }
 
-
     /**
      * Draw the graph with the data retrieved from the data store
      */
     handleStats(stats) {
-        alert("handleStats");
         if (stats != null && stats.data.length !== 0) {
             // For each data point(Ex: For each API), an array of [total invocations, component name of that data point]
             let dataPointArray = stats.data;
@@ -174,7 +171,6 @@ class EIAnalyticsTPS extends Widget {
                 });
             }
         } else {
-            alert("Data store returned with empty stats for " + this.props.widgetID);
             console.error("Data store returned with empty stats for " + this.props.widgetID);
         }
     }

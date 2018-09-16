@@ -21,37 +21,36 @@ import Widget from '@wso2-dashboards/widget';
 import $ from 'jquery';
 import dagreD3 from 'dagre-d3';
 import * as d3 from 'd3';
-import './custom.css';
 import moment from 'moment';
 import {Scrollbars} from 'react-custom-scrollbars';
 import nanoScrollerSelector from 'nanoscroller';
+import './custom.css';
 
 const TYPE_MEDIATOR = 'mediator';
 const TYPE_SEQUENCE = 'sequence';
 const TYPE_ENDPOINT = 'endpoint';
-const DASHBOARD_NAME = getDashboardName();
 const TYPE_PROXY = "proxy";
 const TYPE_API = "api";
 const TYPE_INBOUND_ENDPOINT = "inbound";
 const TYPE_MESSAGE = "message";
 const DEFAULT_META_TENANT_ID = '-1234';
-
-let BASE_URL = getDashboardBaseUrl();
-
-let MEDIATOR_PAGE_URL = BASE_URL + TYPE_MEDIATOR;
-let SEQUENCE_PAGE_URL = BASE_URL + TYPE_SEQUENCE;
-let ENDPOINT_PAGE_URL = BASE_URL + TYPE_ENDPOINT;
-
+const BASE_URL = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+const MEDIATOR_PAGE_URL = BASE_URL + TYPE_MEDIATOR;
+const SEQUENCE_PAGE_URL = BASE_URL + TYPE_SEQUENCE;
+const ENDPOINT_PAGE_URL = BASE_URL + TYPE_ENDPOINT;
 const centerDiv = {
     textAlign: 'center',
     verticalAlign: 'middle'
 };
-let svgCenter = {
+const svgCenter = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
 };
 
+/**
+ * Dashboard widget class for the EIAnalyticsMessageFlow widget
+ */
 class EIAnalyticsMessageFlow extends Widget {
     constructor(props) {
         super(props);
@@ -61,7 +60,8 @@ class EIAnalyticsMessageFlow extends Widget {
             timeUnit: null,
             selectedComponantID: null,
             meta_tenantId: '-1234',
-            lastDrawnGraphData: null
+            lastDrawnGraphData: null,
+            isConfLoadError: false,
         };
         this.handleRecievedMessage = this.handleMessage.bind(this);
         this.handleAggregateData = this.handleAggregateData.bind(this);
@@ -81,7 +81,7 @@ class EIAnalyticsMessageFlow extends Widget {
         this.handleOnClick = (e) => {
             e.stopPropagation();
             $(".nodeLabel").removeClass('selected');
-            $(this).addClass('selected')
+            $(this).addClass('selected');
             e.preventDefault();
             if (e.currentTarget.getAttribute("data-node-type") === "UNKNOWN") {
                 return;
@@ -89,7 +89,6 @@ class EIAnalyticsMessageFlow extends Widget {
             if (this.getCurrentPage() !== "message") {
                 window.open(e.currentTarget.getAttribute("data-target-url"));
             } else {
-                //let componentId = $(this).data("componentId");
                 super.publish({
                     componentId: e.currentTarget.getAttribute("data-component-id")
                 });
@@ -113,7 +112,7 @@ class EIAnalyticsMessageFlow extends Widget {
             hiddenLineStyle = 'stroke-width: 0px;';
         }
         if (data.length === 0) {
-            $(this.domElementCanvas).html(this.getEmptyRecordsText());
+            $(this.domElementCanvas).html(this.renderEmptyRecordsMessage());
             return;
         }
         let groups = [];
@@ -275,15 +274,16 @@ class EIAnalyticsMessageFlow extends Widget {
      * @param timeTo Time duration end position
      * @param timeUnit Per which time unit, data should be retrieved(minutes, seconds etc)
      * @param entryName Name of the component
-     * @param pageType Page name required for the message flow drawing
+     * @param tenantId Id value for the tenant
      */
     drawEntryPointMessageFlowGraph(timeFrom, timeTo, timeUnit, entryName, tenantId) {
 
-        // Extract latest configEntry data row from the datastore
+        // Extract latest configEntry data row from the data store
         this.setState({
             dataUnavailable: true
         });
-        let callBackFunction = this.handleConfigEntryData(timeUnit, timeFrom, timeTo, tenantId, entryName).bind(this);
+        const callBackFunction = this.handleConfigEntryData(timeUnit, timeFrom, timeTo, tenantId, entryName).bind(this);
+        this.parameters.isConfLoadError = false;
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 let dataProviderConf = message.data;
@@ -300,15 +300,18 @@ class EIAnalyticsMessageFlow extends Widget {
                     callBackFunction,
                     dataProviderConf.configs.providerConfig
                 );
+            })
+            .catch(() => {
+                this.parameters.isConfLoadError = true;
             });
     }
 
     handleConfigEntryData(timeUnit, timeFrom, timeTo, tenantId, entryName) {
         return (configEntryData) => {
-            if (JSON.stringify(configEntryData) !== "{}") {
+            if (configEntryData != null && configEntryData.data.length !== 0) {
                 let hashcodeIndex = configEntryData.metadata.names.indexOf("hashcode");
-
                 let hashcodeData = configEntryData.data[0][hashcodeIndex];
+                this.parameters.isConfLoadError = false;
                 super.getWidgetConfiguration(this.props.widgetID)
                     .then((message) => {
                         let dataProviderConf = message.data;
@@ -325,15 +328,18 @@ class EIAnalyticsMessageFlow extends Widget {
                             (data) => this.handleAggregateData(configEntryData, entryName, data),
                             dataProviderConf.configs.providerConfig
                         );
+                    })
+                    .catch(() => {
+                        this.parameters.isConfLoadError = true;
                     });
             } else {
-                console.error("Data store returned with empty config data for " + this.props.widgetID);
+                console.error("Data store returned with empty configuration data for " + this.props.widgetID);
             }
         }
     }
 
     handleAggregateData(configEntryData, entryName, aggregateData) {
-        if (JSON.stringify(aggregateData) !== "{}") {
+        if (aggregateData != null && aggregateData.data.length !== 0) {
             this.setState({
                 dataUnavailable: false
             });
@@ -341,29 +347,26 @@ class EIAnalyticsMessageFlow extends Widget {
             let configEntryDataTableIndex = {};
             configEntryData.metadata.names.forEach((value, index) => {
                 configEntryDataTableIndex[value] = index;
-            })
-
+            });
             let schema = JSON.parse(configEntryData.data[0][configEntryDataTableIndex["configData"]]);
-
             // Aggregate table and prepare component map
-            var result = [];
-            var componentMap = {};
-            var fields = ["invocations", "totalDuration", "maxDuration", "faults"];
-            var table = aggregateData.data;
+            let result = [];
+            let componentMap = {};
+            let fields = ["invocations", "totalDuration", "maxDuration", "faults"];
+            let table = aggregateData.data;
             if (table != null && table.length !== 0) {
-                for (var j = 0; j < table.length; j++) {
-                    var componentInfo = {};
-
+                for (let j = 0; j < table.length; j++) {
+                    let componentInfo = {};
                     // Replace number based indexing with label names
-                    var row = table[j];
+                    let row = table[j];
                     aggregateData.metadata.names.forEach((value, index) => {
                         componentInfo[value] = row[index];
-                    })
-                    var componentId = componentInfo["componentId"];
+                    });
+                    let componentId = componentInfo["componentId"];
                     if (componentMap[componentId] == null) {
                         componentMap[componentId] = componentInfo;
                     } else {
-                        for (var field in fields) {
+                        for (let field in fields) {
                             fieldName = fields[field];
                             componentMap[componentId][fieldName] = componentMap[componentId][fieldName]
                                 + componentInfo[fieldName];
@@ -371,39 +374,29 @@ class EIAnalyticsMessageFlow extends Widget {
                     }
                 }
             }
-
             // Populate table data
-            var componentNameRegex = new RegExp("^.*@\\d*:(.*)"); // Eg: HealthCareAPI@9:Resource
-            var groups = [];
-            for (var i = 0; i < schema.length; i++) {
-                var groupLabel;
+            let componentNameRegex = new RegExp("^.*@\\d*:(.*)"); // Eg: HealthCareAPI@9:Resource
+            let groups = [];
+            for (let i = 0; i < schema.length; i++) {
                 if (schema[i] != null) {
-                    var groupId = schema[i]["group"];
-                    var componentId = schema[i]["id"];
-
-
-                    /** change component id when @indirect presents **/
-                    var isIndirectComponent = componentId.indexOf("@indirect");
-
-                    var originalCompId = componentId;
-
+                    let componentId = schema[i]["id"];
+                    /* change component id when @indirect presents */
+                    let isIndirectComponent = componentId.indexOf("@indirect");
+                    let originalCompId = componentId;
                     if (isIndirectComponent > 0) {
-
                         // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
-
-                        var splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
-                        var splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
-
+                        let splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
+                        let splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
                         componentId = splitByAt[0] + "@0:" + splitByColon[1];
                         /*
                             If any remaining entries in the schema has same name part'indirect',
                             replace it with the newly generated component id
                          */
-                        for (var j = 0; j < schema.length; j++) {
+                        for (let j = 0; j < schema.length; j++) {
                             if (schema[j] != null) {
-                                var componentIdTmp = schema[j]["id"];
-                                var componentIdParentTmp = schema[j]["parentId"];
-                                var tempGroupId = schema[j]["group"];
+                                let componentIdTmp = schema[j]["id"];
+                                let componentIdParentTmp = schema[j]["parentId"];
+                                let tempGroupId = schema[j]["group"];
                                 if (componentIdTmp === componentId) {
                                     schema[j]["id"] = originalCompId;
                                 } else if (componentIdParentTmp === componentId) {
@@ -415,18 +408,15 @@ class EIAnalyticsMessageFlow extends Widget {
                             }
                         }
                     }
-
-                    var componentInfo = componentMap[componentId];
-                    var dataAttributes = [];
-
+                    let componentInfo = componentMap[componentId];
+                    let dataAttributes = [];
                     // Find unique groups
                     if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) === -1) {
                         groups.push(schema[i]["group"]);
                     }
-
                     // Create data attributes
-                    for (var field in fields) {
-                        var fieldName = fields[field];
+                    for (let field in fields) {
+                        let fieldName = fields[field];
                         if (componentInfo != null) {
                             if (fieldName === "totalDuration") {
                                 dataAttributes.push({ // Get the average values of multiple entries of the same path
@@ -440,23 +430,21 @@ class EIAnalyticsMessageFlow extends Widget {
                             dataAttributes.push({"name": fieldName, "value": 0});
                         }
                     }
-
-                    var componentLabel = componentNameRegex.exec(componentId)[1];
+                    let componentLabel = componentNameRegex.exec(componentId)[1];
+                    let componentType;
                     if (componentInfo != null) {
-                        var componentType = componentInfo["componentType"];
+                        componentType = componentInfo["componentType"];
                     } else {
                         componentType = "UNKNOWN";
                     }
-
                     // Create hidden attributes
-                    var hiddenAttributes = [];
+                    let hiddenAttributes = [];
                     hiddenAttributes.push({"name": "entryPoint", "value": entryName.slice(1, -1)});
                     if (componentType === "Endpoint" || componentType === "Sequence") {
                         hiddenAttributes.push({"name": "id", "value": componentLabel});
                     } else {
                         hiddenAttributes.push({"name": "id", "value": componentId});
                     }
-
                     if (schema[i]["parentId"] === schema[i]["group"]) {
                         result.push({
                             "id": originalCompId,
@@ -483,12 +471,11 @@ class EIAnalyticsMessageFlow extends Widget {
                 }
             }
             // Defining groups
-            for (var j = 0; j < result.length; j++) {
+            for (let j = 0; j < result.length; j++) {
                 if (groups.indexOf(result[j]["id"]) >= 0) {
                     result[j]["type"] = "group";
                 }
             }
-
             // Draw message flow with the processed data
             this.drawMessageFlow($, result);
         } else {
@@ -506,8 +493,8 @@ class EIAnalyticsMessageFlow extends Widget {
         this.setState({
             dataUnavailable: true
         });
-
         // Set message flow id and make db call
+        this.parameters.isConfLoadError = false;
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 let dataProviderConf = message.data;
@@ -524,8 +511,8 @@ class EIAnalyticsMessageFlow extends Widget {
                         dataProviderConf.configs.providerConfig
                     );
             })
-            .catch((error) => {
-                console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
+            .catch(() => {
+                this.parameters.isConfLoadError = true;
             });
     }
 
@@ -534,21 +521,20 @@ class EIAnalyticsMessageFlow extends Widget {
      */
     handleMessageFlowComponentsData(tenantId) {
         return (components) => {
-            if (JSON.stringify(components) !== "{}") {
+            if (components != null && components.data.length !== 0) {
                 let parsedComponents = this.parseDatastoreMessage(components);
-                var entryPointHashCode = parsedComponents[0].entryPointHashcode;
-                var entryPoint = parsedComponents[0].entryPoint;
-
-                // Set query for schema and call datastore for data
+                let entryPointHashCode = parsedComponents[0].entryPointHashcode;
+                let entryPoint = parsedComponents[0].entryPoint;
+                // Set query for schema and call data store for data
+                this.parameters.isConfLoadError = false;
                 super.getWidgetConfiguration(this.props.widgetID)
                     .then((message) => {
                         let dataProviderConf = message.data;
-                        var query = dataProviderConf.configs.providerConfig.configs.config.queryData
+                        let query = dataProviderConf.configs.providerConfig.configs.config.queryData
                             .MESSAGE_FLOW_QUERY_GET_FLOW_SCHEMA;
-                        let formattedQuery = query
+                        dataProviderConf.configs.providerConfig.configs.config.queryData.query = query
                             .replace("{{hashcode}}", "\'" + entryPointHashCode + "\'")
                             .replace("{{meta_tenantId}}", tenantId);
-                        dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
                         let formattedProviderConfig = dataProviderConf.configs.providerConfig;
                         super.getWidgetChannelManager()
                             .subscribeWidget(
@@ -558,7 +544,7 @@ class EIAnalyticsMessageFlow extends Widget {
                             );
                     })
                     .catch(() => {
-                        console.error("Unable to load widget configurations");
+                        this.parameters.isConfLoadError = true;
                     });
 
             } else {
@@ -572,28 +558,26 @@ class EIAnalyticsMessageFlow extends Widget {
      */
     handleMessageFlowSchema(parsedComponents, entryPoint, tenantId) {
         return (flowSchema) => {
-            if (JSON.stringify(flowSchema) !== "{}") {
+            if (flowSchema != null && flowSchema.data.length !== 0) {
                 let parsedFlowScheme = this.parseDatastoreMessage(flowSchema);
                 let sequenceComponentsQuery = "("; // Query for Components which are sequences
                 parsedComponents.forEach((value) => {
                     if (value.componentType === "Sequence") {
                         sequenceComponentsQuery += ("hashcode=='" + value.hashCode + "' OR ");
                     }
-                })
-
+                });
                 // If sequences exists
                 if (sequenceComponentsQuery.length > 0) {
                     sequenceComponentsQuery += "false) "; // To fix final 'OR' in the query
-
+                    this.parameters.isConfLoadError = false;
                     super.getWidgetConfiguration(this.props.widgetID)
                         .then((message) => {
                             let dataProviderConf = message.data;
-                            var query = dataProviderConf.configs.providerConfig.configs.config.queryData
+                            let query = dataProviderConf.configs.providerConfig.configs.config.queryData
                                 .MESSAGE_FLOW_QUERY_GET_COMPONENT_SCHEMA;
-                            let formattedQuery = query
+                            dataProviderConf.configs.providerConfig.configs.config.queryData.query = query
                                 .replace("{{sequences}}", sequenceComponentsQuery)
                                 .replace("{{meta_tenantId}}", tenantId);
-                            dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
                             super.getWidgetChannelManager()
                                 .subscribeWidget(
                                     this.props.id,
@@ -602,7 +586,7 @@ class EIAnalyticsMessageFlow extends Widget {
                                 );
                         })
                         .catch(() => {
-                            console.error("Unable to load widget configurations");
+                            this.parameters.isConfLoadError = true;
                         });
                 }
                 else {
@@ -619,14 +603,13 @@ class EIAnalyticsMessageFlow extends Widget {
      * Parse message flow schemas for sequence components and replace sequences with proper schemas
      * to build the message flow data. Then call graph draw function
      *
-     * @param parsedComponents
-     * @param entryPoint
-     * @param parsedFlowScheme
-     * @returns {Function}
+     * @param parsedComponents Components for the message flow id
+     * @param entryPoint Message flow entry point
+     * @param flowScheme Flow scheme for the message id
      */
     handleMessageFlowComponentSchemas(parsedComponents, entryPoint, flowScheme) {
         return (sequenceComponents) => {
-            if (JSON.stringify(sequenceComponents) === "{}")
+            if (sequenceComponents == null || sequenceComponents.data.length === 0)
                 sequenceComponents = "";
             this.setState({
                 dataUnavailable: false
@@ -637,7 +620,6 @@ class EIAnalyticsMessageFlow extends Widget {
             if (sequenceComponents !== "") {
                 parsedSequenceComponents = this.parseDatastoreMessage(sequenceComponents);
             }
-
             parsedComponents.forEach((component) => {
                 if (component.componentType === "Sequence") {
                     // Find this sequence config data from the sequence components
@@ -646,103 +628,91 @@ class EIAnalyticsMessageFlow extends Widget {
                             // For each element in the sequence scheme, push it to the parsed flow scheme
                             sequence.configData.forEach((eachScheme) => {
                                 parsedFlowScheme.push(eachScheme);
-                            })
+                            });
                             break;
                         }
                     }
                 }
                 componentMap[component.componentId] = component;
             });
-
             let result = [];
             let tmpResult = [];
             // Generate final flow with the extracted data...
-            var removedComponents = [];
+            let removedComponents = [];
             // Populate table data
-            var componentNameRegex = new RegExp("^.*@\\d*:(.*)");
-            var groups = [];
-            var compIds = [];
+            let componentNameRegex = new RegExp("^.*@\\d*:(.*)");
+            let groups = [];
+            let compIds = [];
             let schema = parsedFlowScheme;
-            for (var i = 0; i < schema.length; i++) {
-                var groupLabel;
+            for (let i = 0; i < schema.length; i++) {
                 if (schema[i] != null) {
-                    var groupId = schema[i]["group"];
-                    var componentId = schema[i]["id"];
-
-                    var isIndirectComponent = componentId.indexOf("@indirect");
-                    var originalCompId = componentId;
+                    let componentId = schema[i]["id"];
+                    let isIndirectComponent = componentId.indexOf("@indirect");
+                    let originalCompId = componentId;
                     if (isIndirectComponent > 0) {
                         // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
-                        var splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
-                        var splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
+                        let splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
+                        let splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
                         componentId = splitByAt[0] + "@0:" + splitByColon[1];
-                        for (var j = 0; j < schema.length; j++) {
+                        for (let j = 0; j < schema.length; j++) {
                             if (schema[j] != null) {
-                                var componentIdTmp = schema[j]["id"];
-                                var componentIdParentTmp = schema[j]["parentId"];
-                                var tempGroupId = schema[j]["group"];
-                                if (componentIdTmp == componentId) {
+                                let componentIdTmp = schema[j]["id"];
+                                let componentIdParentTmp = schema[j]["parentId"];
+                                let tempGroupId = schema[j]["group"];
+                                if (componentIdTmp === componentId) {
                                     schema[j]["id"] = originalCompId;
                                 }
-                                if (componentIdParentTmp == componentId) {
+                                if (componentIdParentTmp === componentId) {
                                     schema[j]["parentId"] = originalCompId;
                                 }
-                                if (tempGroupId == componentId) {
+                                if (tempGroupId === componentId) {
                                     schema[j]["group"] = originalCompId;
                                 }
                             }
                         }
                     }
-
-                    var componentInfo = null;
+                    let componentInfo = null;
                     if (componentId != null) {
                         componentInfo = componentMap[componentId];
                     }
-                    var dataAttributes = [];
-                    var hiddenAttributes = [];
-                    var componentLabel = componentNameRegex.exec(componentId)[1];
-
+                    let dataAttributes = [];
+                    let hiddenAttributes = [];
+                    let componentLabel = componentNameRegex.exec(componentId)[1];
                     // Find unique groups
-                    if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) == -1) {
+                    if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) === -1) {
                         groups.push(schema[i]["group"]);
                     }
-
-
                     // Create data attributes
                     if (componentInfo != null) {
                         dataAttributes.push({"name": "Duration", "value": componentInfo["duration"]});
-                        if (componentInfo["faultCount"] == 0) {
+                        if (componentInfo["faultCount"] === 0) {
                             dataAttributes.push({"name": "Status", "value": "Success"});
                         } else {
                             dataAttributes.push({"name": "Status", "value": "Failed"});
                         }
-                        var componentType = componentInfo["componentType"];
-                        var hashCode = componentInfo["hashCode"];
-
+                        let componentType = componentInfo["componentType"];
+                        let hashCode = componentInfo["hashCode"];
                         hiddenAttributes.push({"name": "entryPoint", "value": entryPoint});
                         hiddenAttributes.push({"name": "hashCode", "value": hashCode});
-
                         // for Sequences and Endpoints, id should be the "name", since name is used for drill down searches
-                        if (componentType == "Endpoint" || componentType == "Sequence") {
+                        if (componentType === "Endpoint" || componentType === "Sequence") {
                             hiddenAttributes.push({"name": "id", "value": componentLabel});
                         } else {
                             hiddenAttributes.push({"name": "id", "value": componentId});
                         }
-
-                        var compId = schema[i]["id"];
-                        var parentId = schema[i]["parentId"];
+                        let compId = schema[i]["id"];
+                        let parentId = schema[i]["parentId"];
                         if (compIds.indexOf(compId) < 0) {
                             compIds.push(compId);
                         }
                         if (parentId != null && (compIds.indexOf(parentId) < 0)) {
-                            var matchingParentId;
-
+                            let matchingParentId;
                             // This logic traverse towards the root of the configuration tree from
                             // the current node, until it finds the parent of the node or any ancestor node
                             // exists within the message flow. If any node found, it assigns the node as
                             // its parent.  This link is used to draw the message flow.
-                            for (var j = 1; j < schema.length; j++) {
-                                if (compIds.indexOf(schema[i - j]["parentId"]) != -1) {
+                            for (let j = 1; j < schema.length; j++) {
+                                if (compIds.indexOf(schema[i - j]["parentId"]) !== -1) {
                                     matchingParentId = schema[i - j]["parentId"];
                                     break;
                                 }
@@ -757,7 +727,7 @@ class EIAnalyticsMessageFlow extends Widget {
                                 "hiddenAttributes": hiddenAttributes,
                                 "modifiedId": componentId
                             });
-                        } else if (schema[i]["parentId"] == schema[i]["group"]) {
+                        } else if (schema[i]["parentId"] === schema[i]["group"]) {
                             tmpResult.push({
                                 "id": originalCompId,
                                 "label": componentLabel,
@@ -786,23 +756,19 @@ class EIAnalyticsMessageFlow extends Widget {
                 }
             }
             compIds = null;
-
             // Cleanup
-            for (var k = 0; k < tmpResult.length; k++) {
-                var group = tmpResult[k]["group"];
-                var parentId = tmpResult[k]["parents"];
-                if (removedComponents.indexOf(group) == -1 && removedComponents.indexOf(parentId[0]) == -1) {
+            for (let k = 0; k < tmpResult.length; k++) {
+                let group = tmpResult[k]["group"];
+                let parentId = tmpResult[k]["parents"];
+                if (removedComponents.indexOf(group) === -1 && removedComponents.indexOf(parentId[0]) === -1) {
                     result.push(tmpResult[k]);
                 }
             }
-
-
-            for (var j = 0; j < result.length; j++) {
+            for (let j = 0; j < result.length; j++) {
                 if (groups.indexOf(result[j]["id"]) >= 0) {
                     result[j]["type"] = "group";
                 }
             }
-
             // Draw graph
             this.drawMessageFlow($, result);
         }
@@ -815,15 +781,15 @@ class EIAnalyticsMessageFlow extends Widget {
      * @param timeTo Time duration end position
      * @param timeUnit Per which time unit, data should be retrieved(minutes, seconds etc)
      * @param entryName Name of the component
-     * @param pageType Page name required for the message flow drawing
+     * @param tenantId Id of the tenant
      */
     drawSequenceMessageFlowGraph(timeFrom, timeTo, timeUnit, entryName, tenantId) {
-
         // Extract latest configEntry data row from the datastore
         this.setState({
             dataUnavailable: true
         });
-        let handleConfigData = this.handleSequenceMessageFlowSchema(timeUnit, timeFrom, timeTo, tenantId, entryName).bind(this);
+        let handleConfigData = this.handleSequenceMessageFlowSchema(timeUnit, timeFrom, timeTo, tenantId).bind(this);
+        this.parameters.isConfLoadError = false;
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 let dataProviderConf = message.data;
@@ -840,18 +806,19 @@ class EIAnalyticsMessageFlow extends Widget {
                     handleConfigData,
                     dataProviderConf.configs.providerConfig
                 );
+            })
+            .catch(() => {
+                this.parameters.isConfLoadError = true;
             });
     }
 
-    handleSequenceMessageFlowSchema(timeUnit, timeFrom, timeTo, tenantId, entryName) {
+    handleSequenceMessageFlowSchema(timeUnit, timeFrom, timeTo, tenantId) {
         return (schemaData) => {
-            if (JSON.stringify(schemaData) !== "{}") {
+            if (schemaData != null && schemaData.data.length !== 0) {
                 let parsedSchemaData = this.parseDatastoreMessage(schemaData)[0]; // Get latest schema data
-
                 let artifactFirstEntryTime = moment(parsedSchemaData._timestamp).format("YYYY-MM-DD HH:mm:ss");
                 let schema = JSON.parse(parsedSchemaData.configData);
                 let componentIdQuery = "(";
-
                 for (let j = 0; j < schema.length; j++) {
                     if (schema[j] != null) {
                         let componentId = schema[j]["id"];
@@ -874,7 +841,7 @@ class EIAnalyticsMessageFlow extends Widget {
                 else {
                     dataFetchTime = "\'" + artifactFirstEntryTime + "\'";
                 }
-
+                this.parameters.isConfLoadError = false;
                 super.getWidgetConfiguration(this.props.widgetID)
                     .then((message) => {
                         let dataProviderConf = message.data;
@@ -887,15 +854,14 @@ class EIAnalyticsMessageFlow extends Widget {
                             .replace("{{timeTo}}", timeTo)
                             .replace("{{timeFrom}}", dataFetchTime);
                         dataProviderConf.configs.providerConfig.configs.config.queryData = {query: formattedQuery};
-
                         super.getWidgetChannelManager().subscribeWidget(
                             this.props.id,
                             this.handleSequenceMessageFlowAggregateData(schema).bind(this),
                             dataProviderConf.configs.providerConfig
                         );
                     })
-                    .catch((error) => {
-                        console.error("Unable to load widget configurations");
+                    .catch(() => {
+                        this.parameters.isConfLoadError = true;
                     });
             } else {
                 console.error("Data store returned with empty message flow schema for " + this.props.widgetID);
@@ -910,7 +876,7 @@ class EIAnalyticsMessageFlow extends Widget {
      */
     handleSequenceMessageFlowAggregateData(schema) {
         return (aggregatedData) => {
-            if (JSON.stringify(aggregatedData) !== "{}") {
+            if (aggregatedData != null && aggregatedData.data.length !== 0) {
                 this.setState({
                     dataUnavailable: false
                 });
@@ -921,51 +887,45 @@ class EIAnalyticsMessageFlow extends Widget {
                 });
                 let fields = ["invocations", "totalDuration", "maxDuration", "faults"];
                 let result = [];
-                // Populate tabel data
+                // Populate table data
                 let componentNameRegex = new RegExp("^.*@\\d*:(.*)");
                 let groups = [];
                 for (let i = 0; i < schema.length; i++) {
-                    let groupLabel;
-                    let groupId = schema[i]["group"];
                     let componentId = schema[i]["id"];
-
                     let isIndirectComponent = componentId.indexOf("@indirect");
                     let originalCompId = componentId;
                     if (isIndirectComponent > 0) {
                         // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
-                        var splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
-                        var splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
+                        let splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
+                        let splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
                         componentId = splitByAt[0] + "@0:" + splitByColon[1];
-                        for (var j = 0; j < schema.length; j++) {
+                        for (let j = 0; j < schema.length; j++) {
                             if (schema[j] != null) {
-                                var componentIdTmp = schema[j]["id"];
-                                var componentIdParentTmp = schema[j]["parentId"];
-                                var tempGroupId = schema[j]["group"];
-                                if (componentIdTmp == componentId) {
+                                let componentIdTmp = schema[j]["id"];
+                                let componentIdParentTmp = schema[j]["parentId"];
+                                let tempGroupId = schema[j]["group"];
+                                if (componentIdTmp === componentId) {
                                     schema[j]["id"] = originalCompId;
-                                } else if (componentIdParentTmp == componentId) {
+                                } else if (componentIdParentTmp === componentId) {
                                     schema[j]["parentId"] = originalCompId;
                                 }
-                                if (tempGroupId == componentId) {
+                                if (tempGroupId === componentId) {
                                     schema[j]["group"] = originalCompId;
                                 }
                             }
                         }
                     }
-
-                    var componentInfo = componentMap[componentId];
-                    var dataAttributes = [];
-
+                    let componentInfo = componentMap[componentId];
+                    let dataAttributes = [];
                     // Find unique groups
-                    if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) == -1) {
+                    if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) === -1) {
                         groups.push(schema[i]["group"]);
                     }
-
                     // Create data attributes
                     for (let field in fields) {
-                        var fieldName = fields[field];
+                        let fieldName = fields[field];
                         if (componentInfo != null) {
-                            if (fieldName == "TotalDuration") {
+                            if (fieldName === "TotalDuration") {
                                 dataAttributes.push({
                                     "name": "AvgDuration",
                                     "value": (componentInfo[fieldName] / componentInfo["Invocations"]).toFixed(2)
@@ -977,27 +937,24 @@ class EIAnalyticsMessageFlow extends Widget {
                             dataAttributes.push({"name": fieldName, "value": 0});
                         }
                     }
-
-                    var componentLabel = componentNameRegex.exec(componentId)[1];
+                    let componentLabel = componentNameRegex.exec(componentId)[1];
                     let componentType;
                     if (componentInfo != null) {
                         componentType = componentInfo["componentType"];
                     } else {
                         componentType = "UNKNOWN";
                     }
-
                     // Create hidden attributes
-                    var hiddenAttributes = [];
+                    let hiddenAttributes = [];
                     if (componentInfo != null) {
                         hiddenAttributes.push({"name": "entryPoint", "value": componentInfo["entryPoint"]});
                     }
-                    if (componentType == "Endpoint" || componentType == "Sequence") {
+                    if (componentType === "Endpoint" || componentType === "Sequence") {
                         hiddenAttributes.push({"name": "id", "value": componentLabel});
                     } else {
                         hiddenAttributes.push({"name": "id", "value": componentId});
                     }
-
-                    if (schema[i]["parentId"] == schema[i]["group"]) {
+                    if (schema[i]["parentId"] === schema[i]["group"]) {
                         result.push({
                             "id": originalCompId,
                             "label": componentLabel,
@@ -1022,12 +979,11 @@ class EIAnalyticsMessageFlow extends Widget {
                     }
                 }
                 // Defining groups
-                for (var j = 0; j < result.length; j++) {
+                for (let j = 0; j < result.length; j++) {
                     if (groups.indexOf(result[j]["id"]) >= 0) {
                         result[j]["type"] = "group";
                     }
                 }
-
                 this.drawMessageFlow($, result);
             } else {
                 console.error("Data store returned with empty aggregation data for " + this.props.widgetID);
@@ -1038,13 +994,11 @@ class EIAnalyticsMessageFlow extends Widget {
     /**
      * Parse received data from the data store to a JS object
      */
-    parseDatastoreMessage(recievedData) {
+    parseDatastoreMessage(receivedData) {
         let parsedArray = [];
         let dataMapper = {};
-
-        let dataArray = recievedData.data;
-        let metaData = recievedData.metadata.names;
-
+        let dataArray = receivedData.data;
+        let metaData = receivedData.metadata.names;
         metaData.forEach((value, index) => {
             dataMapper[index] = value;
         });
@@ -1054,33 +1008,28 @@ class EIAnalyticsMessageFlow extends Widget {
                 parsedObject[dataMapper[index]] = value;
             });
             parsedArray.push(parsedObject);
-        })
-
+        });
         return parsedArray;
     }
 
     detectIE() {
-        var ua = window.navigator.userAgent;
-
-        var msie = ua.indexOf('MSIE ');
+        let ua = window.navigator.userAgent;
+        let msie = ua.indexOf('MSIE ');
         if (msie > 0) {
             // IE 10 or older => return version number
             return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
         }
-
-        var trident = ua.indexOf('Trident/');
+        let trident = ua.indexOf('Trident/');
         if (trident > 0) {
             // IE 11 => return version number
-            var rv = ua.indexOf('rv:');
+            let rv = ua.indexOf('rv:');
             return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
         }
-
-        var edge = ua.indexOf('Edge/');
+        let edge = ua.indexOf('Edge/');
         if (edge > 0) {
             // Edge (IE 12+) => return version number
             return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
         }
-
         // other browser
         return false;
     }
@@ -1105,29 +1054,24 @@ class EIAnalyticsMessageFlow extends Widget {
         }
         let targetUrl = pageUrl + encodeURI('#' + JSON.stringify(hashComponent));
         let labelText;
-
         if (node.dataAttributes) {
             let nodeClasses = "nodeLabel";
-            let nodeWrapClasses = "nodeLabelWrap"
+            let nodeWrapClasses = "nodeLabelWrap";
 
             if (node.dataAttributes[1].value === "Failed") {
                 nodeClasses += " failed-node";
                 nodeWrapClasses += " failed-node";
-
             }
             let icon;
             if (node.type.toLowerCase() === 'mediator') {
-
                 let mediatorName = node.label.split(':')[0].toLowerCase();
-
                 let imgURL = '/portal/public/app/images/mediators/' + mediatorName + '.svg';
                 let defaultImgURL = '/portal/public/app/images/mediators/mediator.svg';
-
                 $.ajax({
                     url: imgURL,
                     async: false,
                     success: function (data) {
-                        var $svg = $(data).find('svg');
+                        let $svg = $(data).find('svg');
                         $svg = $svg.removeAttr('xmlns:a');
                         if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
                             $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
@@ -1135,12 +1079,12 @@ class EIAnalyticsMessageFlow extends Widget {
 
                         icon = $svg.get(0).outerHTML;
                     },
-                    error: function (data) {
+                    error: function () {
                         $.ajax({
                             url: defaultImgURL,
                             async: false,
                             success: function (data) {
-                                var $svg = $(data).find('svg');
+                                let $svg = $(data).find('svg');
                                 $svg = $svg.removeAttr('xmlns:a');
                                 if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
                                     $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
@@ -1153,18 +1097,15 @@ class EIAnalyticsMessageFlow extends Widget {
                     },
                     dataType: 'xml'
                 });
-
                 //icon = '<img class="mediator-icon" src="' + imgURL + '" onerror="this.src="' + defaultImgURL + '">';
             } else if (node.type.toLowerCase() === 'endpoint') {
                 icon = '<i class="icon endpoint-icon fw fw-endpoint"></i>';
             } else {
                 icon = '';
             }
-
             labelText = '<a href="#" class="' + nodeWrapClasses + '">' + icon + '<div class="' + nodeClasses + '" data-node-type="' + node.type + '" data-component-id="' + node.modifiedId
                 + '" data-hash-code="' + hashCode + '" data-target-url="' + targetUrl + '"><h4>' + node.label + "</h4>";
-
-            node.dataAttributes.forEach(function (item, i) {
+            node.dataAttributes.forEach(function (item) {
                 labelText += "<h5><label>" + item.name + " : </label><span>" + item.value + "</span></h5>";
             });
         }
@@ -1175,7 +1116,7 @@ class EIAnalyticsMessageFlow extends Widget {
     interpolateZoom(translate, scale, svg, zoom) {
         //var self = this;
         return d3.transition().duration(350).tween("zoom", function () {
-            var iTranslate = d3.interpolate(zoom.translate(), translate),
+            let iTranslate = d3.interpolate(zoom.translate(), translate),
                 iScale = d3.interpolate(zoom.scale(), scale);
             return function (t) {
                 zoom.scale(iScale(t)).translate(iTranslate(t));
@@ -1185,7 +1126,7 @@ class EIAnalyticsMessageFlow extends Widget {
     }
 
     isParent(searchNodes, id) {
-        for (var x = 0; x < searchNodes.length; x++) {
+        for (let x = 0; x < searchNodes.length; x++) {
             if (searchNodes[x].parent === id) {
                 return true;
             }
@@ -1193,14 +1134,25 @@ class EIAnalyticsMessageFlow extends Widget {
         return false;
     }
 
-    getEmptyRecordsText() {
-        return '<div class="status-message">' +
-            '<div class="message message-info">' +
-            '<h4><i class="icon fw fw-info"></i>No records found</h4>' +
-            '<p>Please select a valid date range to view stats.</p>' +
-            '</div>' +
-            '</div>';
-    };
+    renderEmptyRecordsMessage() {
+        return (
+            <div style={{margin: "10px", boxSizing: "border-box"}}>
+                <div style={{height: "100%", width: "100%"}}>
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        background: "rgb(158, 158, 158)",
+                        color: "rgb(0, 0, 0)",
+                        fontWeight: "500"
+                    }}>
+                        {
+                            this.parameters.isConfLoadError ? 'No configurations available' : 'No data available'
+                        }
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     componentWillMount() {
         super.subscribe(this.handleRecievedMessage);
@@ -1219,30 +1171,25 @@ class EIAnalyticsMessageFlow extends Widget {
 
     handleMessage(recievedMessage) {
         let message;
-        if (typeof recievedMessage == "string") {
+        if (typeof recievedMessage === "string") {
             message = JSON.parse(recievedMessage);
         }
         else {
             message = recievedMessage;
         }
-
         if ("granularity" in message) {
             this.parameters.timeFrom = '\'' + moment(message.from).format("YYYY-MM-DD HH:mm:ss") + '\'';
             this.parameters.timeTo = '\'' + moment(message.to).format("YYYY-MM-DD HH:mm:ss") + '\'';
             this.parameters.timeUnit = '\'' + message.granularity + 's' + '\'';
         }
-
         if ("selectedComponent" in message) {
             this.parameters.selectedComponantID = '\'' + message.selectedComponent + '\'';
         }
-
         $(this.domElementSvg).empty();
-
         if (this.parameters.timeFrom != null
             && this.parameters.timeTo != null
             && this.parameters.timeUnit != null
             && this.parameters.selectedComponantID != null) {
-
             switch (this.getCurrentPage()) {
                 case TYPE_API:
                 case TYPE_PROXY:
@@ -1262,7 +1209,7 @@ class EIAnalyticsMessageFlow extends Widget {
                         this.parameters.timeUnit,
                         this.parameters.selectedComponantID,
                         this.parameters.meta_tenantId
-                    )
+                    );
                     break;
             }
         }
@@ -1274,23 +1221,17 @@ class EIAnalyticsMessageFlow extends Widget {
         switch (pageName) {
             case 'api':
                 return 'Please select an API and a valid date range to view stats.';
-                break;
             case 'proxy':
                 return 'Please select a Proxy Service and a valid date range to view stats.';
-                break;
             case 'sequence':
                 return 'Please select a Sequence and a valid date range to view stats.';
-                break;
             case 'endpoint':
                 return 'Please select an Endpoint and a valid date range to view stats.';
-                break;
             case 'inboundEndpoint':
                 return 'Please select an Inbound Endpoint and a valid date range to view stats.';
-                break;
             default:
                 return 'Please select a valid date range to view stats';
         }
-        ;
     }
 
     getCurrentPage() {
@@ -1319,14 +1260,7 @@ class EIAnalyticsMessageFlow extends Widget {
                             </div>
                             <div id="canvas" ref={input => (this.domElementCanvas = input)}>
                                 {
-                                    this.state.dataUnavailable === true ?
-                                        (<div class="status-message">
-                                            <div class="message message-info">
-                                                <h4 style={centerDiv}>
-                                                    <i class="icon fw fw-info"></i> No records found</h4>
-                                                <p style={centerDiv}>{this.noParameters()}</p>
-                                            </div>
-                                        </div>) : null
+                                    this.state.dataUnavailable === true ? this.renderEmptyRecordsMessage() : null
                                 }
                             </div>
                             <div style={svgCenter}>
@@ -1339,31 +1273,6 @@ class EIAnalyticsMessageFlow extends Widget {
             </Scrollbars>
         );
     }
-}
-
-function getDashboardBaseUrl() {
-    var currentUrl = window.parent.location.href;
-    var BaseUrlRegex = new RegExp(".*?(portal.*dashboards)");
-    var tenantBaseUrl = BaseUrlRegex.exec(currentUrl)[1];
-    return "/" + tenantBaseUrl + "/" + DASHBOARD_NAME + "/";
-}
-
-function getQueryString() {
-    var queryStringKeyValue = window.location.search.replace('?', '').split('&');
-    var qsJsonObject = {};
-    if (queryStringKeyValue != '') {
-        for (let i = 0; i < queryStringKeyValue.length; i++) {
-            qsJsonObject[queryStringKeyValue[i].split('=')[0]] = queryStringKeyValue[i].split('=')[1];
-        }
-    }
-    return qsJsonObject;
-}
-
-function getDashboardName() {
-    let currentUrl = window.location.href;
-    let baseUrl = (currentUrl.split("?"))[0];
-    let splittedBaseUrl = baseUrl.split("/");
-    return splittedBaseUrl[splittedBaseUrl.length - 2];
 }
 
 function getKey(pageName, parameter) {
