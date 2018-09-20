@@ -304,6 +304,7 @@ class IsAnalyticsAttemptsByType extends Widget {
                 if (Object.hasOwnProperty.call(additionalFilterConditionsClone, key)) {
                     if (additionalFilterConditionsClone[key] !== '') {
                         if (key === 'role') {
+                            aggregationName = 'RoleAggregation';
                             if (this.state.options.xAxis === 'Role') {
                                 additionalFilters = additionalFilters
                                     + ' and ' + key + '== \'' + additionalFilterConditionsClone[key] + '\'';

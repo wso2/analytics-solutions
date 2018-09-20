@@ -242,7 +242,7 @@ const columnsFederated = [
     },
 ];
 
-function getStyle (state, rowInfo) {
+function getStyle(state, rowInfo) {
     if (rowInfo && rowInfo.row.authSuccess === 'Success') {
         return colorGreen;
     } else if (rowInfo && rowInfo.row.authSuccess === 'Failure') {
@@ -360,14 +360,9 @@ class IsAnalyticsMessages extends Widget {
             .unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
         let updatedQuery = dataProviderConfigs.configs.config.queryData.query;
-        let filterCondition = ' on timestamp > {{from}}L and timestamp < {{to}}L ';
+        let filterCondition = ' on ';
         let additionalFilters = '';
         let doAdditionalFilter = false;
-
-        filterCondition = filterCondition
-            .replace('{{per}}', this.state.per)
-            .replace('{{from}}', this.state.fromDate)
-            .replace('{{to}}', this.state.toDate);
 
         if (this.state.options.widgetType === 'Local') {
             updatedQuery = dataProviderConfigs.configs.config.queryData.queryLocal;
@@ -399,8 +394,16 @@ class IsAnalyticsMessages extends Widget {
         }
 
         if (doAdditionalFilter) {
+            additionalFilters = additionalFilters.replace(' and ', ' ');
             filterCondition += additionalFilters;
+            filterCondition += ' and timestamp > {{from}}L and timestamp < {{to}}L ';
+        } else {
+            filterCondition += ' timestamp > {{from}}L and timestamp < {{to}}L ';
         }
+        filterCondition = filterCondition
+            .replace('{{per}}', this.state.per)
+            .replace('{{from}}', this.state.fromDate)
+            .replace('{{to}}', this.state.toDate);
 
         updatedQuery = updatedQuery.replace('{{filterCondition}}', filterCondition);
         dataProviderConfigs.configs.config.queryData.query = updatedQuery;

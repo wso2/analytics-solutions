@@ -28,7 +28,7 @@ class EIAnalyticsTPS extends Widget {
         super(props);
         var config = {
             "x": 'Time',
-            "charts": [{type: "bar", y: "EIAnalyticsTPS"}],
+            "charts": [{type: "bar", y: "TPS"}],
             "maxLength": 10,
             "width": 400,
             "height": 200,
@@ -42,7 +42,7 @@ class EIAnalyticsTPS extends Widget {
         let metadata = {
             "names": [
                 "Time",
-                "EIAnalyticsTPS"
+                "TPS"
             ],
             "types": [
                 "time",

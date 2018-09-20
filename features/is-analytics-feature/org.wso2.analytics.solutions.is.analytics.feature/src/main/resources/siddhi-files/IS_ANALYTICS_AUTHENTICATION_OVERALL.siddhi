@@ -53,9 +53,8 @@ define trigger TablePurgingTriggerStream at '0 0 23 * * ?';
 -- TABLE DEFINITIONS
 
 -- Overall Authentication Table
-@store(type='rdbms', datasource='IS_ANALYTICS_DB')
-@primaryKey('meta_tenantId', 'contextId', 'eventId', 'eventType')
-@index('meta_tenantId', 'username', 'identityProviderType', 'identityProvider', 'userStoreDomain', 'serviceProvider', 'region', 'timestamp')
+@store(type='rdbms', datasource='IS_ANALYTICS_DB', 'field.length=serviceProvider:100, identityProvider:100, userStoreDomain:50, region:45')
+@primaryKey('meta_tenantId', 'eventId', 'eventType')
 define table OverallAuthTable (
     meta_tenantId int,
     contextId string,
