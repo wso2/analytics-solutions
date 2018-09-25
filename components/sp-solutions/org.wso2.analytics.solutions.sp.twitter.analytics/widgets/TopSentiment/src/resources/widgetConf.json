@@ -3,18 +3,21 @@
   "id": "TopSentiment",
   "thumbnailURL": "",
   "configs": {
-    "providerConfig": {
+    "providerConfig":  {
       "configs": {
-        "type": "RDBMSBatchDataProvider",
+        "type": "RDBMSStreamingDataProvider",
         "config": {
           "datasourceName": "Twitter_Analytics",
           "queryData": {
-            "query": "select TweetID, value from sentiment where PARSEDATETIME(timestamp, 'yyyy-mm-dd hh:mm:ss','en') > CURRENT_TIMESTAMP()-3600"
+            "query": "select * from(select id, tweetid, value, type, SET(@num, IFNULL(CASE WHEN @type = type THEN @num + 1 ELSE 1 END, 0) ) as row_num, @type :=type as some_id from (select * from sentiment where PARSEDATETIME(timestamp, 'yyyy-mm-dd hh:mm:ss','en') > CURRENT_TIMESTAMP()-3600 order by type, id desc, abs(value) desc)) where row_num <= 10"
           },
           "tableName": "sentiment",
-          "incrementalColumn": "TweetID",
-          "publishingInterval": 60,
-          "publishingLimit": 60
+          "incrementalColumn": "id",
+          "publishingInterval": 5,
+          "publishingLimit": 30,
+          "purgingInterval": 6,
+          "purgingLimit": 6,
+          "isPurgingEnable": false
         }
       }
     }
