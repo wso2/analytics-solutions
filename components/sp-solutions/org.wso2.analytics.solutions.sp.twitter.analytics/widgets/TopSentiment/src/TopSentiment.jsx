@@ -41,8 +41,8 @@ class TopSentiment extends Widget {
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this._handleDataReceived = this._handleDataReceived.bind(this);
-        this.sortTweetDescOrderOfValue = this.sortTweetDescOrderOfValue.bind(this);
-        this.addTweetInDescOrder = this.addTweetInDescOrder.bind(this);
+        this.sortTweetDescOrderOfSentimentValue = this.sortTweetDescOrderOfSentimentValue.bind(this);
+        this.sortTweetDescOrderOfTimestamp = this.sortTweetDescOrderOfTimestamp.bind(this);
         this.showUnreadPositiveTweets = this.showUnreadPositiveTweets.bind(this);
         this.showUnreadNegativeTweets = this.showUnreadNegativeTweets.bind(this);
     }
@@ -88,8 +88,8 @@ class TopSentiment extends Widget {
                 }
             });
             //sort tweet by timestamp desc
-            let sortedPositive = this.sortTweetDescOrderOfValue(positiveTweets);
-            let sortedNegative = this.sortTweetDescOrderOfValue(negativeTweets);
+            let sortedPositive = this.sortTweetDescOrderOfSentimentValue(positiveTweets);
+            let sortedNegative = this.sortTweetDescOrderOfSentimentValue(negativeTweets);
             //select 5 most recent as
             let numberOfRemovableTweets = positiveTweets.length - MAX_TWEET_COUNT;
             let removedPositive =
@@ -113,9 +113,9 @@ class TopSentiment extends Widget {
             negativeTweets = this.state.unreadNegativeTweets;
             setData.data.map((tweet) => {
                 if (tweet[3] === 'positive') {
-                    positiveTweets = this.addTweetInDescOrder(positiveTweets, tweet);
+                    positiveTweets = this.sortTweetDescOrderOfTimestamp(positiveTweets, tweet);
                 } else if (tweet[3] === 'negative') {
-                    negativeTweets = this.addTweetInDescOrder(negativeTweets, tweet);
+                    negativeTweets = this.sortTweetDescOrderOfTimestamp(negativeTweets, tweet);
                 }
             });
 
@@ -131,7 +131,7 @@ class TopSentiment extends Widget {
         }
     }
 
-    sortTweetDescOrderOfValue(array) {
+    sortTweetDescOrderOfSentimentValue(array) {
         for (let i = 0; i < array.length; i++) {
             for (let j = 1; j < (array.length - i); j++) {
                 if (Math.abs(array[j - 1].value) < Math.abs(array[j].value)
@@ -146,7 +146,7 @@ class TopSentiment extends Widget {
         return array;
     }
 
-    addTweetInDescOrder(tweetsArray, tweet) {
+    sortTweetDescOrderOfTimestamp(tweetsArray, tweet) {
         let result = [];
         if (tweetsArray !== undefined && tweetsArray.length > 0) {
             for (let i = 0; i < tweetsArray.length; i++) {
