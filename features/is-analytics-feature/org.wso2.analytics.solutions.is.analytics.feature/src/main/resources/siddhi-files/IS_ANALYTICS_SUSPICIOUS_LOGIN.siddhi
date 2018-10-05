@@ -70,7 +70,7 @@ define stream SuspiciousLoginAlertStream (
 @primaryKey('meta_tenantId','username','msg')
 @index('username')
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
-define table SuspiciousLoginAlertTable(
+define table SuspiciousAlertTable(
         meta_tenantId int,
         username string,
         severity int,
@@ -145,7 +145,7 @@ update or insert into SecurityAlertTypeTable
 on      SecurityAlertTypeTable.meta_tenantId == meta_tenantId and
         SecurityAlertTypeTable.alertId == alertId;
 
--- Storing Multiple login failures in 'SuspiciousLoginAlertTable'
+-- Storing Multiple login failures in 'SuspiciousAlertTable'
 from SuspiciousLoginAlertStream
 select  meta_tenantId,
         username,
@@ -155,12 +155,12 @@ select  meta_tenantId,
         timestamp,
         time: dateFormat(timestamp, 'yyyy-MM-dd HH:mm:ss') as currentTime
 update or insert into
-        SuspiciousLoginAlertTable
-on      SuspiciousLoginAlertTable.meta_tenantId==meta_tenantId and
-        SuspiciousLoginAlertTable.username==username and
-    SuspiciousLoginAlertTable.msg==msg;
+        SuspiciousAlertTable
+on      SuspiciousAlertTable.meta_tenantId==meta_tenantId and
+        SuspiciousAlertTable.username==username and
+    SuspiciousAlertTable.msg==msg;
 
--- Retain last one year data in the SecurityAlertTypeTable and SuspiciousLoginAlertTable
+-- Retain last one year data in the SecurityAlertTypeTable and SuspiciousAlertTable
 
 from    TablePurgingTriggerStream
 select  time:dateSub(triggered_time, 1, 'year') as purgingTime
@@ -169,5 +169,5 @@ on      SecurityAlertTypeTable.alertTimestamp < purgingTime;
 
 from    TablePurgingTriggerStream
 select  time:dateSub(triggered_time, 1, 'year') as purgingTime
-delete  SuspiciousLoginAlertTable
-on      SuspiciousLoginAlertTable.timestamp < purgingTime;
+delete  SuspiciousAlertTable
+on      SuspiciousAlertTable.timestamp < purgingTime;

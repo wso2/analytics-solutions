@@ -2,7 +2,7 @@
     "dashboard": {
         "url": "eianalytics",
         "owner": "admin",
-        "name": "EI Analytics",
+        "name": "Enterprise Integrator Analytics",
         "description": "A dashboard to display Enterprise Integrator Analytics",
         "landingPage": "overview",
         "parentId": "0",
@@ -744,7 +744,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -1098,7 +1098,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -1453,7 +1453,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -2129,7 +2129,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -2177,7 +2177,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"

@@ -84,7 +84,7 @@ define table SessionInformationTable(
             identityProviders string,
             rememberMeFlag bool,
             userAgent string,
-            usernameWithTenantDomainAndUserstoreDomain string,
+            userStore string,
             currentTime string,
             startTimestamp long,
             renewTimestamp long,
