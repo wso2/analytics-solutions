@@ -106,12 +106,11 @@ class IsAnalyticsSessionCount extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.handleUserSelection);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     providerConfig: message.data.configs.providerConfig,
-                });
+                }, () => super.subscribe(this.handleUserSelection));
             });
     }
 
@@ -143,6 +142,7 @@ class IsAnalyticsSessionCount extends Widget {
     }
 
     assembleQuery() {
+        this.appendArray = [];
         this.sendQuery(0);
     }
 
