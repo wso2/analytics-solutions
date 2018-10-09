@@ -35,7 +35,7 @@
           "name": "TEXT",
           "possibleValues": []
         },
-        "defaultValue": "EI Analytics Message Flow"
+        "defaultValue": "Message Flow"
       }
     ]
   }

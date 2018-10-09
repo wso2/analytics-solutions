@@ -2,7 +2,7 @@
     "dashboard": {
         "url": "eianalytics",
         "owner": "admin",
-        "name": "EI Analytics",
+        "name": "Enterprise Integrator Analytics",
         "description": "A dashboard to display Enterprise Integrator Analytics",
         "landingPage": "overview",
         "parentId": "0",
@@ -686,7 +686,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 19.272413222464408,
+                                "height": 21.90978006123472,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Table",
@@ -744,7 +744,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -1040,7 +1040,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 19.838642282252355,
+                                "height": 21.90978006123472,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Table",
@@ -1098,7 +1098,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -1395,7 +1395,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 17.35294569888908,
+                                "height": 21.90978006123472,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Table",
@@ -1453,7 +1453,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -2129,7 +2129,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -2177,7 +2177,7 @@
                                                 },
                                                 "isGenerated": false,
                                                 "options": {
-
+                                                  "headerTitle": "Message Flow"
                                                 }
                                             },
                                             "widgetID": "EIAnalyticsMessageFlow"
@@ -2958,7 +2958,7 @@
                         "config": {
                             "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery = function (username,timeFrom ,timeTo,timeUnit){let entryPoint = null;\nlet id = true;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.mediator_page_entryPoint;\n\tid = hashObject.mediator_page_id;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentId=='\" + id + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom ,timeTo,timeUnit){let entryPoint = null;\nlet id = true;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.parse(decodeURI(hashComponent.substring(1)));\n\tentryPoint = hashObject.mediator_page_entryPoint;\n\tid = hashObject.mediator_page_id;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentId=='\" + id + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom ",
@@ -3047,7 +3047,7 @@
                         "config": {
                             "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.sequence_page_entryPoint;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\n\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.parse(decodeURI(hashComponent.substring(1)));\n\tentryPoint = hashObject.sequence_page_entryPoint;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\n\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3135,7 +3135,7 @@
                         "config": {
                             "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.sequence_page_entryPoint;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" +  timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.parse(decodeURI(hashComponent.substring(1)));\n\tentryPoint = hashObject.sequence_page_entryPoint;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" +  timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3223,7 +3223,7 @@
                         "config": {
                             "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.endpoint_page_entryPoint;\n}\n\t\nlet query = '';\n\nif (entryPoint == 'undefined' || entryPoint == null) {\n    query = \"from MediatorStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's') + '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query = \"from MediatorStatAgg on entryPoint=='\" + entryPoint + \"' AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\"  + (timeUnit + 's') + '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.parse(decodeURI(hashComponent.substring(1)));\n\tentryPoint = hashObject.endpoint_page_entryPoint;\n}\n\t\nlet query = '';\n\nif (entryPoint == 'undefined' || entryPoint == null) {\n    query = \"from MediatorStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's') + '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query = \"from MediatorStatAgg on entryPoint=='\" + entryPoint + \"' AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\"  + (timeUnit + 's') + '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Faults, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3405,7 +3405,7 @@
                         "config": {
                             "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.endpoint_page_entryPoint;\n}\nlet query = '';\nif (entryPoint == 'undefined' || entryPoint == null) {\n    query = \"from MediatorStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\"  + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query = \"from MediatorStatAgg on entryPoint=='\" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit,componentName){let entryPoint = null;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.parse(decodeURI(hashComponent.substring(1)));\n\tentryPoint = hashObject.endpoint_page_entryPoint;\n}\nlet query = '';\nif (entryPoint == 'undefined' || entryPoint == null) {\n    query = \"from MediatorStatAgg on componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\"  + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nelse {\n    query = \"from MediatorStatAgg on entryPoint=='\" + entryPoint + \" AND componentName=='\" + componentName + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select minDuration as Minimum, maxDuration as Maximum, avgDuration as Average, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\n}\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",
@@ -3493,7 +3493,7 @@
                         "config": {
                             "siddhiApp": "define stream PreProcessedMediatorStatStream (metaTenantId int, entryPoint string, entryPointHashcode string, componentId string, hashCode string, componentName string, componentType string, duration long, faultCount int, startTime long);\n\n@store(type = 'rdbms', datasource = 'EI_ANALYTICS')\n@info(name = 'MediatorStat')\ndefine aggregation MediatorStatAgg \nfrom PreProcessedMediatorStatStream \n select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime \n\tgroup by metaTenantId, componentId, componentName, componentType, entryPoint, entryPointHashcode, hashCode \n\taggregate by startTime every sec...years;",
                             "queryData": {
-                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit){let entryPoint = null;\nlet id = true;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.stringify(hashComponent.substring(1));\n\tentryPoint = hashObject.mediator_page_entryPoint;\n\tid = hashObject.mediator_page_id;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentId=='\" + id + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
+                                "queryFunction": "this.getQuery = function (username,timeFrom,timeTo,timeUnit){let entryPoint = null;\nlet id = true;\nlet hashComponent = window.location.hash;\nif(hashComponent !== \"\") {\n\tlet hashObject = JSON.parse(decodeURI(hashComponent.substring(1)));\n\tentryPoint = hashObject.mediator_page_entryPoint;\n\tid = hashObject.mediator_page_id;\n}\nif (entryPoint != null)\n    entryPoint = 'entryPoint==\\'' + entryPoint + '\\'';\nelse\n    entryPoint = 'true';\nlet query = \"from MediatorStatAgg on \" + entryPoint + \" AND componentId=='\" + id + \"' within \" + timeFrom+\"L, \"+timeTo+\"L per '\" + (timeUnit + 's')+ '\\'' + \" select sum(noOfInvocation) as Count, sum(faultCount) as Fault, sum(noOfInvocation - faultCount) as Success, AGG_TIMESTAMP as Time group by AGG_TIMESTAMP\";\nreturn query;}",
                                 "customWidgetInputs": [
                                     {
                                         "name": "timeFrom",

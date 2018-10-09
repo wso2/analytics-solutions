@@ -153,6 +153,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
         let countType = '';
         let doFilter = false;
         let doAdditionalFilter = false;
+        let aggregationName = 'AuthStatAgg';
 
         if (this.state.additionalFilterConditions !== undefined) {
             const additionalFilterConditionsClone = _.cloneDeep(this.state.additionalFilterConditions);
@@ -161,10 +162,9 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
                 if (Object.hasOwnProperty.call(additionalFilterConditionsClone, key)) {
                     if (additionalFilterConditionsClone[key] !== '') {
                         if (key === 'role') {
-                            additionalFilters = additionalFilters
-                                + " and str:contains(rolesCommaSeparated, '"
-                                + additionalFilterConditionsClone[key] + "') ";
-                        } else if (key === 'isFirstLogin') {
+                            aggregationName = 'RoleAggregation';
+                        }
+                        if (key === 'isFirstLogin') {
                             additionalFilters = additionalFilters
                                 + ' and ' + key + '==' + additionalFilterConditionsClone[key] + ' ';
                         } else {
@@ -197,6 +197,7 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
             .replace('{{per}}', this.state.per)
             .replace('{{from}}', this.state.fromDate)
             .replace('{{to}}', this.state.toDate)
+            .replace('{{AggregationName}}', aggregationName)
             .replace(/{{countType}}/g, countType);
 
         if (doFilter && doAdditionalFilter) {
