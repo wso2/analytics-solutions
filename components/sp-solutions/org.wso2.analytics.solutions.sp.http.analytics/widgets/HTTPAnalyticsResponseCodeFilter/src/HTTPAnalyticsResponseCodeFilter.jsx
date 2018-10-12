@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types,import/prefer-default-export */
+/* eslint-disable react/prop-types */
 /*
  * Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
  *
@@ -34,7 +34,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
 
-export const generateClassName = (rule, styleSheet) => {
+const generateClassName = (rule, styleSheet) => {
     classCounter += 1;
 
     if (process.env.NODE_ENV === 'production') {
@@ -55,6 +55,7 @@ export const generateClassName = (rule, styleSheet) => {
 
     return `${rule.key}-${classCounter}`;
 };
+export { generateClassName as default };
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -273,19 +274,30 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
         this.updateStyleColor = this.updateStyleColor.bind(this);
         this.updateTextBoxColor = this.updateTextBoxColor.bind(this);
         this.initialPublish = this.initialPublish.bind(this);
+        this.setQueryParams = this.setQueryParams.bind(this);
     }
 
     /**
      * Publish user selection to other widgets
      */
     publishUpdate() {
-        super.setGlobalState('httpResCode', {
-            service: this.state.selectedServiceValues ? this.state.selectedServiceValues.value : null,
-        });
+        this.setQueryParams();
         super.publish({
             perspective: this.state.perspective,
             selectedServiceValues: this.state.selectedServiceValues,
         });
+    }
+
+    /**
+     * Set user selection as query params
+     */
+    setQueryParams() {
+        let selection = [];
+        if (this.state.selectedServiceValues
+            && !(this.state.selectedServiceValues instanceof Array)) {
+            selection = this.state.selectedServiceValues.value;
+        }
+        super.setGlobalState('httpResCode', { responseCode: selection });
     }
 
     /**
@@ -316,11 +328,11 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
      */
     initialPublish() {
         const responseCodeSelection = super.getGlobalState('httpResCode');
-        if (responseCodeSelection.service
-            && responseCodeSelection.service !== null) {
+        if (responseCodeSelection.responseCode
+            && !(responseCodeSelection.responseCode instanceof Array)) {
             this.handleChange({
-                value: responseCodeSelection.service,
-                label: responseCodeSelection.service,
+                value: responseCodeSelection.responseCode,
+                label: responseCodeSelection.responseCode,
                 disabled: false,
             });
         } else {
