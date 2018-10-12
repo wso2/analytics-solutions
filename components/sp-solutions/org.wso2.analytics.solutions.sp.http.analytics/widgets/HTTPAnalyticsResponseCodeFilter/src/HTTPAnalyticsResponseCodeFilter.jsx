@@ -114,6 +114,7 @@ const Control = function (props) {
                     inputRef: innerRef,
                     children,
                     ...innerProps,
+                    style: { display: 'flex' },
                 },
             }}
             {...selectProps.textFieldProps}
@@ -386,9 +387,6 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
 
 
     componentDidMount() {
-        if (document.getElementById(popperAnchor)) {
-            document.getElementById(popperAnchor).style = 'display: flex';
-        }
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 super.getWidgetChannelManager()
