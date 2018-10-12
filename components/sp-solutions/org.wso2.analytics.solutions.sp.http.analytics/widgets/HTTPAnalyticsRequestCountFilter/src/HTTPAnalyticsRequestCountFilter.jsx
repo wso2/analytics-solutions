@@ -599,8 +599,8 @@ class HTTPAnalyticsRequestCountFilter extends Widget {
                                 value={this.state.perspective}
                                 onChange={(evt, value) => this.setState({ perspective: value }, this.publishUpdate)}
                             >
-                                <Tab label="Service" />
                                 <Tab label="Server" />
+                                <Tab label="Service" />
                                 <Tab label="Method" />
                             </Tabs>
                             <div style={{ paddingLeft: 10, paddingRight: 16, paddingTop: 3 }}>
