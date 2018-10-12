@@ -272,12 +272,16 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
         this.publishUpdate = this.publishUpdate.bind(this);
         this.updateStyleColor = this.updateStyleColor.bind(this);
         this.updateTextBoxColor = this.updateTextBoxColor.bind(this);
+        this.initialPublish = this.initialPublish.bind(this);
     }
 
     /**
      * Publish user selection to other widgets
      */
     publishUpdate() {
+        super.setGlobalState('httpResCode', {
+            service: this.state.selectedServiceValues ? this.state.selectedServiceValues.value : null,
+        });
         super.publish({
             perspective: this.state.perspective,
             selectedServiceValues: this.state.selectedServiceValues,
@@ -304,7 +308,24 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
         this.setState({
             services,
             serviceOptions,
-        }, this.publishUpdate);
+        }, this.initialPublish);
+    }
+
+    /**
+     * Handle initial selection publish
+     */
+    initialPublish() {
+        const responseCodeSelection = super.getGlobalState('httpResCode');
+        if (responseCodeSelection.service
+            && responseCodeSelection.service !== null) {
+            this.handleChange({
+                value: responseCodeSelection.service,
+                label: responseCodeSelection.service,
+                disabled: false,
+            });
+        } else {
+            this.publishUpdate();
+        }
     }
 
     /**
