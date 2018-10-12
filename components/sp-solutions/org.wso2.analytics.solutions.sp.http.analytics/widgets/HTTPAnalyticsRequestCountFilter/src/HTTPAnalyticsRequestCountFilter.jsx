@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types,prefer-destructuring */
 /*
  * Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
  *
@@ -338,28 +338,39 @@ class HTTPAnalyticsRequestCountFilter extends Widget {
     /**
      * Handle initial selection publish
      */
-    getInitialUserSelection() {
+    getInitialUserSelection(serversOptions, servicesOptions) {
+        let servers = [];
+        let services = [];
+        let method = [];
         const responseCodeSelection = super.getGlobalState('httpReqCount');
-        let servers = allOption;
-        let services = allOption;
-        let method = allOption[0];
 
-        if (responseCodeSelection.servers) {
-            servers = this.getOptionsForSelectedValues(responseCodeSelection.servers);
-        }
-        if (responseCodeSelection.services) {
-            services = this.getOptionsForSelectedValues(responseCodeSelection.services);
-        }
-        if (responseCodeSelection.method) {
-            if (!(responseCodeSelection.method instanceof Array)) {
-                method = {
-                    value: responseCodeSelection.method,
-                    label: responseCodeSelection.method,
-                    disabled: false,
-                };
-            } else {
-                method = [];
+        // if query params are provided load them else load the default value "All"
+        if (responseCodeSelection.servers
+            || responseCodeSelection.services
+            || responseCodeSelection.method) {
+            if (responseCodeSelection.servers) {
+                servers = this.getOptionsForSelectedValues(serversOptions, responseCodeSelection.servers);
             }
+            if (responseCodeSelection.services) {
+                services = this.getOptionsForSelectedValues(servicesOptions, responseCodeSelection.services);
+            }
+            if (responseCodeSelection.method) {
+                if (!(responseCodeSelection.method instanceof Array)) {
+                    if (servicesOptions.indexOf(responseCodeSelection.method) !== -1) {
+                        method = {
+                            value: responseCodeSelection.method,
+                            label: responseCodeSelection.method,
+                            disabled: false,
+                        };
+                    } else {
+                        method = [];
+                    }
+                }
+            }
+        } else {
+            servers = allOption;
+            services = allOption;
+            method = allOption[0];
         }
 
         return { servers, services, method };
@@ -367,17 +378,24 @@ class HTTPAnalyticsRequestCountFilter extends Widget {
 
     /**
      * Create select options from the user selected values
+     * @param availableOptions
      * @param selectedOptions
      */
-    getOptionsForSelectedValues(selectedOptions) {
+    getOptionsForSelectedValues(availableOptions, selectedOptions) {
         const selections = [];
-        selectedOptions.forEach((value) => {
-            selections.push({
-                value,
-                label: value,
-                disabled: false,
+        if (selectedOptions.some(value => value === 'All')) {
+            selections.push(allOption[0]);
+        } else {
+            selectedOptions.forEach((value) => {
+                if (availableOptions.indexOf(value) !== -1) {
+                    selections.push({
+                        value,
+                        label: value,
+                        disabled: false,
+                    });
+                }
             });
-        });
+        }
         return selections;
     }
 
@@ -411,7 +429,7 @@ class HTTPAnalyticsRequestCountFilter extends Widget {
             disabled: false,
         }));
 
-        const userSelection = this.getInitialUserSelection();
+        const userSelection = this.getInitialUserSelection(servers, services);
         this.setState({
             servers,
             services,
