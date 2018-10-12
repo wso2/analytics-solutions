@@ -330,11 +330,15 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
         const responseCodeSelection = super.getGlobalState('httpResCode');
         if (responseCodeSelection.responseCode
             && !(responseCodeSelection.responseCode instanceof Array)) {
-            this.handleChange({
-                value: responseCodeSelection.responseCode,
-                label: responseCodeSelection.responseCode,
-                disabled: false,
-            });
+            if (this.state.services.indexOf(responseCodeSelection.responseCode) !== -1) {
+                this.handleChange({
+                    value: responseCodeSelection.responseCode,
+                    label: responseCodeSelection.responseCode,
+                    disabled: false,
+                });
+            } else {
+                this.publishUpdate();
+            }
         } else {
             this.publishUpdate();
         }
