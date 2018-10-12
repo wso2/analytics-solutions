@@ -283,12 +283,15 @@ class HTTPAnalyticsRequestCountFilter extends Widget {
         this.publishUpdate = this.publishUpdate.bind(this);
         this.updateStyleColor = this.updateStyleColor.bind(this);
         this.updateTextBoxColor = this.updateTextBoxColor.bind(this);
+        this.setQueryParams = this.setQueryParams.bind(this);
+        this.getSelectedOptionValues = this.getSelectedOptionValues.bind(this);
     }
 
     /**
      * Publish user selection to other widgets
      */
     publishUpdate() {
+        this.setQueryParams();
         const filterOptions = {
             perspective: this.state.perspective,
             selectedServerValues: this.state.selectedServerValues,
@@ -296,6 +299,86 @@ class HTTPAnalyticsRequestCountFilter extends Widget {
             selectedSingleServiceValue: this.state.selectedSingleServiceValue,
         };
         super.publish(filterOptions);
+    }
+
+    /**
+     * Set selected values as query params
+     */
+    setQueryParams() {
+        let servers = [];
+        let services = [];
+        let method = [];
+
+        if (this.state.selectedServerValues) {
+            servers = this.getSelectedOptionValues(this.state.selectedServerValues);
+        }
+        if (this.state.selectedServiceValues) {
+            services = this.getSelectedOptionValues(this.state.selectedServiceValues);
+        }
+        if (this.state.selectedSingleServiceValue) {
+            if (!(this.state.selectedSingleServiceValue instanceof Array)) {
+                method = this.state.selectedSingleServiceValue.value;
+            }
+        }
+        super.setGlobalState('httpReqCount', { servers, services, method });
+    }
+
+    /**
+     * Get values of the user selected options
+     * @param selectedOptions
+     */
+    getSelectedOptionValues(selectedOptions) {
+        const selections = [];
+        if (selectedOptions.length > 0) {
+            selectedOptions.forEach((option) => { selections.push(option.value); });
+        }
+        return selections;
+    }
+
+    /**
+     * Handle initial selection publish
+     */
+    getInitialUserSelection() {
+        const responseCodeSelection = super.getGlobalState('httpReqCount');
+        let servers = allOption;
+        let services = allOption;
+        let method = allOption[0];
+
+        if (responseCodeSelection.servers) {
+            servers = this.getOptionsForSelectedValues(responseCodeSelection.servers);
+        }
+        if (responseCodeSelection.services) {
+            services = this.getOptionsForSelectedValues(responseCodeSelection.services);
+        }
+        if (responseCodeSelection.method) {
+            if (!(responseCodeSelection.method instanceof Array)) {
+                method = {
+                    value: responseCodeSelection.method,
+                    label: responseCodeSelection.method,
+                    disabled: false,
+                };
+            } else {
+                method = [];
+            }
+        }
+
+        return { servers, services, method };
+    }
+
+    /**
+     * Create select options from the user selected values
+     * @param selectedOptions
+     */
+    getOptionsForSelectedValues(selectedOptions) {
+        const selections = [];
+        selectedOptions.forEach((value) => {
+            selections.push({
+                value,
+                label: value,
+                disabled: false,
+            });
+        });
+        return selections;
     }
 
     /**
@@ -328,14 +411,15 @@ class HTTPAnalyticsRequestCountFilter extends Widget {
             disabled: false,
         }));
 
+        const userSelection = this.getInitialUserSelection();
         this.setState({
             servers,
             services,
             serviceOptions,
             serverOptions,
-            selectedServerValues: allOption,
-            selectedServiceValues: allOption,
-            selectedSingleServiceValue: allOption[0],
+            selectedServerValues: userSelection.servers,
+            selectedServiceValues: userSelection.services,
+            selectedSingleServiceValue: userSelection.method,
         }, this.publishUpdate);
     }
 
