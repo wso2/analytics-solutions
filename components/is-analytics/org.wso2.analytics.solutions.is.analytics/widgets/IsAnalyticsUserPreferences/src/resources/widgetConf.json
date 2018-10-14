@@ -1,5 +1,5 @@
 {
-  "name": "Is Analytics User Preferences",
+  "name": "IS Analytics User Preferences",
   "id": "IsAnalyticsUserPreferences",
   "thumbnailURL": "",
   "configs": {
@@ -26,6 +26,15 @@
           ]
         },
         "defaultValue": "Overall"
+      },
+      {
+        "id": "headerTitle",
+        "title": "Widget Display Name",
+        "type": {
+          "name": "TEXT",
+          "possibleValues": []
+        },
+        "defaultValue": "User Preferences"
       }
     ]
   }

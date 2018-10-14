@@ -91,12 +91,11 @@ class HTTPAnalyticsRequestCountOverTime extends Widget {
      * Initialize widget.
      */
     componentDidMount() {
-        super.subscribe(this.setReceivedMsg);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, () => super.subscribe(this.setReceivedMsg));
             })
             .catch(() => {
                 this.setState({

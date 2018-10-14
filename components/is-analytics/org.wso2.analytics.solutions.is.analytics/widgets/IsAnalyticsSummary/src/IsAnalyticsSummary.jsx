@@ -25,27 +25,15 @@ import _ from 'lodash';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-const widgetTexts = {
-    Overall: {
-        bodyText: 'Analyze overall login attempts made via WSO2 Identity Server. '
+const bodyTexts = {
+    Overall: 'Analyze overall login attempts made via WSO2 Identity Server. '
         + 'This includes information about overall flows of authentication took place through Identity Server.'
         + 'A collection of authentication steps is considered as an overall attempt',
-        heading: 'Overall Login Attempts',
-        seeMoreLink: window.location.href.split('?')[0] + '/../overall',
-    },
-    Local: {
-        bodyText: 'Analyze local login attempts made via WSO2 Identity Server. '
+    Local: 'Analyze local login attempts made via WSO2 Identity Server. '
         + 'Local login attempts include all login attempts which are done through resident IDP.'
         + 'These statistics will give an idea on the involvement of resident IDP in an authentication flow.',
-        heading: 'Local Login Attempts',
-        seeMoreLink: window.location.href.split('?')[0] + '/../local',
-    },
-    Federated: {
-        bodyText: 'Analyze federated login attempts made via WSO2 Identity Server.'
+    Federated: 'Analyze federated login attempts made via WSO2 Identity Server.'
         + 'This will give an idea about the authentication steps took place via federated identity providers.',
-        heading: 'Federated Login Attempts',
-        seeMoreLink: window.location.href.split('?')[0] + '/../federated',
-    },
 };
 
 const colorGreen = '#6ED460';
@@ -118,15 +106,15 @@ class IsAnalyticsSummary extends Widget {
             numChartConfig,
             numChartData,
             numChartMetadata,
+            dataProviderConf: null,
             isProviderConfigFault: false,
-            options: this.props.configs.options,
-            widgetTexts: widgetTexts[this.props.configs.options.widgetType],
             totalAttempts: 0,
         };
 
         this.handleReceivedData = this.handleReceivedData.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
         this.onReceivingMessage = this.onReceivingMessage.bind(this);
+        this.getSeeMoreLink = this.getSeeMoreLink.bind(this);
 
         this.props.glContainer.on('resize', () => this.setState({
             width: this.props.glContainer.width,
@@ -135,12 +123,11 @@ class IsAnalyticsSummary extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
@@ -152,6 +139,24 @@ class IsAnalyticsSummary extends Widget {
     componentWillUnmount() {
         super.getWidgetChannelManager()
             .unsubscribeWidget(this.props.id);
+    }
+
+    getSeeMoreLink() {
+        let { pathname } = window.location;
+        let seeMoreLink = '';
+
+        const pathnameArray = pathname.split('/');
+        pathnameArray.pop();
+        pathname = pathnameArray.join('/');
+        if (this.props.configs.options.widgetType === 'Local') {
+            seeMoreLink = pathname + '/local';
+        } else if (this.props.configs.options.widgetType === 'Federated') {
+            seeMoreLink = pathname + '/federated';
+        } else {
+            seeMoreLink = pathname + '/overall';
+        }
+
+        return seeMoreLink;
     }
 
     handleReceivedData(message) {
@@ -207,9 +212,9 @@ class IsAnalyticsSummary extends Widget {
         const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
         let { query } = dataProviderConfigs.configs.config.queryData;
 
-        if (this.state.options.widgetType === 'Local') {
+        if (this.props.configs.options.widgetType === 'Local') {
             query = dataProviderConfigs.configs.config.queryData.queryLocal;
-        } else if (this.state.options.widgetType === 'Federated') {
+        } else if (this.props.configs.options.widgetType === 'Federated') {
             query = dataProviderConfigs.configs.config.queryData.queryFederated;
         }
         query = query
@@ -230,8 +235,9 @@ class IsAnalyticsSummary extends Widget {
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
             paddingBottom: height * 0.05,
-            height,
-            width,
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
         };
         let theme = darkTheme;
 
@@ -243,11 +249,9 @@ class IsAnalyticsSummary extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <Typography variant="title" gutterBottom align="center">
-                            {this.state.widgetTexts.heading}
-                        </Typography>
                         <Typography variant="body1" gutterBottom align="center">
-                            [ERROR]: Cannot connect to the data provider
+                            Unable to fetch data from Siddhi data provider,
+                            Please check the data provider configurations.
                         </Typography>
                     </div>
                 </MuiThemeProvider>
@@ -257,21 +261,12 @@ class IsAnalyticsSummary extends Widget {
             <MuiThemeProvider theme={theme}>
                 <div style={divSpacings}>
                     <div style={{
-                        height: height * 0.05,
-                        width: width * 0.9,
-                    }}
-                    >
-                        <Typography variant="title" gutterBottom align="center">
-                            {this.state.widgetTexts.heading}
-                        </Typography>
-                    </div>
-                    <div style={{
                         height: height * 0.15,
                         width: width * 0.9,
                     }}
                     >
                         <Typography variant="body1" gutterBottom align="center">
-                            {this.state.widgetTexts.bodyText}
+                            {bodyTexts[this.props.configs.options.widgetType]}
                         </Typography>
                     </div>
                     <div style={{
@@ -296,7 +291,7 @@ class IsAnalyticsSummary extends Widget {
                             && (
                                 <div>
                                     <div style={{
-                                        height: height * 0.05,
+                                        height: height * 0.1,
                                         width: width * 0.9,
                                         'text-align': 'center',
                                     }}
@@ -342,8 +337,8 @@ class IsAnalyticsSummary extends Widget {
                         width: width * 0.9,
                     }}
                     >
-                        <a href={this.state.widgetTexts.seeMoreLink}>
-                            <Button color="primary" variant="outlined" component="span">
+                        <a href={this.getSeeMoreLink()}>
+                            <Button color="primary" variant="outlined" component="span" style={{ float: 'right' }}>
                                 <Typography
                                     variant="button"
                                     gutterBottom

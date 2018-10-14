@@ -83,7 +83,7 @@ const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
 
 // eslint-disable-next-line import/prefer-default-export
-export const generateClassName = (rule, styleSheet) => {
+export const userPreferencesStylesClass = (rule, styleSheet) => {
     classCounter += 1;
 
     if (process.env.NODE_ENV === 'production') {
@@ -135,12 +135,11 @@ class IsAnalyticsUserPreferences extends Widget {
     }
 
     componentDidMount() {
-        super.subscribe(this.onReceivingMessage);
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
                 this.setState({
                     dataProviderConf: message.data.configs.providerConfig,
-                });
+                }, super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
                 this.setState({
@@ -245,8 +244,9 @@ class IsAnalyticsUserPreferences extends Widget {
             paddingRight: width * 0.05,
             paddingTop: height * 0.05,
             paddingBottom: height * 0.05,
-            height,
-            width,
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
         };
         let theme = darkTheme;
 
@@ -255,7 +255,7 @@ class IsAnalyticsUserPreferences extends Widget {
         }
 
         return (
-            <JssProvider generateClassName={generateClassName}>
+            <JssProvider generateClassName={userPreferencesStylesClass}>
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
                         <div style={{ height: height * 0.6, width: width * 0.9 }}>
@@ -320,8 +320,8 @@ class IsAnalyticsUserPreferences extends Widget {
                                     </td>
                                     <td style={{ padding: 15 }}>
                                         <Button
-                                            color="#ef6c00"
-                                            variant="contained"
+                                            color="primary"
+                                            variant="raised"
                                             component="span"
                                             onClick={() => this.publishFilterConditions()}
                                         >

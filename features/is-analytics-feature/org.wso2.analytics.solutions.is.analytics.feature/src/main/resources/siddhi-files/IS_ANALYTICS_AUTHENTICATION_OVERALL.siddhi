@@ -53,10 +53,9 @@ define trigger TablePurgingTriggerStream at '0 0 23 * * ?';
 -- TABLE DEFINITIONS
 
 -- Overall Authentication Table
-@store(type='rdbms', datasource='IS_ANALYTICS_DB')
-@primaryKey('meta_tenantId', 'contextId', 'eventId', 'eventType')
-@index('meta_tenantId', 'username', 'identityProviderType', 'identityProvider', 'userStoreDomain', 'serviceProvider', 'region', 'timestamp')
-define table OverallAuthenticationTable (
+@store(type='rdbms', datasource='IS_ANALYTICS_DB', 'field.length=serviceProvider:100, identityProvider:100, userStoreDomain:50, region:45')
+@primaryKey('meta_tenantId', 'eventId', 'eventType')
+define table OverallAuthTable (
     meta_tenantId int,
     contextId string,
     eventId string,
@@ -86,7 +85,7 @@ define table OverallAuthenticationTable (
 
 -- QUERIES
 
--- Update OverallAuthenticationTable
+-- Update OverallAuthTable
 from OverallAuthenticationProcessedStream
 select
     meta_tenantId,
@@ -112,7 +111,7 @@ select
     stepAuthenticator,
     isFirstLogin,
     identityProviderType,
-    time:dateFormat(timestamp, "MMMM dd, yyyy hh:mm:ss a zzz") as utcTime,
+    time:dateFormat(timestamp, "MMM dd, yyyy hh:mm:ss a zzz") as utcTime,
     timestamp
 group by
     meta_tenantId,
@@ -120,14 +119,14 @@ group by
     eventId,
     eventType,
     region
-update or insert into OverallAuthenticationTable
+update or insert into OverallAuthTable
 on
-    OverallAuthenticationTable.meta_tenantId==meta_tenantId
-    and OverallAuthenticationTable.contextId==contextId
-    and OverallAuthenticationTable.eventType==eventType
-    and OverallAuthenticationTable.eventId==eventId;
+    OverallAuthTable.meta_tenantId==meta_tenantId
+    and OverallAuthTable.contextId==contextId
+    and OverallAuthTable.eventType==eventType
+    and OverallAuthTable.eventId==eventId;
 
 from TablePurgingTriggerStream
 select time:dateSub(triggered_time, 1, 'year') as purgingTime
-delete OverallAuthenticationTable
-on OverallAuthenticationTable.timestamp < purgingTime;
+delete OverallAuthTable
+on OverallAuthTable.timestamp < purgingTime;

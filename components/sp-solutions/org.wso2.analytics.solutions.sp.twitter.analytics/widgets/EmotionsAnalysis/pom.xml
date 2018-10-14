@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.wso2.analytics.solutions</groupId>
         <artifactId>org.wso2.analytics.solutions.sp.twitter.analytics.widgets</artifactId>
-        <version>1.0.8-SNAPSHOT</version>
+        <version>1.0.16-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -54,6 +54,9 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

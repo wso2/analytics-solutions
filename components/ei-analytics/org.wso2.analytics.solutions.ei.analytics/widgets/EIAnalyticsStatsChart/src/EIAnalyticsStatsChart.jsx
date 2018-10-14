@@ -52,7 +52,8 @@ class EIAnalyticsStatsChart extends Widget {
             height: this.props.glContainer.height
         };
 
-        this.extractStatsData = this.extractStats.bind(this);
+        this.extractStatsData = this.extractStatsData.bind(this);
+        this.handleStats = this.handleStats.bind(this);
 
         this.successChartConfig = {
             charts: [
@@ -97,28 +98,10 @@ class EIAnalyticsStatsChart extends Widget {
         };
 
         this.props.glContainer.on('resize', this.handleResize.bind(this));
-
-        this.setWidgetTitle();
     }
 
     handleResize() {
         this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
-    }
-
-    setWidgetTitle() {
-        let pageName = window.location.pathname.split('/').pop();
-        let title = 'StatChart';
-
-        if (pageName === 'overview') {
-            title = 'REQUEST SUMMARY';
-        }
-        else {
-            title = pageName.toUpperCase() + "  REQUEST COUNT";
-        }
-
-        this.props.glContainer.setTitle(
-            title
-        );
     }
 
     componentDidMount() {
@@ -127,10 +110,12 @@ class EIAnalyticsStatsChart extends Widget {
         }, this.handleParameterChange);
 
         let entryPointValue = super.getGlobalState(getKey(this.getCurrentPage(), "entryPoint"));
+        let selectedComponent = super.getGlobalState(getKey(this.getCurrentPage(), "id"));
         // If window url contains entryPoint, store it in the state
         if (entryPointValue && JSON.stringify(entryPointValue) !== "{}") {
             this.setState({
-                entryPoint: entryPointValue
+                entryPoint: entryPointValue,
+                componentName: selectedComponent,
             }, this.handleParameterChange);
         }
         //this.extractStatsData("ALL", "ALL", null, -1234, "ESBStatAgg");
@@ -141,7 +126,7 @@ class EIAnalyticsStatsChart extends Widget {
     }
 
     handleParameterChange() {
-        let pageName = this.state.page;
+        let pageName = this.getCurrentPage();
         if (this.state.timeFrom != null && this.state.timeTo != null && this.state.timeUnit != null) {
             if (pageName === PAGE_OVERVIEW) {
                 /*
@@ -210,7 +195,7 @@ class EIAnalyticsStatsChart extends Widget {
     /**
      * Get message count details from the DB  and set the state accordingly
      */
-    extractStats(componentType, componentName, entryPoint, tenantId, aggregator, timeFrom, timeTo, timeUnit) {
+    extractStatsData(componentType, componentName, entryPoint, tenantId, aggregator, timeFrom, timeTo, timeUnit) {
         if (componentType == PAGE_MEDIATOR || componentType == "ALL") {
             var componentIdentifier = "componentId";
         } else {
@@ -231,8 +216,6 @@ class EIAnalyticsStatsChart extends Widget {
                         .replace("{{timeTo}}", "\'" + timeTo + "\'")
                         .replace("{{timeUnit}}", "\'" + timeUnit + "\'");
                     dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
-                    delete dataProviderConf.configs.providerConfig.configs.config.queryData.nullEntryPointStatPerQuery;
-                    delete dataProviderConf.configs.providerConfig.configs.config.queryData.notNullEntryPointStatPerQuery;
                 } else {
                     var query = dataProviderConf.configs.providerConfig.configs.config.queryData.notNullEntryPointStatPerQuery;
                     let formattedQuery = query
@@ -245,12 +228,10 @@ class EIAnalyticsStatsChart extends Widget {
                         .replace("{{timeTo}}", "\'" + timeTo + "\'")
                         .replace("{{timeUnit}}", "\'" + timeUnit + "\'");
                     dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
-                    delete dataProviderConf.configs.providerConfig.configs.config.queryData.nullEntryPointStatPerQuery;
-                    delete dataProviderConf.configs.providerConfig.configs.config.queryData.notNullEntryPointStatPerQuery;
                 }
                 // console.log(JSON.stringify(dataProviderConf.configs.providerConfig));
                 super.getWidgetChannelManager()
-                    .subscribeWidget(this.props.id, this.handleStats().bind(this), dataProviderConf.configs.providerConfig);
+                    .subscribeWidget(this.props.id, this.handleStats, dataProviderConf.configs.providerConfig);
             })
             .catch(() => {
                 console.error("Unable to load configurations of " + this.props.widgetID + " widget.");
@@ -262,21 +243,17 @@ class EIAnalyticsStatsChart extends Widget {
      *
      * @returns {Function}
      */
-    handleStats() {
-        return function (stats) {
-            let metadata = stats.metadata.names;
-            let data = stats.data[0];
-            let dataIndex = {};
-            metadata.forEach((value, index) => {
-                dataIndex[value] = index;
-            })
-
-            this.setState({
-                totalCount: data[dataIndex["noOfInvocationSum"]],
-                faultCount: data[dataIndex["faultCountSum"]]
-            });
-            //console.log("Received final stats: " + JSON.stringify(stats));
-        }
+    handleStats(stats) {
+        let metadata = stats.metadata.names;
+        let data = stats.data[0];
+        let dataIndex = {};
+        metadata.forEach((value, index) => {
+            dataIndex[value] = index;
+        })
+        this.setState({
+            totalCount: data[dataIndex["noOfInvocationSum"]],
+            faultCount: data[dataIndex["faultCountSum"]]
+        });
     }
 
     getProviderConf(aggregatorDataProviderConf) {
