@@ -15,7 +15,6 @@
  */
 
 .timeline-gadget-wrapper .vis-item.constant_value {
-    /*background-color: #EAEAEA;*/
     width: 80% !important;
     top: 5px;
     left: 10% !important;
@@ -43,7 +42,7 @@
 .timeline-gadget-wrapper .vis-item.constant_value  .vis-item-content {
     width: 100% !important;
     left: 0% !important;
-    background-color: #065f79;
+    background-color: #616161 !important;
 }
 
 .vis-nested-group {
