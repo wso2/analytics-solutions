@@ -43,7 +43,6 @@ class OpenTracingVisTimeline extends Widget {
         this.addToTheGrandParentGroup = this.addToTheGrandParentGroup.bind(this);
         this.populateTimeline = this.populateTimeline.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
-        this.getTimeDetsAppendedTag = this.getTimeDetsAppendedTag.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this.timeline = null;
         this.tempItems = [];
