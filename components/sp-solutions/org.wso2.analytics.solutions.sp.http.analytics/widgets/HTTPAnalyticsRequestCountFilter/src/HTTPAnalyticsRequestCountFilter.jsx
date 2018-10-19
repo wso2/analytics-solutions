@@ -354,18 +354,14 @@ class HTTPAnalyticsRequestCountFilter extends Widget {
             if (responseCodeSelection.services) {
                 services = this.getOptionsForSelectedValues(servicesOptions, responseCodeSelection.services);
             }
-            if (responseCodeSelection.method) {
-                if (!(responseCodeSelection.method instanceof Array)) {
-                    if (servicesOptions.indexOf(responseCodeSelection.method) !== -1) {
-                        method = {
-                            value: responseCodeSelection.method,
-                            label: responseCodeSelection.method,
-                            disabled: false,
-                        };
-                    } else {
-                        method = [];
-                    }
-                }
+            if (responseCodeSelection.method
+                && !(responseCodeSelection.method instanceof Array)
+                && servicesOptions.indexOf(responseCodeSelection.method) !== -1) {
+                method = {
+                    value: responseCodeSelection.method,
+                    label: responseCodeSelection.method,
+                    disabled: false,
+                };
             }
         } else {
             servers = allOption;
@@ -464,7 +460,6 @@ class HTTPAnalyticsRequestCountFilter extends Widget {
                 const nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
                 if (nn) return nn;
             }
-
             return ax.length - bx.length;
         }
     }
