@@ -305,10 +305,11 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
      * @param data
      */
     handleDataReceived(data) {
-        const services = [];
+        let services = [];
         data.data.forEach((dataUnit) => {
             services.push(dataUnit[1]);
         });
+        services = services.filter((v, i, a) => a.indexOf(v) === i);
         services.sort(this.naturalSort);
 
         const serviceOptions = services.map(service => ({
@@ -329,16 +330,13 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
     initialPublish() {
         const responseCodeSelection = super.getGlobalState('httpResCode');
         if (responseCodeSelection.responseCode
-            && !(responseCodeSelection.responseCode instanceof Array)) {
-            if (this.state.services.indexOf(responseCodeSelection.responseCode) !== -1) {
-                this.handleChange({
-                    value: responseCodeSelection.responseCode,
-                    label: responseCodeSelection.responseCode,
-                    disabled: false,
-                });
-            } else {
-                this.publishUpdate();
-            }
+            && !(responseCodeSelection.responseCode instanceof Array)
+            && this.state.services.indexOf(responseCodeSelection.responseCode) !== -1) {
+            this.handleChange({
+                value: responseCodeSelection.responseCode,
+                label: responseCodeSelection.responseCode,
+                disabled: false,
+            });
         } else {
             this.publishUpdate();
         }
@@ -367,7 +365,6 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
                 const nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
                 if (nn) return nn;
             }
-
             return ax.length - bx.length;
         }
     }
