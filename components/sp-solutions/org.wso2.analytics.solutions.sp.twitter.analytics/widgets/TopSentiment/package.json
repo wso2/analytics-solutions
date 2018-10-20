@@ -1,5 +1,5 @@
 {
-  "name": "TopSentiment-widget",
+  "name": "TopSentiment",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

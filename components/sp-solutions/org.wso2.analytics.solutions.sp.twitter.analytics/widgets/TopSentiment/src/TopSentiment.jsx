@@ -17,7 +17,7 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import {MuiThemeProvider} from 'material-ui/styles';
-import {IconButton, Subheader} from 'material-ui';
+import {IconButton} from 'material-ui';
 import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
 import Tweet from 'react-tweet-embed'
 import './resources/tweet.css';
@@ -41,8 +41,6 @@ class TopSentiment extends Widget {
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this._handleDataReceived = this._handleDataReceived.bind(this);
-        this.sortTweetDescOrderOfSentimentValue = this.sortTweetDescOrderOfSentimentValue.bind(this);
-        this.sortTweetDescOrderOfTimestamp = this.sortTweetDescOrderOfTimestamp.bind(this);
         this.showUnreadPositiveTweets = this.showUnreadPositiveTweets.bind(this);
         this.showUnreadNegativeTweets = this.showUnreadNegativeTweets.bind(this);
     }
@@ -66,7 +64,6 @@ class TopSentiment extends Widget {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
     }
 
-
     _handleDataReceived(setData) {
         let positiveTweets = [];
         let negativeTweets = [];
@@ -87,24 +84,17 @@ class TopSentiment extends Widget {
                     })
                 }
             });
-            //sort tweet by timestamp desc
-            let sortedPositive = this.sortTweetDescOrderOfSentimentValue(positiveTweets);
-            let sortedNegative = this.sortTweetDescOrderOfSentimentValue(negativeTweets);
-            //select 5 most recent as
+            //select 5 to display
             let numberOfRemovableTweets = positiveTweets.length - MAX_TWEET_COUNT;
             let removedPositive =
-                sortedPositive.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
+                positiveTweets.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
             numberOfRemovableTweets = negativeTweets.length - MAX_TWEET_COUNT;
             let removedNegative =
-                sortedNegative.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
-            numberOfRemovableTweets = removedPositive.length - MAX_TWEET_COUNT;
-            removedPositive.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
-            numberOfRemovableTweets = removedNegative.length - MAX_TWEET_COUNT;
-            removedNegative.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
+                negativeTweets.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
 
             this.setState({
-                positiveTweets: sortedPositive,
-                negativeTweets: sortedNegative,
+                positiveTweets: positiveTweets,
+                negativeTweets: negativeTweets,
                 unreadPositiveTweets: removedPositive,
                 unreadNegativeTweets: removedNegative
             });
@@ -113,11 +103,21 @@ class TopSentiment extends Widget {
             negativeTweets = this.state.unreadNegativeTweets;
             setData.data.map((tweet) => {
                 if (tweet[3] === 'positive') {
-                    positiveTweets = this.sortTweetDescOrderOfTimestamp(positiveTweets, tweet);
+                    positiveTweets.push({
+                        id: tweet[0],
+                        tweetID: tweet[1],
+                        value: tweet[2]
+                    })
                 } else if (tweet[3] === 'negative') {
-                    negativeTweets = this.sortTweetDescOrderOfTimestamp(negativeTweets, tweet);
+                    negativeTweets.push({
+                        id: tweet[0],
+                        tweetID: tweet[1],
+                        value: tweet[2]
+                    })
                 }
             });
+            positiveTweets.sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
+            negativeTweets.sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
 
             let numberOfRemovableTweets = positiveTweets.length - MAX_TWEET_COUNT;
             positiveTweets.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
@@ -129,53 +129,6 @@ class TopSentiment extends Widget {
                 unreadNegativeTweets: negativeTweets
             });
         }
-    }
-
-    sortTweetDescOrderOfSentimentValue(array) {
-        for (let i = 0; i < array.length; i++) {
-            for (let j = 1; j < (array.length - i); j++) {
-                if (Math.abs(array[j - 1].value) < Math.abs(array[j].value)
-                    || (Math.abs(array[j - 1].value) === Math.abs(array[j].value)
-                        && array[j - 1].id < array[j].id)) {
-                    let temp = array[j - 1];
-                    array[j - 1] = array[j];
-                    array[j] = temp;
-                }
-            }
-        }
-        return array;
-    }
-
-    sortTweetDescOrderOfTimestamp(tweetsArray, tweet) {
-        let result = [];
-        if (tweetsArray !== undefined && tweetsArray.length > 0) {
-            for (let i = 0; i < tweetsArray.length; i++) {
-                if (Math.abs(tweetsArray[i].value) < Math.abs(tweet[2])
-                    || (tweetsArray[i].value === Math.abs(tweet[2])
-                        && tweetsArray[i].id < tweet[0])) {
-                    result.push({
-                        id: tweet[0],
-                        tweetID: tweet[1],
-                        value: tweet[2]
-                    });
-                    result = result.concat(tweetsArray.slice(i));
-                    break;
-                } else {
-                    result.push({
-                        id: tweetsArray[i].id,
-                        tweetID: tweetsArray[i].tweetID,
-                        value: tweetsArray[i].value
-                    });
-                }
-            }
-        } else {
-            result.push({
-                id: tweet[0],
-                tweetID: tweet[1],
-                value: tweet[2]
-            });
-        }
-        return result;
     }
 
     showUnreadPositiveTweets() {
@@ -207,26 +160,28 @@ class TopSentiment extends Widget {
                         paddingBottom: 10
                     }}>
                     <section>
-                        <div>
-                            <Subheader
-                                style={{
-                                    height: 20,
-                                }}>
-                                Positive Sentiment Tweets
-                            </Subheader>
+                        <div
+                            style={{ height: (this.state.height * 0.95)/2 }}>
                             <div
                                 style={{
-                                    height: 36,
-                                    textAlign: 'right'
+                                    paddingTop: 15,
+                                    paddingLeft: 10,
+                                    height: ((this.state.height * 0.95)/2)*0.1
                                 }}>
-                                <IconButton
-                                    tooltip="Refresh Positive Sentiment Tweets"
-                                    onClick={this.showUnreadPositiveTweets}>
-                                    <RefreshIcon/>
-                                </IconButton>
+                                Positive Sentiment Tweets
+                                <div
+                                    style={{
+                                        textAlign: 'right'
+                                    }}>
+                                    <IconButton
+                                        tooltip="Refresh Positive Sentiment Tweets"
+                                        onClick={this.showUnreadPositiveTweets}>
+                                        <RefreshIcon/>
+                                    </IconButton>
+                                </div>
                             </div>
                             <Scrollbars
-                                style={{height: (this.state.height-112) / 2}}>
+                                style={{ height: ((this.state.height * 0.95)/2)*0.9 }}>
                                 <div
                                     className='tweet-stream'>
                                     {
@@ -245,26 +200,29 @@ class TopSentiment extends Widget {
                                 </div>
                             </Scrollbars>
                         </div>
-                        <div>
-                            <Subheader
-                                style={{
-                                    height: 20
-                                }}>
-                                Negative Sentiment Tweets
-                            </Subheader>
+                        <div style={{ height: (this.state.height * 0.05) }}/>
+                        <div
+                            style={{ height: (this.state.height * 0.95)/2 }}>
                             <div
                                 style={{
-                                    height: 36,
-                                    textAlign: 'right'
+                                    paddingTop: 15,
+                                    paddingLeft: 10,
+                                    height: ((this.state.height * 0.95)/2)*0.1
                                 }}>
-                                <IconButton
-                                    tooltip="Refresh Negative Sentiment Tweets"
-                                    onClick={this.showUnreadNegativeTweets}>
-                                    <RefreshIcon/>
-                                </IconButton>
+                                Negative Sentiment Tweets
+                                <div
+                                    style={{
+                                        textAlign: 'right'
+                                    }}>
+                                    <IconButton
+                                        tooltip="Refresh Negative Sentiment Tweets"
+                                        onClick={this.showUnreadNegativeTweets}>
+                                        <RefreshIcon/>
+                                    </IconButton>
+                                </div>
                             </div>
                             <Scrollbars
-                                style={{height: (this.state.height-112) / 2}}>
+                                style={{ height: ((this.state.height * 0.95)/2)*0.9 }}>
                                 <div
                                     className='tweet-stream'>
                                     {
