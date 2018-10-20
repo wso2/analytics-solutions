@@ -18,6 +18,7 @@ import React, {Component} from "react";
 import Widget from "@wso2-dashboards/widget";
 import Timeline from 'vis/lib/timeline/Timeline';
 import DataSet from 'vis/lib/DataSet';
+import Moment from 'moment';
 import 'vis/dist/vis.min.css';
 import {Scrollbars} from 'react-custom-scrollbars';
 import './OpenTracingVisTimeline.css';
@@ -91,6 +92,19 @@ class OpenTracingVisTimeline extends Widget {
         window.dispatchEvent(new Event('resize'));
     }
 
+    getTimeDetsAppendedTag(tag, startTime, endTime) {
+        const format = 'YYYY-MMM-DD hh:mm:ss.SSS A';
+        const start = Moment(startTime);
+        const end = Moment(endTime);
+        let dataArray = JSON.parse(tag);
+        dataArray = dataArray.concat(
+            {'start.time' : start.format(format)},
+            {'end.time' : end.format(format)},
+            {'duration' : end.diff(start) + ' ms'}
+            );
+        return JSON.stringify(dataArray);
+    }
+
     populateTimeline(data) {
         let groupList = [];
         this.tempItems = [];
@@ -133,7 +147,7 @@ class OpenTracingVisTimeline extends Widget {
                     type2: "description",
                     start: new Date(lowestDate),
                     end: new Date(highestDate),
-                    tags: data[i][8],
+                    tags: this.getTimeDetsAppendedTag(data[i][8], startTime, endTime),
                     baggageItems: data[i][9],
                     id: i + 1,
                     group: i + 1,
