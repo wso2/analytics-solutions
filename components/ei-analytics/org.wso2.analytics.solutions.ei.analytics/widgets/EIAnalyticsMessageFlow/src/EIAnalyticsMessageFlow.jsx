@@ -308,179 +308,179 @@ class EIAnalyticsMessageFlow extends Widget {
 
     handleConfigEntryData(timeUnit, timeFrom, timeTo, tenantId, entryName) {
         return (configEntryData) => {
-            if (configEntryData != null && configEntryData.data.length !== 0) {
-                let hashcodeIndex = configEntryData.metadata.names.indexOf("hashcode");
-                let hashcodeData = configEntryData.data[0][hashcodeIndex];
-                this.parameters.isConfLoadError = false;
-                super.getWidgetConfiguration(this.props.widgetID)
-                    .then((message) => {
-                        let dataProviderConf = message.data;
-                        let formattedQuery = dataProviderConf.configs.providerConfig.configs.config.queryData
-                            .ENTRY_POINT_MESSAGE_FLOW_GET_AGGREGATE_DATA
-                            .replace("{{timeUnit}}", timeUnit)
-                            .replace("{{hashcode}}", '\'' + hashcodeData + '\'')
-                            .replace("{{tenantId}}", tenantId)
-                            .replace("{{timeTo}}", timeTo)
-                            .replace("{{timeFrom}}", timeFrom);
-                        dataProviderConf.configs.providerConfig.configs.config.queryData = {query: formattedQuery};
-                        super.getWidgetChannelManager().subscribeWidget(
-                            this.props.id,
-                            (data) => this.handleAggregateData(configEntryData, entryName, data),
-                            dataProviderConf.configs.providerConfig
-                        );
-                    })
-                    .catch(() => {
-                        this.parameters.isConfLoadError = true;
-                    });
-            } else {
+            if (configEntryData == null || configEntryData.data.length === 0) {
                 console.error("Data store returned with empty configuration data for " + this.props.widgetID);
+                return;
             }
+            let hashcodeIndex = configEntryData.metadata.names.indexOf("hashcode");
+            let hashcodeData = configEntryData.data[0][hashcodeIndex];
+            this.parameters.isConfLoadError = false;
+            super.getWidgetConfiguration(this.props.widgetID)
+                .then((message) => {
+                    let dataProviderConf = message.data;
+                    let formattedQuery = dataProviderConf.configs.providerConfig.configs.config.queryData
+                        .ENTRY_POINT_MESSAGE_FLOW_GET_AGGREGATE_DATA
+                        .replace("{{timeUnit}}", timeUnit)
+                        .replace("{{hashcode}}", '\'' + hashcodeData + '\'')
+                        .replace("{{tenantId}}", tenantId)
+                        .replace("{{timeTo}}", timeTo)
+                        .replace("{{timeFrom}}", timeFrom);
+                    dataProviderConf.configs.providerConfig.configs.config.queryData = {query: formattedQuery};
+                    super.getWidgetChannelManager().subscribeWidget(
+                        this.props.id,
+                        (data) => this.handleAggregateData(configEntryData, entryName, data),
+                        dataProviderConf.configs.providerConfig
+                    );
+                })
+                .catch(() => {
+                    this.parameters.isConfLoadError = true;
+                });
         }
     }
 
     handleAggregateData(configEntryData, entryName, aggregateData) {
-        if (aggregateData != null && aggregateData.data.length !== 0) {
-            this.setState({
-                dataUnavailable: false
-            });
-            // Read and store column names and the position mapping in the data arrays
-            let configEntryDataTableIndex = {};
-            configEntryData.metadata.names.forEach((value, index) => {
-                configEntryDataTableIndex[value] = index;
-            });
-            let schema = JSON.parse(configEntryData.data[0][configEntryDataTableIndex["configData"]]);
-            // Aggregate table and prepare component map
-            let result = [];
-            let componentMap = {};
-            let fields = ["invocations", "totalDuration", "maxDuration", "faults"];
-            let table = aggregateData.data;
-            if (table != null && table.length !== 0) {
-                for (let j = 0; j < table.length; j++) {
-                    let componentInfo = {};
-                    // Replace number based indexing with label names
-                    let row = table[j];
-                    aggregateData.metadata.names.forEach((value, index) => {
-                        componentInfo[value] = row[index];
-                    });
-                    let componentId = componentInfo["componentId"];
-                    if (componentMap[componentId] == null) {
-                        componentMap[componentId] = componentInfo;
-                    } else {
-                        for (let field in fields) {
-                            fieldName = fields[field];
-                            componentMap[componentId][fieldName] = componentMap[componentId][fieldName]
-                                + componentInfo[fieldName];
-                        }
-                    }
-                }
-            }
-            // Populate table data
-            let componentNameRegex = new RegExp("^.*@\\d*:(.*)"); // Eg: HealthCareAPI@9:Resource
-            let groups = [];
-            for (let i = 0; i < schema.length; i++) {
-                if (schema[i] != null) {
-                    let componentId = schema[i]["id"];
-                    /* change component id when @indirect presents */
-                    let isIndirectComponent = componentId.indexOf("@indirect");
-                    let originalCompId = componentId;
-                    if (isIndirectComponent > 0) {
-                        // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
-                        let splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
-                        let splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
-                        componentId = splitByAt[0] + "@0:" + splitByColon[1];
-                        /*
-                            If any remaining entries in the schema has same name part'indirect',
-                            replace it with the newly generated component id
-                         */
-                        for (let j = 0; j < schema.length; j++) {
-                            if (schema[j] != null) {
-                                let componentIdTmp = schema[j]["id"];
-                                let componentIdParentTmp = schema[j]["parentId"];
-                                let tempGroupId = schema[j]["group"];
-                                if (componentIdTmp === componentId) {
-                                    schema[j]["id"] = originalCompId;
-                                } else if (componentIdParentTmp === componentId) {
-                                    schema[j]["parentId"] = originalCompId;
-                                }
-                                if (tempGroupId === componentId) {
-                                    schema[j]["group"] = originalCompId;
-                                }
-                            }
-                        }
-                    }
-                    let componentInfo = componentMap[componentId];
-                    let dataAttributes = [];
-                    // Find unique groups
-                    if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) === -1) {
-                        groups.push(schema[i]["group"]);
-                    }
-                    // Create data attributes
-                    for (let field in fields) {
-                        let fieldName = fields[field];
-                        if (componentInfo != null) {
-                            if (fieldName === "totalDuration") {
-                                dataAttributes.push({ // Get the average values of multiple entries of the same path
-                                    "name": "AvgDuration",
-                                    "value": (componentInfo[fieldName] / componentInfo["invocations"]).toFixed(2)
-                                });
-                            } else {
-                                dataAttributes.push({"name": fieldName, "value": componentInfo[fieldName]});
-                            }
-                        } else {
-                            dataAttributes.push({"name": fieldName, "value": 0});
-                        }
-                    }
-                    let componentLabel = componentNameRegex.exec(componentId)[1];
-                    let componentType;
-                    if (componentInfo != null) {
-                        componentType = componentInfo["componentType"];
-                    } else {
-                        componentType = "UNKNOWN";
-                    }
-                    // Create hidden attributes
-                    let hiddenAttributes = [];
-                    hiddenAttributes.push({"name": "entryPoint", "value": entryName.slice(1, -1)});
-                    if (componentType === "Endpoint" || componentType === "Sequence") {
-                        hiddenAttributes.push({"name": "id", "value": componentLabel});
-                    } else {
-                        hiddenAttributes.push({"name": "id", "value": componentId});
-                    }
-                    if (schema[i]["parentId"] === schema[i]["group"]) {
-                        result.push({
-                            "id": originalCompId,
-                            "label": componentLabel,
-                            "parents": [],
-                            "group": schema[i]["group"],
-                            "type": componentType,
-                            "dataAttributes": dataAttributes,
-                            "hiddenAttributes": hiddenAttributes,
-                            "modifiedId": componentId
-                        });
-                    } else {
-                        result.push({
-                            "id": originalCompId,
-                            "label": componentLabel,
-                            "parents": [schema[i]["parentId"]],
-                            "group": schema[i]["group"],
-                            "type": componentType,
-                            "dataAttributes": dataAttributes,
-                            "hiddenAttributes": hiddenAttributes,
-                            "modifiedId": componentId
-                        });
-                    }
-                }
-            }
-            // Defining groups
-            for (let j = 0; j < result.length; j++) {
-                if (groups.indexOf(result[j]["id"]) >= 0) {
-                    result[j]["type"] = "group";
-                }
-            }
-            // Draw message flow with the processed data
-            this.drawMessageFlow($, result);
-        } else {
+        if (aggregateData == null || aggregateData.data.length === 0) {
             console.error("Data store returned with empty aggregation data for " + this.props.widgetID);
+            return;
         }
+        this.setState({
+            dataUnavailable: false
+        });
+        // Read and store column names and the position mapping in the data arrays
+        let configEntryDataTableIndex = {};
+        configEntryData.metadata.names.forEach((value, index) => {
+            configEntryDataTableIndex[value] = index;
+        });
+        let schema = JSON.parse(configEntryData.data[0][configEntryDataTableIndex["configData"]]);
+        // Aggregate table and prepare component map
+        let result = [];
+        let componentMap = {};
+        let fields = ["invocations", "totalDuration", "maxDuration", "faults"];
+        let table = aggregateData.data;
+        if (table != null && table.length !== 0) {
+            for (let j = 0; j < table.length; j++) {
+                let componentInfo = {};
+                // Replace number based indexing with label names
+                let row = table[j];
+                aggregateData.metadata.names.forEach((value, index) => {
+                    componentInfo[value] = row[index];
+                });
+                let componentId = componentInfo["componentId"];
+                if (componentMap[componentId] == null) {
+                    componentMap[componentId] = componentInfo;
+                } else {
+                    for (let field in fields) {
+                        fieldName = fields[field];
+                        componentMap[componentId][fieldName] = componentMap[componentId][fieldName]
+                            + componentInfo[fieldName];
+                    }
+                }
+            }
+        }
+        // Populate table data
+        let componentNameRegex = new RegExp("^.*@\\d*:(.*)"); // Eg: HealthCareAPI@9:Resource
+        let groups = [];
+        for (let i = 0; i < schema.length; i++) {
+            if (schema[i] != null) {
+                let componentId = schema[i]["id"];
+                /* change component id when @indirect presents */
+                let isIndirectComponent = componentId.indexOf("@indirect");
+                let originalCompId = componentId;
+                if (isIndirectComponent > 0) {
+                    // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
+                    let splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
+                    let splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
+                    componentId = splitByAt[0] + "@0:" + splitByColon[1];
+                    /*
+                        If any remaining entries in the schema has same name part'indirect',
+                        replace it with the newly generated component id
+                     */
+                    for (let j = 0; j < schema.length; j++) {
+                        if (schema[j] != null) {
+                            let componentIdTmp = schema[j]["id"];
+                            let componentIdParentTmp = schema[j]["parentId"];
+                            let tempGroupId = schema[j]["group"];
+                            if (componentIdTmp === componentId) {
+                                schema[j]["id"] = originalCompId;
+                            } else if (componentIdParentTmp === componentId) {
+                                schema[j]["parentId"] = originalCompId;
+                            }
+                            if (tempGroupId === componentId) {
+                                schema[j]["group"] = originalCompId;
+                            }
+                        }
+                    }
+                }
+                let componentInfo = componentMap[componentId];
+                let dataAttributes = [];
+                // Find unique groups
+                if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) === -1) {
+                    groups.push(schema[i]["group"]);
+                }
+                // Create data attributes
+                for (let field in fields) {
+                    let fieldName = fields[field];
+                    if (componentInfo != null) {
+                        if (fieldName === "totalDuration") {
+                            dataAttributes.push({ // Get the average values of multiple entries of the same path
+                                "name": "AvgDuration",
+                                "value": (componentInfo[fieldName] / componentInfo["invocations"]).toFixed(2)
+                            });
+                        } else {
+                            dataAttributes.push({"name": fieldName, "value": componentInfo[fieldName]});
+                        }
+                    } else {
+                        dataAttributes.push({"name": fieldName, "value": 0});
+                    }
+                }
+                let componentLabel = componentNameRegex.exec(componentId)[1];
+                let componentType;
+                if (componentInfo != null) {
+                    componentType = componentInfo["componentType"];
+                } else {
+                    componentType = "UNKNOWN";
+                }
+                // Create hidden attributes
+                let hiddenAttributes = [];
+                hiddenAttributes.push({"name": "entryPoint", "value": entryName.slice(1, -1)});
+                if (componentType === "Endpoint" || componentType === "Sequence") {
+                    hiddenAttributes.push({"name": "id", "value": componentLabel});
+                } else {
+                    hiddenAttributes.push({"name": "id", "value": componentId});
+                }
+                if (schema[i]["parentId"] === schema[i]["group"]) {
+                    result.push({
+                        "id": originalCompId,
+                        "label": componentLabel,
+                        "parents": [],
+                        "group": schema[i]["group"],
+                        "type": componentType,
+                        "dataAttributes": dataAttributes,
+                        "hiddenAttributes": hiddenAttributes,
+                        "modifiedId": componentId
+                    });
+                } else {
+                    result.push({
+                        "id": originalCompId,
+                        "label": componentLabel,
+                        "parents": [schema[i]["parentId"]],
+                        "group": schema[i]["group"],
+                        "type": componentType,
+                        "dataAttributes": dataAttributes,
+                        "hiddenAttributes": hiddenAttributes,
+                        "modifiedId": componentId
+                    });
+                }
+            }
+        }
+        // Defining groups
+        for (let j = 0; j < result.length; j++) {
+            if (groups.indexOf(result[j]["id"]) >= 0) {
+                result[j]["type"] = "group";
+            }
+        }
+        // Draw message flow with the processed data
+        this.drawMessageFlow($, result);
     }
 
     /**
@@ -521,35 +521,34 @@ class EIAnalyticsMessageFlow extends Widget {
      */
     handleMessageFlowComponentsData(tenantId) {
         return (components) => {
-            if (components != null && components.data.length !== 0) {
-                let parsedComponents = this.parseDatastoreMessage(components);
-                let entryPointHashCode = parsedComponents[0].entryPointHashcode;
-                let entryPoint = parsedComponents[0].entryPoint;
-                // Set query for schema and call data store for data
-                this.parameters.isConfLoadError = false;
-                super.getWidgetConfiguration(this.props.widgetID)
-                    .then((message) => {
-                        let dataProviderConf = message.data;
-                        let query = dataProviderConf.configs.providerConfig.configs.config.queryData
-                            .MESSAGE_FLOW_QUERY_GET_FLOW_SCHEMA;
-                        dataProviderConf.configs.providerConfig.configs.config.queryData.query = query
-                            .replace("{{hashcode}}", "\'" + entryPointHashCode + "\'")
-                            .replace("{{meta_tenantId}}", tenantId);
-                        let formattedProviderConfig = dataProviderConf.configs.providerConfig;
-                        super.getWidgetChannelManager()
-                            .subscribeWidget(
-                                this.props.id,
-                                this.handleMessageFlowSchema(parsedComponents, entryPoint, tenantId).bind(this),
-                                formattedProviderConfig
-                            );
-                    })
-                    .catch(() => {
-                        this.parameters.isConfLoadError = true;
-                    });
-
-            } else {
+            if (components == null || components.data.length === 0) {
                 console.error("Data store returned with empty components for " + this.props.widgetID);
+                return;
             }
+            let parsedComponents = this.parseDatastoreMessage(components);
+            let entryPointHashCode = parsedComponents[0].entryPointHashcode;
+            let entryPoint = parsedComponents[0].entryPoint;
+            // Set query for schema and call data store for data
+            this.parameters.isConfLoadError = false;
+            super.getWidgetConfiguration(this.props.widgetID)
+                .then((message) => {
+                    let dataProviderConf = message.data;
+                    let query = dataProviderConf.configs.providerConfig.configs.config.queryData
+                        .MESSAGE_FLOW_QUERY_GET_FLOW_SCHEMA;
+                    dataProviderConf.configs.providerConfig.configs.config.queryData.query = query
+                        .replace("{{hashcode}}", "\'" + entryPointHashCode + "\'")
+                        .replace("{{meta_tenantId}}", tenantId);
+                    let formattedProviderConfig = dataProviderConf.configs.providerConfig;
+                    super.getWidgetChannelManager()
+                        .subscribeWidget(
+                            this.props.id,
+                            this.handleMessageFlowSchema(parsedComponents, entryPoint, tenantId).bind(this),
+                            formattedProviderConfig
+                        );
+                })
+                .catch(() => {
+                    this.parameters.isConfLoadError = true;
+                });
         };
     }
 
@@ -558,43 +557,43 @@ class EIAnalyticsMessageFlow extends Widget {
      */
     handleMessageFlowSchema(parsedComponents, entryPoint, tenantId) {
         return (flowSchema) => {
-            if (flowSchema != null && flowSchema.data.length !== 0) {
-                let parsedFlowScheme = this.parseDatastoreMessage(flowSchema);
-                let sequenceComponentsQuery = "("; // Query for Components which are sequences
-                parsedComponents.forEach((value) => {
-                    if (value.componentType === "Sequence") {
-                        sequenceComponentsQuery += ("hashcode=='" + value.hashCode + "' OR ");
-                    }
-                });
-                // If sequences exists
-                if (sequenceComponentsQuery.length > 0) {
-                    sequenceComponentsQuery += "false) "; // To fix final 'OR' in the query
-                    this.parameters.isConfLoadError = false;
-                    super.getWidgetConfiguration(this.props.widgetID)
-                        .then((message) => {
-                            let dataProviderConf = message.data;
-                            let query = dataProviderConf.configs.providerConfig.configs.config.queryData
-                                .MESSAGE_FLOW_QUERY_GET_COMPONENT_SCHEMA;
-                            dataProviderConf.configs.providerConfig.configs.config.queryData.query = query
-                                .replace("{{sequences}}", sequenceComponentsQuery)
-                                .replace("{{meta_tenantId}}", tenantId);
-                            super.getWidgetChannelManager()
-                                .subscribeWidget(
-                                    this.props.id,
-                                    this.handleMessageFlowComponentSchemas(parsedComponents, entryPoint, parsedFlowScheme).bind(this),
-                                    dataProviderConf.configs.providerConfig
-                                );
-                        })
-                        .catch(() => {
-                            this.parameters.isConfLoadError = true;
-                        });
-                }
-                else {
-                    // If there are no sequences present, no need to make a DB call
-                    this.handleMessageFlowComponentSchemas(parsedComponents, entryPoint, parsedFlowScheme)("");
-                }
-            } else {
+            if (flowSchema == null || flowSchema.data.length === 0) {
                 console.error("Data store returned with empty message flow schema for " + this.props.widgetID);
+                return;
+            }
+            let parsedFlowScheme = this.parseDatastoreMessage(flowSchema);
+            let sequenceComponentsQuery = "("; // Query for Components which are sequences
+            parsedComponents.forEach((value) => {
+                if (value.componentType === "Sequence") {
+                    sequenceComponentsQuery += ("hashcode=='" + value.hashCode + "' OR ");
+                }
+            });
+            // If sequences exists
+            if (sequenceComponentsQuery.length > 0) {
+                sequenceComponentsQuery += "false) "; // To fix final 'OR' in the query
+                this.parameters.isConfLoadError = false;
+                super.getWidgetConfiguration(this.props.widgetID)
+                    .then((message) => {
+                        let dataProviderConf = message.data;
+                        let query = dataProviderConf.configs.providerConfig.configs.config.queryData
+                            .MESSAGE_FLOW_QUERY_GET_COMPONENT_SCHEMA;
+                        dataProviderConf.configs.providerConfig.configs.config.queryData.query = query
+                            .replace("{{sequences}}", sequenceComponentsQuery)
+                            .replace("{{meta_tenantId}}", tenantId);
+                        super.getWidgetChannelManager()
+                            .subscribeWidget(
+                                this.props.id,
+                                this.handleMessageFlowComponentSchemas(parsedComponents, entryPoint, parsedFlowScheme).bind(this),
+                                dataProviderConf.configs.providerConfig
+                            );
+                    })
+                    .catch(() => {
+                        this.parameters.isConfLoadError = true;
+                    });
+            }
+            else {
+                // If there are no sequences present, no need to make a DB call
+                this.handleMessageFlowComponentSchemas(parsedComponents, entryPoint, parsedFlowScheme)("");
             }
         }
     }
@@ -814,58 +813,58 @@ class EIAnalyticsMessageFlow extends Widget {
 
     handleSequenceMessageFlowSchema(timeUnit, timeFrom, timeTo, tenantId) {
         return (schemaData) => {
-            if (schemaData != null && schemaData.data.length !== 0) {
-                let parsedSchemaData = this.parseDatastoreMessage(schemaData)[0]; // Get latest schema data
-                let artifactFirstEntryTime = moment(parsedSchemaData._timestamp).format("YYYY-MM-DD HH:mm:ss");
-                let schema = JSON.parse(parsedSchemaData.configData);
-                let componentIdQuery = "(";
-                for (let j = 0; j < schema.length; j++) {
-                    if (schema[j] != null) {
-                        let componentId = schema[j]["id"];
-                        let isIndirectComponent = componentId.indexOf("@indirect");
-                        if (isIndirectComponent > 0) {
-                            // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
-                            let splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
-                            let splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
-                            componentId = splitByAt[0] + "@0:" + splitByColon[1];
-                        }
-                        componentIdQuery += "componentId=='" + componentId + "' OR ";
-                    }
-                }
-                componentIdQuery += "false) "; // Fix final 'AND' in the query
-                // get components info from different tables
-                let dataFetchTime = artifactFirstEntryTime;
-                if (moment(timeFrom.replace(/'/g, '')).isBefore(artifactFirstEntryTime)) {
-                    dataFetchTime = timeFrom;
-                }
-                else {
-                    dataFetchTime = "\'" + artifactFirstEntryTime + "\'";
-                }
-                this.parameters.isConfLoadError = false;
-                super.getWidgetConfiguration(this.props.widgetID)
-                    .then((message) => {
-                        let dataProviderConf = message.data;
-                        let query = dataProviderConf.configs.providerConfig.configs.config.queryData
-                            .SEQUENCE_MESSAGE_FLOW_QUERY_GET_AGGREGATE_DATA;
-                        let formattedQuery = query
-                            .replace("{{componentIDs}}", componentIdQuery)
-                            .replace("{{timeUnit}}", timeUnit)
-                            .replace("{{tenantId}}", tenantId)
-                            .replace("{{timeTo}}", timeTo)
-                            .replace("{{timeFrom}}", dataFetchTime);
-                        dataProviderConf.configs.providerConfig.configs.config.queryData = {query: formattedQuery};
-                        super.getWidgetChannelManager().subscribeWidget(
-                            this.props.id,
-                            this.handleSequenceMessageFlowAggregateData(schema).bind(this),
-                            dataProviderConf.configs.providerConfig
-                        );
-                    })
-                    .catch(() => {
-                        this.parameters.isConfLoadError = true;
-                    });
-            } else {
+            if (schemaData == null || schemaData.data.length === 0) {
                 console.error("Data store returned with empty message flow schema for " + this.props.widgetID);
+                return;
             }
+            let parsedSchemaData = this.parseDatastoreMessage(schemaData)[0]; // Get latest schema data
+            let artifactFirstEntryTime = moment(parsedSchemaData._timestamp).format("YYYY-MM-DD HH:mm:ss");
+            let schema = JSON.parse(parsedSchemaData.configData);
+            let componentIdQuery = "(";
+            for (let j = 0; j < schema.length; j++) {
+                if (schema[j] != null) {
+                    let componentId = schema[j]["id"];
+                    let isIndirectComponent = componentId.indexOf("@indirect");
+                    if (isIndirectComponent > 0) {
+                        // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
+                        let splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
+                        let splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
+                        componentId = splitByAt[0] + "@0:" + splitByColon[1];
+                    }
+                    componentIdQuery += "componentId=='" + componentId + "' OR ";
+                }
+            }
+            componentIdQuery += "false) "; // Fix final 'AND' in the query
+            // get components info from different tables
+            let dataFetchTime = artifactFirstEntryTime;
+            if (moment(timeFrom.replace(/'/g, '')).isBefore(artifactFirstEntryTime)) {
+                dataFetchTime = timeFrom;
+            }
+            else {
+                dataFetchTime = "\'" + artifactFirstEntryTime + "\'";
+            }
+            this.parameters.isConfLoadError = false;
+            super.getWidgetConfiguration(this.props.widgetID)
+                .then((message) => {
+                    let dataProviderConf = message.data;
+                    let query = dataProviderConf.configs.providerConfig.configs.config.queryData
+                        .SEQUENCE_MESSAGE_FLOW_QUERY_GET_AGGREGATE_DATA;
+                    let formattedQuery = query
+                        .replace("{{componentIDs}}", componentIdQuery)
+                        .replace("{{timeUnit}}", timeUnit)
+                        .replace("{{tenantId}}", tenantId)
+                        .replace("{{timeTo}}", timeTo)
+                        .replace("{{timeFrom}}", dataFetchTime);
+                    dataProviderConf.configs.providerConfig.configs.config.queryData = {query: formattedQuery};
+                    super.getWidgetChannelManager().subscribeWidget(
+                        this.props.id,
+                        this.handleSequenceMessageFlowAggregateData(schema).bind(this),
+                        dataProviderConf.configs.providerConfig
+                    );
+                })
+                .catch(() => {
+                    this.parameters.isConfLoadError = true;
+                });
         }
     }
 
@@ -876,118 +875,118 @@ class EIAnalyticsMessageFlow extends Widget {
      */
     handleSequenceMessageFlowAggregateData(schema) {
         return (aggregatedData) => {
-            if (aggregatedData != null && aggregatedData.data.length !== 0) {
-                this.setState({
-                    dataUnavailable: false
-                });
-                let parsedAggregateData = this.parseDatastoreMessage(aggregatedData);
-                let componentMap = {};
-                parsedAggregateData.forEach((eachComponent) => {
-                    componentMap[eachComponent.componentId] = eachComponent;
-                });
-                let fields = ["invocations", "totalDuration", "maxDuration", "faults"];
-                let result = [];
-                // Populate table data
-                let componentNameRegex = new RegExp("^.*@\\d*:(.*)");
-                let groups = [];
-                for (let i = 0; i < schema.length; i++) {
-                    let componentId = schema[i]["id"];
-                    let isIndirectComponent = componentId.indexOf("@indirect");
-                    let originalCompId = componentId;
-                    if (isIndirectComponent > 0) {
-                        // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
-                        let splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
-                        let splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
-                        componentId = splitByAt[0] + "@0:" + splitByColon[1];
-                        for (let j = 0; j < schema.length; j++) {
-                            if (schema[j] != null) {
-                                let componentIdTmp = schema[j]["id"];
-                                let componentIdParentTmp = schema[j]["parentId"];
-                                let tempGroupId = schema[j]["group"];
-                                if (componentIdTmp === componentId) {
-                                    schema[j]["id"] = originalCompId;
-                                } else if (componentIdParentTmp === componentId) {
-                                    schema[j]["parentId"] = originalCompId;
-                                }
-                                if (tempGroupId === componentId) {
-                                    schema[j]["group"] = originalCompId;
-                                }
-                            }
-                        }
-                    }
-                    let componentInfo = componentMap[componentId];
-                    let dataAttributes = [];
-                    // Find unique groups
-                    if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) === -1) {
-                        groups.push(schema[i]["group"]);
-                    }
-                    // Create data attributes
-                    for (let field in fields) {
-                        let fieldName = fields[field];
-                        if (componentInfo != null) {
-                            if (fieldName === "TotalDuration") {
-                                dataAttributes.push({
-                                    "name": "AvgDuration",
-                                    "value": (componentInfo[fieldName] / componentInfo["Invocations"]).toFixed(2)
-                                });
-                            } else {
-                                dataAttributes.push({"name": fieldName, "value": componentInfo[fieldName]});
-                            }
-                        } else {
-                            dataAttributes.push({"name": fieldName, "value": 0});
-                        }
-                    }
-                    let componentLabel = componentNameRegex.exec(componentId)[1];
-                    let componentType;
-                    if (componentInfo != null) {
-                        componentType = componentInfo["componentType"];
-                    } else {
-                        componentType = "UNKNOWN";
-                    }
-                    // Create hidden attributes
-                    let hiddenAttributes = [];
-                    if (componentInfo != null) {
-                        hiddenAttributes.push({"name": "entryPoint", "value": componentInfo["entryPoint"]});
-                    }
-                    if (componentType === "Endpoint" || componentType === "Sequence") {
-                        hiddenAttributes.push({"name": "id", "value": componentLabel});
-                    } else {
-                        hiddenAttributes.push({"name": "id", "value": componentId});
-                    }
-                    if (schema[i]["parentId"] === schema[i]["group"]) {
-                        result.push({
-                            "id": originalCompId,
-                            "label": componentLabel,
-                            "parents": [],
-                            "group": schema[i]["group"],
-                            "type": componentType,
-                            "dataAttributes": dataAttributes,
-                            "hiddenAttributes": hiddenAttributes,
-                            "modifiedId": componentId
-                        });
-                    } else {
-                        result.push({
-                            "id": originalCompId,
-                            "label": componentLabel,
-                            "parents": [schema[i]["parentId"]],
-                            "group": schema[i]["group"],
-                            "type": componentType,
-                            "dataAttributes": dataAttributes,
-                            "hiddenAttributes": hiddenAttributes,
-                            "modifiedId": componentId
-                        });
-                    }
-                }
-                // Defining groups
-                for (let j = 0; j < result.length; j++) {
-                    if (groups.indexOf(result[j]["id"]) >= 0) {
-                        result[j]["type"] = "group";
-                    }
-                }
-                this.drawMessageFlow($, result);
-            } else {
+            if (aggregatedData == null || aggregatedData.data.length === 0) {
                 console.error("Data store returned with empty aggregation data for " + this.props.widgetID);
+                return;
             }
+            this.setState({
+                dataUnavailable: false
+            });
+            let parsedAggregateData = this.parseDatastoreMessage(aggregatedData);
+            let componentMap = {};
+            parsedAggregateData.forEach((eachComponent) => {
+                componentMap[eachComponent.componentId] = eachComponent;
+            });
+            let fields = ["invocations", "totalDuration", "maxDuration", "faults"];
+            let result = [];
+            // Populate table data
+            let componentNameRegex = new RegExp("^.*@\\d*:(.*)");
+            let groups = [];
+            for (let i = 0; i < schema.length; i++) {
+                let componentId = schema[i]["id"];
+                let isIndirectComponent = componentId.indexOf("@indirect");
+                let originalCompId = componentId;
+                if (isIndirectComponent > 0) {
+                    // PaymentServiceEp@14:PaymentServiceEp@indirect --> PaymentServiceEp@0:PaymentServiceEp
+                    let splitByAt = componentId.split("@"); // ["PaymentServiceEp", "14:PaymentServiceEp", "indirect"]
+                    let splitByColon = splitByAt[1].split(":"); // ["14", "PaymentServiceEp"]
+                    componentId = splitByAt[0] + "@0:" + splitByColon[1];
+                    for (let j = 0; j < schema.length; j++) {
+                        if (schema[j] != null) {
+                            let componentIdTmp = schema[j]["id"];
+                            let componentIdParentTmp = schema[j]["parentId"];
+                            let tempGroupId = schema[j]["group"];
+                            if (componentIdTmp === componentId) {
+                                schema[j]["id"] = originalCompId;
+                            } else if (componentIdParentTmp === componentId) {
+                                schema[j]["parentId"] = originalCompId;
+                            }
+                            if (tempGroupId === componentId) {
+                                schema[j]["group"] = originalCompId;
+                            }
+                        }
+                    }
+                }
+                let componentInfo = componentMap[componentId];
+                let dataAttributes = [];
+                // Find unique groups
+                if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) === -1) {
+                    groups.push(schema[i]["group"]);
+                }
+                // Create data attributes
+                for (let field in fields) {
+                    let fieldName = fields[field];
+                    if (componentInfo != null) {
+                        if (fieldName === "TotalDuration") {
+                            dataAttributes.push({
+                                "name": "AvgDuration",
+                                "value": (componentInfo[fieldName] / componentInfo["Invocations"]).toFixed(2)
+                            });
+                        } else {
+                            dataAttributes.push({"name": fieldName, "value": componentInfo[fieldName]});
+                        }
+                    } else {
+                        dataAttributes.push({"name": fieldName, "value": 0});
+                    }
+                }
+                let componentLabel = componentNameRegex.exec(componentId)[1];
+                let componentType;
+                if (componentInfo != null) {
+                    componentType = componentInfo["componentType"];
+                } else {
+                    componentType = "UNKNOWN";
+                }
+                // Create hidden attributes
+                let hiddenAttributes = [];
+                if (componentInfo != null) {
+                    hiddenAttributes.push({"name": "entryPoint", "value": componentInfo["entryPoint"]});
+                }
+                if (componentType === "Endpoint" || componentType === "Sequence") {
+                    hiddenAttributes.push({"name": "id", "value": componentLabel});
+                } else {
+                    hiddenAttributes.push({"name": "id", "value": componentId});
+                }
+                if (schema[i]["parentId"] === schema[i]["group"]) {
+                    result.push({
+                        "id": originalCompId,
+                        "label": componentLabel,
+                        "parents": [],
+                        "group": schema[i]["group"],
+                        "type": componentType,
+                        "dataAttributes": dataAttributes,
+                        "hiddenAttributes": hiddenAttributes,
+                        "modifiedId": componentId
+                    });
+                } else {
+                    result.push({
+                        "id": originalCompId,
+                        "label": componentLabel,
+                        "parents": [schema[i]["parentId"]],
+                        "group": schema[i]["group"],
+                        "type": componentType,
+                        "dataAttributes": dataAttributes,
+                        "hiddenAttributes": hiddenAttributes,
+                        "modifiedId": componentId
+                    });
+                }
+            }
+            // Defining groups
+            for (let j = 0; j < result.length; j++) {
+                if (groups.indexOf(result[j]["id"]) >= 0) {
+                    result[j]["type"] = "group";
+                }
+            }
+            this.drawMessageFlow($, result);
         }
     }
 
