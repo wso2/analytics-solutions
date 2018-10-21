@@ -27,7 +27,6 @@ const MESSAGE_PAGE = "message";
 class EIAnalyticsMessageTable extends Widget {
     constructor(props) {
         super(props);
-
         this.chartConfig = {
             "charts": [
                 {
@@ -56,7 +55,6 @@ class EIAnalyticsMessageTable extends Widget {
             "filterable": true,
             "append": false
         };
-
         this.metadata = {
             "names": [
                 "messageFlowId",
@@ -71,7 +69,6 @@ class EIAnalyticsMessageTable extends Widget {
                 "ordinal"
             ]
         };
-
         this.state = {
             data: [],
             metadata: this.metadata,
@@ -82,7 +79,7 @@ class EIAnalyticsMessageTable extends Widget {
         this.isDataLoaded = false;
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
-        this.handleStats = this.handleStats.bind(this);
+        this.handleData = this.handleData.bind(this);
         this.handleGraphUpdate = this.handleGraphUpdate.bind(this);
         this.handlePublisherParameters = this.handlePublisherParameters.bind(this);
         this.handleRowSelect = this.handleRowSelect.bind(this);
@@ -168,7 +165,7 @@ class EIAnalyticsMessageTable extends Widget {
                 // Request datastore with the modified query
                 super.getWidgetChannelManager()
                     .subscribeWidget(
-                        this.props.id, this.handleStats, dataProviderConf
+                        this.props.id, this.handleData, dataProviderConf
                     );
             })
             .catch((error) => {
@@ -176,13 +173,13 @@ class EIAnalyticsMessageTable extends Widget {
             });
     }
 
-    handleStats(stats) {
-        let dataArray = stats.data;
+    handleData(data) {
+        let dataArray = data.data;
         dataArray.forEach(element => {
             element[2] = moment(element[2]).format("YYYY-MM-DD HH:mm:ss");
         });
         this.setState({
-            metadata: stats.metadata,
+            metadata: data.metadata,
             data: dataArray
         });
     }
