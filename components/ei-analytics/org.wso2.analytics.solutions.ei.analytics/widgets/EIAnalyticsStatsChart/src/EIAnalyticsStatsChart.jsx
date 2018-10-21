@@ -51,7 +51,7 @@ class EIAnalyticsStatsChart extends Widget {
             height: this.props.glContainer.height
         };
         this.extractStatsData = this.extractStatsData.bind(this);
-        this.handleStats = this.handleStats.bind(this);
+        this.handleData = this.handleData.bind(this);
         this.isConfLoadError = false;
         this.successChartConfig = {
             charts: [
@@ -128,7 +128,8 @@ class EIAnalyticsStatsChart extends Widget {
                 /*
                 componentType, componentName, entryPoint, tenantId, aggregator
                  */
-                this.extractStatsData("ALL", "ALL", null, -1234, "ESBStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
+                this.extractStatsData("ALL", "ALL", null, -1234, "ESBStatAgg", this.state.timeFrom, this.state.timeTo,
+                    this.state.timeUnit);
             }
             else if (this.state.componentName != null) {
                 switch (pageName) {
@@ -142,19 +143,22 @@ class EIAnalyticsStatsChart extends Widget {
                         break;
                     case PAGE_SEQUENCE:
                         this.extractStatsData(PAGE_SEQUENCE, this.state.componentName,
-                            this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
+                            this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo,
+                            this.state.timeUnit);
                         break;
                     case PAGE_ENDPOINT:
                         this.extractStatsData(PAGE_ENDPOINT, this.state.componentName,
-                            this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
+                            this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo,
+                            this.state.timeUnit);
                         break;
                     case PAGE_INBOUND_ENDPOINT:
-                        this.extractStatsData(PAGE_INBOUND_ENDPOINT, this.state.componentName, null, TENANT_ID, "ESBStatAgg",
-                            this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
+                        this.extractStatsData(PAGE_INBOUND_ENDPOINT, this.state.componentName, null, TENANT_ID,
+                            "ESBStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                     case PAGE_MEDIATOR:
                         this.extractStatsData(PAGE_MEDIATOR, this.state.componentName,
-                            this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
+                            this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo,
+                            this.state.timeUnit);
                         break;
                 }
             }
@@ -218,7 +222,7 @@ class EIAnalyticsStatsChart extends Widget {
                         .replace("{{timeUnit}}", "\'" + timeUnit + "\'");
                 }
                 super.getWidgetChannelManager()
-                    .subscribeWidget(this.props.id, this.handleStats, dataProviderConf.configs.providerConfig);
+                    .subscribeWidget(this.props.id, this.handleData, dataProviderConf.configs.providerConfig);
             })
             .catch(() => {
                 this.isConfLoadError = true;
@@ -228,21 +232,21 @@ class EIAnalyticsStatsChart extends Widget {
     /**
      * Process received data and store meaningful values
      */
-    handleStats(stats) {
-        if (stats != null && stats.data.length !== 0) {
-            let metadata = stats.metadata.names;
-            let data = stats.data[0];
-            let dataIndex = {};
-            metadata.forEach((value, index) => {
-                dataIndex[value] = index;
-            });
-            this.setState({
-                totalCount: data[dataIndex["noOfInvocationSum"]],
-                faultCount: data[dataIndex["faultCountSum"]]
-            });
-        } else {
+    handleData(receivedData) {
+        if (receivedData == null || receivedData.data.length === 0) {
             console.error("Data store returned with empty stats for " + this.props.widgetID);
+            return;
         }
+        let metadata = receivedData.metadata.names;
+        let data = receivedData.data[0];
+        let dataIndex = {};
+        metadata.forEach((value, index) => {
+            dataIndex[value] = index;
+        });
+        this.setState({
+            totalCount: data[dataIndex["noOfInvocationSum"]],
+            faultCount: data[dataIndex["faultCountSum"]]
+        });
     }
 
     getProviderConf(aggregatorDataProviderConf) {
@@ -404,7 +408,6 @@ class EIAnalyticsStatsChart extends Widget {
         )
     }
 }
-
 
 function getKey(pageName, parameter) {
     return pageName + "_page_" + parameter;
