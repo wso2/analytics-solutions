@@ -89,7 +89,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
         this.isConfLoadError = false;
         this.handlePublisherParameters = this.handlePublisherParameters.bind(this);
         this.handleGraphUpdate = this.handleGraphUpdate.bind(this);
-        this.handleStats = this.handleStats.bind(this);
+        this.handleData = this.handleData.bind(this);
     }
 
     static getProviderConf(widgetConfiguration) {
@@ -143,11 +143,12 @@ class EIAnalyticsHorizontalBarChart extends Widget {
                 super.getWidgetChannelManager()
                     .subscribeWidget(
                         this.props.id,
-                        this.handleStats,
+                        this.handleData,
                         dataProviderConf
                     );
             })
-            .catch(() => {
+            .catch((e) => {
+                console.log("Error loading configurations for " + this.props.widgetID, e);
                 this.isConfLoadError = true;
             });
     }
@@ -155,52 +156,52 @@ class EIAnalyticsHorizontalBarChart extends Widget {
     /**
      * Draw the graph with the data retrieved from the data store
      */
-    handleStats(stats) {
-        if (stats != null && stats.data.length !== 0) {
-            /* For each data point(Ex: For each API), an array of [total invocations, component name of that data point]. */
-            const dataPointArray = stats.data;
-            /* index and label mapping of each element in a data point. */
-            const labelMapper = {};
-            stats.metadata.names.forEach((value, index) => {
-                labelMapper[value] = index;
-            });
-            /* Build data for the graph. */
-            const data = [];
-            dataPointArray.forEach((dataPoint) => {
-                /* Filter well known components. */
-                let excludeEndpoints;
-                switch (this.state.graphType) {
-                    case 'endpoint':
-                        excludeEndpoints = ['AnonymousEndpoint'];
-                        break;
-                    case 'sequence':
-                        excludeEndpoints = ['PROXY_INSEQ', 'PROXY_OUTSEQ', 'PROXY_FAULTSEQ', 'API_OUTSEQ', 'API_INSEQ',
-                            'API_FAULTSEQ', 'AnonymousSequence', 'fault'];
-                        break;
-                    default:
-                        excludeEndpoints = [];
-                }
-                const componentName = dataPoint[labelMapper.componentName];
-                const validity = excludeEndpoints.indexOf(componentName) === -1;
-                if (validity) {
-                    data.push([
-                        componentName,
-                        dataPoint[labelMapper.totalInvocations],
-                    ],);
-                }
-            });
-            /* Draw the graph with received stats only if data is present after filtering. */
-            if (data.length > 0) {
-                this.setState({
-                    graphData: data,
-                    isLoading: false,
-                });
-            }
-        } else {
+    handleData(receivedData) {
+        if (receivedData == null || receivedData.data.length === 0) {
             console.error(
                 "Data store returned with empty stats for " +
                 this.getBarChartTitle(this.props.configs.options[BAR_GRAPH_TYPE])
             );
+            return;
+        }
+        /* For each data point(Ex: For each API), an array of [total invocations, component name of that data point]. */
+        const dataPointArray = receivedData.data;
+        /* index and label mapping of each element in a data point. */
+        let labelMapper = {};
+        receivedData.metadata.names.forEach((value, index) => {
+            labelMapper[value] = index;
+        });
+        /* Build data for the graph. */
+        let data = [];
+        dataPointArray.forEach((dataPoint) => {
+            /* Filter well known components. */
+            let excludeEndpoints;
+            switch (this.state.graphType) {
+                case 'endpoint':
+                    excludeEndpoints = ['AnonymousEndpoint'];
+                    break;
+                case 'sequence':
+                    excludeEndpoints = ['PROXY_INSEQ', 'PROXY_OUTSEQ', 'PROXY_FAULTSEQ', 'API_OUTSEQ', 'API_INSEQ',
+                        'API_FAULTSEQ', 'AnonymousSequence', 'fault'];
+                    break;
+                default:
+                    excludeEndpoints = [];
+            }
+            const componentName = dataPoint[labelMapper.componentName];
+            const validity = excludeEndpoints.indexOf(componentName) === -1;
+            if (validity) {
+                data.push([
+                    componentName,
+                    dataPoint[labelMapper.totalInvocations],
+                ],);
+            }
+        });
+        /* Draw the graph with received stats only if data is present after filtering. */
+        if (data.length > 0) {
+            this.setState({
+                graphData: data,
+                isLoading: false,
+            });
         }
     }
 
