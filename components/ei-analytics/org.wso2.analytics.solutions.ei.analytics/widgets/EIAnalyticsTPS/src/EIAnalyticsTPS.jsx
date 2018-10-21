@@ -64,7 +64,7 @@ class EIAnalyticsTPS extends Widget {
         this.props.glContainer.on('resize', this.handleResize.bind(this));
         this.handlePublisherParameters = this.handlePublisherParameters.bind(this);
         this.handleGraphUpdate = this.handleGraphUpdate.bind(this);
-        this.handleStats = this.handleStats.bind(this);
+        this.handleData = this.handleData.bind(this);
     }
 
     handleResize() {
@@ -112,7 +112,7 @@ class EIAnalyticsTPS extends Widget {
                 // Request datastore with the modified query
                 super.getWidgetChannelManager()
                     .subscribeWidget(
-                        this.props.id, this.handleStats.bind(this), dataProviderConf
+                        this.props.id, this.handleData.bind(this), dataProviderConf
                     );
             })
             .catch(() => {
@@ -127,51 +127,51 @@ class EIAnalyticsTPS extends Widget {
     /**
      * Draw the graph with the data retrieved from the data store
      */
-    handleStats(stats) {
-        if (stats != null && stats.data.length !== 0) {
-            // For each data point(Ex: For each API), an array of [total invocations, component name of that data point]
-            let dataPointArray = stats.data;
-            let divider = 1;
-            // index and label mapping of each element in a data point
-            let labelMapper = {};
-            stats.metadata.names.forEach((value, index) => {
-                labelMapper[value] = index;
-            });
-            dataPointArray.forEach((e) => {
-                switch (this.state.timeUnitParameter) {
-                    case "month":
-                        divider = 3600 * 24 * 30;
-                        let timeStamp = new Date(e[labelMapper.AGG_TIMESTAMP]);
-                        divider = new Date(timeStamp.getFullYear(), (timeStamp.getMonth() + 1), 0).getDate() * 3600 * 24;
-                        break;
-                    case "day":
-                        divider = 3600 * 24;
-                        break;
-                    case "hour":
-                        divider = 3600;
-                        break;
-                    case "minute":
-                        divider = 60;
-                        break;
-                }
-                e[labelMapper.noOfInvocation] = (e[labelMapper.noOfInvocation]) / divider;
-            });
-            // Build data for the graph
-            let data = [];
-            dataPointArray.forEach((dataPoint) => {
-                data.push(
-                    [dataPoint[labelMapper.AGG_TIMESTAMP], dataPoint[labelMapper.noOfInvocation]]
-                );
-            });
-            // Draw the graph with received stats only if data is present after filtering
-            if (data.length > 0) {
-                this.setState({
-                    graphData: data,
-                    clearGraph: false
-                });
-            }
-        } else {
+    handleData(receivedData) {
+        if (receivedData == null || receivedData.data.length === 0) {
             console.error("Data store returned with empty stats for " + this.props.widgetID);
+            return;
+        }
+        // For each data point(Ex: For each API), an array of [total invocations, component name of that data point]
+        let dataPointArray = receivedData.data;
+        let divider = 1;
+        // index and label mapping of each element in a data point
+        let labelMapper = {};
+        receivedData.metadata.names.forEach((value, index) => {
+            labelMapper[value] = index;
+        });
+        dataPointArray.forEach((e) => {
+            switch (this.state.timeUnitParameter) {
+                case "month":
+                    divider = 3600 * 24 * 30;
+                    let timeStamp = new Date(e[labelMapper.AGG_TIMESTAMP]);
+                    divider = new Date(timeStamp.getFullYear(), (timeStamp.getMonth() + 1), 0).getDate() * 3600 * 24;
+                    break;
+                case "day":
+                    divider = 3600 * 24;
+                    break;
+                case "hour":
+                    divider = 3600;
+                    break;
+                case "minute":
+                    divider = 60;
+                    break;
+            }
+            e[labelMapper.noOfInvocation] = (e[labelMapper.noOfInvocation]) / divider;
+        });
+        // Build data for the graph
+        let data = [];
+        dataPointArray.forEach((dataPoint) => {
+            data.push(
+                [dataPoint[labelMapper.AGG_TIMESTAMP], dataPoint[labelMapper.noOfInvocation]]
+            );
+        });
+        // Draw the graph with received stats only if data is present after filtering
+        if (data.length > 0) {
+            this.setState({
+                graphData: data,
+                clearGraph: false
+            });
         }
     }
 
