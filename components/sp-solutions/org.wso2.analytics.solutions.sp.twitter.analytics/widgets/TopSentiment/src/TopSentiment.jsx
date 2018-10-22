@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import Widget from '@wso2-dashboards/widget';
+import {MuiThemeProvider} from 'material-ui/styles';
+import {IconButton} from 'material-ui';
+import RefreshIcon from 'material-ui/svg-icons/navigation/refresh';
 import Tweet from 'react-tweet-embed'
 import './resources/tweet.css';
 import {Scrollbars} from 'react-custom-scrollbars';
+
+const MAX_TWEET_COUNT = 5;
 
 class TopSentiment extends Widget {
     constructor(props) {
         super(props);
 
         this.state = {
-            tweetData: [],
+            positiveTweets: [],
+            negativeTweets: [],
+            unreadPositiveTweets: [],
+            unreadNegativeTweets: [],
             width: this.props.glContainer.width,
             height: this.props.glContainer.height
         };
@@ -33,16 +41,22 @@ class TopSentiment extends Widget {
         this.handleResize = this.handleResize.bind(this);
         this.props.glContainer.on('resize', this.handleResize);
         this._handleDataReceived = this._handleDataReceived.bind(this);
+        this.showUnreadPositiveTweets = this.showUnreadPositiveTweets.bind(this);
+        this.showUnreadNegativeTweets = this.showUnreadNegativeTweets.bind(this);
     }
 
     handleResize() {
-        this.setState({width: this.props.glContainer.width, height: this.props.glContainer.height});
+        this.setState({
+            width: this.props.glContainer.width,
+            height: this.props.glContainer.height
+        });
     }
 
     componentDidMount() {
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
-                super.getWidgetChannelManager().subscribeWidget(this.props.id, this._handleDataReceived, message.data.configs.providerConfig);
+                super.getWidgetChannelManager()
+                    .subscribeWidget(this.props.id, this._handleDataReceived, message.data.configs.providerConfig);
             })
     }
 
@@ -51,29 +65,185 @@ class TopSentiment extends Widget {
     }
 
     _handleDataReceived(setData) {
-        this.setState({
-            tweetData: setData.data,
-        });
+        let positiveTweets = [];
+        let negativeTweets = [];
+
+        if (this.state.positiveTweets.length === 0 && this.state.negativeTweets.length === 0) {
+            setData.data.map((tweet) => {
+                if (tweet[3] === 'positive') {
+                    positiveTweets.push({
+                        id: tweet[0],
+                        tweetID: tweet[1],
+                        value: tweet[2]
+                    })
+                } else if (tweet[3] === 'negative') {
+                    negativeTweets.push({
+                        id: tweet[0],
+                        tweetID: tweet[1],
+                        value: tweet[2]
+                    })
+                }
+            });
+            //select 5 to display
+            let numberOfRemovableTweets = positiveTweets.length - MAX_TWEET_COUNT;
+            let removedPositive =
+                positiveTweets.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
+            numberOfRemovableTweets = negativeTweets.length - MAX_TWEET_COUNT;
+            let removedNegative =
+                negativeTweets.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
+
+            this.setState({
+                positiveTweets: positiveTweets,
+                negativeTweets: negativeTweets,
+                unreadPositiveTweets: removedPositive,
+                unreadNegativeTweets: removedNegative
+            });
+        } else {
+            positiveTweets = this.state.unreadPositiveTweets;
+            negativeTweets = this.state.unreadNegativeTweets;
+            setData.data.map((tweet) => {
+                if (tweet[3] === 'positive') {
+                    positiveTweets.push({
+                        id: tweet[0],
+                        tweetID: tweet[1],
+                        value: tweet[2]
+                    })
+                } else if (tweet[3] === 'negative') {
+                    negativeTweets.push({
+                        id: tweet[0],
+                        tweetID: tweet[1],
+                        value: tweet[2]
+                    })
+                }
+            });
+            positiveTweets.sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
+            negativeTweets.sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
+
+            let numberOfRemovableTweets = positiveTweets.length - MAX_TWEET_COUNT;
+            positiveTweets.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
+            numberOfRemovableTweets = negativeTweets.length - MAX_TWEET_COUNT;
+            negativeTweets.splice(MAX_TWEET_COUNT, numberOfRemovableTweets < 0 ? 0 : numberOfRemovableTweets);
+
+            this.setState({
+                unreadPositiveTweets: positiveTweets,
+                unreadNegativeTweets: negativeTweets
+            });
+        }
+    }
+
+    showUnreadPositiveTweets() {
+        if(this.state.unreadPositiveTweets.length > 0) {
+            this.setState({
+                positiveTweets: this.state.unreadPositiveTweets.slice(),
+                unreadPositiveTweets: [],
+            });
+        }
+    }
+
+    showUnreadNegativeTweets() {
+        if(this.state.unreadNegativeTweets.length > 0) {
+            this.setState({
+                negativeTweets: this.state.unreadNegativeTweets.slice(),
+                unreadNegativeTweets: [],
+            });
+        }
     }
 
     render() {
-        let dataArray = this.state.tweetData.sort(function (a, b) {
-            return a[1] - b[1];
-        });
+
         return (
-            <div
-                style={{height: this.state.height, width: this.state.width, paddingBottom: 10}}>
-                <Scrollbars style={{height: this.state.height}}>
-                    <div className='tweet-stream'>
-                        {
-                            dataArray.reverse().map((t) => {
-                                    return <Tweet id={t[0]} options={{height: "10%", width: '100%', cards: 'hidden'}}/>
-                                }
-                            )
-                        }
-                    </div>
-                </Scrollbars>
-            </div>
+            <MuiThemeProvider muiTheme={this.props.muiTheme}>
+                <div
+                    style={{
+                        height: this.state.height,
+                        width: this.state.width,
+                        paddingBottom: 10
+                    }}>
+                    <section>
+                        <div
+                            style={{ height: (this.state.height * 0.95)/2 }}>
+                            <div
+                                style={{
+                                    paddingTop: 15,
+                                    paddingLeft: 10,
+                                    height: ((this.state.height * 0.95)/2)*0.1
+                                }}>
+                                Positive Sentiment Tweets
+                                <div
+                                    style={{
+                                        textAlign: 'right'
+                                    }}>
+                                    <IconButton
+                                        tooltip="Refresh Positive Sentiment Tweets"
+                                        onClick={this.showUnreadPositiveTweets}>
+                                        <RefreshIcon/>
+                                    </IconButton>
+                                </div>
+                            </div>
+                            <Scrollbars
+                                style={{ height: ((this.state.height * 0.95)/2)*0.9 }}>
+                                <div
+                                    className='tweet-stream'>
+                                    {
+                                        this.state.positiveTweets.map(
+                                            (tweet) => {
+                                                return <Tweet
+                                                    id={tweet.tweetID}
+                                                    options={{
+                                                        height: "10%",
+                                                        width: '100%',
+                                                        cards: 'hidden'
+                                                    }}/>
+                                            }
+                                        )
+                                    }
+                                </div>
+                            </Scrollbars>
+                        </div>
+                        <div style={{ height: (this.state.height * 0.05) }}/>
+                        <div
+                            style={{ height: (this.state.height * 0.95)/2 }}>
+                            <div
+                                style={{
+                                    paddingTop: 15,
+                                    paddingLeft: 10,
+                                    height: ((this.state.height * 0.95)/2)*0.1
+                                }}>
+                                Negative Sentiment Tweets
+                                <div
+                                    style={{
+                                        textAlign: 'right'
+                                    }}>
+                                    <IconButton
+                                        tooltip="Refresh Negative Sentiment Tweets"
+                                        onClick={this.showUnreadNegativeTweets}>
+                                        <RefreshIcon/>
+                                    </IconButton>
+                                </div>
+                            </div>
+                            <Scrollbars
+                                style={{ height: ((this.state.height * 0.95)/2)*0.9 }}>
+                                <div
+                                    className='tweet-stream'>
+                                    {
+                                        this.state.negativeTweets.map(
+                                            (tweet) => {
+                                                return <Tweet
+                                                    id={tweet.tweetID}
+                                                    options={{
+                                                        height: "10%",
+                                                        width: '100%',
+                                                        cards: 'hidden'
+                                                    }}/>
+                                            }
+                                        )
+                                    }
+                                </div>
+                            </Scrollbars>
+                        </div>
+                    </section>
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
