@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types,react/no-access-state-in-setstate,import/prefer-default-export,
-react/forbid-prop-types,no-restricted-globals,no-nested-ternary,no-unused-vars */
+/* eslint-disable react/prop-types */
 /*
  * Copyright (c) 2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
  *
@@ -17,160 +16,25 @@ react/forbid-prop-types,no-restricted-globals,no-nested-ternary,no-unused-vars *
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import Widget from '@wso2-dashboards/widget';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import CancelIcon from '@material-ui/icons/Cancel';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ClearIcon from '@material-ui/icons/Clear';
 import Chip from '@material-ui/core/Chip';
+import Typography from '@material-ui/core/Typography';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Select from 'react-select';
-import { Scrollbars } from 'react-custom-scrollbars';
 import JssProvider from 'react-jss/lib/JssProvider';
-
-const darkTheme = createMuiTheme({
-    palette: {
-        type: 'dark',
-    },
-});
-
-const lightTheme = createMuiTheme({
-    palette: {
-        type: 'light',
-    },
-});
-
-const customStyles = {
-    input: () => ({
-        color: 'white',
-    }),
-    multiValue: () => ({
-        borderRadius: 15,
-        display: 'flex',
-        flexWrap: 'wrap',
-        color: 'black',
-        fontSize: '90%',
-        overflow: 'hidden',
-        paddingLeft: 6,
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        backgroundColor: 'darkgrey',
-        minWidth: '20',
-    }),
-    singleValue: () => ({
-        display: 'flex',
-        flexWrap: 'wrap',
-        color: 'white',
-        fontSize: '95%',
-    }),
-    control: () => ({
-        height: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-        minHeight: 30,
-        backgroundColor: 'rgb(51, 51, 51)',
-        borderColor: 'grey',
-        borderStyle: 'solid',
-        borderWidth: 0,
-        boxShadow: '0 0 0 1px grey',
-        cursor: 'default',
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        outline: '0 !important',
-        position: 'relative',
-        transition: 'all 100ms',
-        paddingTop: 2,
-    }),
-    option: (styles, { data, isDisabled, isFocused }) => {
-        return {
-            ...styles,
-            height: 30,
-            backgroundColor: isDisabled
-                ? null
-                : isFocused ? 'rgba(255, 255, 255, 0.1)' : null,
-        };
-    },
-
-    menuList: () => ({
-        backgroundColor: 'rgb(51, 51, 51)',
-    }),
-};
-
-/**
- * Options class passed to the react-select component
- */
-class Option extends React.Component {
-    render() {
-        const {
-            children, isFocused, onFocus, isDisabled, onSelect, option,
-        } = this.props;
-        return (
-            <MenuItem
-                onFocus={onFocus}
-                selected={isFocused}
-                disabled={isDisabled}
-                onClick={() => onSelect(option, event)}
-                component="div"
-            >
-                {children}
-            </MenuItem>
-        );
-    }
-}
-
-/**
- * Function to wrap react-select component
- * @param props
- * @returns <Select> componet
- * @constructor
- */
-function SelectWrapped(props) {
-    const { classes, muiTheme, ...other } = props;
-    return (
-        <Select
-            styles={muiTheme.name === 'dark' ? customStyles : {}}
-            optionComponent={Option}
-            noResultsText={<div>No results found</div>}
-            arrowRenderer={(arrowProps) => {
-                return arrowProps.isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
-            }}
-            clearRenderer={() => <ClearIcon />}
-            valueComponent={(valueProps) => {
-                const { value, children, onRemove } = valueProps;
-                const onDelete = (event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    onRemove(value);
-                };
-                if (onRemove) {
-                    return (
-                        <Chip
-                            tabIndex={-1}
-                            label={children}
-                            className={classes.chip}
-                            deleteIcon={<CancelIcon onTouchEnd={onDelete} />}
-                            onDelete={onDelete}
-                        />
-                    );
-                }
-                return <div className="Select-value">{children}</div>;
-            }}
-            {...other}
-        />
-    );
-}
+import { Scrollbars } from 'react-custom-scrollbars';
 
 // This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
 const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
 let classCounter = 0;
 
-export const generateClassName = (rule, styleSheet) => {
+const generateClassName = (rule, styleSheet) => {
     classCounter += 1;
 
     if (process.env.NODE_ENV === 'production') {
@@ -191,6 +55,196 @@ export const generateClassName = (rule, styleSheet) => {
 
     return `${rule.key}-${classCounter}`;
 };
+export { generateClassName as default };
+
+const darkTheme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    },
+});
+
+const lightTheme = createMuiTheme({
+    palette: {
+        type: 'light',
+    },
+});
+
+const popperAnchor = 'popper-anchor-http-response-code-filter';
+const textInputElement = '#popper-anchor-http-response-code-filter div div div input';
+let openPopper = false;
+
+// the following methods are used to implement autocomplete select using react select.
+// for more information : https://v1-5-0.material-ui.com/demos/autocomplete/
+const NoOptionsMessage = function (props) {
+    const { innerProps, children } = props;
+    return (
+        <Typography
+            style={{
+                padding: 15,
+                color: '#7e7e7e',
+            }}
+            {...innerProps}
+        >
+            {children}
+        </Typography>
+    );
+};
+
+const inputComponent = function ({ inputRef, ...props }) {
+    return (
+        <div
+            ref={inputRef}
+            {...props}
+        />
+    );
+};
+
+const Control = function (props) {
+    const {
+        selectProps, innerRef, children, innerProps,
+    } = props;
+
+    openPopper = selectProps.menuIsOpen;
+    return (
+        <TextField
+            id='popper-anchor-http-response-code-filter'
+            fullWidth
+            InputProps={{
+                inputComponent,
+                inputProps: {
+                    inputRef: innerRef,
+                    children,
+                    ...innerProps,
+                    style: { display: 'flex' },
+                },
+            }}
+            {...selectProps.textFieldProps}
+        />
+    );
+};
+
+const Option = function (props) {
+    const {
+        innerRef, isFocused, isSelected, children, innerProps,
+    } = props;
+    return (
+        <MenuItem
+            buttonRef={innerRef}
+            selected={isFocused}
+            component='div'
+            style={{ fontWeight: isSelected ? 500 : 400 }}
+            {...innerProps}
+        >
+            {children}
+        </MenuItem>
+    );
+};
+
+const Placeholder = function (props) {
+    const { children, innerProps } = props;
+    return (
+        <Typography
+            style={{
+                position: 'absolute',
+                left: 2,
+                fontSize: '90%',
+                color: '#7e7e7e',
+            }}
+            {...innerProps}
+        >
+            {children}
+        </Typography>
+    );
+};
+
+const SingleValue = function (props) {
+    const { children, innerProps } = props;
+    return (
+        <Typography
+            style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                color: 'white',
+                fontSize: '95%',
+            }}
+            {...innerProps}
+        >
+            {children}
+        </Typography>
+    );
+};
+
+const ValueContainer = function (props) {
+    const { children } = props;
+    return (
+        <div
+            style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                flex: 1,
+                alignItems: 'center',
+            }}
+        >
+            {children}
+        </div>);
+};
+
+const MultiValue = function (props) {
+    const { children } = props;
+
+    return (
+        <Chip
+            tabIndex={-1}
+            label={children}
+            onDelete={(event) => {
+                props.removeProps.onClick();
+                props.removeProps.onMouseDown(event);
+            }}
+            style={{
+                borderRadius: 15,
+                display: 'flex',
+                flexWrap: 'wrap',
+                fontSize: '90%',
+                overflow: 'hidden',
+                paddingLeft: 6,
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                minWidth: '20',
+                margin: 2,
+            }}
+        />
+    );
+};
+
+const Menu = function (props) {
+    const popperNode = document.getElementById(popperAnchor);
+    const { children, innerProps } = props;
+    return (
+        <Popper
+            open={openPopper}
+            anchorEl={popperNode}
+        >
+            <Paper
+                square
+                style={{ width: popperNode ? popperNode.clientWidth : null }}
+                {...innerProps}
+            >
+                {children}
+            </Paper>
+        </Popper>
+    );
+};
+
+const components = {
+    Option,
+    Control,
+    NoOptionsMessage,
+    Placeholder,
+    SingleValue,
+    MultiValue,
+    ValueContainer,
+    Menu,
+};
 
 /**
  * HTTPAnalyticsResponseCodeFilter which renders the perspective and filter in response code analytics page
@@ -207,24 +261,43 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
             selectedServiceValues: null,
             faultyProviderConf: false,
         };
-        this.props.glContainer.on('resize', () => this.setState({
-            width: this.props.glContainer.width,
-            height: this.props.glContainer.height,
-        }));
+
+        this.props.glContainer.on('resize', () => {
+            this.setState({
+                width: this.props.glContainer.width,
+                height: this.props.glContainer.height,
+            });
+        });
         this.handleChange = this.handleChange.bind(this);
         this.handleDataReceived = this.handleDataReceived.bind(this);
         this.publishUpdate = this.publishUpdate.bind(this);
+        this.updateStyleColor = this.updateStyleColor.bind(this);
+        this.updateTextBoxColor = this.updateTextBoxColor.bind(this);
+        this.initialPublish = this.initialPublish.bind(this);
+        this.setQueryParams = this.setQueryParams.bind(this);
     }
 
     /**
      * Publish user selection to other widgets
      */
     publishUpdate() {
-        const filterOptions = {
+        this.setQueryParams();
+        super.publish({
             perspective: this.state.perspective,
             selectedServiceValues: this.state.selectedServiceValues,
-        };
-        super.publish(filterOptions);
+        });
+    }
+
+    /**
+     * Set user selection as query params
+     */
+    setQueryParams() {
+        let selection = [];
+        if (this.state.selectedServiceValues
+            && !(this.state.selectedServiceValues instanceof Array)) {
+            selection = this.state.selectedServiceValues.value;
+        }
+        super.setGlobalState('httpResCode', { responseCode: selection });
     }
 
     /**
@@ -236,8 +309,9 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
         data.data.forEach((dataUnit) => {
             services.push(dataUnit[1]);
         });
-
         services = services.filter((v, i, a) => a.indexOf(v) === i);
+        services.sort(this.naturalSort);
+
         const serviceOptions = services.map(service => ({
             value: service,
             label: service,
@@ -245,8 +319,54 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
         }));
 
         this.setState({
-            services, serviceOptions,
-        }, this.publishUpdate);
+            services,
+            serviceOptions,
+        }, this.initialPublish);
+    }
+
+    /**
+     * Handle initial selection publish
+     */
+    initialPublish() {
+        const responseCodeSelection = super.getGlobalState('httpResCode');
+        if (responseCodeSelection.responseCode
+            && !(responseCodeSelection.responseCode instanceof Array)
+            && this.state.services.indexOf(responseCodeSelection.responseCode) !== -1) {
+            this.handleChange({
+                value: responseCodeSelection.responseCode,
+                label: responseCodeSelection.responseCode,
+                disabled: false,
+            });
+        } else {
+            this.publishUpdate();
+        }
+    }
+
+    /**
+     * Sort in ascending order
+     * @param a
+     * @param b
+     */
+    naturalSort(a, b) {
+        // sort in asc order
+        if (typeof a === 'number' && typeof b === 'number') {
+            return a - b;
+        } else {
+            // used to sort alphanumeric combinations
+            const ax = []; const
+                bx = [];
+
+            a.replace(/(\d+)|(\D+)/g, (_, $1, $2) => { ax.push([$1 || Infinity, $2 || '']); });
+            b.replace(/(\d+)|(\D+)/g, (_, $1, $2) => { bx.push([$1 || Infinity, $2 || '']); });
+
+            while (ax.length && bx.length) {
+                const an = ax.shift();
+                const bn = bx.shift();
+                const nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
+                if (nn) return nn;
+            }
+            return ax.length - bx.length;
+        }
     }
 
     /**
@@ -254,7 +374,8 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
      * @param values
      */
     handleChange(values) {
-        const updatedOptions = this.state.services.forEach(option => ({
+        const { services } = this.state;
+        const updatedOptions = services.map(option => ({
             value: option,
             label: option,
             disabled: false,
@@ -264,6 +385,40 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
             serviceOptions: updatedOptions,
         }, this.publishUpdate);
     }
+
+    /**
+     * Add given text color to a given style
+     * @param existingStyles
+     * @param color
+     */
+    updateStyleColor(existingStyles, color) {
+        let result = '';
+        existingStyles.split(';').forEach((item) => {
+            if (item.length > 0) {
+                const itemPair = item.split(':');
+                if (itemPair[0].trim() !== 'color') {
+                    result = result + itemPair[0] + ': ' + itemPair[1] + ';';
+                } else {
+                    result = result + 'color: ' + color + ';';
+                }
+            }
+        });
+        return result;
+    }
+
+    /**
+     * Update the text color of the text field in autocomplete
+     */
+    updateTextBoxColor() {
+        if (textInputElement
+            && document.querySelector(textInputElement)) {
+            const inputElm = document.querySelector(textInputElement);
+            inputElm.style = this.updateStyleColor(
+                inputElm.getAttribute('style'), this.props.muiTheme.palette.textColor
+            );
+        }
+    }
+
 
     componentDidMount() {
         super.getWidgetConfiguration(this.props.widgetID)
@@ -283,37 +438,42 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
     }
 
     render() {
-        const { classes } = this.props;
+        this.updateTextBoxColor();
         return (
-            <JssProvider generateClassName={generateClassName}>
-                <MuiThemeProvider theme={this.props.muiTheme.name === 'dark' ? darkTheme : lightTheme}>
-                    <Scrollbars style={{ height: this.state.height }}>
-                        <div style={{ paddingLeft: 24, paddingRight: 16 }}>
+            <JssProvider
+                generateClassName={generateClassName}
+            >
+                <MuiThemeProvider
+                    theme={this.props.muiTheme.name === 'dark' ? darkTheme : lightTheme}
+                >
+                    <Scrollbars
+                        style={{ height: this.state.height }}
+                    >
+                        <div
+                            style={{
+                                paddingLeft: 15,
+                                paddingRight: 15,
+                            }}
+                        >
                             <Tabs
                                 value={this.state.perspective}
-                                onChange={(evt, value) => this.setState({ perspective: value }, this.publishUpdate)}
                             >
                                 <Tab value={3} label="Response Code" />
                             </Tabs>
-                            <TextField
-                                fullWidth
-                                value={this.state.selectedServiceValues}
-                                onChange={this.handleChange}
-                                placeholder="Filter by Service"
-                                label=""
-                                InputLabelProps={{
-                                    shrink: false,
-                                }}
-                                InputProps={{
-                                    inputComponent: SelectWrapped,
-                                    inputProps: {
-                                        classes,
-                                        isMulti: false,
-                                        simpleValue: true,
-                                        options: this.state.serviceOptions,
-                                        muiTheme: this.props.muiTheme,
+                            <Select
+                                className='autocomplete'
+                                classNamePrefix='autocomplete'
+                                textFieldProps={{
+                                    label: '',
+                                    InputLabelProps: {
+                                        shrink: false,
                                     },
                                 }}
+                                options={this.state.serviceOptions}
+                                components={components}
+                                value={this.state.selectedServiceValues}
+                                onChange={this.handleChange}
+                                placeholder='Filter by Service'
                             />
                         </div>
                     </Scrollbars>
@@ -323,7 +483,4 @@ class HTTPAnalyticsResponseCodeFilter extends Widget {
     }
 }
 
-HTTPAnalyticsResponseCodeFilter.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 global.dashboard.registerWidget('HTTPAnalyticsResponseCodeFilter', HTTPAnalyticsResponseCodeFilter);
