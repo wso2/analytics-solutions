@@ -30,6 +30,7 @@
     
     <modules>
         <module>widgets</module>
+        <module>components/siddhi-execution-geovelocity</module>
     </modules>
 
 </project>
