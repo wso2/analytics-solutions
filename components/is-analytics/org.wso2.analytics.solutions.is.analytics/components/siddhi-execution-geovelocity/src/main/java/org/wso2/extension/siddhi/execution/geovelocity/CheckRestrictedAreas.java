@@ -68,7 +68,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 )
 
 public class CheckRestrictedAreas extends FunctionExecutor {
-    private GeoVelocityDataResolver geoVelocityDataResolverImpl;
+    private static GeoVelocityDataResolver geoVelocityDataResolverImpl;
     private static final String DEFAULT_GEOVELOCITY_RESOLVER_CLASSNAME =
             "org.wso2.extension.siddhi.execution.geovelocity.internal.impl.DefaultDBBasedGeoVelocityDataResolver";
     private static AtomicBoolean isExtensionConfigInitialized = new AtomicBoolean(false);

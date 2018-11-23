@@ -124,7 +124,6 @@ public class GetLoginBehaviourRisk extends FunctionExecutor {
         } else {
             risk = 0.5;
         }
-        log.info("------------------" + risk);
         return risk;
     }
 
