@@ -23,11 +23,11 @@ package org.wso2.extension.siddhi.execution.geovelocity.api;
  */
 public class GeoVelocityData {
     private Long lastLoginTime;
-    private Integer ristrictedLoginCombination;
+    private Integer ristrictedLocationCombination;
 
-    public GeoVelocityData(Long lastLoginTime, Integer ristrictedLoginCombination) {
+    public GeoVelocityData(Long lastLoginTime, Integer ristrictedLocationCombination) {
         this.lastLoginTime = lastLoginTime != null ? lastLoginTime : 0L;
-        this.ristrictedLoginCombination = ristrictedLoginCombination != null ? ristrictedLoginCombination : 0;
+        this.ristrictedLocationCombination = ristrictedLocationCombination != null ? ristrictedLocationCombination : 0;
     }
 
     public Long getLoginBehaviourBasedRisk() {
@@ -35,7 +35,7 @@ public class GeoVelocityData {
     }
 
     public Integer checkSuspiciousLogin() {
-        return ristrictedLoginCombination;
+        return ristrictedLocationCombination;
     }
 
 }
