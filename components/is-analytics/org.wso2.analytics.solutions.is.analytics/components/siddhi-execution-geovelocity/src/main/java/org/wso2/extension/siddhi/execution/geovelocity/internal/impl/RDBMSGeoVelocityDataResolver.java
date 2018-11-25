@@ -48,7 +48,7 @@ public class RDBMSGeoVelocityDataResolver {
     private static final String SQL_SELECT_LASTLOGINTIME_FROM_GEOVELOCITY_INFO = "SELECT logintime FROM " +
             "Geovelocity_info WHERE username = ? AND city = ? AND authenticationsuccess = 1";
     private static final String SQL_SELECT_ID_FROM_TRAVELRESTRICTEDAREAS = "SELECT count(ID) FROM " +
-            "travelrestrictedareas WHERE tocountry = ? AND fromcountry = ?";
+            "travelrestrictedareas WHERE currentlocation = ? AND lastlocation = ?";
 
     public static RDBMSGeoVelocityDataResolver getInstance() {
         return instance;
@@ -95,12 +95,12 @@ public class RDBMSGeoVelocityDataResolver {
     }
 
     /**
-     * Calls external system or database database to find the IPv6 adress to location details.
+     * Calls external system or database database to find the geovelocity data.
      * Can be used by an extended class.
      * @param username username
      * @param city city
      * @param connection the Db connection to be used. Do not close this connection within this method.
-     * @return null
+     * @return geoVelocityData with last login time
      */
     private GeoVelocityData loadGeoVelocityData(String username, String city,
                                                 Connection connection) throws SQLException {
@@ -123,7 +123,15 @@ public class RDBMSGeoVelocityDataResolver {
         return geoVelocityData;
     }
 
-    private GeoVelocityData loadLoginData(String toCountry, String fromCountry,
+    /**
+     * Calls external system or database database to find restricted area based data.
+     * Can be used by an extended class.
+     * @param currentLocation current location of login
+     * @param lastLocation last location of login
+     * @param connection the Db connection to be used. Do not close this connection within this method.
+     * @return geoVelocityData with last login time
+     */
+    private GeoVelocityData loadLoginData(String currentLocation, String lastLocation,
                                           Connection connection) throws SQLException {
         GeoVelocityData geoVelocityData = null;
         PreparedStatement statement = null;
@@ -131,8 +139,8 @@ public class RDBMSGeoVelocityDataResolver {
         try {
             if (isPersistInDatabase) {
                 statement = connection.prepareStatement(SQL_SELECT_ID_FROM_TRAVELRESTRICTEDAREAS);
-                statement.setString(1, toCountry);
-                statement.setString(2, fromCountry);
+                statement.setString(1, currentLocation);
+                statement.setString(2, lastLocation);
                 resultSet = statement.executeQuery();
             }
             if (resultSet != null && resultSet.next()) {

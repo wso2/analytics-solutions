@@ -34,7 +34,7 @@ public class DefaultDBBasedGeoVelocityDataResolver implements GeoVelocityDataRes
     }
 
     @Override
-    public GeoVelocityData getGeoVelocityDataInfo(String username, String city) {
+    public GeoVelocityData getGeoVelocityInfo(String username, String city) {
         GeoVelocityData geoVelocityData;
         geoVelocityData = RDBMSGeoVelocityDataResolver.getInstance().getGeoVelocityData
                 (username, city);
@@ -42,7 +42,7 @@ public class DefaultDBBasedGeoVelocityDataResolver implements GeoVelocityDataRes
     }
 
     @Override
-    public GeoVelocityData getLoginDataInfo(String toCountry, String fromCountry) {
+    public GeoVelocityData checkLoginLocationValidity(String toCountry, String fromCountry) {
         GeoVelocityData geoVelocityData;
         geoVelocityData = RDBMSGeoVelocityDataResolver.getInstance().getLoginData
                 (toCountry, fromCountry);
