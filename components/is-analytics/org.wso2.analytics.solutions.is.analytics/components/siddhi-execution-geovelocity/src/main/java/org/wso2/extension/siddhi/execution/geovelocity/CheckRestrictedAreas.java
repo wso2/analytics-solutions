@@ -84,6 +84,11 @@ public class CheckRestrictedAreas extends FunctionExecutor {
     @Override
     protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
                         SiddhiAppContext siddhiAppContext) {
+        if (attributeExpressionExecutors.length != 2) {
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to geo:restrictedareabasedrisk " +
+                    "function, required 2, but found " + attributeExpressionExecutors.length);
+        }
+
         if (!isExtensionConfigInitialized.get()) {
             initializeExtensionConfigs(configReader);
         }
@@ -99,7 +104,8 @@ public class CheckRestrictedAreas extends FunctionExecutor {
     @Override
     protected Object execute(Object[] data) {
         GeoVelocityData geoVelocityData;
-        geoVelocityData = geoVelocityDataResolverImpl.getLoginDataInfo(data[0].toString(), data[1].toString());
+        geoVelocityData = geoVelocityDataResolverImpl.checkLoginLocationValidity
+                (data[0].toString(), data[1].toString());
         return geoVelocityData.checkSuspiciousLogin();
     }
 

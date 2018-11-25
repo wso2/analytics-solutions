@@ -96,6 +96,11 @@ public class GetLoginBehaviourRisk extends FunctionExecutor {
     @Override
     protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
                         SiddhiAppContext siddhiAppContext) {
+        if (attributeExpressionExecutors.length != 3) {
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to geo:loginbehaviourrisk" +
+                    " function, required 3, but found " + attributeExpressionExecutors.length);
+        }
+
         if (!isExtensionConfigInitialized.get()) {
             initializeExtensionConfigs(configReader);
         }
@@ -114,7 +119,7 @@ public class GetLoginBehaviourRisk extends FunctionExecutor {
         String username = data[0].toString();
         String city = data[1].toString();
         Long currentLoginTime = Long.parseLong(data[2].toString());
-        geoVelocityData = geoVelocityDataResolverImpl.getGeoVelocityDataInfo(username, city);
+        geoVelocityData = geoVelocityDataResolverImpl.getGeoVelocityInfo(username, city);
         Long lastLoginTime = geoVelocityData.getLoginBehaviourBasedRisk();
         double risk;
         // Time difference is convert to days by deviding milisecond by 1000*60*60*24.
