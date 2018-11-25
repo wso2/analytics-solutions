@@ -40,12 +40,12 @@ public interface GeoVelocityDataResolver {
      * This method will check validity of the location of login
      * according to restricted location combination.
      *
-     * @param currentLocation current login location
-     * @param lastLocation last login location
+     * @param currentCity current login location
+     * @param previousCity last login location
      * @return 0 or 1 as the count of the restricted location combinations
      */
-    public GeoVelocityData checkLoginLocationValidity(String currentLocation,
-                                                      String lastLocation);
+    public GeoVelocityData checkLoginLocationValidity(String currentCity, String previousCity,
+                                                      String currentCountry, String previousCountry);
 
     /**
      * This method will be invoked after the initializing the extension. You can do any initial configuration here.

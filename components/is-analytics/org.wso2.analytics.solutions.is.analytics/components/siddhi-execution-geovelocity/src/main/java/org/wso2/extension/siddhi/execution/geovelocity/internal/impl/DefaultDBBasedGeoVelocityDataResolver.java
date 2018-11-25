@@ -42,10 +42,11 @@ public class DefaultDBBasedGeoVelocityDataResolver implements GeoVelocityDataRes
     }
 
     @Override
-    public GeoVelocityData checkLoginLocationValidity(String toCountry, String fromCountry) {
+    public GeoVelocityData checkLoginLocationValidity(String currentCity, String previousCity,
+                                                      String currentCountry, String previousCountry) {
         GeoVelocityData geoVelocityData;
-        geoVelocityData = RDBMSGeoVelocityDataResolver.getInstance().getLoginData
-                (toCountry, fromCountry);
+        geoVelocityData = RDBMSGeoVelocityDataResolver.getInstance().getRestrictedLocations(currentCity, previousCity,
+                currentCountry, previousCountry);
         return geoVelocityData != null ? geoVelocityData : new GeoVelocityData(0L, 0);
     }
 }

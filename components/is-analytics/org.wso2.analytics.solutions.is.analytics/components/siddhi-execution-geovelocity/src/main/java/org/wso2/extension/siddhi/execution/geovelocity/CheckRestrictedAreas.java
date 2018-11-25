@@ -45,12 +45,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
                 "combinations considering the previous login and the current login attempt",
         parameters = {
                 @Parameter(
-                        name = "endlocation",
-                        description = "user's current login location",
+                        name = "current.login.city",
+                        description = "user's current login city",
                         type = {DataType.STRING}),
                 @Parameter(
-                        name = "startlocation",
-                        description = "user's last login location",
+                        name = "previous.login.city",
+                        description = "user's last login city",
+                        type = {DataType.STRING}),
+                @Parameter(
+                        name = "current.login.country",
+                        description = "user's current login country",
+                        type = {DataType.STRING}),
+                @Parameter(
+                        name = "previous.login.country",
+                        description = "user's last login country",
                         type = {DataType.STRING})
         },
         returnAttributes =
@@ -60,10 +68,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
                 type = {DataType.INT}),
         examples = @Example(
                 description = "This will return risk score based on the restricted area " +
-                        "combinations considering the previous login and the current login attempt",
+                        "combinations considering the locations of the previous login and the current login attempt",
                 syntax = "define stream GeovelocityStream(currentlocation string,lastlocation string);" +
                         "from GeovelocityStream" +
-                        "select geo:restrictedareabasedrisk(startlocation, endlocation) as restrictedareabasedrisk" +
+                        "select geo:restrictedareabasedrisk(current.login.city, previous.login.city, " +
+                        "current.login.country, previous.login.country) as restrictedareabasedrisk" +
                         "insert into outputStream;")
 )
 
@@ -84,9 +93,9 @@ public class CheckRestrictedAreas extends FunctionExecutor {
     @Override
     protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
                         SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors.length != 2) {
+        if (attributeExpressionExecutors.length != 4) {
             throw new SiddhiAppValidationException("Invalid no of arguments passed to geo:restrictedareabasedrisk " +
-                    "function, required 2, but found " + attributeExpressionExecutors.length);
+                    "function, required 4, but found " + attributeExpressionExecutors.length);
         }
 
         if (!isExtensionConfigInitialized.get()) {
@@ -105,7 +114,7 @@ public class CheckRestrictedAreas extends FunctionExecutor {
     protected Object execute(Object[] data) {
         GeoVelocityData geoVelocityData;
         geoVelocityData = geoVelocityDataResolverImpl.checkLoginLocationValidity
-                (data[0].toString(), data[1].toString());
+                (data[0].toString(), data[1].toString(), data[2].toString(), data[3].toString());
         return geoVelocityData.checkSuspiciousLogin();
     }
 
