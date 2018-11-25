@@ -27,17 +27,25 @@ import org.wso2.siddhi.core.util.config.ConfigReader;
 public interface GeoVelocityDataResolver {
 
     /**
-     * This method will provide the aviation information related to the given login details.
+     * This method will provide the login behaviour based information related to the given login details.
      *
      * @param username username
      * @param city logincity
-     * @return aviation information related to given login details
+     * @return last login time at the given city of the given use
      */
-    public GeoVelocityData getGeoVelocityDataInfo(String username,
-                                                  String city);
+    public GeoVelocityData getGeoVelocityInfo(String username,
+                                              String city);
 
-    public GeoVelocityData getLoginDataInfo(String toCountry,
-                                            String fromCountry);
+    /**
+     * This method will check validity of the location of login
+     * according to restricted location combination.
+     *
+     * @param currentLocation current login location
+     * @param lastLocation last login location
+     * @return 0 or 1 as the count of the restricted location combinations
+     */
+    public GeoVelocityData checkLoginLocationValidity(String currentLocation,
+                                                      String lastLocation);
 
     /**
      * This method will be invoked after the initializing the extension. You can do any initial configuration here.
