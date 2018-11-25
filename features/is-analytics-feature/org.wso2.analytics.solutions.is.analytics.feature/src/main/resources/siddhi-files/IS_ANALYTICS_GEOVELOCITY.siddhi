@@ -2,7 +2,7 @@
 @App:description("Description of the plan")
 
 -- Input stream with the Geovelocity data of usernaem,login ip and login time.
-@Source(type = 'http-request', source.id='testsource', receiver.url="https://localhost:8280/IS_ANALYTICS_GV/InputStream",@map(type='json', @attributes(messageId='trp:messageId', username='$.event.username', loginTime='$.event.loginTime', loginIp = '$.event.loginIp')))
+@Source(type = 'http-request', source.id='testsource', receiver.url="https://localhost:8280/IS_ANALYTICS_GEOVELOCITY/InputStream",@map(type='json', @attributes(messageId='trp:messageId', username='$.event.username', loginTime='$.event.loginTime', loginIp = '$.event.loginIp')))
 define stream InputStream (
     messageId string,
     username string,
@@ -67,8 +67,8 @@ define table OverallAuthTable (
 @store(type='rdbms', datasource='IS_ANALYTICS_DB', 'field.length=username:20, loginTime:20, loginIp:20, city:20')
 define table TRAVELRESTRICTEDAREAS(
     Id int,
-    ToCountry string,
-    FromCountry string);
+    currentLocation string,
+    lastLocation string);
 
 define stream LoginBehaviourAnalyzingStream(lastRecordedLoginTime long, messageId string, username string, currentLoginTime long);
 
@@ -115,10 +115,10 @@ select FinalLoginDetailsStream.messageId as messageId,
     FinalLoginDetailsStream.username as username,
     FinalLoginDetailsStream.loginTime as currentLoginTime,
     GEOVELOCITY_INFO.loginTime as lastLoginTime,
-    FinalLoginDetailsStream.city as currentLocation,
-    GEOVELOCITY_INFO.city as lastLocation,
-    GEOVELOCITY_INFO.country as FromCountry,
-    FinalLoginDetailsStream.country as ToCountry,
+    GEOVELOCITY_INFO.city as lastLoginCity,
+    FinalLoginDetailsStream.city as currentLoginCity,
+    GEOVELOCITY_INFO.country as lastLoginCountry,
+    FinalLoginDetailsStream.country as currentLoginCountry,
     geo:distance(FinalLoginDetailsStream.latitude, FinalLoginDetailsStream.longitude, GEOVELOCITY_INFO.latitude,GEOVELOCITY_INFO.longitude) as distance,
     timeGapFn(FinalLoginDetailsStream.loginTime, GEOVELOCITY_INFO.loginTime) as timeGap
 insert into GeoVelocityStream;
@@ -129,30 +129,29 @@ select messageId,
     username,
     loginTime as currentLoginTime,
     loginTime as lastLoginTime,
-    city as currentLocation,
-    city as lastLocation,
-    country as FromCountry,
-    country as ToCountry,
+    city as lastLoginCity,
+    city as currentLoginCity,
+    country as lastLoginCountry,
+    country as currentLoginCountry,
     0.0 as distance,
     1 as timeGap
 insert into GeoVelocityStream;
 
--- Get risk values of logins
+-- Get risk values of logins.
 from GeoVelocityStream
 select messageId,
 	username,
 	timeGap,
-	aviation:FindFlightAvailability(currentLocation, lastLocation, currentLoginTime, lastLoginTime) as flightCount,
-	geovelocity:loginbehaviourbasedrisk(username, currentLocation, currentLoginTime) as loginBehaviourBasedRisk,
-	geovelocity:restrictedareabasedrisk(ToCountry, FromCountry) as forbiddenAreaBasedLoginRisk,
+	geovelocity:loginbehaviourbasedrisk(username, currentLoginCity, currentLoginTime) as loginBehaviourBasedRisk,
+	geovelocity:restrictedareabasedrisk(currentLoginCity, lastLoginCity, currentLoginCountry, lastLoginCountry) as forbiddenAreaBasedLoginRisk,
 	ifThenElse(distance==0,0.0,(distance/timeGap))  as velocity
-insert into RiskValueStream;;
+insert into RiskValueStream;
 
 -- Get the risk value based on velocity, loginBehaviourBasedRisk, forbiddenAreaBasedLoginRisk.
 from RiskValueStream#window.length(1)
 select messageId,
     username,
-    ifThenElse(velocity==0,0.0,ifThenElse(velocity>0.025, 1.0 , ifThenElse(flightCount==true,0.8, ifThenElse(forbiddenAreaBasedLoginRisk==1,0.5,ifThenElse(loginBehaviourBasedRisk>0.5, 0.3, 0.0))))) as risk
+    ifThenElse(velocity==0,0.0,ifThenElse(velocity>0.025, 1.0 , ifThenElse(forbiddenAreaBasedLoginRisk==1,0.5,ifThenElse(loginBehaviourBasedRisk>0.5, 0.3, 0.0)))) as risk
 insert into OutputStream;
 
 -- update GEOVELOCITY_INFO database.
