@@ -17,8 +17,6 @@
  */
 package org.wso2.extension.siddhi.execution.geovelocity;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.wso2.extension.siddhi.execution.geovelocity.api.GeoVelocityData;
 import org.wso2.extension.siddhi.execution.geovelocity.api.GeoVelocityDataResolver;
 import org.wso2.extension.siddhi.execution.geovelocity.internal.exception.GeoVelocityException;
@@ -78,7 +76,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GetLoginBehaviourRisk extends FunctionExecutor {
 
-    private static final Log log = LogFactory.getLog(GetLoginBehaviourRisk.class);
     private static GeoVelocityDataResolver geoVelocityDataResolverImpl;
     private static final String DEFAULT_GEOVELOCITY_RESOLVER_CLASSNAME =
             "org.wso2.extension.siddhi.execution.geovelocity.internal.impl.DefaultDBBasedGeoVelocityDataResolver";
@@ -122,7 +119,7 @@ public class GetLoginBehaviourRisk extends FunctionExecutor {
         geoVelocityData = geoVelocityDataResolverImpl.getGeoVelocityInfo(username, city);
         Long lastLoginTime = geoVelocityData.getLoginBehaviourBasedRisk();
         double risk;
-        // Time difference is convert to days by deviding milisecond by 1000*60*60*24.
+        // Time difference is convert to days by deviding miliseconds by 1000*60*60*24.
         if (lastLoginTime != 0L) {
             double timeDifference = (currentLoginTime - lastLoginTime) / 86400000.00;
             risk = 1 - Math.pow(Math.E, -timeDifference);
