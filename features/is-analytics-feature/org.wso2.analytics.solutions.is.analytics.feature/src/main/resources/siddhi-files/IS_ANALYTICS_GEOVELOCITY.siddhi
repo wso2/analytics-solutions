@@ -70,8 +70,6 @@ define table TRAVELRESTRICTEDAREAS(
     currentLocation string,
     lastLocation string);
 
-define stream LoginBehaviourAnalyzingStream(lastRecordedLoginTime long, messageId string, username string, currentLoginTime long);
-
 -- Function to calculate time gap between last login and current login attempt.
 define function timeGapFn[javascript] return int{
     var timeGap = Math.floor(parseInt(data[0])-parseInt(data[1]));
