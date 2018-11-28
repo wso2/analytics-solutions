@@ -240,28 +240,22 @@ class EIAnalyticsSearchBox extends Widget {
             document.getElementById(popperAnchor).style = 'display: flex; padding: 0';
         }
 
-        let query;
-        let componentType = this.pageName;
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
-                //based on the component type, query ESB or Mediator stat tables
-                if (this.pageName == this.pgAPI || this.pageName == this.pgProxy || this.pageName == this.pgInbound) {
-                    query = message.data.configs.providerConfig.configs.config.queryData.queryESB;
 
-                    //change pageName variable to 'Proxy Service' to query data based on the componentType
-                    if (this.pageName == this.pgProxy) {
-                        componentType = 'proxy service';
-                    }
-                    //change pageName variable to 'Inbound EndPoint'to query data based on the componentType
-                    else if (this.pageName == this.pgInbound) {
-                        componentType = 'inbound endpoint';
-                    }
+                let query = message.data.configs.providerConfig.configs.config.queryData.query;
+                let componentType = this.pageName;
 
-                } else {
-                    query = message.data.configs.providerConfig.configs.config.queryData.queryMediator;
+                //change pageName variable to 'Proxy Service' to query data based on the componentType
+                if (this.pageName == this.pgProxy) {
+                    componentType = 'proxy service';
                 }
-                message.data.configs.providerConfig.configs.config.queryData.query = query
-                    .replace('{{paramComponentType}}', componentType);
+                //change pageName variable to 'Inbound EndPoint'to query data based on the componentType
+                else if (this.pageName == this.pgInbound) {
+                    componentType = 'inbound endpoint';
+                }
+
+                message.data.configs.providerConfig.configs.config.queryData.query = query.replace('{{paramComponentType}}', componentType)
                 super.getWidgetChannelManager().subscribeWidget(this.props.id,
                     this.handleDataReceived, message.data.configs.providerConfig);
 
