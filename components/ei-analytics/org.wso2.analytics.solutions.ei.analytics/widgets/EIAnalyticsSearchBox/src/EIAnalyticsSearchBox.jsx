@@ -255,7 +255,8 @@ class EIAnalyticsSearchBox extends Widget {
                     componentType = 'inbound endpoint';
                 }
 
-                message.data.configs.providerConfig.configs.config.queryData.query = query.replace('{{paramComponentType}}', componentType)
+                message.data.configs.providerConfig.configs.config.queryData.query =
+                    query.replace('{{paramComponentType}}', componentType)
                 super.getWidgetChannelManager().subscribeWidget(this.props.id,
                     this.handleDataReceived, message.data.configs.providerConfig);
 
