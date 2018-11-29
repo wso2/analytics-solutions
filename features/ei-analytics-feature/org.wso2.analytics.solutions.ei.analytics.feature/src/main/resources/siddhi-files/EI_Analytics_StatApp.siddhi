@@ -55,7 +55,6 @@ define table ConfigEntryTable (metaTenantId int, hashcode string, entryName stri
 
 -- table that stores component name and type for the searchbox-widget
 @store(type = 'rdbms', datasource = 'EI_ANALYTICS')
-@PrimaryKey('componentName,componentType')
 define table ComponentNameTable (componentName string, componentType string);
 
 -- Aggregations
@@ -96,9 +95,9 @@ select meta_tenantId as metaTenantId, hashcode, entryName, configData, eventTime
 update or insert into ConfigEntryTable on ConfigEntryTable.hashcode == hashcode;
 
 -- add all the componentNames and componentTypes to ComponentNameTable, if the combination is unique
-from DecompressedEventStream[NOT ((ComponentNameTable.componentName == componentName AND ComponentNameTable.componentType == componentType) IN ComponentNameTable)]
+from DecompressedEventStream
 select componentName, componentType
-insert into ComponentNameTable;
+update or insert into ComponentNameTable on ComponentNameTable.componentName == componentName and ComponentNameTable.componentType == componentType;
 
 -- if DecompressedEventStream has beforePayload or transportPropertyMap or contextPropertyMap, add them to into ESBEventTable
 from DecompressedEventStream[not(beforePayload is null) or not(transportPropertyMap is null) or not(contextPropertyMap is null)]
