@@ -88,6 +88,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
         this.handlePublisherParameters = this.handlePublisherParameters.bind(this);
         this.handleGraphUpdate = this.handleGraphUpdate.bind(this);
         this.handleStats = this.handleStats.bind(this);
+
     }
 
     static getProviderConf(widgetConfiguration) {
@@ -110,7 +111,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
                     .format('YYYY-MM-DD HH:mm:ss'),
                 timeToParameter: moment(message.to)
                     .format('YYYY-MM-DD HH:mm:ss'),
-                timeUnitParameter: message.granularity,
+                timeUnitParameter: message.granularity + 's',
                 isLoading: true,
             }, this.handleGraphUpdate);
         }
@@ -136,7 +137,9 @@ class EIAnalyticsHorizontalBarChart extends Widget {
                     .replace('{{componentType}}', graphType)
                     .replace('{{tenantId}}', TENANT_ID)
                     .replace('{{timeFrom}}', this.state.timeFromParameter)
-                    .replace('{{timeTo}}', this.state.timeToParameter);
+                    .replace('{{timeTo}}', this.state.timeToParameter)
+                    .replace('{{timeUnit}}', this.state.timeUnitParameter);
+
                 /* Request data-store with the modified query. */
                 super.getWidgetChannelManager()
                     .subscribeWidget(
@@ -210,7 +213,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
             }}>
                 <div className="message message-info">
                     <h4>
-                        <i class="icon fw fw-info"/> No records found</h4>
+                        <i class="icon fw fw-info"/>No records found</h4>
                     <p>
                         {
                             this.isConfLoadError ? 'Error loading widget configuration file' :
