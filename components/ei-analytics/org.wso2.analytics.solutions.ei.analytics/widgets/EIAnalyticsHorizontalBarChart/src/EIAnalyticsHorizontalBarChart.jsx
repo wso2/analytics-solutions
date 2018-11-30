@@ -110,7 +110,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
                     .format('YYYY-MM-DD HH:mm:ss'),
                 timeToParameter: moment(message.to)
                     .format('YYYY-MM-DD HH:mm:ss'),
-                timeUnitParameter: message.granularity,
+                timeUnitParameter: message.granularity + 's',
                 isLoading: true,
             }, this.handleGraphUpdate);
         }
@@ -136,7 +136,8 @@ class EIAnalyticsHorizontalBarChart extends Widget {
                     .replace('{{componentType}}', graphType)
                     .replace('{{tenantId}}', TENANT_ID)
                     .replace('{{timeFrom}}', this.state.timeFromParameter)
-                    .replace('{{timeTo}}', this.state.timeToParameter);
+                    .replace('{{timeTo}}', this.state.timeToParameter)
+                    .replace('{{timeUnit}}', this.state.timeUnitParameter);
                 /* Request data-store with the modified query. */
                 super.getWidgetChannelManager()
                     .subscribeWidget(
