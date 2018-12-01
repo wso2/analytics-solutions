@@ -15,7 +15,7 @@
       "configs": {
         "type": "SiddhiStoreDataProvider",
         "config": {
-          "siddhiApp": "@store(type = 'rdbms', datasource = 'EI_ANALYTICS') @PrimaryKey('componentName,componentType') define table ComponentNameTable (componentName string, componentType string);",
+          "siddhiApp": "@store(type = 'rdbms', datasource = 'EI_ANALYTICS') @PrimaryKey('componentId') @Index('componentType') define table ComponentNameTable (componentId string, componentName string, componentType string);",
           "queryData": {
             "query": "from ComponentNameTable on componentType=='{{paramComponentType}}' select componentName;"
           },
