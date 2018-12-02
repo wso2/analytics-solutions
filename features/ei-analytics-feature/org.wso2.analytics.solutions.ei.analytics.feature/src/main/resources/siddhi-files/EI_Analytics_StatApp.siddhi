@@ -53,6 +53,12 @@ define table ESBEventTable (metaTenantId int, messageFlowId string, host string,
 @Index('metaTenantId','entryName')
 define table ConfigEntryTable (metaTenantId int, hashcode string, entryName string, configData string, eventTimestamp long);
 
+-- table that stores component name and type for the searchbox-widget
+@store(type = 'rdbms', datasource = 'EI_ANALYTICS')
+@PrimaryKey('componentId')
+@Index('componentType')
+define table ComponentNameTable (componentId string, componentName string, componentType string);
+
 -- Aggregations
 
 -- aggregates PreProcessedMediatorStatStream data every minute to month
@@ -89,6 +95,11 @@ insert current events into DecompressedEventStream;
 from ConfigEntryEventStream
 select meta_tenantId as metaTenantId, hashcode, entryName, configData, eventTimestamp() as eventTimestamp
 update or insert into ConfigEntryTable on ConfigEntryTable.hashcode == hashcode;
+
+-- add all the componentIds, componentNames and componentTypes to ComponentNameTable
+from DecompressedEventStream[not((ComponentNameTable.componentId == componentId) in ComponentNameTable)]
+select componentId, componentName, componentType
+insert into ComponentNameTable;
 
 -- if DecompressedEventStream has beforePayload or transportPropertyMap or contextPropertyMap, add them to into ESBEventTable
 from DecompressedEventStream[not(beforePayload is null) or not(transportPropertyMap is null) or not(contextPropertyMap is null)]
