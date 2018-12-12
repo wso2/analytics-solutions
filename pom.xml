@@ -787,7 +787,7 @@
         <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
         <kryo.version>3.0.3</kryo.version>
 
-        <siddhi.version>4.2.40</siddhi.version>
+        <siddhi.version>4.3.0</siddhi.version>
         <siddhi.map.wso2event.version>4.0.16</siddhi.map.wso2event.version>
         <siddhi.map.json.version>4.0.32</siddhi.map.json.version>
 
