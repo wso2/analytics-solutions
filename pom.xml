@@ -783,11 +783,11 @@
 
     <properties>
         <carbon.analytics-common.version>6.0.72</carbon.analytics-common.version>
-        <carbon.analytics.version>2.0.467</carbon.analytics.version>
+        <carbon.analytics.version>2.0.474</carbon.analytics.version>
         <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
         <kryo.version>3.0.3</kryo.version>
 
-        <siddhi.version>4.3.0</siddhi.version>
+        <siddhi.version>4.3.2</siddhi.version>
         <siddhi.map.wso2event.version>4.0.16</siddhi.map.wso2event.version>
         <siddhi.map.json.version>4.0.32</siddhi.map.json.version>
 
