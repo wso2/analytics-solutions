@@ -59,6 +59,10 @@ define table ESBEventTable (metaTenantId int, messageFlowId string, host string,
 define table ConfigEntryTable (metaTenantId int, hashcode string, entryName string, configData string, eventTimestamp long);
 
 -- table that stores component name and type for the searchbox-widget
+@PrimaryKey('componentId')
+@Index('componentType')
+define table ComponentNameInMemoryTable (componentId string, componentName string, componentType string);
+
 @store(type = 'rdbms', datasource = 'EI_ANALYTICS')
 @PrimaryKey('componentId')
 @Index('componentType')
@@ -88,6 +92,7 @@ from PreProcessedESBStatStream
 
 --Triggers
 define trigger TablePurgingTriggerStream at '0 0 23 * * ?';
+define trigger AppStartTriggerStream at 'start';
 
 -- Queries
 
@@ -102,8 +107,20 @@ select meta_tenantId as metaTenantId, hashcode, entryName, configData, eventTime
 update or insert into ConfigEntryTable on ConfigEntryTable.hashcode == hashcode;
 
 -- add all the componentIds, componentNames and componentTypes to ComponentNameTable
-from DecompressedEventStream[not((ComponentNameTable.componentId == componentId) in ComponentNameTable)]
+from AppStartTriggerStream join ComponentNameTable
 select componentId, componentName, componentType
+insert into ComponentNameInMemoryTable;
+
+from DecompressedEventStream[not((ComponentNameInMemoryTable.componentId == componentId) in ComponentNameInMemoryTable)]
+select componentId, componentName, componentType
+insert into ComponentNameTableStream;
+
+from ComponentNameTableStream
+select *
+insert into ComponentNameInMemoryTable;
+
+from ComponentNameTableStream
+select *
 insert into ComponentNameTable;
 
 -- if DecompressedEventStream has beforePayload or transportPropertyMap or contextPropertyMap, add them to into ESBEventTable through an async stream
