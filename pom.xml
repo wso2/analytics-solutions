@@ -316,6 +316,14 @@
                 <type>zip</type>
             </dependency>
 
+            <!-- Data Search -->
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.sp.data.search.widgets.data.search</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
             <!-- Message tracer -->
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>

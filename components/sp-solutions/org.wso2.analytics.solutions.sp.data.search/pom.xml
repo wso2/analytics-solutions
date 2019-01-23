@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~ Copyright (c) 2019, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -14,27 +14,20 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
+        <artifactId>sp-solutions</artifactId>
         <groupId>org.wso2.analytics.solutions</groupId>
         <version>1.0.29-SNAPSHOT</version>
-        <artifactId>org.wso2.analytics.solutions.parent</artifactId>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>sp-solutions</artifactId>
-    <version>1.0.29-SNAPSHOT</version>
-    <name>WSO2 Stream Processor Solutions - Aggregator Module</name>
     <packaging>pom</packaging>
+    <name>WSO2 Stream Processor Solutions - Data Search</name>
+    <artifactId>org.wso2.analytics.solutions.sp.data.search</artifactId>
 
     <modules>
-        <module>org.wso2.analytics.solutions.sp.http.analytics</module>
-        <module>org.wso2.analytics.solutions.sp.message.tracer</module>
-        <module>org.wso2.analytics.solutions.sp.twitter.analytics</module>
-        <module>org.wso2.analytics.solutions.sp.data.search</module>
+        <module>widgets</module>
     </modules>
-
 </project>

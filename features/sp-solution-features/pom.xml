@@ -33,6 +33,7 @@
         <module>org.wso2.analytics.solutions.sp.http.analytics.feature</module>
         <module>org.wso2.analytics.solutions.sp.message.tracer.feature</module>
         <module>org.wso2.analytics.solutions.sp.twitter.analytics.feature</module>
+        <module>org.wso2.analytics.solutions.sp.data.search.feature</module>
     </modules>
-    
+
 </project>
