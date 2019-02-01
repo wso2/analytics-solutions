@@ -5,11 +5,11 @@
       "description": "Real Time Analytics of EI",
       "ruleTemplates": [
          {
-            "uuid": "ei-messages-table",
+            "uuid": "ei_analytics_statapp",
             "name": "EI Messages Table",
             "description": "Enables or disables EI Messages Table",
             "type": "template",
-            "instanceCount": "many",
+            "instanceCount": "one",
             "script": "var enableMessages = '${userInputForEnableMessages}';\n\n\n\n\n\n\n\n\n\n",
             "templates": [
                {
