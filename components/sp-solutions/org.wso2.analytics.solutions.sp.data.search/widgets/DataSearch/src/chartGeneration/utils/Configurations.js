@@ -17,7 +17,6 @@
  *
  */
 const Configurations = {
-
     charts: {
         lineAreaBarChart: {
             x: '',
@@ -44,23 +43,23 @@ const Configurations = {
                     size: '',
                     maxLength: 100,
                     colorScale: [
-                        "#1f77b4",
-                        "#ebff3b"
+                        '#1f77b4',
+                        '#ebff3b'
                     ]
                 }
             ],
             append:false,
         },
         pieChart: {
-            "charts": [
+            'charts': [
                 {
-                    "type": "arc",
-                    "x": "",
-                    "color": "",
-                    "mode": "pie"
+                    'type': 'arc',
+                    'x': '',
+                    'color': '',
+                    'mode': 'pie'
                 }
             ],
-            "legend": true,
+            'legend': true,
         },
         geographicalChart: {
             x: '',
@@ -74,5 +73,4 @@ const Configurations = {
         }
     },
 };
-
 export default Configurations;

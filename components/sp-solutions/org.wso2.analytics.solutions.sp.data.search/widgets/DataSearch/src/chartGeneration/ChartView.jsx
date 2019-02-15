@@ -31,7 +31,7 @@ import Configurations from './utils/Configurations';
 import UtilFunctions from './utils/UtilFunctions';
 import Constants from './utils/Constants';
 
-class ChartView extends React.Component {
+export default class ChartView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -47,22 +47,21 @@ class ChartView extends React.Component {
     handleChartTypeChange(event) {
         const state = this.state;
         state.chartType = event.target.value;
-        state.chartConfig = JSON.parse(JSON.stringify(Configurations.charts[event.target.value]));
+        state.chartConfig = Configurations.charts[event.target.value];
         this.setState(state);
     }
 
     generateBtnClicked() {
-        let validConfig = this.getValidatedConfiguration();
-        if(validConfig){
+        if (this.getValidatedConfiguration()) {
             this.setState({errorMessage:''});
             this.props.onChartGeneration(this.state.chartConfig);
-        }else{
-            this.setState({errorMessage:'*Please fill in required values'});
+        } else {
+            this.setState({errorMessage: '*Please fill in required values'});
         }
     }
 
     displayChartProperties() {
-        if(this.state.chartType !== '') {
+        if (this.state.chartType !== '') {
             switch(this.state.chartType) {
                 case (Types.chart.pieChart):
                     return(
@@ -153,7 +152,6 @@ class ChartView extends React.Component {
                 }
                 break;
         }
-
         return isChartConfigurationValid;
     }
 
@@ -165,18 +163,16 @@ class ChartView extends React.Component {
                 </div>
 
                 {this.displayChartProperties()}
-                <h4 style={{color:"#ff2e00", marginTop: 0, marginBottom: 0}}>{this.state.errorMessage}</h4>
+                <h4 style={{color: '#ff2e00', marginTop: 0, marginBottom: 0}}>{this.state.errorMessage}</h4>
                 <br/>
 
-                {(this.state.chartType !== '') ?
+                {(this.state.chartType !== '') &&
                     (<Button
-                        style={{color:"#ffffff",border:0,borderRadius:3,background:"#fc5800",height:20}}
-                        onClick={(this.generateBtnClicked)}>
+                        style = {{color: '#ffffff' ,border: 0, borderRadius: 3, background: '#fc5800', height: 33}}
+                        onClick = {(this.generateBtnClicked)}>
                         APPLY CHANGES
-                    </Button>) :
-                    (null)}
+                    </Button>)}
             </div>
         );
     }
 }
-export default ChartView;

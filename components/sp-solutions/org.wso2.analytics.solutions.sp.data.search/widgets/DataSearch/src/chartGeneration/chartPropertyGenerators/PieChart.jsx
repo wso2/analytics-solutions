@@ -22,7 +22,7 @@ import StreamProperty from '../inputTypes/StreamProperty';
 import Types from '../utils/Types';
 import Constants from '../utils/Constants';
 
-class Pie extends Component{
+export default class Pie extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,22 +37,22 @@ class Pie extends Component{
         this.props.onConfigurationChange(state.configuration);
     }
 
-    render(){
+    render() {
         return(
             <div>
                 <StreamProperty
-                    id = "x"
+                    id = 'x'
                     value = {this.state.configuration.charts[0].x}
-                    fieldName = "Data field*"
+                    fieldName = 'Data field*'
                     filter = {Types.dataset.metadata.linear}
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
                     metadata = {this.props.metadata}
                 />
                 <br/><br/>
                 <SelectProperty
-                    id = "mode"
+                    id = 'mode'
                     value = {this.state.configuration.charts[0].mode}
-                    fieldName = "Type of the chart*"
+                    fieldName = 'Type of the chart*'
                     options = {{
                         values: [Types.chart.pie, Types.chart.donut],
                         texts: [Constants.CHART_NAMES.PIE_CHART, Constants.CHART_NAMES.DONUT_CHART]
@@ -61,9 +61,9 @@ class Pie extends Component{
                 />
                 <br/><br/>
                 <StreamProperty
-                    id = "color"
+                    id = 'color'
                     value = {this.state.configuration.charts[0].color}
-                    fieldName = "Field to color categorize*"
+                    fieldName = 'Field to color categorize*'
                     filter = {Types.dataset.metadata.ordinal}
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
                     metadata = {this.props.metadata}
@@ -72,5 +72,3 @@ class Pie extends Component{
         );
     }
 }
-
-export default Pie;

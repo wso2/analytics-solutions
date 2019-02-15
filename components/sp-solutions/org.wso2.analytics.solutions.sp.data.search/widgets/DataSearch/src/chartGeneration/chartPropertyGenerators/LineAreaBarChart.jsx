@@ -23,8 +23,8 @@ import SwitchProperty from '../inputTypes/SwitchProperty';
 import Types from '../utils/Types';
 import Constants from '../utils/Constants';
 
-class LineAreaBar extends Component{
-    constructor(props){
+export default class LineAreaBar extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             configuration: props.configuration,
@@ -46,56 +46,55 @@ class LineAreaBar extends Component{
         this.props.onConfigurationChange(state.configuration);
     }
 
-    handleSwitchToggle(key,value){
+    handleSwitchToggle(key,value) {
         const state = this.state;
         if(value){
-            state.configuration.charts[0].mode = "stacked";
+            state.configuration.charts[0].mode = 'stacked';
             state.checked=true;
         }else{
-            state.configuration.charts[0].mode = "";
+            state.configuration.charts[0].mode = '';
             state.checked=false;
         }
         this.setState(state);
         this.props.onConfigurationChange(state.configuration);
     }
 
-    render(){
+    render() {
         return(
             <div>
                 <StreamProperty
-                    id = "x"
+                    id = 'x'
                     value = {this.state.configuration.x}
-                    fieldName = "X axis field*"
+                    fieldName = 'X axis field*'
                     onChange = {(id, value) => this.handleMainChartPropertyChange(id, value)}
                     metadata = {this.props.metadata}
                 />
               <br/><br/>
                 <SelectProperty
-                    id = "type"
+                    id = 'type'
                     value = {this.state.configuration.charts[0].type}
-                    fieldName = "Type of the chart*"
+                    fieldName = 'Type of the chart*'
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
                     options = {{
                         values: [Types.chart.lineChart, Types.chart.areaChart, Types.chart.barChart],
                         texts: [Constants.CHART_NAMES.LINE_CHART, Constants.CHART_NAMES.AREA_CHART,
                             Constants.CHART_NAMES.BAR_CHART],
                     }}
-
                 />
                 <br/><br/>
                 <StreamProperty
-                    id = "y"
+                    id = 'y'
                     value = {this.props.configuration.charts[0].y}
-                    fieldName = "Y axis field*"
+                    fieldName = 'Y axis field*'
                     filter = {Types.dataset.metadata.linear}
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
                     metadata = {this.props.metadata}
                 />
                 <br/><br/>
                 <StreamProperty
-                    id = "color"
+                    id = 'color'
                     value = {this.props.configuration.charts[0].color}
-                    fieldName = "Color Categorization"
+                    fieldName = 'Color Categorization'
                     filter = {Constants.ordinal}
                     metadata = {this.props.metadata}
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
@@ -106,14 +105,13 @@ class LineAreaBar extends Component{
                     (<div>
                         <br/>
                         <SwitchProperty
-                            id = "stacked"
+                            id = 'stacked'
                             isChecked = {this.state.checked}
-                            fieldName = "Stack this chart"
+                            fieldName = 'Stack this chart'
                             onChange = {(id, value) => this.handleSwitchToggle(id, value)}
-                        /></div>) :(null)
+                        /></div>) : (null)
                 }
             </div>
         );
     }
 }
-export default LineAreaBar;

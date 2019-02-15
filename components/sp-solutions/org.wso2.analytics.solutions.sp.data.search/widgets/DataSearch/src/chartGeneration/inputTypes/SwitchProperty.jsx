@@ -20,7 +20,7 @@ import React, { Component } from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-class SwitchProperty extends React.Component{
+export default class SwitchProperty extends Component {
     render() {
         return(
             <FormControlLabel
@@ -28,11 +28,10 @@ class SwitchProperty extends React.Component{
                 control = {
                     <Switch
                         checked = {this.props.isChecked}
-                        onChange = {(event) => {this.props.onChange(this.props.id,event.target.checked)}}
+                        onChange = {(event) => {this.props.onChange(this.props.id, event.target.checked)}}
                     />
                 }
             />
         );
     }
 }
-export default SwitchProperty;
