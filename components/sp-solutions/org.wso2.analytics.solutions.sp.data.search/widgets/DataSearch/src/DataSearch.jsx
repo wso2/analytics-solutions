@@ -29,7 +29,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from "@material-ui/core/FormControl";
-import {MuiThemeProvider,createMuiTheme} from '@material-ui/core/styles';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 import ChartView from './chartGeneration/ChartView';
 import Card from '@material-ui/core/Card';
@@ -42,15 +42,15 @@ import HelpIcon from '@material-ui/icons/Help';
 import Tooltip from '@material-ui/core/Tooltip';
 
 let tableConfig = {
-    "charts": [
-        {"type": "table", "columns": [{name: "column 1"}, {name: "column 2"}, {name: "column 3"}]}
-    ], "pagination": true, "filterable": true, "sortable": false, "append": false};
+    'charts': [
+        {'type': 'table', 'columns' : [{name: 'column 1'}, {name: 'column 2'}, {name: 'column 3'}]}
+    ], 'pagination': true, 'filterable': true, 'sortable': false, 'append': false};
 
-const defaultFontColor = "#fc5800";
+const defaultFontColor = '#fc5800';
 const titleStyle = {color: defaultFontColor, marginTop: 0, marginBottom: 0};
 const defaultPageSize = 5;
 
-const queryHint = <div style={{ fontSize: 13 }}>
+const queryHint = <div style = {{fontSize: 13}}>
     <h3>Table/Window</h3>
     from &lt;table/window><br />
     &lt;on condition>?<br />
@@ -77,30 +77,27 @@ class DataSearch extends Widget {
         this.state = {
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
-            siddhiAppName: "",
-            storeElement: "",
+            siddhiAppName: '',
+            storeElement: '',
             siddhiAppList: [],
             storeElementList: [],
             data: [],
-            metadata: {"names":["column 1","column 2","column 3"],"types":["ORDINAL","ORDINAL","LINEAR"]},
-            siddhiAppText: "",
-            query: "",
-            attributes: "",
+            metadata: {'names':['column 1', 'column 2', 'column 3'], 'types':['ORDINAL','ORDINAL','LINEAR']},
+            siddhiAppText: '',
+            query: '',
+            attributes: '',
             chartConfig: {},
             displayChart: false,
             chartViewExpanded: false,
-            resultExpanded: true,
             tblReportGenExpanded: false,
             chrtReportGenExpanded: false,
             totalPages: Infinity,
-        }
-
+        };
         this.handleDataReceived = this.handleDataReceived.bind(this);
         this.getData = this.getData.bind(this);
         this.initializeDataProvider = this.initializeDataProvider.bind(this);
         this.excecuteQuery = this.excecuteQuery.bind(this);
         this.handleChartViewExpand = this.handleChartViewExpand.bind(this);
-        this.handleResultExpand = this.handleResultExpand.bind(this);
         this.handleTblReportGenExpand = this.handleTblReportGenExpand.bind(this);
         this.handleChrtReportGenExpand = this.handleChrtReportGenExpand.bind(this);
         this.updateQuery = this.updateQuery.bind(this);
@@ -127,25 +124,20 @@ class DataSearch extends Widget {
     }
 
     handleChartViewExpand() {
-        this.setState({chartViewExpanded:!this.state.chartViewExpanded});
-    }
-
-    handleResultExpand() {
-        this.setState({resultExpanded:!this.state.resultExpanded});
+        this.setState({chartViewExpanded: !this.state.chartViewExpanded});
     }
 
     handleTblReportGenExpand() {
-        this.setState({tblReportGenExpanded:!this.state.tblReportGenExpanded});
+        this.setState({tblReportGenExpanded: !this.state.tblReportGenExpanded});
     }
 
     handleChrtReportGenExpand() {
-        this.setState({chrtReportGenExpanded:!this.state.chrtReportGenExpanded});
+        this.setState({chrtReportGenExpanded: !this.state.chrtReportGenExpanded});
     }
 
     handleDataReceived(setData) {
         let titles = setData.metadata.names;
         let tableCols = [];
-
         for (let i=0; i<titles.length; i++) {
             tableCols[i] = [];
             tableCols[i].name = titles[i];
@@ -153,7 +145,7 @@ class DataSearch extends Widget {
 
         tableConfig.charts[0].columns = tableCols;
 
-        if (setData.data.length == 0) {
+        if (setData.data.length === 0) {
             this.setState({
                 data: setData.data,
                 metadata:setData.metadata,
@@ -179,10 +171,9 @@ class DataSearch extends Widget {
                                     this.getData(state.pageSize, state.page);
                                 }
                             }}
-        />
+        />;
         ReactDOM.render(table, document.getElementById('tableResultDiv'));
     }
-
 
     updateQuery(event) {
         this.setState({query: event.target.value});
@@ -194,25 +185,26 @@ class DataSearch extends Widget {
                 this.setState({storeElementList:response.data});
             });
 
-        this.setState({siddhiAppName: event.target.value, storeElement: '', siddhiAppText: '', query: '', attributes: ''});
+        this.setState({siddhiAppName: event.target.value, storeElement: '', siddhiAppText: '', query: '',
+            attributes: ''});
     }
 
     handleChangeStoreElement(event) {
-        const loadingText =  <h2>Loading...</h2>
+        const loadingText =  <h2>Loading...</h2>;
         ReactDOM.render(loadingText, document.getElementById('tableResultDiv'));
 
         this.setState({storeElement:event.target.value});
         for(let i=0; i<this.state.storeElementList.length; i++){
-            if(this.state.storeElementList[i].name == event.target.value){
+            if(this.state.storeElementList[i].name === event.target.value){
                 let attributeList = '';
                 for(let j=0; j<this.state.storeElementList[i].attributes.length; j++){
-                    attributeList += this.state.storeElementList[i].attributes[j].name + " "
-                        + this.state.storeElementList[i].attributes[j].type + ", ";
+                    attributeList += this.state.storeElementList[i].attributes[j].name + ' '
+                        + this.state.storeElementList[i].attributes[j].type + ', ';
                 }
-                attributeList = attributeList.slice(0,attributeList.length - 2)
+                attributeList = attributeList.slice(0,attributeList.length - 2);
                 this.setState({attributes: attributeList,
                     siddhiAppText: this.state.storeElementList[i].definition,
-                    query: "from " + this.state.storeElementList[i].name + " select *"}, ()=> {
+                    query: 'from ' + this.state.storeElementList[i].name + ' select *'}, ()=> {
                     this.initializeDataProvider(defaultPageSize, 0);
                 });
                 break;
@@ -233,18 +225,17 @@ class DataSearch extends Widget {
         var siddhiApp = this.state.siddhiAppText;
         var query = this.state.query;
         var providerConfig = {
-            "configs": {
-                "type": "SiddhiStoreDataProvider",
-                "config": {siddhiApp,
-                    "queryData": {query},
-                    "currentPage": currentPage,
-                    "pageSize": pageSize,
-                    "isPaginationEnabled": true
+            'configs': {
+                'type': 'SiddhiStoreDataProvider',
+                'config': {siddhiApp,
+                    'queryData': {query},
+                    'currentPage': currentPage,
+                    'pageSize': pageSize,
+                    'isPaginationEnabled': true
                 }
             }
-        }
-        super.getWidgetConfiguration(this.props.widgetID)
-            .then((message) => {
+        };
+        super.getWidgetConfiguration(this.props.widgetID).then((message) => {
                 super.getWidgetChannelManager().subscribeWidget(this.props.id, this.handleDataReceived, providerConfig);
             })
     }
@@ -254,31 +245,30 @@ class DataSearch extends Widget {
         var siddhiApp = this.state.siddhiAppText;
         var query = this.state.query;
         var providerConfig = {
-            "configs": {
-                "type": "SiddhiStoreDataProvider",
-                "config": {siddhiApp,
-                    "queryData": {query},
-                    "currentPage": currentPage,
-                    "pageSize": pageSize,
-                    "isPaginationEnabled": true
+            'configs': {
+                'type': 'SiddhiStoreDataProvider',
+                'config': {siddhiApp,
+                    'queryData': {query},
+                    'currentPage': currentPage,
+                    'pageSize': pageSize,
+                    'isPaginationEnabled': true
                 }
             }
-        }
-        super.getWidgetConfiguration(this.props.widgetID)
-            .then((message) => {
+        };
+        super.getWidgetConfiguration(this.props.widgetID).then((message) => {
                 super.getWidgetChannelManager().poll(this.props.id, this.handleDataReceived, providerConfig);
             })
     }
 
-    handleChartGeneration(chartConfig){
+    handleChartGeneration(chartConfig) {
         //display chart view when generate btn is clicked
-        this.setState({chartConfig:chartConfig, displayChart:true});
+        this.setState({chartConfig: chartConfig, displayChart: true});
     }
 
     render() {
         const theme = createMuiTheme({
             palette: {
-                type:this.props.muiTheme.name,
+                type: this.props.muiTheme.name,
                 primary: deepOrange
             },
             typography: {
@@ -297,8 +287,8 @@ class DataSearch extends Widget {
             },
         });
 
-        return (
-            <div style={{
+        return(
+            <div style = {{
                 width: this.state.width-30,
                 height: this.state.height,
                 paddingLeft: 15
@@ -309,7 +299,7 @@ class DataSearch extends Widget {
                     height: this.state.height}}
                 >
                     <MuiThemeProvider theme = {theme}>
-                        <Card style = {{width:'98%',marginBottom:15}}>
+                        <Card style = {{width: '98%',marginBottom: 15}}>
                             <CardContent>
                                 <div style = {{width:500, display: 'inline-block', float: 'left'}}>
                                     <h3 style = {{marginBottom: 15, marginTop: 0, color: defaultFontColor}}>SOURCE</h3>
@@ -340,7 +330,7 @@ class DataSearch extends Widget {
                                         <Select
                                             value = {this.state.storeElement}
                                             onChange = {this.handleChangeStoreElement}
-                                            style = {{minWidth:350}}
+                                            style = {{minWidth: 350}}
                                             displayEmpty
                                             className = {this.props.selectEmpty}
                                             inputProps = {{
@@ -355,41 +345,42 @@ class DataSearch extends Widget {
                                             ))}
                                         </Select>
                                     </FormControl>
+                                    <br/><br/>
                                 </div>
                                 <div style = {{display:'inline-block', width:650}}>
                                     <h3 style = {titleStyle}>QUERY</h3>
                                     <TextField
-                                        label = "Attributes"
+                                        label = 'Attributes'
                                         value = {this.state.attributes}
                                         multiline
-                                        rowsMax = "4"
-                                        margin = "normal"
-                                        variant = "outlined"
+                                        rowsMax = '4'
+                                        margin = 'normal'
+                                        variant = 'outlined'
                                         InputProps = {{
                                             readOnly: true,
                                         }}
-                                        style = {{minWidth:600,color:defaultFontColor}}
+                                        style = {{minWidth: 600, color: defaultFontColor}}
                                     />
                                     <TextField
-                                        id = "outlined-multiline-flexible"
+                                        id = 'outlined-multiline-flexible'
                                         multiline
-                                        rowsMax = "8"
-                                        label = "Enter your query"
+                                        rowsMax = '8'
+                                        label = 'Enter your query'
                                         value = {this.state.query}
                                         onChange = {this.updateQuery}
-                                        margin = "normal"
-                                        style = {{minWidth:600,color:defaultFontColor}}
+                                        margin = 'normal'
+                                        style = {{minWidth: 600, color: defaultFontColor}}
                                     />
                                     <Tooltip title = {queryHint}>
-                                        <IconButton aria-label = "Delete" style = {{marginTop:25}}>
+                                        <IconButton aria-label = 'Delete' style = {{marginTop: 25}}>
                                             <HelpIcon/>
                                         </IconButton>
                                     </Tooltip>
                                     <br/><br/>
 
                                     <Button
-                                        style = {{color:"#ffffff", border:0, borderRadius:3,
-                                            background:defaultFontColor, height:20}}
+                                        style = {{color: '#ffffff', border: 0, borderRadius: 3,
+                                            background: defaultFontColor, height: 35}}
                                         onClick = {() => {this.excecuteQuery();}}>
                                         EXECUTE
                                     </Button>
@@ -398,19 +389,13 @@ class DataSearch extends Widget {
                             </CardContent>
                         </Card>
 
-                        <Card style = {{width:'98%'}}>
+                        <Card style = {{width: '98%'}}>
                             <CardActions>
-                                <h3 style = {{color: defaultFontColor, paddingLeft: 10}}>RESULT</h3>
-                                <IconButton
-                                    onClick = {this.handleResultExpand}
-                                >
-                                    <ExpandMoreIcon />
-                                </IconButton>
+                                <h3 style = {{color: defaultFontColor, paddingLeft: 10, marginTop: 10}}>RESULT</h3>
                             </CardActions>
-                            <Collapse in = {this.state.resultExpanded} timeout="auto" unmountOnExit>
-                                <CardContent style={{paddingTop: 0}}>
-                                    <div style = {{marginBottom:15}}>
-                                        <div id="tableResultDiv">
+                                <CardContent style = {{paddingTop: 0}}>
+                                    <div style = {{marginBottom: 15}}>
+                                        <div id = 'tableResultDiv'>
                                             <VizG config = {tableConfig}
                                                   metadata = {this.state.metadata}
                                                   data = {this.state.data}
@@ -419,7 +404,6 @@ class DataSearch extends Widget {
                                                   theme = {this.props.muiTheme.name}
                                             />
                                         </div>
-
                                     </div>
                                     <Card>
                                         <CardActions>
@@ -431,8 +415,8 @@ class DataSearch extends Widget {
                                             </IconButton>
                                         </CardActions>
 
-                                        <Collapse in = {this.state.tblReportGenExpanded} timeout="auto" unmountOnExit>
-                                            <CardContent style={{paddingTop: 0}}>
+                                        <Collapse in = {this.state.tblReportGenExpanded} timeout = 'auto' unmountOnExit>
+                                            <CardContent style = {{paddingTop: 0}}>
                                                 <ReportConfigs
                                                     element = {document.getElementById('tableResultDiv')}
                                                     theme = {this.props.muiTheme.name}
@@ -441,12 +425,10 @@ class DataSearch extends Widget {
                                             </CardContent>
                                         </Collapse>
                                     </Card>
-
                                 </CardContent>
-                            </Collapse>
                         </Card>
 
-                        <Card style = {{width:'98%',marginTop:15,marginBottom:15}}>
+                        <Card style = {{width: '98%', marginTop: 15, marginBottom: 15}}>
                             <CardActions>
                                 <h3 style = {{color: defaultFontColor, paddingLeft: 10}}>CHART VIEW</h3>
                                 <IconButton
@@ -455,10 +437,8 @@ class DataSearch extends Widget {
                                     <ExpandMoreIcon />
                                 </IconButton>
                             </CardActions>
-
-                            <Collapse in = {this.state.chartViewExpanded} timeout = "auto" unmountOnExit>
+                            <Collapse in = {this.state.chartViewExpanded} timeout = 'auto' unmountOnExit>
                                 <CardContent>
-
                                     <div style = {{width: 350, display: 'inline-block', float: 'left'}}>
                                         <ChartView
                                             data = {this.state.data}
@@ -467,10 +447,9 @@ class DataSearch extends Widget {
                                             displayChart = {this.state.displayChart}
                                         />
                                     </div>
-
-                                    <div style = {{display:'inline-block'}}>
-                                        {(this.state.displayChart == true) ?
-                                            (<div id = "generatedChartDiv">
+                                    <div style = {{display: 'inline-block'}}>
+                                        {(this.state.displayChart === true) ?
+                                            (<div id = 'generatedChartDiv'>
                                                     <VizG config = {this.state.chartConfig}
                                                           metadata = {this.state.metadata}
                                                           data = {this.state.data}
@@ -479,8 +458,7 @@ class DataSearch extends Widget {
                                             )
                                             :(<div></div>)}
                                     </div>
-
-                                    <Card style = {{width:'100%'}}>
+                                    <Card style = {{width: '100%'}}>
                                         <CardActions>
                                             <h4 style = {titleStyle}>Export Chart</h4>
                                             <IconButton
@@ -489,8 +467,7 @@ class DataSearch extends Widget {
                                                 <ExpandMoreIcon />
                                             </IconButton>
                                         </CardActions>
-
-                                        <Collapse in = {this.state.chrtReportGenExpanded} timeout="auto" unmountOnExit>
+                                        <Collapse in = {this.state.chrtReportGenExpanded} timeout = 'auto' unmountOnExit>
                                             <CardContent style={{paddingTop: 0}}>
                                                 <ReportConfigs
                                                     element = {document.getElementById('generatedChartDiv')}
@@ -500,11 +477,9 @@ class DataSearch extends Widget {
                                             </CardContent>
                                         </Collapse>
                                     </Card>
-
                                 </CardContent>
                             </Collapse>
                         </Card>
-
                     </MuiThemeProvider>
                 </Scrollbars>
             </div>

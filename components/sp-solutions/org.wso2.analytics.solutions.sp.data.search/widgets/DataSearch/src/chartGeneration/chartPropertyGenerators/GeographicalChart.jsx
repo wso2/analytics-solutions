@@ -22,8 +22,8 @@ import StreamProperty from '../inputTypes/StreamProperty';
 import Types from '../utils/Types';
 import Constants from '../utils/Constants';
 
-class Geographical extends Component{
-    constructor(props){
+export default class Geographical extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             configuration: props.configuration
@@ -44,31 +44,31 @@ class Geographical extends Component{
         this.props.onConfigurationChange(state.configuration);
     }
 
-    render(){
+    render() {
         return(
             <div>
                 <StreamProperty
-                    id  = "x"
+                    id  = 'x'
                     value = {this.state.configuration.x}
-                    fieldName = "Area/Region*"
+                    fieldName = 'Area/Region*'
                     filter = {Types.dataset.metadata.ordinal}
                     onChange = {(id, value) => this.handleMainChartPropertyChange(id, value)}
                     metadata = {this.props.metadata}
                 />
                 <br/><br/>
                 <StreamProperty
-                    id = "y"
+                    id = 'y'
                     value = {this.state.configuration.charts[0].y}
-                    fieldName = "Data Field*"
+                    fieldName = 'Data Field*'
                     filter = {[Types.dataset.metadata.ordinal, Types.dataset.metadata.linear]}
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
                     metadata = {this.props.metadata}
                 />
                 <br/><br/>
                 <SelectProperty
-                    id = "mapType"
+                    id = 'mapType'
                     value = {this.props.configuration.charts[0].mapType}
-                    fieldName = "Type of the map*"
+                    fieldName = 'Type of the map*'
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
                     options = {{
                         values: [Types.chart.world, Types.chart.europe, Types.chart.usa],
@@ -81,4 +81,3 @@ class Geographical extends Component{
         );
     }
 }
-export default Geographical;

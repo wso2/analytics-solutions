@@ -16,15 +16,12 @@
  *  under the License.
  *
  */
-
-class UtilFunctions {
-  
+export default class UtilFunctions {
     static validateLineChartConfiguration(configuration) {
         if (configuration.charts[0].color === '') {
             delete configuration.charts[0].color;
         }
-        if (configuration.x === '' ||
-            configuration.charts[0].y === '') {
+        if (configuration.x === '' || configuration.charts[0].y === '') {
             return false;
         }
         return true;
@@ -37,8 +34,7 @@ class UtilFunctions {
         if (configuration.charts[0].size === '') {
             delete configuration.charts[0].size;
         }
-        if (configuration.charts[0].x === '' ||
-            configuration.charts[0].y === '') {
+        if (configuration.charts[0].x === '' || configuration.charts[0].y === '') {
             return false;
         }
         return true;
@@ -49,13 +45,9 @@ class UtilFunctions {
     }
 
     static validateGeographicalChartConfiguration(configuration) {
-      if (configuration.x === '' ||
-          configuration.charts[0].y === '' ||
-          configuration.charts[0].mapType === '') {
+      if (configuration.x === '' || configuration.charts[0].y === '' || configuration.charts[0].mapType === '') {
           return false;
       }
         return true;
     }
 }
-
-export default UtilFunctions;

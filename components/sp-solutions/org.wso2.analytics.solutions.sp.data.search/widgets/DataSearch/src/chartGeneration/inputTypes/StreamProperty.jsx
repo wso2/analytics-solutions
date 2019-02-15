@@ -23,8 +23,8 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from "@material-ui/core/FormControl";
 
-class StreamProperty extends React.Component{
-    render(){
+export default class StreamProperty extends Component {
+    render() {
         // Filter out ordinal / linear stream fields
         const filteredFields = [];
         if (this.props.filter) {
@@ -73,5 +73,3 @@ class StreamProperty extends React.Component{
         );
     }
 }
-
-export default StreamProperty;

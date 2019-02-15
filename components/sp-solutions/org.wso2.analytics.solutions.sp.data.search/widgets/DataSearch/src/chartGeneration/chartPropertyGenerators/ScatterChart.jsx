@@ -20,7 +20,7 @@ import React, { Component } from 'react';
 import StreamProperty from '../inputTypes/StreamProperty';
 import Types from '../utils/Types';
 
-class Scatter extends Component{
+export default class Scatter extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,38 +35,38 @@ class Scatter extends Component{
         this.props.onConfigurationChange(state.configuration);
     }
 
-    render(){
+    render() {
         return(
             <div>
                 <StreamProperty
-                    id = "x"
+                    id = 'x'
                     value = {this.props.configuration.charts[0].x}
-                    fieldName = "X axis field*"
+                    fieldName = 'X axis field*'
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
                     metadata = {this.props.metadata}
                 />
                 <br/><br/>
                 <StreamProperty
-                    id = "y"
+                    id = 'y'
                     value = {this.props.configuration.charts[0].y}
-                    fieldName = "Y axis field*"
+                    fieldName = 'Y axis field*'
                     filter = {Types.dataset.metadata.linear}
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
                     metadata = {this.props.metadata}
                 />
                 <br/><br/>
                 <StreamProperty
-                    id = "color"
+                    id = 'color'
                     value = {this.props.configuration.charts[0].color}
-                    fieldName = "Color Categorization"
+                    fieldName = 'Color Categorization'
                     metadata = {this.props.metadata}
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
                 />
                 <br/><br/>
                 <StreamProperty
-                    id = "size"
+                    id = 'size'
                     value = {this.props.configuration.charts[0].size}
-                    fieldName = "Mark Size Categorization"
+                    fieldName = 'Mark Size Categorization'
                     metadata = {this.props.metadata}
                     filter = {Types.dataset.metadata.linear}
                     onChange = {(id, value) => this.handleInnerChartPropertyChange(id, value)}
@@ -76,4 +76,3 @@ class Scatter extends Component{
         );
     }
 }
-export default Scatter;

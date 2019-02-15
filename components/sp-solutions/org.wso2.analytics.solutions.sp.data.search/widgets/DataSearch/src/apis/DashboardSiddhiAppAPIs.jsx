@@ -29,7 +29,7 @@ export default class DashboardSiddhiAppAPIS {
         let httpClient = Axios.create({
             baseURL: window.location.origin + '/' + window.contextPath.substr(1) + '/apis/datasearch',
             timeout: 12000,
-            headers: {"Authorization": "Bearer " + DashboardSiddhiAppAPIS.getUser().SDID}
+            headers: {'Authorization': 'Bearer ' + DashboardSiddhiAppAPIS.getUser().SDID}
         });
         return httpClient;
     }

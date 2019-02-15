@@ -16,15 +16,14 @@
  *  under the License.
  *
  */
-import React from 'react';
+import React, { Component } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from "@material-ui/core/FormControl";
 
-class SelectProperty extends React.Component{
-
-    render(){
+export default class SelectProperty extends Component {
+    render() {
         return(
             <FormControl className = {this.props.formControl}>
                 <InputLabel>{this.props.fieldName}</InputLabel>
@@ -48,5 +47,3 @@ class SelectProperty extends React.Component{
         );
     }
 }
-
-export default SelectProperty;

@@ -21,8 +21,7 @@ import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import DateFormat from 'dateformat';
 
-export default class PdfReportGenerator{
-
+export default class PdfReportGenerator {
     static createTablePdf(element,themeName,title,description) {
         const pdf = new Jspdf('p', 'pt');
         const tableData = PdfReportGenerator.getTableData(pdf, element, themeName);
@@ -96,8 +95,7 @@ export default class PdfReportGenerator{
                 }
                 pdf.addImage(canvas, 'PNG', xPosition, yPosition, resizeDimensions.width, resizeDimensions.height);
                 pdf.save("report.pdf");
-            })
-        ;
+            });
     }
 
     static getTableData(pdf, element, themeName) {
