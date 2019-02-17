@@ -23,7 +23,7 @@ import TextField from '@material-ui/core/TextField';
 
 const textFieldStyle = {minWidth: 400,color: '#fc5800', marginTop: 0, marginBottom: 0};
 
-class ReportConfigs extends Component {
+export default class ReportConfigs extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -79,4 +79,3 @@ class ReportConfigs extends Component {
         );
     }
 }
-export default ReportConfigs;
