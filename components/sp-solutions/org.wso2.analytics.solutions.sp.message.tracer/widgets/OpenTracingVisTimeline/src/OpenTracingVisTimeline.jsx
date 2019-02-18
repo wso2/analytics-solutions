@@ -16,14 +16,36 @@
 
 import React, {Component} from "react";
 import Widget from "@wso2-dashboards/widget";
-import Timeline from 'vis/lib/timeline/Timeline';
-import DataSet from 'vis/lib/DataSet';
+import vis from "vis";
 import Moment from 'moment';
 import 'vis/dist/vis.min.css';
 import {Scrollbars} from 'react-custom-scrollbars';
 import './OpenTracingVisTimeline.css';
+import interact from "interactjs";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import Typography from "@material-ui/core/Typography";
 
 const COOKIE = 'DASHBOARD_USER';
+const Classes = {
+    VIS_FOREGROUND: "vis-foreground",
+    VIS_LABEL: "vis-label",
+    VIS_GROUP: "vis-group",
+    VIS_ITEM_CONTAINER: "vis-item-container",
+    VIS_ITEM_CONTENT: "vis-item-content",
+    VIS_ITEM_OVERFLOW: "vis-item-overflow",
+    VIS_DESCRIPTION_ITEM: "vis-description-item",
+    VIS_ITEM_SPAN: "vis-item-span",
+    VIS_ITEM_SPAN_DESCRIPTION: "vis-item-span-description",
+    SELECTED_SPAN: "selected-span",
+    HIGHLIGHTED_SPAN: "highlighted-span",
+    RESIZE_HANDLE: "resize-handle",
+    SPAN_LABEL_CONTAINER:"spanLabelContainer"
+};
 
 class OpenTracingVisTimeline extends Widget {
 
@@ -49,6 +71,7 @@ class OpenTracingVisTimeline extends Widget {
         this.itemList = [];
         this.descriptionItemList = [];
         this.clickedItemGroupId = -1;
+        this.timelineEventListeners = [];
     }
 
     handleResize() {
@@ -101,8 +124,19 @@ class OpenTracingVisTimeline extends Widget {
             {'start.time' : start.format(format)},
             {'end.time' : end.format(format)},
             {'duration' : end.diff(start) + ' ms'}
-            );
+        );
         return JSON.stringify(dataArray);
+    }
+
+    getSpanKind(tag) {
+        let dataArray = JSON.parse(tag);
+        let spanKind = "";
+        dataArray.forEach(function(element) {
+            if (typeof(element['span.kind']) !== 'undefined') {
+                spanKind = element['span.kind'];
+            }
+        });
+        return spanKind;
     }
 
     populateTimeline(data) {
@@ -112,8 +146,8 @@ class OpenTracingVisTimeline extends Widget {
         let highestDate = -1;
         if (data.length === 0) {
             if (this.timeline) {
-                this.timeline.setGroups(new DataSet([]));
-                this.timeline.setItems(new DataSet([]));
+                this.timeline.setGroups(new vis.DataSet([]));
+                this.timeline.setItems(new vis.DataSet([]));
             }
         } else {
             for (let i = 0; i < data.length; i++) {
@@ -138,10 +172,10 @@ class OpenTracingVisTimeline extends Widget {
                     type2: "span",
                     start: startTime,
                     end: endTime,
-                    content: data[i][4],
-                    title: data[i][4],
+                    content: data[i][7] + " ms",
                     id: i + 1 + 0.1,
                     group: i + 1,
+                    className: Classes.VIS_ITEM_SPAN
                 };
                 let descriptionItem = {
                     type2: "description",
@@ -151,7 +185,7 @@ class OpenTracingVisTimeline extends Widget {
                     baggageItems: data[i][9],
                     id: i + 1,
                     group: i + 1,
-                    className: "constant_value"
+                    className: Classes.VIS_DESCRIPTION_ITEM
                 };
                 let tempItem = {
                     content: data[i][4],
@@ -166,10 +200,11 @@ class OpenTracingVisTimeline extends Widget {
                 this.itemList.push(item);
                 this.tempItems.push(tempItem);
                 let group = {
-                    content: "",
+                    content: data[i][4],
+                    operationName: data[i][0],
+                    kind: this.getSpanKind(data[i][8]),
                     value: i + 1,
                     id: i + 1,
-                    title: i + 1,
                     start: startTime.getTime(),
                     end: endTime.getTime()
                 };
@@ -231,6 +266,26 @@ class OpenTracingVisTimeline extends Widget {
                 //during a month
                 addingLimits = 2592000000;
             }
+
+            const kindsData = {
+                client: {
+                    name: "Client",
+                    color: "#2a81bb"
+                },
+                server: {
+                    name: "Server",
+                    color: "#c22937"
+                },
+                producer: {
+                    name: "Producer",
+                    color: "#1a906c"
+                },
+                consumer: {
+                    name: "Consumer",
+                    color: "#725c9b"
+                }
+            };
+
             let options = {
                 groupOrder: function (a, b) {
                     return  b.value - a.value;
@@ -242,84 +297,136 @@ class OpenTracingVisTimeline extends Widget {
                 },
                 groupTemplate: function (group) {
                     let container = document.createElement('div');
-                    let label = document.createElement('span');
-                    label.innerHTML = group.content + ' ';
-                    container.insertAdjacentElement('afterBegin', label);
+                    const kindData = kindsData[group.kind];
+                    ReactDOM.render((
+                        <div>
+                            <div style={{minWidth: '150px'}} className="spanLabelContainer">
+                                <span class='serviceName'>{group.content}</span>
+                                <span class='operationName'>{group.operationName}</span>
+                            </div>
+                            {(kindData ? <div className="kindBadge" style={{backgroundColor: kindData.color}}>
+                                {kindData.name}</div> : null)}
+                        </div>
+                    ), container);
                     return container;
                 },
-                template: function (item, element, data) {
+                template: function (item, element) {
+                    const newElement = document.createElement("div");
+                    newElement.className = Classes.VIS_ITEM_CONTAINER;
+                    let content = <span>{item.content}</span>;
                     if (item.type2 === "span") {
+                        const parent = element.parentElement.parentElement;
+                        parent.style.backgroundColor = "#3C529C";
                         return item.content;
                     } else {
-                        let table = '<table class="description_table">';
-                        table = table + '<tr><th>Tags</th></tr>';
-                        try {
-                            let dataArray = JSON.parse(item.tags);
-                            if (0 < dataArray.length) {
-                                for (let i = 0; i < dataArray.length; i++){
-                                    table = table +
-                                        '<tr>' +
-                                        '<td style="width: 30%;">'+Object.keys(dataArray[i])[0]+'</td>' +
-                                        '<td style="width: 70%;">'+dataArray[i][Object.keys(dataArray[i])[0]]+'</td>' +
-                                        '</tr>'
-                                }
-                            } else {
-                                table = table +
-                                    '<tr>' +
-                                    '<td>No available tags</td>' +
-                                    '</tr>'
+                        const tagRows = [];
+                        let tagDataArray = JSON.parse(item.tags);
+                        if (0 < tagDataArray.length) {
+                            for (let i = 0; i < tagDataArray.length; i++){
+                                tagRows.push({
+                                    key: Object.keys(tagDataArray[i])[0],
+                                    value: tagDataArray[i][Object.keys(tagDataArray[i])[0]]
+                                });
                             }
                         }
-                        catch(err) {
-                            table = table +
-                                '<tr>' +
-                                '<td>No available tags</td>' +
-                                '</tr>'
-                        }
-                        table = table + '<tr><th>Baggage Items</th></tr>';
-                        try {
-                            let dataArray = JSON.parse(item.baggageItems);
-                            if (0 < dataArray.length) {
-                                for (let i = 0; i < dataArray.length; i++){
-                                    table = table +
-                                        '<tr>' +
-                                        '<td style="width: 30%;">'+Object.keys(dataArray[i])[0]+'</td>' +
-                                        '<td style="width: 70%;">'+dataArray[i][Object.keys(dataArray[i])[0]]+'</td>' +
-                                        '</tr>'
-                                }
-                            } else {
-                                table = table +
-                                    '<tr>' +
-                                    '<td>No available baggage items</td>' +
-                                    '</tr>'
+                        const baggageItemRows = [];
+                        let baggageItemArray = JSON.parse(item.baggageItems);
+                        if (0 < baggageItemArray.length) {
+                            for (let i = 0; i < baggageItemArray.length; i++){
+                                tagRows.push({
+                                    key: Object.keys(baggageItemArray[i])[0],
+                                    value: baggageItemArray[i][Object.keys(baggageItemArray[i])[0]]
+                                });
                             }
                         }
-                        catch(err) {
-                            table = table +
-                                '<tr>' +
-                                '<td>No available baggage items</td>' +
-                                '</tr>'
-                        }
-
-                        return table;
+                        content = (
+                            <Card>
+                                <CardContent>
+                                    <Typography color="textSecondary" gutterBottom>Tags</Typography>
+                                    <Table>
+                                        <TableBody>
+                                            {
+                                                tagRows.map((row, index) => (
+                                                    <TableRow hover key={index}>
+                                                        <TableCell component="th" scope="row">
+                                                            <div>{row.key}</div>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <div>{row.value}</div>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))
+                                            }
+                                        </TableBody>
+                                    </Table>
+                                    {(tagRows.length <= 0) ? (<p style={{margin: 0}}>No Tags Found</p>) : (null)}
+                                    <br/>
+                                    <Typography color="textSecondary" gutterBottom>Baggage Items</Typography>
+                                    <Table>
+                                        <TableBody>
+                                            {
+                                                baggageItemRows.map((row, index) => (
+                                                    <TableRow hover key={index}>
+                                                        <TableCell component="th" scope="row">
+                                                            <div>{row.key}</div>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <div>{row.value}</div>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))
+                                            }
+                                        </TableBody>
+                                    </Table>
+                                    {(baggageItemRows.length <= 0) ? (<p style={{margin: 0}}>No Baggage Items Found</p>)
+                                        : (null)}
+                                </CardContent>
+                            </Card>
+                        );
                     }
+                    ReactDOM.render(content, newElement);
+                    return newElement;
                 },
                 showTooltips: true,
                 orientation: 'both',
                 editable: false,
                 groupEditable: false,
+                min: new Date(lowestDate - addingLimits),
+                max: new Date(highestDate + addingLimits),
                 start: new Date(lowestDate - addingLimits),
                 end: new Date(highestDate + addingLimits)
             };
 
-            if (!this.timeline) {
-                this.timeline = new Timeline(this.myRef.current);
-                this.timeline.on('select', this.clickHandler);
-            }
-            this.timeline.setOptions(options);
-            this.timeline.setGroups(new DataSet(groupList));
-            this.timeline.setItems(new DataSet(this.itemList));
+            const selector = `.${Classes.SPAN_LABEL_CONTAINER}`;
 
+            if (!this.timeline) {
+                this.timeline = new vis.Timeline(this.myRef.current);
+                this.addTimelineEventListener("changed", () => {
+                    // Adjust span description
+                    const fitDescriptionToTimelineWindow = (node) => {
+                        node.style.left = "0px";
+                    };
+                    this.myRef.current.querySelectorAll(`div.${Classes.VIS_ITEM_SPAN_DESCRIPTION}`)
+                        .forEach(fitDescriptionToTimelineWindow);
+                    this.myRef.current.querySelectorAll(`div.${Classes.VIS_ITEM_CONTENT}`)
+                        .forEach(fitDescriptionToTimelineWindow);
+
+                    // Adjust span duration labels
+                    this.myRef.current.querySelectorAll(`div.${Classes.VIS_ITEM_SPAN}`)
+                        .forEach((node) => {
+                            node.querySelector(`div.${Classes.VIS_ITEM_OVERFLOW}`).style.transform
+                                = `translateX(${node.offsetWidth + 7}px)`;
+                        });
+                });
+            }
+            this.clearTimelineEventListeners("click");
+            this.timeline.on('select', this.clickHandler);
+            this.timeline.setOptions(options);
+            this.timeline.setGroups(new vis.DataSet(groupList));
+            this.timeline.setItems(new vis.DataSet(this.itemList));
+
+            //Add resizable function
+            this.addHorizontalResizability(selector);
         }
     }
 
@@ -331,7 +438,7 @@ class OpenTracingVisTimeline extends Widget {
                     for (let i = 0; i < this.descriptionItemList.length; i++) {
                         if (this.descriptionItemList[i].group === this.clickedItemGroupId) {
                             this.itemList.push(this.descriptionItemList[i]);
-                            this.timeline.setItems(new DataSet(this.itemList));
+                            this.timeline.setItems(new vis.DataSet(this.itemList));
                             break;
                         }
                     }
@@ -340,7 +447,7 @@ class OpenTracingVisTimeline extends Widget {
                         if (this.itemList[i].id === this.clickedItemGroupId) {
                             this.clickedItemGroupId = -1;
                             this.itemList.splice(i, 1);
-                            this.timeline.setItems(new DataSet(this.itemList));
+                            this.timeline.setItems(new vis.DataSet(this.itemList));
                             break;
                         }
                     }
@@ -350,9 +457,91 @@ class OpenTracingVisTimeline extends Widget {
         }
     }
 
+    /**
+     * Add event listener to the timeline.
+     *
+     * @param {string} type The name of the event listener that should be added to the timeline
+     * @param {function} callBack The callback function to be called when the event fires
+     */
+    addTimelineEventListener(type, callBack) {
+        this.timeline.on(type, callBack);
+        this.timelineEventListeners.push({
+            type: type,
+            callBack: callBack
+        });
+    };
+
+    /**
+     * Clear the event listeners that were added to the timeline.
+     * Can be cleared based on a type or all the event listeners.
+     *
+     * @param {string} type The name of the event for which the event listeners should be cleared (All cleared if null)
+     */
+    clearTimelineEventListeners(type){
+        let timelineEventListeners;
+        if (type) {
+            timelineEventListeners = this.timelineEventListeners
+                .filter((eventListener) => eventListener.type === type);
+            this.timelineEventListeners = this.timelineEventListeners
+                .filter((eventListener) => eventListener.type !== type);
+        } else {
+            timelineEventListeners = this.timelineEventListeners;
+            this.timelineEventListeners = [];
+        }
+
+        for (let i = 0; i < timelineEventListeners.length; i++) {
+            const eventListener = timelineEventListeners[i];
+            this.timeline.off(eventListener.type, eventListener.callBack);
+        }
+    };
+
+    /**
+     * Add resizability to a set of items in the timeline.
+     *
+     * @param {string} selector The CSS selector of the items to which the resizability should be added
+     */
+    addHorizontalResizability(selector){
+        const self = this;
+        const edges = {right: true};
+
+        // Add the horizontal resize handle
+        const newNode = document.createElement("div");
+        newNode.classList.add(Classes.RESIZE_HANDLE);
+        const parent = this.myRef.current.querySelector(".vis-panel.vis-top");
+        parent.insertBefore(newNode, parent.childNodes[0]);
+
+        // Handling the resizing
+        interact(selector).resizable({
+            manualStart: true,
+            edges: edges
+        }).on("resizemove", (event) => {
+            const targets = event.target;
+            targets.forEach((target) => {
+                // Update the element's style
+                target.style.width = `${event.rect.width}px`;
+
+                // Trigger timeline redraw
+                self.timeline.body.emitter.emit("_change");
+            });
+        });
+
+        // Handling dragging of the resize handle
+        interact(`.${Classes.RESIZE_HANDLE}`).on("down", (event) => {
+            event.interaction.start(
+                {
+                    name: "resize",
+                    edges: edges
+                },
+                interact(selector),
+                this.myRef.current.querySelectorAll(selector)
+            );
+        });
+    };
+
     render() {
         return (
             <Scrollbars style={{height: this.state.height}}>
+                <h2 style={{marginLeft: 12}}>TimeLine</h2>
                 <div className="timeline-wrapper">
                     <div
                         ref={(ref) => {this.myRef.current = ref;}}
