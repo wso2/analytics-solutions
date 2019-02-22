@@ -33,6 +33,10 @@
     <modules>
         <module>APIMApiSubscriberAlertConfiguration</module>
         <module>APIMApiCreatorAlertConfiguration</module>
+        <module>APIMApiCreated</module>
+        <module>APIMAppCreated</module>
+        <module>APIMSubscriptions</module>
+        <module>APIMDeveloperSignups</module>
     </modules>
 
 </project>

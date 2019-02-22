@@ -252,6 +252,38 @@
 
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.apicreated
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.appcreated
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.subscriptions
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.developersignups
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>org.wso2.sp.extension.siddhi.io.mgwfile</artifactId>
                 <type>jar</type>
                 <version>${project.version}</version>
