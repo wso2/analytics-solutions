@@ -20,7 +20,7 @@
                "RequestsStreamSource": {
                   "fieldName": "Source Requests Stream Source",
                   "description": "Source definition for Requests Stream to receive request events",
-                  "defaultValue": "type='http', @map(type='json')"
+                  "defaultValue": "type='http', receiver.url='http://localhost:8280/HttpAnalytics/RequestsStream' , @map(type='json')"
                },
                "HTTPAnalyticsStore": {
                   "fieldName": "Store for HTTP Analytics",
