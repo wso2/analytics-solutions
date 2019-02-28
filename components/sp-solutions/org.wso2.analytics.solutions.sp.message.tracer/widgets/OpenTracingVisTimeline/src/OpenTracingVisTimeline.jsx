@@ -304,8 +304,8 @@ class OpenTracingVisTimeline extends Widget {
                                 <span class='serviceName'>{group.content}</span>
                                 <span class='operationName'>{group.operationName}</span>
                             </div>
-                            {(kindData ? <div className="kindBadge" style={{backgroundColor: kindData.color}}>
-                                {kindData.name}</div> : null)}
+                            {(kindData && <div className="kindBadge" style={{backgroundColor: kindData.color}}>
+                                {kindData.name}</div>)}
                         </div>
                     ), container);
                     return container;
@@ -359,7 +359,7 @@ class OpenTracingVisTimeline extends Widget {
                                             }
                                         </TableBody>
                                     </Table>
-                                    {(tagRows.length <= 0) ? (<p style={{margin: 0}}>No Tags Found</p>) : (null)}
+                                    {(tagRows.length <= 0) && (<p style={{margin: 0}}>No Tags Found</p>)}
                                     <br/>
                                     <Typography color="textSecondary" gutterBottom>Baggage Items</Typography>
                                     <Table>
@@ -378,8 +378,9 @@ class OpenTracingVisTimeline extends Widget {
                                             }
                                         </TableBody>
                                     </Table>
-                                    {(baggageItemRows.length <= 0) ? (<p style={{margin: 0}}>No Baggage Items Found</p>)
-                                        : (null)}
+                                    {(baggageItemRows.length <= 0) &&
+                                    (<p style={{margin: 0}}>No Baggage Items Found</p>)
+                                    }
                                 </CardContent>
                             </Card>
                         );
