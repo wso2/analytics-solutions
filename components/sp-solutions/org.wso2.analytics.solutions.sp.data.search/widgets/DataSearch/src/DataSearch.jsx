@@ -223,7 +223,7 @@ class DataSearch extends Widget {
     initializeDataProvider(pageSize, currentPage) {
         this.setState({displayChart: false, chartViewExpanded: false, resultExpanded: true});
         var siddhiApp = this.state.siddhiAppText;
-        var query = this.state.query;
+        var query = this.state.query.replace(/;/g, '');
         var providerConfig = {
             'configs': {
                 'type': 'SiddhiStoreDataProvider',
@@ -243,7 +243,7 @@ class DataSearch extends Widget {
     getData(pageSize, currentPage) {
         this.setState({displayChart: false, chartViewExpanded: false, resultExpanded: true});
         var siddhiApp = this.state.siddhiAppText;
-        var query = this.state.query;
+        var query = this.state.query.replace(/;/g, '');
         var providerConfig = {
             'configs': {
                 'type': 'SiddhiStoreDataProvider',
