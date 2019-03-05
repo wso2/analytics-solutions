@@ -3,7 +3,7 @@
     "url": "datasearch",
     "owner": "admin",
     "name": "Data Search",
-    "description": "This is dashboard designed to search data",
+    "description": "This is a dashboard designed to search data",
     "landingPage": "home",
     "parentId": "0",
     "pages": [

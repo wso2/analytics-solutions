@@ -21,27 +21,43 @@ import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import DateFormat from 'dateformat';
 
+const pdfTableStyles =  {
+    startY: 60,
+    styles: {
+        fontSize: 6,
+        rowHeight: 15,
+        lineColor: [255, 255, 255],
+        lineWidth: 1,
+        overflow: 'linebreak',
+    },
+    columnStyles: { 1: { columnWidth: 'auto' } },
+    headerStyles: { fillColor: [201, 202, 197], textColor: [0, 0, 0] },
+    alternateRowStyles: { fillColor: [240, 236, 224] },
+    bodyStyles: { fillColor: [255, 255, 255] },
+    margin: { top: 50, bottom: 30 }
+};
+
 export default class PdfReportGenerator {
     static createTablePdf(element,themeName,title,description) {
         const pdf = new Jspdf('p', 'pt');
         const tableData = PdfReportGenerator.getTableData(pdf, element, themeName);
         const totalPagesExp = '{total_pages_count_string}';
+        // HEADER
+        var pdfInfo = 'Generated on : ' + DateFormat(new Date(), 'dd/mm/yyyy, h:MM TT');
+        pdf.setFontSize(10);
+        pdf.text(pdfInfo, 40, 15 );
+
+        //Title
+        pdf.setFontSize(16);
+        pdf.setFontStyle('normal');
+        pdf.text(title, 40, 40);
+
+        //Description
+        pdf.setFontSize(13);
+        pdf.setFontStyle('normal');
+        pdf.text(description, 40, 55);
+
         var pageContent = function (data) {
-            // HEADER
-            var pdfInfo = 'Generated on : ' + DateFormat(new Date(), 'dd/mm/yyyy, h:MM TT');
-            pdf.setFontSize(12);
-            pdf.text(pdfInfo, data.settings.margin.left, 25 );
-
-            //Title
-            pdf.setFontSize(18);
-            pdf.setFontStyle('normal');
-            pdf.text(title, data.settings.margin.left, 55);
-
-            //Description
-            pdf.setFontSize(13);
-            pdf.setFontStyle('normal');
-            pdf.text(description, data.settings.margin.left, 75);
-
             // FOOTER
             var str = "Page " + data.pageCount;
             if (typeof pdf.putTotalPages === 'function') {
@@ -51,10 +67,10 @@ export default class PdfReportGenerator {
             var pageHeight = pdf.internal.pageSize.height || pdf.internal.pageSize.getHeight();
             pdf.text(str, data.settings.margin.left, pageHeight  - 10);
         };
-        pdf.autoTable(tableData.columnData, tableData.rowData, {
-            addPageContent: pageContent,
-            margin: {top: 100}
-        });
+
+        const tableStyles = pdfTableStyles;
+        tableStyles.addPageContent = pageContent;
+        pdf.autoTable(tableData.columnData, tableData.rowData, tableStyles);
 
         if (typeof pdf.putTotalPages === 'function') {
             pdf.putTotalPages(totalPagesExp);
