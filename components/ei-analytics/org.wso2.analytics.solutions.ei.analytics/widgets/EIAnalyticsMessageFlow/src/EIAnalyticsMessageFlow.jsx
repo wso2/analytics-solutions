@@ -245,21 +245,18 @@ class EIAnalyticsMessageFlow extends Widget {
         d3.select('#btnZoomIn').on('click', function () {
             zoomScale += 0.05;
             interpolateZoom();
-            console.log('hi');
         });
 
         d3.select('#btnZoomOut').on('click', function () {
             if (zoomScale > 0.05) {
                 zoomScale -= 0.05;
                 interpolateZoom();
-                console.log('hi');
             }
         });
 
         d3.select('#btnZoomFit').on('click', function () {
             zoomScale = Math.min(width / graphWidth, height / graphHeight);
             interpolateZoom();
-            console.log('hi');
         });
 
         $("body").on("click", ".nodeLabel", this.handleOnClick);
