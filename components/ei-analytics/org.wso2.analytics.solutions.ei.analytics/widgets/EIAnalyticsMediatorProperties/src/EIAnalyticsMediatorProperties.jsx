@@ -264,7 +264,9 @@ class EIAnalyticsMediatorProperties extends Widget {
 
     generateMergedView() {
         const data = this.state.messageComparisonData;
-        drawMergeView(this.domElementPayloadView, data.payload.before.trim(), data.payload.after.trim());
+        if (data.payload.before && data.payload.after) {
+            drawMergeView(this.domElementPayloadView, data.payload.before.trim(), data.payload.after.trim());
+        }
 
         if (data.transportProperties) {
             let transportPropertiesBefore = '';
