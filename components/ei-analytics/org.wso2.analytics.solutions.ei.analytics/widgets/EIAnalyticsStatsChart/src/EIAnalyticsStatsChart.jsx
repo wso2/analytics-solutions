@@ -34,7 +34,6 @@ const PUBLISHER_SEARCH_BOX = "selectedComponent";
 const GRAPH_MIN_HEIGHT = '300';
 const GRAPH_MIN_WIDTH = '300';
 
-
 class EIAnalyticsStatsChart extends Widget {
     constructor(props) {
         super(props);
@@ -249,7 +248,7 @@ class EIAnalyticsStatsChart extends Widget {
         let dataIndex = {};
         metadata.forEach((value, index) => {
             dataIndex[value] = index;
-        })
+        });
         this.setState({
             totalCount: data[dataIndex["noOfInvocationSum"]],
             faultCount: data[dataIndex["faultCountSum"]]
@@ -267,41 +266,27 @@ class EIAnalyticsStatsChart extends Widget {
 
     drawCharts() {
         return (
-            <div style={{display: 'flex'}}>
+            <div>
                 <div id={"overall-count"} style={{
                     float: 'left',
-                    height: '100%',
-                    width: '20%',
-                    padding: '5px 5px 5px 5px',
+                    display: 'inline-block',
+                    width: this.state.width * 0.3,
+                    padding: 5,
+                    paddingTop: (this.state.width / 18),
                     textAlign: 'center',
                     alignContent: 'center',
                     justifyContent: 'center'
                 }}>
                     <h2><b>Total</b> requests</h2>
-                    <h4><span
+                    <h4 title={this.state.componentName} style={{overflow: 'hidden', textOverflow: 'ellipsis'}}><span
                         id="title">{this.state.componentName != null ? 'for ' + this.state.componentName : null}</span>
                     </h4>
                     <h1 id="totalCount">{this.state.totalCount}</h1>
                 </div>
 
-
-                <div id={"charts"} style={{
-                    float: 'left',
-                    height: '100%',
-                    minHeight: '100%',
-                    width: '80%',
-                    padding: '5px 5px 5px 5px'
-                }}>
-                    <div style={{float: 'left', textAlign: 'center', height: '100%', width: '50%', margin: 'auto'}}>
-                        <div style={{
-                            float: 'bottom',
-                            height: this.state.height * 0.6,
-                            width: this.state.width * 0.4,
-                            margin: 'auto',
-                            alignContent: 'center',
-                            justifyContent: 'center',
-                            display: 'flex'
-                        }}>
+                <div id={"charts"} style={{display: 'inline-block', padding: 5}}>
+                    <div style={{display: 'inline-block', float: 'left', textAlign: 'center'}}>
+                        <div style={{width: this.state.width * 0.3, alignContent: 'center', justifyContent: 'center'}}>
                             <VizG
                                 config={this.successChartConfig}
                                 metadata={this.metadata}
@@ -310,30 +295,15 @@ class EIAnalyticsStatsChart extends Widget {
                                 ]]}
                                 theme={this.props.muiTheme.name}
                             />
-                        </div>
-                        <div style={{
-                            float: 'top',
-                            height: '40%',
-                            width: '100%',
-                            margin: 'auto',
-                            alignContent: 'center',
-                            justifyContent: 'center'
-                        }}>
+                        </div><br/>
+                        <div style={{width: this.state.width * 0.3, alignContent: 'center', justifyContent: 'center'}}>
                             <b>Success Rate</b>
                             <br/>
                             <b>{'Success Requests: ' + String(this.state.totalCount - this.state.faultCount)}</b>
                         </div>
                     </div>
-                    <div style={{float: 'left', textAlign: 'center', height: '100%', width: '50%', margin: 'auto'}}>
-                        <div style={{
-                            float: 'bottom',
-                            height: this.state.height * 0.6,
-                            width: this.state.width * 0.4,
-                            margin: 'auto',
-                            alignContent: 'center',
-                            justifyContent: 'center',
-                            display: 'flex'
-                        }}>
+                    <div style={{display: 'inline-block', textAlign: 'center'}}>
+                        <div style={{width: this.state.width * 0.3, alignContent: 'center', justifyContent: 'center'}}>
                             <VizG
                                 config={this.faultChartConfig}
                                 metadata={this.metadata}
@@ -342,20 +312,13 @@ class EIAnalyticsStatsChart extends Widget {
                                 ]]}
                                 theme={this.props.muiTheme.name}
                             />
-                        </div>
-                        <div style={{
-                            float: 'top',
-                            height: '40%',
-                            width: '100%',
-                            margin: 'auto',
-                            alignContent: 'center',
-                            justifyContent: 'center'}}>
+                        </div><br/>
+                        <div style={{width: this.state.width * 0.3, alignContent: 'center', justifyContent: 'center'}}>
                             <b>Failure Rate</b>
                             <br/>
                             <b>{'Failure Requests: ' + String(this.state.faultCount)}</b>
                         </div>
                     </div>
-
                 </div>
             </div>
         )
@@ -394,7 +357,6 @@ class EIAnalyticsStatsChart extends Widget {
         )
     }
 }
-
 
 function getKey(pageName, parameter) {
     return pageName + "_page_" + parameter;
