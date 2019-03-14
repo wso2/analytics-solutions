@@ -1,0 +1,10 @@
+{
+  "name": "DateRangePicker_new_lahiru",
+  "id": "DateRangePicker_new_lahiru",
+  "thumbnailURL": "",
+  "configs": {
+    "pubsub": {
+      "types": ["publisher"]
+    }
+  }    
+}
