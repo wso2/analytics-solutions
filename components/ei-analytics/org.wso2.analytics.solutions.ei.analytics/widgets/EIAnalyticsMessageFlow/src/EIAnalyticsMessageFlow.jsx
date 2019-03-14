@@ -191,17 +191,12 @@ class EIAnalyticsMessageFlow extends Widget {
                         g.setEdge(nodes[i].group + "-s", nodes[i].id, {style: hiddenLineStyle});
                         g.setEdge(nodes[i].id, nodes[i].group + "-e", {style: hiddenLineStyle});
                     }
-
-
                 }
-
             }
-
         }
 
         g.nodes().forEach(function (v) {
             let node = g.node(v);
-
             node.rx = node.ry = 7;
         });
 
@@ -222,6 +217,19 @@ class EIAnalyticsMessageFlow extends Widget {
         nanoScrollerSelector.nanoScroller();
         inner.call(render, g);
 
+        function interpolateZoom() {
+            svg.transition().duration(750).call(
+                zoom.transform,
+                d3.zoomIdentity
+                    .scale(zoomScale)
+                    .translate(
+                        (width - g.graph().width * zoomScale) / 2,
+                        (height - g.graph().height * zoomScale) / 2)
+            );
+            svg.attr('width', width);
+            svg.attr('height', height);
+        }
+
         // Zoom and scale to fit
         let graphWidth = g.graph().width + 10;
         let graphHeight = g.graph().height + 10;
@@ -232,36 +240,23 @@ class EIAnalyticsMessageFlow extends Widget {
             return;
         }
         let zoomScale = Math.min(width / graphWidth, height / graphHeight);
-        svg.transition().duration(750).call(
-            zoom.transform,
-            d3.zoomIdentity
-                .scale(zoomScale)
-                .translate(
-                    (this.state.width - g.graph().width * zoomScale) / 2,
-                    (this.state.height - g.graph().height * zoomScale) / 2)
-        );
-        svg.attr('width', width);
-        svg.attr('height', height);
+        interpolateZoom();
 
-        d3.selectAll(this.domElementBtnZoomIn).on('click', function () {
+        d3.select('#btnZoomIn').on('click', function () {
             zoomScale += 0.05;
-            this.interpolateZoom(translate, zoomScale, inner, zoom);
+            interpolateZoom();
         });
 
-        d3.selectAll(this.domElementBtnZoomOut).on('click', function () {
+        d3.select('#btnZoomOut').on('click', function () {
             if (zoomScale > 0.05) {
                 zoomScale -= 0.05;
-                this.interpolateZoom(translate, zoomScale, inner, zoom);
+                interpolateZoom();
             }
-
         });
 
-        d3.selectAll(this.domElementBtnZoomFit).on('click', function () {
-            let zoomScale = Math.min(width / graphWidth, height / graphHeight);
-            let translate = [(width / 2) - ((graphWidth * zoomScale) / 2), (height / 2) - ((graphHeight * zoomScale) / 2) * 0.93];
-            zoom.translate(translate);
-            zoom.scale(zoomScale);
-            zoom.event(svg);
+        d3.select('#btnZoomFit').on('click', function () {
+            zoomScale = Math.min(width / graphWidth, height / graphHeight);
+            interpolateZoom();
         });
 
         $("body").on("click", ".nodeLabel", this.handleOnClick);
@@ -339,7 +334,7 @@ class EIAnalyticsMessageFlow extends Widget {
             let configEntryDataTableIndex = {};
             configEntryData.metadata.names.forEach((value, index) => {
                 configEntryDataTableIndex[value] = index;
-            })
+            });
 
             let schema = JSON.parse(configEntryData.data[0][configEntryDataTableIndex["configData"]]);
 
@@ -356,7 +351,7 @@ class EIAnalyticsMessageFlow extends Widget {
                     var row = table[j];
                     aggregateData.metadata.names.forEach((value, index) => {
                         componentInfo[value] = row[index];
-                    })
+                    });
                     var componentId = componentInfo["componentId"];
                     if (componentMap[componentId] == null) {
                         componentMap[componentId] = componentInfo;
@@ -569,7 +564,7 @@ class EIAnalyticsMessageFlow extends Widget {
                 if (value.componentType === "Sequence") {
                     sequenceComponentsQuery += ("hashcode=='" + value.hashCode + "' OR ");
                 }
-            })
+            });
 
             // If sequences exists
             if (sequenceComponentsQuery.length > 0) {
@@ -640,13 +635,13 @@ class EIAnalyticsMessageFlow extends Widget {
                             // For each element in the sequence scheme, push it to the parsed flow scheme
                             sequence.configData.forEach((eachScheme) => {
                                 parsedFlowScheme.push(eachScheme);
-                            })
+                            });
                             break;
                         }
                     }
                 }
                 componentMap[component.componentId] = component;
-            })
+            });
 
             let result = [];
             let tmpResult = [];
@@ -700,7 +695,6 @@ class EIAnalyticsMessageFlow extends Widget {
                     if (schema[i]["group"] != null && groups.indexOf(schema[i]["group"]) == -1) {
                         groups.push(schema[i]["group"]);
                     }
-
 
                     // Create data attributes
                     if (componentInfo != null) {
@@ -1042,7 +1036,7 @@ class EIAnalyticsMessageFlow extends Widget {
                 parsedObject[dataMapper[index]] = value;
             });
             parsedArray.push(parsedObject);
-        })
+        });
 
         return parsedArray;
     }
@@ -1096,18 +1090,15 @@ class EIAnalyticsMessageFlow extends Widget {
 
         if (node.dataAttributes) {
             let nodeClasses = "nodeLabel";
-            let nodeWrapClasses = "nodeLabelWrap"
+            let nodeWrapClasses = "nodeLabelWrap";
 
             if (node.dataAttributes[1].value === "Failed") {
                 nodeClasses += " failed-node";
                 nodeWrapClasses += " failed-node";
-
             }
             let icon;
             if (node.type.toLowerCase() === 'mediator') {
-
                 let mediatorName = node.label.split(':')[0].toLowerCase();
-
                 let imgURL = '/portal/public/app/images/mediators/' + mediatorName + '.svg';
                 let defaultImgURL = '/portal/public/app/images/mediators/mediator.svg';
 
@@ -1159,18 +1150,6 @@ class EIAnalyticsMessageFlow extends Widget {
         labelText += "</div></a>";
         return labelText;
     };
-
-    interpolateZoom(translate, scale, svg, zoom) {
-        //var self = this;
-        return d3.transition().duration(350).tween("zoom", function () {
-            var iTranslate = d3.interpolate(zoom.translate(), translate),
-                iScale = d3.interpolate(zoom.scale(), scale);
-            return function (t) {
-                zoom.scale(iScale(t)).translate(iTranslate(t));
-                svg.attr("transform", d3.event.transform)
-            };
-        });
-    }
 
     isParent(searchNodes, id) {
         for (var x = 0; x < searchNodes.length; x++) {
@@ -1250,7 +1229,7 @@ class EIAnalyticsMessageFlow extends Widget {
                         this.parameters.timeUnit,
                         this.parameters.selectedComponantID,
                         this.parameters.meta_tenantId
-                    )
+                    );
                     break;
             }
         }
@@ -1278,7 +1257,6 @@ class EIAnalyticsMessageFlow extends Widget {
             default:
                 return 'Please select a valid date range to view stats';
         }
-        ;
     }
 
     getCurrentPage() {
