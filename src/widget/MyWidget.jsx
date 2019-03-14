@@ -691,7 +691,7 @@ export default class MyWidget extends Widget {
     }
 
     const { startTime, endTime } = startAndEnd;
-    const timeRange = startTime + " - " + endTime;
+    const timeRange = " " + startTime + " - " + endTime;
     console.log('timeRange', timeRange)
     if (granularityMode && startTime && endTime) {
       this.setQueryParamToURL(
@@ -711,9 +711,7 @@ export default class MyWidget extends Widget {
             padding: 5
           }}
         >
-          <Button
-            onClick={this.popoverHandler}
-          >
+          <Button onClick={this.popoverHandler} >
             <DateRange />
             {`  ${timeRange}  `}
           </Button>

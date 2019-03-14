@@ -65,12 +65,10 @@ export class DateTimePopper extends Component {
                 <Button
                   size="small"
                   key={index}
-                  variant="outlined"
                   onClick={() => this.props.changeQuickRangeGranularities(quickRangeButtons)}
                   style={{
                     border: 'none',
                     fontSize: 10,
-                    margin: 2.5,
                   }}
                 >
                   {quickRangeButtons}

@@ -12,34 +12,48 @@ export const dark = createMuiTheme({
         color: '#ffffff',
       }
     },
+    MuiList: {
+      root: {
+        backgroundColor: '#303030',
 
-    MuiMenuItem: {
-      selected: {
-        color: "grey",
-        backgroundColor: 'red'
-      },
+      }
+    },
+    MuiInput: {
       root: {
         color: '#ffffff',
+        fontSize: 13,
+      }
+    },
+    MuiListItem: {
+      selected: {
+        backgroundColor: 'red'
+      }
+    },
+
+    MuiMenuItem: {
+      root: {
+        '&:hover': {
+          backgroundColor: '#444'
+        },
+        color: '#ffffff',
         fontSize: 12,
-        autoWidth: 'true',
         backgroundColor: '#303030',
       }
     },
     MuiSelect: {
       root: {
-        backgroundColor: '#303030',
         color: '#ffffff',
-        width: 150,
+        width: 130,
         margin: 5,
         fontSize: 13
       },
     },
+
   },
 });
 
 export const light = createMuiTheme({
   overrides: {
-
     MuiGrid: {
       root: {
         background: 'ffffff',
