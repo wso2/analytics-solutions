@@ -278,7 +278,7 @@ class EIAnalyticsStatsChart extends Widget {
                     justifyContent: 'center'
                 }}>
                     <h2><b>Total</b> requests</h2>
-                    <h4><span
+                    <h4 title={this.state.componentName} style={{overflow: 'hidden', textOverflow: 'ellipsis'}}><span
                         id="title">{this.state.componentName != null ? 'for ' + this.state.componentName : null}</span>
                     </h4>
                     <h1 id="totalCount">{this.state.totalCount}</h1>
