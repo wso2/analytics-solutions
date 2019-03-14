@@ -137,7 +137,7 @@ select  meta_tenantId,
         UUID() as alertId,
         "SuspiciousLoginAlert" as type,
         tenantDomain,
-        str:concat('Successful login attempt after multiple login failures from same username: ', username, ' detected at: ', time:dateFormat(e3[last].timestamp,'yyyy-MM-dd HH:mm:ss'), '.') as msg,
+        str:concat('Successful login attempt after multiple login failures from same username: ', username, ' detected at: ', time:dateFormat(timestamp,'yyyy-MM-dd HH:mm:ss'), '.') as msg,
         severity,
         (time:timestampInMilliseconds()) as alertTimestamp,
         time:dateFormat((time:timestampInMilliseconds()),'yyyy-MM-dd HH:mm:ss') as userReadableTime
