@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.wso2.analytics.solutions</groupId>
         <artifactId>org.wso2.analytics.solutions.parent</artifactId>
-        <version>1.0.29-SNAPSHOT</version>
+        <version>1.0.32-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -33,6 +33,7 @@
         <module>org.wso2.analytics.solutions.sp.http.analytics.feature</module>
         <module>org.wso2.analytics.solutions.sp.message.tracer.feature</module>
         <module>org.wso2.analytics.solutions.sp.twitter.analytics.feature</module>
+        <module>org.wso2.analytics.solutions.sp.data.search.feature</module>
     </modules>
-    
+
 </project>

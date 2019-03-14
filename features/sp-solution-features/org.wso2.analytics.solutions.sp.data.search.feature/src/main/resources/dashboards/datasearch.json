@@ -1,0 +1,52 @@
+{
+  "dashboard": {
+    "url": "datasearch",
+    "owner": "admin",
+    "name": "Data Search",
+    "description": "This is a dashboard designed to search data",
+    "landingPage": "home",
+    "parentId": "0",
+    "pages": [
+      {
+        "id": "home",
+        "name": "Home",
+        "content": [
+          {
+            "type": "stack",
+            "isClosable": true,
+            "title": "",
+            "content": [
+              {
+                "title": "[DataSearch]",
+                "type": "component",
+                "component": "DataSearch",
+                "props": {
+                  "id": "71c11357-4a5d-43a4-b90f-871355e0121d",
+                  "configs": {
+                    "isGenerated": false,
+                    "options": {}
+                  },
+                  "widgetID": "DataSearch"
+                },
+                "isClosable": false,
+                "header": {
+                  "show": true
+                },
+                "componentName": "lm-react-component"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "hasOwnerPermission": false,
+    "hasDesignerPermission": false,
+    "hasViewerPermission": false
+  },
+  "widgets": {
+    "generated": [],
+    "custom": [
+      "DataSearch"
+    ]
+  }
+}

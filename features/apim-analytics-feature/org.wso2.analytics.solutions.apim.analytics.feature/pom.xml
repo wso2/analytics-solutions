@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.wso2.analytics.solutions</groupId>
         <artifactId>apim-analytics-feature</artifactId>
-        <version>1.0.29-SNAPSHOT</version>
+        <version>1.0.32-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -36,6 +36,46 @@
         <dependency>
             <groupId>org.wso2.analytics.solutions</groupId>
             <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.apicreator.alert.config</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.analytics.solutions</groupId>
+            <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.apicreated</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.analytics.solutions</groupId>
+            <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.appcreated</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.analytics.solutions</groupId>
+            <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.subscriptions</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.analytics.solutions</groupId>
+            <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.developersignups</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.analytics.solutions</groupId>
+            <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.api.creators</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.analytics.solutions</groupId>
+            <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.app.creators</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.analytics.solutions</groupId>
+            <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.subscribers</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.analytics.solutions</groupId>
+            <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.overall.api.stats</artifactId>
             <type>zip</type>
         </dependency>
 
@@ -90,6 +130,86 @@
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/target/widgets/</outputDirectory>
                                     <includes>APIMApiCreatorAlertConfiguration/**</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.apicreated</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
+                                    </outputDirectory>
+                                    <includes>APIMApiCreated/**</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.appcreated</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
+                                    </outputDirectory>
+                                    <includes>APIMAppCreated/**</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.subscriptions</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
+                                    </outputDirectory>
+                                    <includes>APIMSubscriptions/**</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.developersignups</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
+                                    </outputDirectory>
+                                    <includes>APIMDeveloperSignups/**</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.api.creators</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
+                                    </outputDirectory>
+                                    <includes>APIMTopApiCreators/**</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.app.creators</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
+                                    </outputDirectory>
+                                    <includes>APIMTopAppCreators/**</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.subscribers</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
+                                    </outputDirectory>
+                                    <includes>APIMTopSubscribers/**</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.wso2.analytics.solutions</groupId>
+                                    <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.overall.api.stats</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/target/portal/extensions/widgets/
+                                    </outputDirectory>
+                                    <includes>APIMOverallApiStats/**</includes>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

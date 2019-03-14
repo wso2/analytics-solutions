@@ -27,7 +27,7 @@
     <groupId>org.wso2.analytics.solutions</groupId>
     <artifactId>org.wso2.analytics.solutions.parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.29-SNAPSHOT</version>
+    <version>1.0.32-SNAPSHOT</version>
     <name>WSO2 Analytics Solutions - Parent</name>
 
     <modules>
@@ -252,6 +252,70 @@
 
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.apicreated
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.appcreated
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.subscriptions
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.developersignups
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.api.creators
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.app.creators
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.subscribers
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.overall.api.stats
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>org.wso2.sp.extension.siddhi.io.mgwfile</artifactId>
                 <type>jar</type>
                 <version>${project.version}</version>
@@ -312,6 +376,14 @@
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>org.wso2.analytics.solutions.sp.http.analytics.widgets.response.code.filter</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <!-- Data Search -->
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.sp.data.search.widgets.data.search</artifactId>
                 <version>${project.version}</version>
                 <type>zip</type>
             </dependency>
@@ -783,13 +855,13 @@
 
     <properties>
         <carbon.analytics-common.version>6.0.73</carbon.analytics-common.version>
-        <carbon.analytics.version>2.0.484</carbon.analytics.version>
+        <carbon.analytics.version>2.0.488</carbon.analytics.version>
         <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
         <kryo.version>3.0.3</kryo.version>
 
-        <siddhi.version>4.3.17</siddhi.version>
-        <siddhi.map.wso2event.version>4.0.16</siddhi.map.wso2event.version>
-        <siddhi.map.json.version>4.0.32</siddhi.map.json.version>
+        <siddhi.version>4.4.8</siddhi.version>
+        <siddhi.map.wso2event.version>4.1.0</siddhi.map.wso2event.version>
+        <siddhi.map.json.version>4.1.0</siddhi.map.json.version>
 
         <open.tracing.version>0.31.0</open.tracing.version>
         <org.wso2.json.version>3.0.0.wso2v1</org.wso2.json.version>
