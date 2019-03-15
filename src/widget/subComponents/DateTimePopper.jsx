@@ -19,9 +19,11 @@ export class DateTimePopper extends Component {
       flexWrap: 'wrap',
       justifyContent: 'space-evenly',
       marginTop: 8,
-      marginRight: 25,
+      marginRight: 21,
       marginBottom: 1,
-      marginLeft: 5,
+      borderRightStyle: 'solid',
+      borderRightWidth: 1,
+      borderRightColor: theme.name === 'dark' ? '#111618' : '#d8d0d0',
       backgroundColor: theme.name === 'dark' ? ' #333435' : '#ffffff',
       height: 397,
     }
@@ -56,19 +58,20 @@ export class DateTimePopper extends Component {
         style={{ height: 550 }}
       >
         <Grid container
-          style={{ maxWidth: 520, height: 410 }}
+          style={{ maxWidth: 530, height: 410 }}
         >
           <Grid item xs={3}>
             <div style={quickRanges}>
               <Typography style={RangeHeader}>Quick Ranges</Typography>
               {quickRangeButtons.map((quickRangeButtons, index) =>
                 <Button
-                  size="small"
+                  size="large"
                   key={index}
                   onClick={() => this.props.changeQuickRangeGranularities(quickRangeButtons)}
                   style={{
-                    border: 'none',
+                    border: 0,
                     fontSize: 10,
+
                   }}
                 >
                   {quickRangeButtons}
@@ -78,8 +81,8 @@ export class DateTimePopper extends Component {
           </Grid>
           <Grid item xs={9}>
             <div style={customRanges}>
-              <Typography style={{ ...RangeHeader, alignContent: 'center' }}>Custom Ranges</Typography>
-              <Typography style={{ ...RangeHeader, fontSize: 10 }}>Granularity Modes</Typography>
+              <Typography style={{ ...RangeHeader, alignContent: 'center', marginTop: 13, marginLeft: 18 }}>Custom Ranges</Typography>
+              <Typography style={{ ...RangeHeader, fontSize: 10, marginTop: 10, marginLeft: 18 }}>Granularity Modes</Typography>
               <CustomTimeRangeSelector
                 options={options}
                 handleClose={onClose}

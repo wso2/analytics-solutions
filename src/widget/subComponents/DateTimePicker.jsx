@@ -293,7 +293,7 @@ export default class DateTimePicker extends React.Component {
         {['hour', 'minute', 'second'].indexOf(inputType) > -1 ? (
           <div style={{ margin: 20 }}>
             <TextField
-              style={{ height: 50, width: 170, color: '#ffffff' }}
+              style={{ height: 50, width: 130, color: '#ffffff' }}
               label='Time'
               type="time"
               onChange={(evt) => {

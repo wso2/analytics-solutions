@@ -1,28 +1,28 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-
 export const dark = createMuiTheme({
   overrides: {
+
+    MuiPopover: {
+      paper: {
+        borderRadius: 0,
+        // backgroundColor: '#323435',
+      }
+    },
     MuiGrid: {
       container: {
-        backgroundColor: '#303030',
+        backgroundColor: '#323435',
       }
     },
     MuiButton: {
       root: {
         color: '#ffffff',
-      }
+      },
+
     },
     MuiList: {
       root: {
         backgroundColor: '#303030',
-
-      }
-    },
-    MuiInput: {
-      root: {
-        color: '#ffffff',
-        fontSize: 13,
-      }
+      },
     },
     MuiListItem: {
       selected: {
@@ -30,6 +30,18 @@ export const dark = createMuiTheme({
       }
     },
 
+    MuiInput: {
+      root: {
+        underline: '#ffffff',
+        color: '#ffffff',
+        fontSize: 13,
+      },
+    },
+    MuiInputLabel: {
+      root: {
+        color: '#ffffff',
+      },
+    },
     MuiMenuItem: {
       root: {
         '&:hover': {
@@ -38,7 +50,8 @@ export const dark = createMuiTheme({
         color: '#ffffff',
         fontSize: 12,
         backgroundColor: '#303030',
-      }
+      },
+
     },
     MuiSelect: {
       root: {
@@ -47,6 +60,7 @@ export const dark = createMuiTheme({
         margin: 5,
         fontSize: 13
       },
+
     },
 
   },
@@ -72,6 +86,12 @@ export const light = createMuiTheme({
     MuiButton: {
       root: {
         color: '#000',
+      }
+    },
+    MuiInput: {
+      root: {
+        color: '#000',
+        fontSize: 13,
       }
     },
 

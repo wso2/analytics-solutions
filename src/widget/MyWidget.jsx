@@ -707,7 +707,7 @@ export default class MyWidget extends Widget {
             width: "100%",
             marginTop: 15,
             marginRight: -10,
-            backgroundColor: this.props.muiTheme.name === 'dark' ? '#2b2b2b' : '#ffffff',
+            backgroundColor: this.props.muiTheme.name === 'dark' ? '#2b2b2b' : '#e8e8e8',
             padding: 5
           }}
         >

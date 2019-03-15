@@ -105,6 +105,7 @@ export default class CustomTimeRangeSelector extends React.Component {
   }
 
   changeCustomRangeGranularity = (mode) => {
+    console.log('event', mode.current)
     this.props.changeGranularityModeCustomRanges(mode)
     this.setState({
       customGranularityMode: mode,
@@ -115,7 +116,6 @@ export default class CustomTimeRangeSelector extends React.Component {
     const customRangeButtons = ['Second', 'Minute', 'Hour', 'Day', 'Month', 'Year']
     const { theme } = this.props;
     const customRangeContainer = {
-      marginTop: 13,
       marginRight: 5,
       marginLeft: 1,
       height: 330,
@@ -123,8 +123,7 @@ export default class CustomTimeRangeSelector extends React.Component {
       flexDirection: 'column'
     }
     const customRangeButtonContainer = {
-      // justifyContent: 'space-around',
-      // display: 'flex',
+      marginLeft: 15,
     }
     const customButtons = {
       fontSize: 10,
@@ -133,12 +132,27 @@ export default class CustomTimeRangeSelector extends React.Component {
     const timePicker = {
       height: 260,
       padding: 5,
+      color: theme.name === 'dark' ? '#ffffff' : '#000',
+      fontSize: 15,
+      marginTop: 10,
+      marginLeft: 20,
+      marginRight: 10,
+      borderTopStyle: 'solid',
+      borderBottomStyle: 'solid',
+      borderBottomWidth: 1,
+      borderTopWidth: 1,
+      borderTopColor: theme.name === 'dark' ? '#111618' : '#d8d0d0',
+      borderBottomColor: theme.name === 'dark' ? '#111618' : '#d8d0d0',
+
+
     }
     const footerButtons = {
       ...customButtons,
       padding: 10,
       backgroundColor: '#ef6c00',
-      color: 'black'
+      color: 'black',
+      marginRight: 7
+
     }
 
 
@@ -188,7 +202,7 @@ export default class CustomTimeRangeSelector extends React.Component {
           </div>
 
         </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
           <Button variant='outlined' style={footerButtons}
             onClick={this.publishCustomTimeRange}
           >
