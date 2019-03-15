@@ -180,9 +180,11 @@ class IsAnalyticsLoginAttemptsMap extends Widget {
         if (this.state.isFailureMap) {
             countType = 'authFailureCount';
         } else if (this.state.options.widgetType === 'Local') {
-            countType = 'authSuccessCount';
-        } else {
             countType = 'authStepSuccessCount';
+        } else if (this.state.options.widgetType === 'Federated') {
+            countType = 'authStepSuccessCount';
+        } else {
+            countType = 'authSuccessCount';
         }
 
         if (this.state.options.widgetType === 'Local') {
