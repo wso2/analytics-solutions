@@ -18,6 +18,7 @@
 
 import Widget from "@wso2-dashboards/widget";
 import VizG from 'react-vizgrammar';
+import {Scrollbars} from 'react-custom-scrollbars';
 import {darkBaseTheme, getMuiTheme, MuiThemeProvider} from 'material-ui/styles';
 import moment from 'moment';
 
@@ -209,6 +210,7 @@ class EIAnalyticsMessageTable extends Widget {
     render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                <Scrollbars style={{width: "100%"}}>
                 <section style={{paddingTop: 50}}>
                     <VizG
                         config={this.chartConfig}
@@ -220,6 +222,7 @@ class EIAnalyticsMessageTable extends Widget {
                         onClick={this.handleRowSelect}
                     />
                 </section>
+                </Scrollbars>
             </MuiThemeProvider>
         );
     }
