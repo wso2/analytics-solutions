@@ -36,7 +36,8 @@ class EIAnalyticsTPS extends Widget {
             "append": false,
             "disableVerticalGrid": true,
             "disableHorizontalGrid": true,
-            "animate": true
+            "animate": true,
+            "tipTimeFormat": '%c'
         };
 
         let metadata = {
@@ -48,7 +49,7 @@ class EIAnalyticsTPS extends Widget {
                 "time",
                 "linear"
             ]
-        }
+        };
 
         let data = [];
 
@@ -133,7 +134,6 @@ class EIAnalyticsTPS extends Widget {
         return widgetConfiguration.configs.providerConfig;
     }
 
-
     /**
      * Draw the graph with the data retrieved from the data store
      */
@@ -146,7 +146,7 @@ class EIAnalyticsTPS extends Widget {
         let labelMapper = {};
         stats.metadata.names.forEach((value, index) => {
             labelMapper[value] = index;
-        })
+        });
 
         dataPointArray.forEach((e) => {
             switch (this.state.timeUnitParameter) {
@@ -167,7 +167,6 @@ class EIAnalyticsTPS extends Widget {
             }
             e[labelMapper.noOfInvocation] = (e[labelMapper.noOfInvocation]) / divider;
         });
-
 
         // Build data for the graph
         let data = [];
