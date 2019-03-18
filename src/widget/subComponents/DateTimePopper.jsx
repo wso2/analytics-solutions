@@ -1,18 +1,11 @@
 import React, { Component } from 'react'
 import { Popover, Grid, Button, Typography } from '@material-ui/core';
-import { black } from 'material-ui/styles/colors';
 import CustomTimeRangeSelector from './CustomTimeRangeSelector';
 
 export class DateTimePopper extends Component {
 
-  state = {
-    granularityModeValue: 'none',
-    calendarMode: 'date',
-    timeGranularityMode: 'second',
-  }
-
   render() {
-    const quickRangeButtons = ['1 Min', '15 Min', '1 Hour', '1 Day', '7 Days', '1 Month', '3 Months', '6 Months', '1 Year']
+    const quickRangeButtons = ['1 Min', '15 Min', '1 Hour', '1 Day', '7 Days', '1 Month', '3 Months', '6 Months', '1 Year'];
     const { options, onChangeCustom, theme, onClose, changeGranularityModeCustomRanges } = this.props;
     const quickRanges = {
       display: 'flex',
@@ -82,7 +75,7 @@ export class DateTimePopper extends Component {
           <Grid item xs={9}>
             <div style={customRanges}>
               <Typography style={{ ...RangeHeader, alignContent: 'center', marginTop: 13, marginLeft: 18 }}>Custom Ranges</Typography>
-              <Typography style={{ ...RangeHeader, fontSize: 10, marginTop: 10, marginLeft: 18 }}>Granularity Modes</Typography>
+              <Typography style={{ ...RangeHeader, fontSize: 10, marginTop: 18, marginLeft: 18 }}>Granularity Modes</Typography>
               <CustomTimeRangeSelector
                 options={options}
                 handleClose={onClose}

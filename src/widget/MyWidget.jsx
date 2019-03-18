@@ -21,14 +21,13 @@ import React from "react";
 // import Widget from "@wso2-dashboards/widget";
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { MuiThemeProvider } from "@material-ui/core";
+import { MuiThemeProvider } from "@material-ui/core/";
 import {
   NotificationSync,
   NotificationSyncDisabled
-} from "material-ui/svg-icons";
+} from '@material-ui/core/SvgIcon';
 import Moment from "moment";
 import { Scrollbars } from "react-custom-scrollbars";
-import JssProvider from "react-jss/lib/JssProvider";
 import { Snackbar } from '@material-ui/core';
 import Widget from "../../mocking/Widget";
 import DateRange from '@material-ui/icons/DateRange'
@@ -74,7 +73,7 @@ export default class MyWidget extends Widget {
       // width: '450px',
       height: props.glContainer.height,
       // height: '450px',
-      granularityMode: "1 Month",
+      granularityMode: null,
       granularityValue: "",
       options: props.configs ? props.configs.options : "",
       enableSync: false,
@@ -617,21 +616,17 @@ export default class MyWidget extends Widget {
     }
 
     return (
-      <JssProvider generateClassName={generateClassName}>
-        <div style={styleWrapper}>
-          <MuiThemeProvider theme={this.props.muiTheme.name === "dark" ? dark : light}>
-            <div>
-              {this.renderSnackBar()}
-              <Scrollbars style={{ width, height }}>
-                <div style={{ float: "right", marginTop: 2, marginRight: 23 }}>
-                  {this.getCustomRangePopover()}
-                  {this.getTimeIntervalDescriptor(granularityMode)}
-                </div>
-              </Scrollbars>
+      <MuiThemeProvider theme={this.props.muiTheme.name === "dark" ? dark : light}>
+        <div>
+          {this.renderSnackBar()}
+          <Scrollbars style={{ width, height }}>
+            <div style={{ float: "right", marginTop: 2, marginRight: 23 }}>
+              {this.getCustomRangePopover()}
+              {this.getTimeIntervalDescriptor(granularityMode)}
             </div>
-          </MuiThemeProvider>
+          </Scrollbars>
         </div>
-      </JssProvider>
+      </MuiThemeProvider>
     );
   }
   popoverHandler = (event) => {
@@ -706,9 +701,8 @@ export default class MyWidget extends Widget {
           style={{
             width: "100%",
             marginTop: 15,
-            marginRight: -10,
+            marginRight: 10,
             backgroundColor: this.props.muiTheme.name === 'dark' ? '#2b2b2b' : '#e8e8e8',
-            padding: 5
           }}
         >
           <Button onClick={this.popoverHandler} >
@@ -718,9 +712,10 @@ export default class MyWidget extends Widget {
           {this.generateGranularitySelector()}
           <Button
             children="Refresh every"
-            icon={this.state.btnType}
             onClick={this.autoSyncClick}
-          />
+          >
+            {/* {this.state.btnType} */}
+          </Button>
         </div>
       );
     }

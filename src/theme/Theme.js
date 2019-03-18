@@ -5,7 +5,6 @@ export const dark = createMuiTheme({
     MuiPopover: {
       paper: {
         borderRadius: 0,
-        // backgroundColor: '#323435',
       }
     },
     MuiGrid: {
@@ -17,17 +16,13 @@ export const dark = createMuiTheme({
       root: {
         color: '#ffffff',
       },
-
     },
     MuiList: {
       root: {
         backgroundColor: '#303030',
       },
-    },
-    MuiListItem: {
-      selected: {
-        backgroundColor: 'red'
-      }
+      padding: 0,
+
     },
 
     MuiInput: {
@@ -36,6 +31,7 @@ export const dark = createMuiTheme({
         color: '#ffffff',
         fontSize: 13,
       },
+
     },
     MuiInputLabel: {
       root: {

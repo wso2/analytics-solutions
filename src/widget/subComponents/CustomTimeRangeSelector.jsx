@@ -27,7 +27,8 @@ export default class CustomTimeRangeSelector extends React.Component {
     invalidDateRange: false,
     customGranularityMode: 'second',
     startTime: Moment().subtract(1, 'days').toDate(),
-    endTime: new Date()
+    endTime: new Date(),
+    customRangeButtonBackgroundColor: ['#403d3f', '#403d3f', '#403d3f', '#403d3f', '#403d3f', '#403d3f'],
   };
 
   getSelectedGranularities = () => {
@@ -105,7 +106,6 @@ export default class CustomTimeRangeSelector extends React.Component {
   }
 
   changeCustomRangeGranularity = (mode) => {
-    console.log('event', mode.current)
     this.props.changeGranularityModeCustomRanges(mode)
     this.setState({
       customGranularityMode: mode,
@@ -113,7 +113,8 @@ export default class CustomTimeRangeSelector extends React.Component {
   }
 
   render() {
-    const customRangeButtons = ['Second', 'Minute', 'Hour', 'Day', 'Month', 'Year']
+    const customRangeButtons = ['second', 'minute', 'hour', 'day', 'month', 'year']
+    const { customGranularityMode } = this.state
     const { theme } = this.props;
     const customRangeContainer = {
       marginRight: 5,
@@ -129,6 +130,8 @@ export default class CustomTimeRangeSelector extends React.Component {
       fontSize: 10,
       padding: 0.3,
     }
+
+
     const timePicker = {
       height: 260,
       padding: 5,
@@ -137,14 +140,9 @@ export default class CustomTimeRangeSelector extends React.Component {
       marginTop: 10,
       marginLeft: 20,
       marginRight: 10,
-      borderTopStyle: 'solid',
       borderBottomStyle: 'solid',
       borderBottomWidth: 1,
-      borderTopWidth: 1,
-      borderTopColor: theme.name === 'dark' ? '#111618' : '#d8d0d0',
       borderBottomColor: theme.name === 'dark' ? '#111618' : '#d8d0d0',
-
-
     }
     const footerButtons = {
       ...customButtons,
@@ -155,11 +153,10 @@ export default class CustomTimeRangeSelector extends React.Component {
 
     }
 
-
     return (
       <div style={customRangeContainer} >
         <div style={customRangeButtonContainer} >
-          {customRangeButtons.map((customRangeButtons, index) =>
+          {customRangeButtons.map((customRangeButton, index) =>
             <Button
               key={index}
               variant="outlined"
@@ -169,10 +166,13 @@ export default class CustomTimeRangeSelector extends React.Component {
                 borderBottomLeftRadius: index === 0 ? 6 : 0,
                 borderTopRightRadius: index === 5 ? 6 : 0,
                 borderBottomRightRadius: index === 5 ? 6 : 0,
+                backgroundColor: theme.name === 'dark' ?
+                  (customGranularityMode === customRangeButton ? '#756e71' : '#494547') :
+                  (customGranularityMode === customRangeButton ? '#e9e8e8' : '#ffffff')
               }}
-              onClick={() => this.changeCustomRangeGranularity(customRangeButtons.toLocaleLowerCase())}
+              onClick={() => this.changeCustomRangeGranularity(customRangeButton, index)}
             >
-              {customRangeButtons}
+              {customRangeButton}
             </Button>
           )}
         </div>
