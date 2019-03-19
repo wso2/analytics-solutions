@@ -16,7 +16,7 @@
  * under the License.
  */
 
-@App:name('ei_analytics_statapp_0')
+@App:name('EI_Analytics_StatApp')
 @App:description('SiddhiApp for EI Analytics')
 
 -- Streams
