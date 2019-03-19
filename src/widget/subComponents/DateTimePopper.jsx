@@ -64,7 +64,6 @@ export class DateTimePopper extends Component {
                   style={{
                     border: 0,
                     fontSize: 10,
-
                   }}
                 >
                   {quickRangeButtons}

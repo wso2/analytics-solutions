@@ -19,7 +19,7 @@
 
 import React from 'react';
 import Moment from "moment";
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import TimePicker from './DateTimePicker';
 export default class CustomTimeRangeSelector extends React.Component {
 
@@ -117,7 +117,6 @@ export default class CustomTimeRangeSelector extends React.Component {
     const { customGranularityMode } = this.state
     const { theme } = this.props;
     const customRangeContainer = {
-      marginRight: 5,
       marginLeft: 1,
       height: 330,
       display: 'flex',
@@ -130,13 +129,12 @@ export default class CustomTimeRangeSelector extends React.Component {
       fontSize: 10,
       padding: 0.3,
     }
-
-
     const timePicker = {
-      height: 260,
+      flexWrap: 'wrap',
+      display: 'flex',
+      height: 220,
       padding: 5,
       color: theme.name === 'dark' ? '#ffffff' : '#000',
-      fontSize: 15,
       marginTop: 10,
       marginLeft: 20,
       marginRight: 10,
@@ -147,11 +145,18 @@ export default class CustomTimeRangeSelector extends React.Component {
     const footerButtons = {
       ...customButtons,
       padding: 10,
-      backgroundColor: '#ef6c00',
-      color: 'black',
-      marginRight: 7
-
+      color: '#000',
+      marginRight: 7,
+      '&:hover': {
+        backgroundColor: 'red !important'
+      }
     }
+    const typographyLabel = {
+      fontSize: 12,
+      color: theme.name === 'dark' ? '#ffffff' : '#000',
+      align: 'center'
+    }
+
 
     return (
       <div style={customRangeContainer} >
@@ -178,7 +183,7 @@ export default class CustomTimeRangeSelector extends React.Component {
         </div>
         <div style={timePicker}>
           <div style={{ float: 'left', width: '50%' }}>
-            From
+            <Typography style={typographyLabel}>From</Typography>
             <TimePicker
               onChange={this.handleStartTimeChange}
               inputType={this.state.customGranularityMode}
@@ -189,7 +194,7 @@ export default class CustomTimeRangeSelector extends React.Component {
             />
           </div>
           <div style={{ float: 'right', width: '50%' }}>
-            To
+            <Typography style={typographyLabel}>To</Typography>
             <TimePicker
               onChange={this.handleEndTimeChange}
               inputType={this.state.customGranularityMode}
@@ -200,19 +205,22 @@ export default class CustomTimeRangeSelector extends React.Component {
               initTime={Moment().subtract(1, 'days')}
             />
           </div>
-
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
-          <Button variant='outlined' style={footerButtons}
-            onClick={this.publishCustomTimeRange}
-          >
-            Apply
-          </Button>
           <Button
+            size='small'
             variant='outlined' style={{ ...footerButtons, backgroundColor: '#999' }}
             onClick={this.props.handleClose}
           >
             Cancel
+          </Button>
+          <Button
+            size='small'
+            variant='outlined'
+            style={{ ...footerButtons, backgroundColor: '#ef6c00', }}
+            onClick={this.publishCustomTimeRange}
+          >
+            Apply
           </Button>
         </div>
       </div >

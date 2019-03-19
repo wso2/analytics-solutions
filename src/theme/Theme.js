@@ -1,7 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import * as Colors from '@material-ui/core/colors'
 export const dark = createMuiTheme({
   overrides: {
-
     MuiPopover: {
       paper: {
         borderRadius: 0,
@@ -15,7 +15,10 @@ export const dark = createMuiTheme({
     MuiButton: {
       root: {
         color: '#ffffff',
+        textTransform: 'none'
       },
+
+
     },
     MuiList: {
       root: {
@@ -24,15 +27,21 @@ export const dark = createMuiTheme({
       padding: 0,
 
     },
-
     MuiInput: {
       root: {
-        underline: '#ffffff',
         color: '#ffffff',
         fontSize: 13,
       },
-
+      underline: {
+        '&:before': {
+          borderBottomColor: '#ffffff'
+        },
+        '&:after': {
+          borderBottomColor: '#ffffff'
+        },
+      }
     },
+
     MuiInputLabel: {
       root: {
         color: '#ffffff',
@@ -47,7 +56,6 @@ export const dark = createMuiTheme({
         fontSize: 12,
         backgroundColor: '#303030',
       },
-
     },
     MuiSelect: {
       root: {
@@ -56,9 +64,10 @@ export const dark = createMuiTheme({
         margin: 5,
         fontSize: 13
       },
-
+      icon: {
+        color: '#756e71',
+      }
     },
-
   },
 });
 
@@ -73,7 +82,7 @@ export const light = createMuiTheme({
     MuiSelect: {
       root: {
         color: '#000',
-        width: 150,
+        width: 120,
         margin: 5,
         fontSize: 13,
 
@@ -82,13 +91,24 @@ export const light = createMuiTheme({
     MuiButton: {
       root: {
         color: '#000',
+        textTransform: 'none'
       }
+
     },
     MuiInput: {
       root: {
         color: '#000',
         fontSize: 13,
+      },
+      underline: {
+        '&:before': {
+          borderBottomColor: '#000'
+        },
+        '&:after': {
+          borderBottomColor: '#000'
+        },
       }
+
     },
 
   },

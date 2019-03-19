@@ -21,7 +21,7 @@ import React from "react";
 // import Widget from "@wso2-dashboards/widget";
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { MuiThemeProvider } from "@material-ui/core/";
+import { MuiThemeProvider, Typography } from "@material-ui/core/";
 import {
   NotificationSync,
   NotificationSyncDisabled
@@ -686,7 +686,7 @@ export default class MyWidget extends Widget {
     }
 
     const { startTime, endTime } = startAndEnd;
-    const timeRange = " " + startTime + " - " + endTime;
+    const timeRange = "   " + startTime + "  - " + endTime;
     console.log('timeRange', timeRange)
     if (granularityMode && startTime && endTime) {
       this.setQueryParamToURL(
@@ -921,6 +921,9 @@ export default class MyWidget extends Widget {
     })
   }
 
+  /**
+   * Creating the list of granularity item set for the selected granularity value
+   */
   generateGranularityMenuItems = () => {
     const { granularityMode } = this.state
     let supportedGranularities = [];
@@ -932,6 +935,7 @@ export default class MyWidget extends Widget {
     } else {
       supportedGranularities = this.getSupportedGranularitiesForFixed(granularityMode);
     }
+    console.log('GRAN', granularityMode)
     return this.getAvailableGranularities().map((view, key) => {
       return (< MenuItem
         key={key}
@@ -1006,6 +1010,7 @@ export default class MyWidget extends Widget {
   getAvailableGranularities = () => {
     const minGranularity =
       this.state.options.availableGranularities || "From Second";
+    console.log('available Gran', minGranularity)
     let granularities = [];
     switch (minGranularity) {
       case "From Second":
@@ -1032,6 +1037,10 @@ export default class MyWidget extends Widget {
     return granularities;
   }
 
+  /**
+   * Returning the granularity list according to the granularity mode that select.
+   * @param{string} granularityMode : selected value as 'second','minute','hour' etc
+   */
   getSupportedGranularitiesForFixed = (granularityMode) => {
     console.log('granularityMode', granularityMode)
     let supportedGranularities = [];

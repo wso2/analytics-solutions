@@ -19,7 +19,7 @@
 
 import React from 'react';
 import moment from 'moment';
-import { Select, MenuItem, TextField } from '@material-ui/core';
+import { Select, MenuItem, TextField, Typography } from '@material-ui/core';
 
 export default class DateTimePicker extends React.Component {
 
@@ -230,9 +230,7 @@ export default class DateTimePicker extends React.Component {
   render() {
     const { year, month, days } = this.state;
     let { time } = this.state;
-    const {
-      inputType, theme, inputName, startTime
-    } = this.props;
+    const { inputType, theme, inputName, startTime } = this.props;
 
 
     switch (inputType) {
@@ -250,8 +248,10 @@ export default class DateTimePicker extends React.Component {
     }
 
     return (
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' }} >
-        <div>
+      <div style={{
+        display: 'flex', flexWrap: 'wrap', alignItems: 'center'
+      }} >
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {['year', 'month', 'day', 'hour', 'minute', 'second'].indexOf(
             inputType
           ) > -1 ? (
@@ -265,7 +265,7 @@ export default class DateTimePicker extends React.Component {
               </Select>
             ) : null}
         </div>
-        <div>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {['month', 'day', 'hour', 'minute', 'second'].indexOf(inputType)
             > -1 ? (
               <Select
@@ -278,7 +278,7 @@ export default class DateTimePicker extends React.Component {
               </Select>
             ) : null}
         </div>
-        <div>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {['day', 'hour', 'minute', 'second'].indexOf(inputType) > -1 ? (
             <Select
               value={days}
@@ -291,10 +291,12 @@ export default class DateTimePicker extends React.Component {
           ) : null}
         </div>
         {['hour', 'minute', 'second'].indexOf(inputType) > -1 ? (
-          <div style={{ margin: 20 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', marginTop: 20, }}>
+            <Typography style={{ fontSize: 12, color: theme.name === 'dark' ? '#ffffff' : '#000' }}>
+              Time
+            </Typography>
             <TextField
-              style={{ height: 50, width: 130, color: '#ffffff' }}
-              label='Time'
+              style={{ width: 140 }}
               type="time"
               onChange={(evt) => {
                 this.handleOnChange('time', evt.target.value);
