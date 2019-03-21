@@ -74,7 +74,7 @@ export const dark = createMuiTheme({
 export const light = createMuiTheme({
   overrides: {
     MuiGrid: {
-      root: {
+      container: {
         background: 'ffffff',
         color: '#ffffff',
       }

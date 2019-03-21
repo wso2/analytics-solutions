@@ -20,7 +20,7 @@
 import React from 'react';
 import Moment from "moment";
 import { Button, Typography } from '@material-ui/core';
-import TimePicker from './DateTimePicker';
+import TimePicker from './TimePicker';
 export default class CustomTimeRangeSelector extends React.Component {
 
   state = {
@@ -29,6 +29,8 @@ export default class CustomTimeRangeSelector extends React.Component {
     startTime: Moment().subtract(1, 'days').toDate(),
     endTime: new Date(),
     customRangeButtonBackgroundColor: ['#403d3f', '#403d3f', '#403d3f', '#403d3f', '#403d3f', '#403d3f'],
+    applyButtonBackgroundColor: '#ef6c00',
+    cancelButtonBackgroundColor: '#999',
   };
 
   getSelectedGranularities = () => {
@@ -112,9 +114,20 @@ export default class CustomTimeRangeSelector extends React.Component {
     })
   }
 
+  applyButtonsBgColor = (color) => {
+    this.setState({
+      applyButtonBackgroundColor: color,
+    })
+  }
+  cancelButtonsBgColor = (color) => {
+    this.setState({
+      cancelButtonBackgroundColor: color,
+    })
+  }
+
   render() {
     const customRangeButtons = ['second', 'minute', 'hour', 'day', 'month', 'year']
-    const { customGranularityMode } = this.state
+    const { customGranularityMode, applyButtonBackgroundColor, cancelButtonBackgroundColor } = this.state
     const { theme } = this.props;
     const customRangeContainer = {
       marginLeft: 1,
@@ -209,16 +222,21 @@ export default class CustomTimeRangeSelector extends React.Component {
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
           <Button
             size='small'
-            variant='outlined' style={{ ...footerButtons, backgroundColor: '#999' }}
+            variant='outlined' style={{ ...footerButtons, backgroundColor: cancelButtonBackgroundColor }}
             onClick={this.props.handleClose}
+            onMouseEnter={() => this.cancelButtonsBgColor('#bbb')}
+            onMouseLeave={() => this.cancelButtonsBgColor('#999')}
+
           >
             Cancel
           </Button>
           <Button
             size='small'
             variant='outlined'
-            style={{ ...footerButtons, backgroundColor: '#ef6c00', }}
+            style={{ ...footerButtons, backgroundColor: applyButtonBackgroundColor }}
             onClick={this.publishCustomTimeRange}
+            onMouseEnter={() => this.applyButtonsBgColor('#ff9034')}
+            onMouseLeave={() => this.applyButtonsBgColor('#ef6c00')}
           >
             Apply
           </Button>

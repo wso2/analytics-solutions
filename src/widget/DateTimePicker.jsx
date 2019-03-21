@@ -22,19 +22,17 @@ import React from "react";
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { MuiThemeProvider, Typography } from "@material-ui/core/";
-import {
-  NotificationSync,
-  NotificationSyncDisabled
-} from '@material-ui/core/SvgIcon';
 import Moment from "moment";
 import { Scrollbars } from "react-custom-scrollbars";
 import { Snackbar } from '@material-ui/core';
 import Widget from "../../mocking/Widget";
+import NotificationSync from '@material-ui/icons/Sync'
+import NotificationSyncDisabled from '@material-ui/icons/SyncDisabled'
 import DateRange from '@material-ui/icons/DateRange'
 import widgetConf from "../../resources/widgetConf.json";
 import { Button } from "@material-ui/core";
-import DateTimePopper from "./subComponents/DateTimePopper";
-import { dark, light } from './../theme/Theme'
+import DateTimePopper from "./components/DateTimePopper";
+import { dark, light } from '../theme/Theme'
 
 // This is the workaround suggested in https://github.com/marmelab/react-admin/issues/1782
 const escapeRegex = /([[\].#*$><+~=|^:(),"'`\s])/g;
@@ -62,7 +60,7 @@ export const generateClassName = (rule, styleSheet) => {
   return `${rule.key}-${classCounter}`;
 };
 
-export default class MyWidget extends Widget {
+export default class DateTimePicker extends Widget {
   constructor(props) {
     super(props);
     console.log('props', props)
@@ -77,7 +75,7 @@ export default class MyWidget extends Widget {
       granularityValue: "",
       options: props.configs ? props.configs.options : "",
       enableSync: false,
-      btnType: <NotificationSyncDisabled color="#BDBDBD" />,
+      btnType: <NotificationSyncDisabled />,
       snackBar: {
         preview: false,
         vertical: "bottom",
@@ -85,6 +83,7 @@ export default class MyWidget extends Widget {
         message: ""
       },
       anchorEl: null,
+      syncButtonBgColor: '',
     };
 
     if (this.props.glContainer != undefined) {
@@ -336,7 +335,7 @@ export default class MyWidget extends Widget {
         if (dateTimeRangeInfo.sync) {
           this.setState({
             enableSync: true,
-            btnType: <NotificationSync color="#f17b31" />
+            btnType: <NotificationSync />,
           });
         }
         if (dateTimeRangeInfo.g) {
@@ -662,6 +661,7 @@ export default class MyWidget extends Widget {
 
   }
   getTimeIntervalDescriptor = (granularityMode) => {
+    const { syncButtonBgColor } = this.state
     let startAndEnd = {
       startTime: null,
       endTime: null
@@ -686,7 +686,7 @@ export default class MyWidget extends Widget {
     }
 
     const { startTime, endTime } = startAndEnd;
-    const timeRange = "   " + startTime + "  - " + endTime;
+    const timeRange = " " + startTime + "  - " + endTime;
     console.log('timeRange', timeRange)
     if (granularityMode && startTime && endTime) {
       this.setQueryParamToURL(
@@ -711,10 +711,11 @@ export default class MyWidget extends Widget {
           </Button>
           {this.generateGranularitySelector()}
           <Button
-            children="Refresh every"
+            style={{ backgroundColor: syncButtonBgColor }}
             onClick={this.autoSyncClick}
           >
-            {/* {this.state.btnType} */}
+            {this.state.btnType}
+            Refresh every
           </Button>
         </div>
       );
@@ -1108,14 +1109,16 @@ export default class MyWidget extends Widget {
       this.setState(
         {
           enableSync: true,
-          btnType: <NotificationSync color="#f17b31" />
+          btnType: <NotificationSync />,
+          syncButtonBgColor: '#484547'
         },
         this.setRefreshInterval
       );
     } else {
       this.setState({
         enableSync: false,
-        btnType: <NotificationSyncDisabled color="#BDBDBD" />
+        btnType: <NotificationSyncDisabled />,
+        syncButtonBgColor: ''
       });
       this.clearRefreshInterval();
     }

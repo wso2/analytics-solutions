@@ -21,7 +21,7 @@ import React from 'react';
 import moment from 'moment';
 import { Select, MenuItem, TextField, Typography } from '@material-ui/core';
 
-export default class DateTimePicker extends React.Component {
+export default class TimePicker extends React.Component {
 
   state = {
     year: this.props.initTime.year(),

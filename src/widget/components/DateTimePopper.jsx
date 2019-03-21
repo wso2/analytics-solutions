@@ -51,7 +51,7 @@ export class DateTimePopper extends Component {
         style={{ height: 550 }}
       >
         <Grid container
-          style={{ maxWidth: 530, height: 410 }}
+          style={{ maxWidth: 520, height: 410 }}
         >
           <Grid item xs={3}>
             <div style={quickRanges}>
