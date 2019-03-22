@@ -2495,7 +2495,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -2583,7 +2584,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -2677,7 +2679,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -2771,7 +2774,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -2859,7 +2863,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -2950,7 +2955,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3039,7 +3045,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3127,7 +3134,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3215,7 +3223,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3303,7 +3312,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3397,7 +3407,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3485,7 +3496,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3568,7 +3580,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
