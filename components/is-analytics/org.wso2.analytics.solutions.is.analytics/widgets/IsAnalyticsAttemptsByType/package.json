@@ -10,7 +10,7 @@
     "material-ui-pagination": "^1.1.7",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-vizgrammar": "^0.7.30",
+    "react-vizgrammar": "^0.8.4",
     "style-loader": "^0.21.0"
   },
   "scripts": {
