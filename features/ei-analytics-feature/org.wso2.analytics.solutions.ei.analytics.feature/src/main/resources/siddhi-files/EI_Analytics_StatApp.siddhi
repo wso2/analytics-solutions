@@ -143,11 +143,11 @@ select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, comp
 insert current events into PreProcessedMediatorStatStream;
 
 from    TablePurgingTriggerStream
-select  time:dateSub(triggered_time, 2, 'week') as purgingTime
+select  convert(time:dateSub(triggered_time, 2, 'week'), 'long') as purgingTime
 delete  ConfigEntryTable
 on      ConfigEntryTable.eventTimestamp < purgingTime;
 
 from    TablePurgingTriggerStream
-select  time:dateSub(triggered_time, 2, 'week') as purgingTime
+select  convert(time:dateSub(triggered_time, 2, 'week'), 'long') as purgingTime
 delete  ESBEventTable
 on      ESBEventTable.eventTimestamp < purgingTime;
