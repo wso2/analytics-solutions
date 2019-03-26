@@ -5,7 +5,7 @@ const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
 const APP_NAME = widgetConf.id;
 
 module.exports = {
-  entry: "./src/widget/MyWidget.jsx",
+  entry: "./src/widget/DateTimePicker.jsx",
   output: {
     path: `${__dirname}/${APP_NAME}`,
     publicPath: "/",
@@ -31,7 +31,7 @@ module.exports = {
         use: ["style-loader", "css-loader"]
       },
       {
-        test: /MyWidget.jsx/,
+        test: /DateTimePicker.jsx/,
         loader: "string-replace-loader",
         options: {
           search: "../../mocking/Widget",

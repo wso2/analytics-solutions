@@ -6,7 +6,7 @@ export class DateTimePopper extends Component {
 
   render() {
     const quickRangeButtons = ['1 Min', '15 Min', '1 Hour', '1 Day', '7 Days', '1 Month', '3 Months', '6 Months', '1 Year'];
-    const { options, onChangeCustom, theme, onClose, changeGranularityModeCustomRanges } = this.props;
+    const { options, onChangeCustom, theme, onClose, changeGranularityModeCustomRanges, startTime, endTime } = this.props;
     const quickRanges = {
       display: 'flex',
       flexWrap: 'wrap',
@@ -81,6 +81,8 @@ export class DateTimePopper extends Component {
                 onChangeCustom={onChangeCustom}
                 theme={theme}
                 changeGranularityModeCustomRanges={changeGranularityModeCustomRanges}
+                startTime={startTime}
+                endTime={endTime}
               />
             </div>
           </Grid>

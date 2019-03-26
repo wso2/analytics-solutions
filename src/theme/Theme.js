@@ -1,5 +1,4 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import * as Colors from '@material-ui/core/colors'
 export const dark = createMuiTheme({
   overrides: {
     MuiPopover: {
@@ -53,7 +52,7 @@ export const dark = createMuiTheme({
           backgroundColor: '#444'
         },
         color: '#ffffff',
-        fontSize: 12,
+        fontSize: 15,
         backgroundColor: '#303030',
       },
     },
@@ -62,7 +61,7 @@ export const dark = createMuiTheme({
         color: '#ffffff',
         width: 130,
         margin: 5,
-        fontSize: 13
+        fontSize: 13,
       },
       icon: {
         color: '#756e71',
@@ -91,7 +90,7 @@ export const light = createMuiTheme({
     MuiButton: {
       root: {
         color: '#000',
-        textTransform: 'none'
+        textTransform: 'none',
       }
 
     },

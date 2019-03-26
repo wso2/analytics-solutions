@@ -71,7 +71,7 @@ export default class DateTimePicker extends Widget {
       // width: '450px',
       height: props.glContainer.height,
       // height: '450px',
-      granularityMode: null,
+      granularityMode: 'null',
       granularityValue: "",
       options: props.configs ? props.configs.options : "",
       enableSync: false,
@@ -83,7 +83,6 @@ export default class DateTimePicker extends Widget {
         message: ""
       },
       anchorEl: null,
-      syncButtonBgColor: '',
     };
 
     if (this.props.glContainer != undefined) {
@@ -136,6 +135,7 @@ export default class DateTimePicker extends Widget {
     console.log('mode', mode)
     if (mode !== "custom") {
       const startTimeAndGranularity = this.getStartTimeAndGranularity(mode);
+      console.log('startTimeAndGranularity', startTimeAndGranularity)
       granularity = this.verifyDefaultGranularityOfTimeRange(
         startTimeAndGranularity.granularity
       );
@@ -168,12 +168,16 @@ export default class DateTimePicker extends Widget {
       endTime
     });
   }
+  /**
+   * Returning the start time and the granularity according to the timeMode
+   * @param{String} time mode:'1 minute,15 minute etc
+   */
 
-  getStartTimeAndGranularity = (mode) => {
+  getStartTimeAndGranularity = (timeMode) => {
     let granularity = "";
     let startTime = null;
 
-    switch (mode) {
+    switch (timeMode) {
       case "1 Min":
         startTime = Moment()
           .subtract(1, "minutes")
@@ -241,8 +245,10 @@ export default class DateTimePicker extends Widget {
         this.capitalizeCaseFirstChar(granularity)
       ) > -1
     ) {
+      console.log('verifyDefaultGranularity', granularity)
       return granularity;
     }
+    console.log('availableGranularity', availableGranularities[0].toLowerCase())
     return availableGranularities[0].toLowerCase();
   }
 
@@ -339,6 +345,7 @@ export default class DateTimePicker extends Widget {
           });
         }
         if (dateTimeRangeInfo.g) {
+          console.log('dateTimeRangeInfo.g', dateTimeRangeInfo.g)
           this.loadUserSpecifiedTimeRange(
             dateTimeRangeInfo.tr,
             dateTimeRangeInfo.g
@@ -383,6 +390,7 @@ export default class DateTimePicker extends Widget {
   }
 
   loadUserSpecifiedTimeRange = (range, granularity) => {
+    console.log('Range', range)
     const timeRange = this.getTimeRangeName(range);
     if (timeRange.length > 0) {
       const supportedTimeRanges = this.getSupportedTimeRanges();
@@ -650,18 +658,19 @@ export default class DateTimePicker extends Widget {
           options={this.state.options}
           onChangeCustom={this.handleGranularityChangeForCustom}
           getDateTimeRangeInfo={this.getDateTimeRangeInfo}
-          getTimeRangeName={this.getTimeRangeName}
           getDefaultTimeRange={this.getDefaultTimeRange}
           changeQuickRangeGranularities={this.changeQuickRangeGranularities}
           changeGranularityModeCustomRanges={this.changeGranularityModeCustomRanges}
           theme={this.props.muiTheme}
+          startTime={this.state.startTime}
+          endTime={this.state.endTime}
         />
       )
     }
 
   }
+
   getTimeIntervalDescriptor = (granularityMode) => {
-    const { syncButtonBgColor } = this.state
     let startAndEnd = {
       startTime: null,
       endTime: null
@@ -670,6 +679,7 @@ export default class DateTimePicker extends Widget {
       startAndEnd = this.getStartTimeAndEndTimeForTimeIntervalDescriptor(
         granularityMode
       );
+      console.log('startAndEnd', startAndEnd)
     } else if (
       granularityMode === "custom" &&
       this.state.startTime &&
@@ -687,7 +697,6 @@ export default class DateTimePicker extends Widget {
 
     const { startTime, endTime } = startAndEnd;
     const timeRange = " " + startTime + "  - " + endTime;
-    console.log('timeRange', timeRange)
     if (granularityMode && startTime && endTime) {
       this.setQueryParamToURL(
         granularityMode.replace(" ", "").toLowerCase(),
@@ -706,16 +715,13 @@ export default class DateTimePicker extends Widget {
           }}
         >
           <Button onClick={this.popoverHandler} >
-            <DateRange />
-            {`  ${timeRange}  `}
+            <span style={{ paddingRight: 10, }}><DateRange /></span>
+            {`  ${timeRange} ` + 'Per' + " " + this.getDefaultSelectedOption()}
           </Button>
-          {this.generateGranularitySelector()}
           <Button
-            style={{ backgroundColor: syncButtonBgColor }}
             onClick={this.autoSyncClick}
           >
             {this.state.btnType}
-            Refresh every
           </Button>
         </div>
       );
@@ -723,6 +729,10 @@ export default class DateTimePicker extends Widget {
     return null;
   }
 
+  /**
+   * Returning the calculated startTime and endTime according to the selected granularity 
+   * @param{String} granularityMode:'1 minute', '15 minute','1 hour' etc
+   */
   getStartTimeAndEndTimeForTimeIntervalDescriptor = (granularityMode) => {
     let startTime = null;
     let endTime = null;
@@ -785,7 +795,8 @@ export default class DateTimePicker extends Widget {
       default:
       // do nothing
     }
-    this.ge
+    console.log('STARTTIME', startTime)
+    console.log('TIMEEEE', Moment(startTime).format())
     return { startTime, endTime };
   }
 
@@ -793,31 +804,7 @@ export default class DateTimePicker extends Widget {
    * Rendering the granularity selector
    * @returns {JSX}
    */
-  generateGranularitySelector = () => {
-    return (
-      <Select
-        value={this.getDefaultSelectedOption()}
-        onChange={(event) => {
-          this.setQueryParamToURL(
-            this.state.granularityMode.replace(" ", "").toLowerCase(),
-            this.timestampToDateFormat(
-              this.state.startTime.getTime(),
-              this.state.granularityMode
-            ).toLowerCase(),
-            this.timestampToDateFormat(
-              this.state.endTime.getTime(),
-              this.state.granularityMode
-            ).toLowerCase(),
-            event.target.value,
-            this.state.enableSync
-          );
-          this.OnChangeOfSelectField(event.target.value);
-        }}
-      >
-        {this.generateGranularityMenuItems()}
-      </Select>
-    );
-  }
+
 
   /**
    * Showing up the snack bar which will appear on the bottom of the screen 
@@ -867,7 +854,6 @@ export default class DateTimePicker extends Widget {
     }
     const { granularityMode } = this.state
     let defaultSelectedGranularity = this.getSupportedGranularitiesForFixed(granularityMode);
-    console.log('defaultSelectedGranularity', defaultSelectedGranularity)
     return defaultSelectedGranularity[defaultSelectedGranularity.length - 2].toLowerCase()
   }
 
@@ -920,32 +906,6 @@ export default class DateTimePicker extends Widget {
     this.setState({
       granularityValue: granularityMode,
     })
-  }
-
-  /**
-   * Creating the list of granularity item set for the selected granularity value
-   */
-  generateGranularityMenuItems = () => {
-    const { granularityMode } = this.state
-    let supportedGranularities = [];
-    if (this.state.granularityMode === "custom") {
-      supportedGranularities = this.getSupportedGranularitiesForCustom(
-        this.state.startTime,
-        this.state.endTime
-      );
-    } else {
-      supportedGranularities = this.getSupportedGranularitiesForFixed(granularityMode);
-    }
-    console.log('GRAN', granularityMode)
-    return this.getAvailableGranularities().map((view, key) => {
-      return (< MenuItem
-        key={key}
-        value={view.toLowerCase()}
-        disabled={supportedGranularities.indexOf(view) === -1}
-      >{view}
-      </MenuItem>)
-    }
-    );
   }
 
   capitalizeCaseFirstChar = (str) => {
@@ -1109,8 +1069,8 @@ export default class DateTimePicker extends Widget {
       this.setState(
         {
           enableSync: true,
-          btnType: <NotificationSync />,
-          syncButtonBgColor: '#484547'
+          btnType: <NotificationSync style={{ color: '#ef6c00' }} />,
+
         },
         this.setRefreshInterval
       );
@@ -1118,7 +1078,6 @@ export default class DateTimePicker extends Widget {
       this.setState({
         enableSync: false,
         btnType: <NotificationSyncDisabled />,
-        syncButtonBgColor: ''
       });
       this.clearRefreshInterval();
     }
@@ -1173,5 +1132,5 @@ export default class DateTimePicker extends Widget {
 }
 
 if (global.dashboard != undefined) {
-  global.dashboard.registerWidget(widgetConf.id, MyWidget);
+  global.dashboard.registerWidget(widgetConf.id, DateTimePicker);
 }

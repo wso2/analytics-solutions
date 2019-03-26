@@ -26,13 +26,12 @@ export default class CustomTimeRangeSelector extends React.Component {
   state = {
     invalidDateRange: false,
     customGranularityMode: 'second',
-    startTime: Moment().subtract(1, 'days').toDate(),
+    startTime: Moment().subtract(1, 'years').toDate(),
     endTime: new Date(),
     customRangeButtonBackgroundColor: ['#403d3f', '#403d3f', '#403d3f', '#403d3f', '#403d3f', '#403d3f'],
     applyButtonBackgroundColor: '#ef6c00',
     cancelButtonBackgroundColor: '#999',
   };
-
   getSelectedGranularities = () => {
     const { options } = this.props;
     let granularities = [];
@@ -100,7 +99,7 @@ export default class CustomTimeRangeSelector extends React.Component {
   granularity:second,minute,hour,day,month,year
   */
   publishCustomTimeRange = () => {
-    const { handleClose, onChangeCustom, } = this.props;
+    const { handleClose, onChangeCustom } = this.props;
     const { customGranularityMode, startTime, endTime } = this.state;
     console.log('startTime', startTime)
     handleClose()
@@ -128,7 +127,7 @@ export default class CustomTimeRangeSelector extends React.Component {
   render() {
     const customRangeButtons = ['second', 'minute', 'hour', 'day', 'month', 'year']
     const { customGranularityMode, applyButtonBackgroundColor, cancelButtonBackgroundColor } = this.state
-    const { theme } = this.props;
+    const { theme, startTime, endTime } = this.props;
     const customRangeContainer = {
       marginLeft: 1,
       height: 330,
@@ -199,23 +198,21 @@ export default class CustomTimeRangeSelector extends React.Component {
             <Typography style={typographyLabel}>From</Typography>
             <TimePicker
               onChange={this.handleStartTimeChange}
-              inputType={this.state.customGranularityMode}
-              initTime={Moment().subtract(1, 'days')}
+              inputType={customGranularityMode}
+              initTime={Moment(startTime)}
               inputName="startTime"
-              theme={this.props.theme}
-              initTime={Moment().subtract(1, 'days')}
+              theme={theme}
             />
           </div>
           <div style={{ float: 'right', width: '50%' }}>
             <Typography style={typographyLabel}>To</Typography>
             <TimePicker
               onChange={this.handleEndTimeChange}
-              inputType={this.state.customGranularityMode}
-              initTime={Moment()}
+              inputType={customGranularityMode}
+              initTime={Moment(endTime)}
               inputName="endTime"
               startTime={this.state.startTime}
-              theme={this.props.theme}
-              initTime={Moment().subtract(1, 'days')}
+              theme={theme}
             />
           </div>
         </div>
