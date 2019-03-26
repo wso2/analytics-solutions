@@ -193,7 +193,7 @@ class EIAnalyticsTPS extends Widget {
      */
     getEmptyRecordsText() {
         return (
-            <div class="status-message" style={{color: 'white', marginLeft: 'auto', marginRight: 'auto'}}>
+            <div class="status-message" style={{marginLeft: 'auto', marginRight: 'auto', padding: 5}}>
                 <div class="message message-info">
                     <h4><i class="icon fw fw-info"></i> No records found</h4>
                     <p>Please select a valid date range to view stats.</p>
