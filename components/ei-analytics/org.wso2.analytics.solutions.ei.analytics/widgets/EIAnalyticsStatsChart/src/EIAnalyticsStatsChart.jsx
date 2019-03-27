@@ -243,7 +243,7 @@ class EIAnalyticsStatsChart extends Widget {
      * @returns {Function}
      */
     handleStats(stats) {
-        if (stats.data[0]) {
+        if (stats.data.length > 0) {
             let metadata = stats.metadata.names;
             let data = stats.data[0];
             let dataIndex = {};
