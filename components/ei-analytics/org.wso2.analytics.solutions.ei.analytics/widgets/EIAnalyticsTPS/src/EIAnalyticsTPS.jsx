@@ -150,19 +150,29 @@ class EIAnalyticsTPS extends Widget {
 
         dataPointArray.forEach((e) => {
             switch (this.state.timeUnitParameter) {
+                case "year" :
+                    this.state.graphConfig.timeFormat = "%Y";
+                    break;
                 case "month":
                     divider = 3600 * 24 * 30;
                     let timeStamp = new Date(e[labelMapper.AGG_TIMESTAMP]);
                     divider = new Date(timeStamp.getFullYear(), (timeStamp.getMonth() + 1), 0).getDate() * 3600 * 24;
+                    this.state.graphConfig.timeFormat = "%b";
                     break;
                 case "day":
                     divider = 3600 * 24;
+                    this.state.graphConfig.timeFormat = "%x";
                     break;
                 case "hour":
                     divider = 3600;
+                    this.state.graphConfig.timeFormat = "%H";
                     break;
                 case "minute":
                     divider = 60;
+                    this.state.graphConfig.timeFormat = "%M";
+                    break;
+                case "second":
+                    this.state.graphConfig.timeFormat = "%S";
                     break;
             }
             e[labelMapper.noOfInvocation] = (e[labelMapper.noOfInvocation]) / divider;
