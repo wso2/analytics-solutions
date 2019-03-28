@@ -7,7 +7,7 @@
     "css-loader": "^1.0.0",
     "moment": "^2.22.2",
     "react": "^16.4.1",
-    "react-vizgrammar": "^0.8.4",
+    "react-vizgrammar": "^0.8.5",
     "rimraf": "^2.6.2",
     "style-loader": "^0.21.0"
   },
