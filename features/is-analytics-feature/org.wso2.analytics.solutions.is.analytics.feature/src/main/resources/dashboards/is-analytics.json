@@ -20,8 +20,8 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "width": 100.0,
-                "height": 15.0,
+                "width": 100,
+                "height": 15,
                 "content": [
                   {
                     "title": "Date Time Range",
@@ -63,13 +63,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 85.0,
+                "height": 85,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
+                    "height": 100,
                     "width": 33.333333,
                     "content": [
                       {
@@ -107,7 +107,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
+                    "height": 100,
                     "width": 33.333333,
                     "content": [
                       {
@@ -145,7 +145,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
+                    "height": 100,
                     "width": 33.333334,
                     "content": [
                       {
@@ -199,8 +199,8 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "width": 100.0,
-                "height": 6.0,
+                "width": 100,
+                "height": 6,
                 "content": [
                   {
                     "title": "Date Time Range",
@@ -242,8 +242,8 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "width": 100.0,
-                "height": 9.4,
+                "width": 100,
+                "height": 6.150692520775623,
                 "content": [
                   {
                     "title": "IS Analytics User Preferences",
@@ -286,13 +286,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 27.0,
+                "height": 30.249307479224377,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
+                    "height": 100,
                     "width": 33.3,
                     "content": [
                       {
@@ -332,7 +332,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
+                    "height": 100,
                     "width": 16.7,
                     "content": [
                       {
@@ -371,8 +371,8 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 50.0,
+                    "height": 100,
+                    "width": 50,
                     "content": [
                       {
                         "title": "IS Analytics Login Attempts Map",
@@ -413,14 +413,14 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 41.0,
+                "height": 41,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 50.0,
+                    "height": 100,
+                    "width": 50,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -464,8 +464,8 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 50.0,
+                    "height": 100,
+                    "width": 50,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -563,8 +563,8 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "width": 100.0,
-                "height": 6.0,
+                "width": 100,
+                "height": 6,
                 "content": [
                   {
                     "title": "Date Time Range",
@@ -606,8 +606,8 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "width": 100.0,
-                "height": 9.4,
+                "width": 100,
+                "height": 6.310679611650485,
                 "content": [
                   {
                     "title": "IS Analytics User Preferences",
@@ -652,13 +652,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 27.0,
+                "height": 30.089320388349513,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
+                    "height": 100,
                     "width": 33.3,
                     "content": [
                       {
@@ -698,7 +698,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
+                    "height": 100,
                     "width": 16.7,
                     "content": [
                       {
@@ -737,8 +737,8 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 50.0,
+                    "height": 100,
+                    "width": 50,
                     "content": [
                       {
                         "title": "IS Analytics Login Attempts Map",
@@ -779,14 +779,14 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 41.0,
+                "height": 41,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 25.0,
+                    "height": 100,
+                    "width": 25,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -830,8 +830,8 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 25.0,
+                    "height": 100,
+                    "width": 25,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -875,8 +875,8 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 25.0,
+                    "height": 100,
+                    "width": 25,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -920,8 +920,8 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 25.0,
+                    "height": 100,
+                    "width": 25,
                     "content": [
                       {
                         "title": "IS Analytics Attempts By Type",
@@ -1019,8 +1019,8 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "width": 100.0,
-                "height": 6.0,
+                "width": 100,
+                "height": 6,
                 "content": [
                   {
                     "title": "Date Time Range",
@@ -1062,8 +1062,8 @@
                 "type": "stack",
                 "isClosable": true,
                 "title": "",
-                "width": 100.0,
-                "height": 9.4,
+                "width": 100,
+                "height": 6.4531855955678665,
                 "content": [
                   {
                     "title": "IS Analytics User Preferences",
@@ -1107,14 +1107,14 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 27.0,
+                "height": 29.946814404432132,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 36.0,
+                    "height": 100,
+                    "width": 35.05355404089581,
                     "content": [
                       {
                         "title": "IS Analytics Attempts Over Time",
@@ -1153,8 +1153,8 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 16.7,
+                    "height": 100,
+                    "width": 16.26095423563778,
                     "content": [
                       {
                         "title": "IS Analytics Compact Summary",
@@ -1192,8 +1192,8 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 50.0,
+                    "height": 100,
+                    "width": 48.685491723466406,
                     "content": [
                       {
                         "title": "IS Analytics Login Attempts Map",
@@ -1234,13 +1234,13 @@
                 "type": "row",
                 "isClosable": true,
                 "title": "",
-                "height": 41.0,
+                "height": 41,
                 "content": [
                   {
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
+                    "height": 100,
                     "width": 33.333333,
                     "content": [
                       {
@@ -1285,7 +1285,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
+                    "height": 100,
                     "width": 33.333333,
                     "content": [
                       {
@@ -1330,7 +1330,7 @@
                     "type": "stack",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
+                    "height": 100,
                     "width": 33.333334,
                     "content": [
                       {
@@ -1435,14 +1435,14 @@
                     "type": "row",
                     "isClosable": true,
                     "title": "",
-                    "height": 100.0,
-                    "width": 100.0,
+                    "height": 100,
+                    "width": 100,
                     "content": [
                       {
                         "type": "column",
                         "isClosable": true,
                         "title": "",
-                        "width": 100.0,
+                        "width": 100,
                         "content": [
                           {
                             "type": "row",
@@ -1568,7 +1568,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 50.0,
+                                "height": 50,
                                 "width": 33.371074429414215,
                                 "content": [
                                   {
@@ -1712,7 +1712,7 @@
             ]
           }
         ],
-        "height": 1400.0
+        "height": 1400
       },
       {
         "id": "alert_type",
@@ -1818,7 +1818,7 @@
             ]
           }
         ],
-        "height": 863.0
+        "height": 863
       },
       {
         "id": "suspicious_login",
