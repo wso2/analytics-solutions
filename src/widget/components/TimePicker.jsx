@@ -21,7 +21,7 @@ import React from 'react';
 import moment from 'moment';
 import { Select, MenuItem, TextField, Typography } from '@material-ui/core';
 
-export default class TimePickernpm extends React.Component {
+export default class TimePicker extends React.Component {
 
   state = {
     year: this.props.initTime.year(),
@@ -229,9 +229,9 @@ export default class TimePickernpm extends React.Component {
 
   render() {
     const { year, month, days } = this.state;
-    console.log('month', typeof month)
     let { time } = this.state;
     const { inputType, theme, inputName, startTime } = this.props;
+    console.log('time', time)
     switch (inputType) {
       case 'hour':
         time = moment(time, 'HH:mm').format('HH:00:00.000');

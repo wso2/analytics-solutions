@@ -14,10 +14,11 @@ export const dark = createMuiTheme({
     MuiButton: {
       root: {
         color: '#ffffff',
-        textTransform: 'none'
+        textTransform: 'none',
+        '&:hover': {
+          backgroundColor: '#444'
+        }
       },
-
-
     },
     MuiList: {
       root: {
