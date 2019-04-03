@@ -28,7 +28,7 @@ class EIAnalyticsTPS extends Widget {
         super(props);
         var config = {
             "x": 'Time',
-            "charts": [{type: "bar", y: "TPS"}],
+            "charts": [{type: "bar", y: "Average TPS"}],
             "maxLength": 10,
             "width": 400,
             "height": 200,
@@ -43,7 +43,7 @@ class EIAnalyticsTPS extends Widget {
         let metadata = {
             "names": [
                 "Time",
-                "TPS"
+                "Average TPS"
             ],
             "types": [
                 "time",
@@ -210,7 +210,6 @@ class EIAnalyticsTPS extends Widget {
             </div>
         );
     };
-
 
     /**
      * Draw the graph with parameters from the widget state
