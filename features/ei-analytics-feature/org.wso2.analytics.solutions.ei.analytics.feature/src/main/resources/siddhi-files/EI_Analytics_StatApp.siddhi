@@ -74,6 +74,7 @@ define table ComponentNameTable (componentId string, componentName string, compo
 @store(type = 'rdbms', datasource = 'EI_ANALYTICS')
 @info(name = 'MediatorStat')
 @purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
+@PartitionById
 define aggregation MediatorStatAgg
 from PreProcessedMediatorStatStream
  select metaTenantId, entryPoint, entryPointHashcode, componentId, hashCode, componentName, componentType, sum(duration) as totalDuration ,avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, startTime
@@ -84,6 +85,7 @@ from PreProcessedMediatorStatStream
 @store(type = 'rdbms', datasource = 'EI_ANALYTICS')
 @purge(enable='true', interval='60 min', @retentionPeriod(sec='1 day', min='72 hours', hours='90 days', days='1 year', months='2 years', years='3 years'))
 @info(name = 'ESBStat')
+@PartitionById
 define aggregation ESBStatAgg
 from PreProcessedESBStatStream
  select componentId, componentName, componentType, sum(duration) as totalDuration, avg(duration) as avgDuration, min(duration) as minDuration, max(duration) as maxDuration, count() as noOfInvocation, sum(faultCount) as faultCount, entryPoint, metaTenantId, startTime as eventTimestamp
