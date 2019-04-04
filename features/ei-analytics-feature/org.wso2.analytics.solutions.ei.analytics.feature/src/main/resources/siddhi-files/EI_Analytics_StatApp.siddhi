@@ -119,11 +119,11 @@ insert into ComponentNameTableStream;
 
 from ComponentNameTableStream
 select *
-insert into ComponentNameInMemoryTable;
+update or insert into ComponentNameInMemoryTable on ComponentNameInMemoryTable.componentId == componentId;
 
 from ComponentNameTableStream
 select *
-insert into ComponentNameTable;
+update or insert into ComponentNameTable on ComponentNameTable.componentId == componentId;
 
 -- if DecompressedEventStream has beforePayload or transportPropertyMap or contextPropertyMap, add them to into ESBEventTable through an async stream
 from DecompressedEventStream[not(beforePayload is null) or not(transportPropertyMap is null) or not(contextPropertyMap is null)]
