@@ -18,21 +18,24 @@
  */
 
 import React from 'react'
-import { Popover, Grid, Button, Typography } from '@material-ui/core';
+import Popover from '@material-ui/core/Popover/Popover';
+import Grid from '@material-ui/core/Grid/Grid';
+import Button from '@material-ui/core/Button/Button';
+import Typography from '@material-ui/core/Typography/Typography';
 import CustomTimeRangeSelector from './CustomTimeRangeSelector';
 
 const DateTimePopper = (props) => {
 
   const quickRangeButtons = ['1 Min', '15 Min', '1 Hour', '1 Day', '7 Days', '1 Month', '3 Months', '6 Months', '1 Year'];
   const { options, onChangeCustom, theme, onClose, startTime,
-    endTime, customRangeGranularityValue, anchorEl, open, changeQuickRangeGranularities
+    endTime, customRangeGranularityValue, anchorEl, open, changeQuickRangeGranularities, quickRangeGranularityValue
   } = props;
   const quickRanges = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
     marginTop: 8,
-    marginRight: 21,
+    marginRight: 17,
     marginBottom: 1,
     borderRightStyle: 'solid',
     borderRightWidth: 1,
@@ -42,8 +45,8 @@ const DateTimePopper = (props) => {
   }
   const customRanges = {
     marginTop: 8,
-    marginRight: 6,
-    marginLeft: -21,
+    marginRight: 2,
+    marginLeft: -17,
     height: 397,
     backgroundColor: theme.name === 'dark' ? '#333435' : '#ffffff'
   }
@@ -76,17 +79,22 @@ const DateTimePopper = (props) => {
         <Grid item xs={3}>
           <div style={quickRanges}>
             <Typography style={RangeHeader}>Quick Ranges</Typography>
-            {quickRangeButtons.map((quickRangeButtons, index) =>
+            {quickRangeButtons.map((quickRangeButton, index) =>
               <Button
                 size="large"
                 key={index}
-                onClick={() => changeQuickRangeGranularities(quickRangeButtons)}
+                onClick={() => changeQuickRangeGranularities(quickRangeButton)}
                 style={{
                   border: 0,
+                  padding: 0,
                   fontSize: 10,
+                  backgroundColor: theme.name === 'dark' ?
+                    (quickRangeGranularityValue === quickRangeButton ? '#505050' : '#323435') :
+                    (quickRangeGranularityValue === quickRangeButton ? '#e9e8e8' : '#ffffff')
+
                 }}
               >
-                {quickRangeButtons}
+                {quickRangeButton}
               </Button>
             )}
           </div>

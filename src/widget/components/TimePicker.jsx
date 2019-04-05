@@ -19,7 +19,10 @@
 
 import React from 'react';
 import moment from 'moment';
-import { Select, MenuItem, TextField, Typography } from '@material-ui/core';
+import Select from '@material-ui/core/Select/Select';
+import MenuItem from '@material-ui/core/MenuItem/MenuItem';
+import Typography from '@material-ui/core/Typography/Typography';
+import TextField from '@material-ui/core/TextField/TextField';
 
 export default class TimePicker extends React.Component {
 
@@ -80,7 +83,11 @@ export default class TimePicker extends React.Component {
     if (inputName === 'startTime') {
       for (let i = 1; i <= days; i++) {
         dayComponents.push(
-          <MenuItem key={`$days-${i}`} value={i} children={i} />
+          <MenuItem
+            key={`$days-${i}`}
+            value={i}
+            children={i}
+          />
         );
       }
     } else if (inputName === 'endTime') {
@@ -88,7 +95,11 @@ export default class TimePicker extends React.Component {
         const startDate = moment(startTime).date();
         for (let i = startDate; i <= days; i++) {
           dayComponents.push(
-            <MenuItem key={`$days-${i}`} value={i} children={i} />
+            <MenuItem
+              key={`$days-${i}`}
+              value={i}
+              children={i}
+            />
           );
         }
         if (this.state.days < startDate) {
@@ -98,7 +109,10 @@ export default class TimePicker extends React.Component {
       } else {
         for (let i = 1; i <= days; i++) {
           dayComponents.push(
-            <MenuItem key={`$days-${i}`} value={i} children={i} />
+            <MenuItem
+              key={`$days-${i}`}
+              value={i}
+              children={i} />
           );
         }
       }
@@ -127,7 +141,11 @@ export default class TimePicker extends React.Component {
     if (inputName === 'startTime') {
       for (let i = 0; i < monthArray.length; i++) {
         monthComponents.push(
-          <MenuItem key={`month-${i}`} value={i} children={monthArray[i]} />
+          <MenuItem
+            key={`month-${i}`}
+            value={i}
+            children={monthArray[i]}
+          />
         );
       }
     } else if (inputName === 'endTime') {
@@ -170,22 +188,30 @@ export default class TimePicker extends React.Component {
     if (inputName === 'startTime') {
       for (let index = 1970; index <= 2099; index++) {
         yearArray.push(
-          <MenuItem key={`year-${index}`} value={index} children={index} />
+          <MenuItem
+            key={`year-${index}`}
+            value={index}
+            children={index}
+          />
         );
       }
     } else if (inputName === 'endTime') {
       const startYear = moment(startTime).year();
       for (let index = startYear; index <= 2099; index++) {
         yearArray.push(
-          <MenuItem key={`year-${index}`} value={index} children={index} />
+          <MenuItem
+            key={`year-${index}`}
+            value={index}
+            children={index}
+          />
         );
       }
+
       if (this.state.year < startYear) {
         this.setState({ year: startYear });
         this.handleOnChange('year', startYear);
       }
     }
-
     return yearArray;
   }
 
@@ -231,7 +257,6 @@ export default class TimePicker extends React.Component {
     const { year, month, days } = this.state;
     let { time } = this.state;
     const { inputType, theme, inputName, startTime } = this.props;
-    console.log('time', time)
     switch (inputType) {
       case 'hour':
         time = moment(time, 'HH:mm').format('HH:00:00.000');

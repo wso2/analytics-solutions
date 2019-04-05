@@ -19,18 +19,15 @@
 
 import React from "react";
 // import Widget from "@wso2-dashboards/widget";
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import { MuiThemeProvider, Typography } from "@material-ui/core/";
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import Moment from "moment";
-import { Scrollbars } from "react-custom-scrollbars";
-import { Snackbar } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar/Snackbar';
 import Widget from "../../mocking/Widget";
 import NotificationSync from '@material-ui/icons/Sync'
 import NotificationSyncDisabled from '@material-ui/icons/SyncDisabled'
 import DateRange from '@material-ui/icons/DateRange'
 import widgetConf from "../../resources/widgetConf.json";
-import { Button } from "@material-ui/core";
+import Button from "@material-ui/core/Button/Button";
 import DateTimePopper from "./components/DateTimePopper";
 import { dark, light } from '../theme/Theme'
 
@@ -73,6 +70,7 @@ export default class DateTimePicker extends Widget {
       // height: '450px',
       granularityMode: 'null',
       customRangeGranularityValue: 'day',
+      quickRangeGranularityValue: '3 Months',
       granularityValue: "",
       options: this.props.configs ? this.props.configs.options : "",
       enableSync: false,
@@ -118,6 +116,8 @@ export default class DateTimePicker extends Widget {
    */
   publishTimeRange = (message) => {
     console.log('message', message)
+    console.log('message', Moment(message.from).format('YYYY-MMMM-DD'))
+    console.log('message', Moment(message.to).format('YYYY-MMMM-DD'))
     super.publish(message);
     this.snackBarPreview(message);
   }
@@ -153,7 +153,8 @@ export default class DateTimePicker extends Widget {
   }
 
   handleGranularityChangeForCustom = (mode, startTime, endTime, granularity) => {
-    console.log('TIME_TIMESTART', startTime)
+    console.log('startTimeInUpperCmpt', startTime)
+    console.log('endTimeInUpperCmpt', endTime)
     this.clearRefreshInterval();
     this.publishTimeRange({
       granularity,
@@ -163,8 +164,10 @@ export default class DateTimePicker extends Widget {
     this.setState({
       granularityMode: mode,
       granularityValue: granularity,
-      startTime,
-      endTime
+      startTime: startTime,
+      endTime: endTime,
+      quickRangeGranularityValue: null,
+      customRangeGranularityValue: granularity
     });
   }
   /**
@@ -172,11 +175,11 @@ export default class DateTimePicker extends Widget {
    * @param{String} time mode:'1 minute,15 minute etc
    */
 
-  getStartTimeAndGranularity = (timeMode) => {
+  getStartTimeAndGranularity = (granularityValue) => {
     let granularity = "";
     let startTime = null;
 
-    switch (timeMode) {
+    switch (granularityValue) {
       case "1 Min":
         startTime = Moment()
           .subtract(1, "minutes")
@@ -236,6 +239,7 @@ export default class DateTimePicker extends Widget {
     }
     return { startTime, granularity };
   }
+
 
   verifyDefaultGranularityOfTimeRange = (granularity) => {
     const availableGranularities = this.getAvailableGranularities();
@@ -387,6 +391,7 @@ export default class DateTimePicker extends Widget {
 
   loadUserSpecifiedTimeRange = (range, granularity) => {
     const timeRange = this.getTimeRangeName(range);
+    console.log('timeRange', timeRange)
     if (timeRange.length > 0) {
       const supportedTimeRanges = this.getSupportedTimeRanges();
       if (supportedTimeRanges.indexOf(timeRange) > -1) {
@@ -572,21 +577,21 @@ export default class DateTimePicker extends Widget {
     return "";
   }
 
-  /**in here granularity modde is the gran valuew second,minute,hour */
-  getStandardDateTimeFormat = (granularityMode) => {
-    granularityMode = granularityMode.toLowerCase();
+  /**in here granularity granularityValue is second,minute,hour */
+  getStandardDateTimeFormat = (granularitValue) => {
+    granularitValue = granularitValue.toLowerCase();
     let format = "";
-    if (granularityMode.indexOf("second") > -1) {
+    if (granularitValue.indexOf("second") > -1) {
       format = "YYYY-MMMM-DD hh:mm:ss A";
-    } else if (granularityMode.indexOf("minute") > -1) {
+    } else if (granularitValue.indexOf("minute") > -1) {
       format = "YYYY-MMMM-DD hh:mm A";
-    } else if (granularityMode.indexOf("hour") > -1) {
+    } else if (granularitValue.indexOf("hour") > -1) {
       format = "YYYY-MMMM-DD hh:00 A";
-    } else if (granularityMode.indexOf("day") > -1) {
+    } else if (granularitValue.indexOf("day") > -1) {
       format = "YYYY-MMMM-DD";
-    } else if (granularityMode.indexOf("month") > -1) {
+    } else if (granularitValue.indexOf("month") > -1) {
       format = "YYYY-MMMM";
-    } else if (granularityMode.indexOf("year") > -1) {
+    } else if (granularitValue.indexOf("year") > -1) {
       format = "YYYY";
     }
     return format;
@@ -609,9 +614,12 @@ export default class DateTimePicker extends Widget {
   render() {
     console.log("this.state My Widget", this.state);
     console.log("this.pros My Widget", this.props);
+    console.log('START_TIME', this.state.startTime)
+    console.log('END_TIME', this.state.endTime)
+
     const { granularityMode } = this.state;
-    const { width, height } = this.props.glContainer;
-    let styleWrapper = { backgroundColor: "#1a262e", color: "white" };
+    // const { width, height } = this.props.glContainer;
+    // let styleWrapper = { backgroundColor: "#1a262e", color: "white" };
     if (this.props.muiTheme) {
       if (this.props.muiTheme.name === "light") {
         styleWrapper = { backgroundColor: "#ffffff", color: "black" };
@@ -622,12 +630,10 @@ export default class DateTimePicker extends Widget {
       <MuiThemeProvider theme={this.props.muiTheme.name === "dark" ? dark : light}>
         <div>
           {this.renderSnackBar()}
-          <Scrollbars style={{ width, height }}>
-            <div style={{ float: "right", marginTop: 2, marginRight: 23 }}>
-              {this.getCustomRangePopover()}
-              {this.getTimeIntervalDescriptor(granularityMode)}
-            </div>
-          </Scrollbars>
+          <div style={{ float: "right", marginTop: 2, marginRight: 23 }}>
+            {this.getCustomRangePopover()}
+            {this.getTimeIntervalDescriptor(granularityMode)}
+          </div>
         </div>
       </MuiThemeProvider>
     );
@@ -644,7 +650,7 @@ export default class DateTimePicker extends Widget {
   }
   getCustomRangePopover() {
     const open = Boolean(this.state.anchorEl);
-    const { anchorEl, customRangeGranularityValue } = this.state;
+    const { anchorEl, customRangeGranularityValue, quickRangeGranularityValue, startTime, endTime } = this.state;
     if (open) {
       return (
         <DateTimePopper
@@ -657,9 +663,10 @@ export default class DateTimePicker extends Widget {
           getDefaultTimeRange={this.getDefaultTimeRange}
           changeQuickRangeGranularities={this.changeQuickRangeGranularities}
           theme={this.props.muiTheme}
-          startTime={this.state.startTime}
-          endTime={this.state.endTime}
+          startTime={startTime}
+          endTime={endTime}
           customRangeGranularityValue={customRangeGranularityValue}
+          quickRangeGranularityValue={quickRangeGranularityValue}
         />
       )
     }
@@ -671,7 +678,6 @@ export default class DateTimePicker extends Widget {
       startTime: null,
       endTime: null
     };
-    console.log('GRANMODE', granularityMode)
     if (granularityMode !== "custom") {
       startAndEnd = this.getStartTimeAndEndTimeForTimeIntervalDescriptor(
         granularityMode
@@ -729,13 +735,13 @@ export default class DateTimePicker extends Widget {
 
   /**
    * Returning the calculated startTime and endTime according to the selected granularity 
-   * @param{String} granularityMode:'1 minute', '15 minute','1 hour' etc
+   * @param{String} granularityValue:'1 minute', '15 minute','1 hour' etc
    */
-  getStartTimeAndEndTimeForTimeIntervalDescriptor = (granularityMode) => {
+  getStartTimeAndEndTimeForTimeIntervalDescriptor = (granularityValue) => {
     let startTime = null;
     let endTime = null;
 
-    switch (granularityMode) {
+    switch (granularityValue) {
       case "1 Min":
         startTime = Moment()
           .subtract(1, "minutes")
@@ -847,35 +853,36 @@ export default class DateTimePicker extends Widget {
     return "";
   }
 
-  changeQuickRangeGranularities = (granularityMode) => {
-    this.handleGranularityChange(granularityMode);
-    let graularityValue = ''
-    switch (granularityMode) {
+  changeQuickRangeGranularities = (granularityValue) => {
+    this.handleGranularityChange(granularityValue);
+    let customRangeGranularityValue = ''
+    switch (granularityValue) {
       case '1 Min':
       case "15 Min":
-        graularityValue = 'second';
+        customRangeGranularityValue = 'second';
         break;
       case "1 Hour":
-        graularityValue = 'minute';
+        customRangeGranularityValue = 'minute';
         break;
       case "1 Day":
       case "7 Days":
-        graularityValue = 'hour';
+        customRangeGranularityValue = 'hour';
         break;
       case "1 Month":
       case "3 Months":
       case "6 Months":
-        graularityValue = 'day';
+        customRangeGranularityValue = 'day';
         break;
       case "1 Year":
-        graularityValue = 'month';
+        customRangeGranularityValue = 'month';
         break;
       default:
     }
     this.setState({
-      granularityMode: granularityMode,
+      granularityMode: granularityValue,
       anchorEl: null,
-      customRangeGranularityValue: graularityValue
+      customRangeGranularityValue: customRangeGranularityValue,
+      quickRangeGranularityValue: granularityValue
     })
   }
 
@@ -973,9 +980,9 @@ export default class DateTimePicker extends Widget {
    * Returning the granularity list according to the granularity mode that select.
    * @param{string} granularityMode : selected value as 'second','minute','hour' etc
    */
-  getSupportedGranularitiesForFixed = (granularityMode) => {
+  getSupportedGranularitiesForFixed = (granularityValue) => {
     let supportedGranularities = [];
-    switch (granularityMode) {
+    switch (granularityValue) {
       case "1 Min":
       case "15 Min":
         supportedGranularities = ["Second", "Minute"];
