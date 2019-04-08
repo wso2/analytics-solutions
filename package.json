@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "author": "lakshank@wso2.com",
+  "author": "lahirur@wso2.com",
   "license": "MIT",
   "babel": {
     "presets": [
@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.dev.js --mode development --open",
-    "build": "webpack --config ./webpack.config.prod.js --mode development",
+    "build": "webpack --mode production",
     "dev": "webpack --config ./webpack.config.prod.js --mode development",
     "production": "npm i && webpack --config ./webpack.config.prod.js --mode production",
     "lint": "eslint"
@@ -35,7 +35,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "node-sass": "^4.9.4",
-    "rc-calendar": "^9.10.8",
     "react-hot-loader": "^4.3.11",
     "sass-loader": "^7.1.0",
     "simple-progress-webpack-plugin": "^1.1.2",
@@ -51,15 +50,11 @@
     "@material-ui/icons": "3.0.1",
     "@wso2-dashboards/widget": "1.4.0",
     "events": "3.0.0",
-    "material-ui": "0.20.2",
     "moment": "2.22.2",
     "prop-types": "15.6.2",
     "re-resizable": "4.11.0",
     "react": "16.4.0",
-    "react-calendar": "^2.18.1",
     "react-custom-scrollbars": "4.2.1",
-    "react-date-picker": "7.1.1",
-    "react-datepicker": "2.0.0",
     "react-dom": "16.4.0",
     "react-jss": "8.6.1",
     "react-vizgrammar": "0.7.37",

@@ -7,7 +7,7 @@ const APP_NAME = widgetConf.id;
 module.exports = {
   entry: "./src/widget/DateTimePicker.jsx",
   output: {
-    path: `${__dirname}/${APP_NAME}`,
+    path: `${__dirname}/dist/${APP_NAME}`,
     publicPath: "/",
     filename: `${APP_NAME}.js`
   },

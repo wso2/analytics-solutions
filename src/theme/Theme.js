@@ -1,116 +1,116 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from "@material-ui/core/styles";
 export const dark = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  },
   overrides: {
     MuiPopover: {
       paper: {
-        borderRadius: 0,
+        borderRadius: 0
       }
     },
     MuiGrid: {
       container: {
-        backgroundColor: '#323435',
+        backgroundColor: "#323435"
       }
     },
     MuiButton: {
       root: {
-        color: '#ffffff',
-        textTransform: 'none',
-        '&:hover': {
-          backgroundColor: '#444'
+        color: "#ffffff",
+        textTransform: "none",
+        "&:hover": {
+          backgroundColor: "#444"
         }
-      },
+      }
     },
     MuiList: {
       root: {
-        backgroundColor: '#303030',
+        backgroundColor: "#303030"
       },
-      padding: 0,
-
+      padding: 0
     },
     MuiInput: {
       root: {
-        color: '#ffffff',
-        fontSize: 13,
+        color: "#ffffff",
+        fontSize: 13
       },
       underline: {
-        '&:before': {
-          borderBottomColor: '#ffffff'
+        "&:before": {
+          borderBottomColor: "#ffffff"
         },
-        '&:after': {
-          borderBottomColor: '#ffffff'
-        },
+        "&:after": {
+          borderBottomColor: "#ffffff"
+        }
       }
     },
 
     MuiInputLabel: {
       root: {
-        color: '#ffffff',
-      },
+        color: "#ffffff"
+      }
     },
     MuiMenuItem: {
       root: {
-        '&:hover': {
-          backgroundColor: '#444'
+        "&:hover": {
+          backgroundColor: "#444"
         },
-        color: '#ffffff',
+        color: "#ffffff",
         fontSize: 15,
-        backgroundColor: '#303030',
-      },
+        backgroundColor: "#303030"
+      }
     },
     MuiSelect: {
       root: {
-        color: '#ffffff',
+        color: "#ffffff",
         width: 130,
         margin: 5,
-        fontSize: 13,
+        fontSize: 13
       },
       icon: {
-        color: '#756e71',
+        color: "#756e71"
       }
-    },
-  },
+    }
+  }
 });
 
 export const light = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  },
   overrides: {
     MuiGrid: {
       container: {
-        background: 'ffffff',
-        color: '#ffffff',
+        background: "ffffff",
+        color: "#ffffff"
       }
     },
     MuiSelect: {
       root: {
-        color: '#000',
+        color: "#000",
         width: 120,
         margin: 5,
-        fontSize: 13,
-
+        fontSize: 13
       }
     },
     MuiButton: {
       root: {
-        color: '#000',
-        textTransform: 'none',
+        color: "#000",
+        textTransform: "none"
       }
-
     },
     MuiInput: {
       root: {
-        color: '#000',
-        fontSize: 13,
+        color: "#000",
+        fontSize: 13
       },
       underline: {
-        '&:before': {
-          borderBottomColor: '#000'
+        "&:before": {
+          borderBottomColor: "#000"
         },
-        '&:after': {
-          borderBottomColor: '#000'
-        },
+        "&:after": {
+          borderBottomColor: "#000"
+        }
       }
-
-    },
-
-  },
+    }
+  }
 });
-
