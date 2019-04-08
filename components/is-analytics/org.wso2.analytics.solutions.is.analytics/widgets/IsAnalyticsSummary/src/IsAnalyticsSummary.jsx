@@ -231,10 +231,7 @@ class IsAnalyticsSummary extends Widget {
         const { height } = this.state;
         const { width } = this.state;
         const divSpacings = {
-            paddingLeft: width * 0.05,
-            paddingRight: width * 0.05,
-            paddingTop: height * 0.05,
-            paddingBottom: height * 0.05,
+            padding: 15,
             width: '100%',
             height: '100%',
             boxSizing: 'border-box',
@@ -260,18 +257,13 @@ class IsAnalyticsSummary extends Widget {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={divSpacings}>
-                    <div style={{
-                        height: height * 0.15,
-                        width: width * 0.9,
-                    }}
-                    >
-                        <Typography variant="body1" gutterBottom align="center">
+
+                        <Typography variant="body1" gutterBottom align="center" style={{minHeight: 60,}}>
                             {bodyTexts[this.props.configs.options.widgetType]}
                         </Typography>
-                    </div>
                     <div style={{
-                        height: height * 0.3,
-                        width: width * 0.9,
+                        width: width * 0.6,
+                        margin: '30px auto',
                     }}
                     >
                         <VizG
@@ -281,19 +273,13 @@ class IsAnalyticsSummary extends Widget {
                             theme={this.props.muiTheme.name}
                         />
                     </div>
-                    <div style={{
-                        height: height * 0.3,
-                        width: width * 0.9,
-                    }}
-                    >
+                    <div>
                         {
                             this.state.totalAttempts > 0
                             && (
                                 <div>
                                     <div style={{
-                                        height: height * 0.1,
-                                        width: width * 0.9,
-                                        'text-align': 'center',
+                                        textAlign: 'center',
                                     }}
                                     >
                                         <Typography
@@ -303,7 +289,7 @@ class IsAnalyticsSummary extends Widget {
                                             style={{ color: colorGreen }}
                                         >
                                             Success:
-                                            {this.state.successPercentage}
+                                             {this.state.successPercentage}
                                         </Typography>
                                         <Typography
                                             variant="body1"
@@ -312,15 +298,14 @@ class IsAnalyticsSummary extends Widget {
                                             style={{ color: colorRed }}
                                         >
                                             Failure:
-                                            {this.state.failurePercentage}
+                                             {this.state.failurePercentage}
                                         </Typography>
                                     </div>
-                                    <div
-                                        style={{
-                                            height: height * 0.2,
-                                            width: width * 0.9,
-                                        }}
-                                    >
+                                    <div style={{
+                                        margin: '10px auto',
+                                        width:width,
+                                        height:400,
+                                    }}>
                                         <VizG
                                             config={this.state.pieChartConfig}
                                             metadata={this.state.pieChartMetadata}
@@ -332,13 +317,10 @@ class IsAnalyticsSummary extends Widget {
                             )
                         }
                     </div>
-                    <div style={{
-                        height: height * 0.1,
-                        width: width * 0.9,
-                    }}
-                    >
+                    <div>
                         <a href={this.getSeeMoreLink()}>
-                            <Button color="primary" variant="outlined" component="span" style={{ float: 'right' }}>
+                            <Button color="primary" variant="outlined" component="span" style={{ position: 'absolute',
+                            bottom: 10, right:10}}>
                                 <Typography
                                     variant="button"
                                     gutterBottom

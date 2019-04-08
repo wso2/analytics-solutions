@@ -300,7 +300,7 @@ class EIAnalyticsMessageFlow extends Widget {
 
     handleConfigEntryData(timeUnit, timeFrom, timeTo, tenantId, entryName) {
         return (configEntryData) => {
-            if (configEntryData) {
+            if (configEntryData.data.length > 0) {
                 let hashcodeIndex = configEntryData.metadata.names.indexOf("hashcode");
 
                 let hashcodeData = configEntryData.data[0][hashcodeIndex];
@@ -833,7 +833,7 @@ class EIAnalyticsMessageFlow extends Widget {
 
     handleSequenceMessageFlowSchema(timeUnit, timeFrom, timeTo, tenantId, entryName) {
         return (schemaData) => {
-            if (schemaData) {
+            if (schemaData.data.length > 0) {
                 let parsedSchemaData = this.parseDatastoreMessage(schemaData)[0]; // Get latest schema data
 
                 let artifactFirstEntryTime = moment(parsedSchemaData._timestamp).format("YYYY-MM-DD HH:mm:ss");

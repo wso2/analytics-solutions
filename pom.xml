@@ -27,7 +27,7 @@
     <groupId>org.wso2.analytics.solutions</groupId>
     <artifactId>org.wso2.analytics.solutions.parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.34-SNAPSHOT</version>
+    <version>1.0.38-SNAPSHOT</version>
     <name>WSO2 Analytics Solutions - Parent</name>
 
     <modules>
@@ -854,12 +854,12 @@
     </profiles>
 
     <properties>
-        <carbon.analytics-common.version>6.1.1</carbon.analytics-common.version>
-        <carbon.analytics.version>2.0.491</carbon.analytics.version>
+        <carbon.analytics-common.version>6.1.4</carbon.analytics-common.version>
+        <carbon.analytics.version>2.0.504</carbon.analytics.version>
         <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
         <kryo.version>3.0.3</kryo.version>
 
-        <siddhi.version>4.4.9</siddhi.version>
+        <siddhi.version>4.5.0</siddhi.version>
         <siddhi.map.wso2event.version>4.1.0</siddhi.map.wso2event.version>
         <siddhi.map.json.version>4.1.0</siddhi.map.json.version>
 

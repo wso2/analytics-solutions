@@ -245,10 +245,7 @@ class IsAnalyticsCompactSummary extends Widget {
         const { height } = this.state;
         const { width } = this.state;
         const divSpacings = {
-            paddingLeft: width * 0.05,
-            paddingRight: width * 0.05,
-            paddingTop: height * 0.05,
-            paddingBottom: height * 0.05,
+            padding: 15,
             width: '100%',
             height: '100%',
             boxSizing: 'border-box',
@@ -275,8 +272,8 @@ class IsAnalyticsCompactSummary extends Widget {
             <MuiThemeProvider theme={theme}>
                 <div style={divSpacings}>
                     <div style={{
-                        height: height * 0.45,
-                        width: width * 0.9,
+                        margin: '30px auto',
+                        maxWidth: 500,
                     }}
                     >
                         <VizG
@@ -289,14 +286,10 @@ class IsAnalyticsCompactSummary extends Widget {
                     {
                         (this.state.totalAttempts !== 0)
                         && (
-                            <div style={{
-                                height: height * 0.55,
-                                width: width * 0.9,
-                            }}
+                            <div
                             >
                                 <div style={{
-                                    height: height * 0.05,
-                                    width: width * 0.9,
+                                    textAlign: 'center',
                                 }}
                                 >
                                     <Typography
@@ -319,8 +312,7 @@ class IsAnalyticsCompactSummary extends Widget {
                                     </Typography>
                                 </div>
                                 <div style={{
-                                    height: height * 0.5,
-                                    width: width * 0.9,
+                                    margin: '30px -120px',
                                 }}
                                 >
                                     <VizG

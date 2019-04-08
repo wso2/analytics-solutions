@@ -20,7 +20,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 9.578614692830499,
+                                "height": 9.378841171430285,
                                 "width": 100.0,
                                 "content": [
                                     {
@@ -62,7 +62,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 26.072632492979032,
+                                "height": 24.714553309646,
                                 "content": [
                                     {
                                         "title": "EI Analytics Stats Chart",
@@ -98,7 +98,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 18.668444461415717,
+                                "height": 20.22629716614896,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -204,7 +204,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 18.5590013872592,
+                                "height": 23.45429404540676,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -287,7 +287,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 27.12130696551555,
+                                "height": 22.226014307368,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -406,7 +406,7 @@
                         ]
                     }
                 ],
-                "height": 1733.4000244140625
+                "height": 1714.0
             },
             {
                 "id": "proxy",
@@ -775,7 +775,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 11.111688025163481,
+                                "height": 7.9261017428474645,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -861,7 +861,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 20.19619066543107,
+                                "height": 19.59690997749551,
                                 "content": [
                                     {
                                         "title": "EI Analytics Stats Chart",
@@ -901,7 +901,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 14.29957627455111,
+                                "height": 16.44583701792902,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1040,7 +1040,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 21.90978006123472,
+                                "height": 21.575753715715734,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Table",
@@ -1077,7 +1077,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 34.553902752602,
+                                "height": 34.45539754601228,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Flow",
@@ -1114,7 +1114,7 @@
                         ]
                     }
                 ],
-                "height": 2149.0
+                "height": 2121.0
             },
             {
                 "id": "sequence",
@@ -1129,7 +1129,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 12.384325470861173,
+                                "height": 9.139958413380972,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1215,7 +1215,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 19.291552032784615,
+                                "height": 21.155409361308767,
                                 "width": 100.0,
                                 "content": [
                                     {
@@ -1256,7 +1256,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 16.419970007797616,
+                                "height": 15.70434884332247,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1395,7 +1395,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 21.90978006123472,
+                                "height": 20.95489997842279,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Table",
@@ -1432,7 +1432,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 34.55120678966752,
+                                "height": 33.045383403565005,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Flow",
@@ -1484,7 +1484,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 19.498302419813626,
+                                "height": 14.214308430294809,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1570,7 +1570,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 29.408555399675294,
+                                "height": 34.69254938919411,
                                 "content": [
                                     {
                                         "title": "EI Analytics Stats Chart",
@@ -1800,7 +1800,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 11.635631536560387,
+                                "height": 7.727225497543937,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -1889,7 +1889,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 20.809677862483746,
+                                "height": 19.665088774641482,
                                 "content": [
                                     {
                                         "title": "EI Analytics Stats Chart",
@@ -1929,7 +1929,7 @@
                                 "type": "row",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 14.295643943363249,
+                                "height": 16.778030755110457,
                                 "content": [
                                     {
                                         "type": "stack",
@@ -2068,7 +2068,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 18.684578894866707,
+                                "height": 18.866261040208773,
                                 "content": [
                                     {
                                         "title": "Messages",
@@ -2105,7 +2105,7 @@
                                 "type": "stack",
                                 "isClosable": true,
                                 "title": "",
-                                "height": 34.57446776272593,
+                                "height": 36.96339393249537,
                                 "content": [
                                     {
                                         "title": "EI Analytics Message Flow",
@@ -2145,7 +2145,7 @@
                         ]
                     }
                 ],
-                "height": 2231.0
+                "height": 2094.0
             },
             {
                 "id": "message",
@@ -2495,7 +2495,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -2583,7 +2584,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -2677,7 +2679,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -2771,7 +2774,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -2859,7 +2863,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -2950,7 +2955,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3039,7 +3045,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3127,7 +3134,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3215,7 +3223,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3303,7 +3312,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3397,7 +3407,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3485,7 +3496,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {
@@ -3568,7 +3580,8 @@
                     ],
                     "legend": true,
                     "maxLength": 20,
-                    "append": false
+                    "append": false,
+                    "tipTimeFormat": "%c"
                 },
                 "providerConfig": {
                     "configs": {

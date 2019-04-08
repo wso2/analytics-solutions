@@ -204,10 +204,9 @@ class EIAnalyticsHorizontalBarChart extends Widget {
     renderEmptyRecordsMessage() {
         return (
             <div className="status-message" style={{
-                color: 'white',
                 marginLeft: 'auto',
                 marginRight: 'auto',
-                padding: '5px 5px 5px 5px'
+                padding: 5
             }}>
                 <div className="message message-info">
                     <h4>

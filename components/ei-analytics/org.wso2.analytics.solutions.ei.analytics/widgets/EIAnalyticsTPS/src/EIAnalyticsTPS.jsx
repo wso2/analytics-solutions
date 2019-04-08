@@ -28,7 +28,7 @@ class EIAnalyticsTPS extends Widget {
         super(props);
         var config = {
             "x": 'Time',
-            "charts": [{type: "bar", y: "TPS"}],
+            "charts": [{type: "bar", y: "Average TPS"}],
             "maxLength": 10,
             "width": 400,
             "height": 200,
@@ -36,19 +36,20 @@ class EIAnalyticsTPS extends Widget {
             "append": false,
             "disableVerticalGrid": true,
             "disableHorizontalGrid": true,
-            "animate": true
+            "animate": true,
+            "tipTimeFormat": '%c'
         };
 
         let metadata = {
             "names": [
                 "Time",
-                "TPS"
+                "Average TPS"
             ],
             "types": [
                 "time",
                 "linear"
             ]
-        }
+        };
 
         let data = [];
 
@@ -133,7 +134,6 @@ class EIAnalyticsTPS extends Widget {
         return widgetConfiguration.configs.providerConfig;
     }
 
-
     /**
      * Draw the graph with the data retrieved from the data store
      */
@@ -146,28 +146,37 @@ class EIAnalyticsTPS extends Widget {
         let labelMapper = {};
         stats.metadata.names.forEach((value, index) => {
             labelMapper[value] = index;
-        })
+        });
 
         dataPointArray.forEach((e) => {
             switch (this.state.timeUnitParameter) {
+                case "year" :
+                    this.state.graphConfig.timeFormat = "%Y";
+                    break;
                 case "month":
                     divider = 3600 * 24 * 30;
                     let timeStamp = new Date(e[labelMapper.AGG_TIMESTAMP]);
                     divider = new Date(timeStamp.getFullYear(), (timeStamp.getMonth() + 1), 0).getDate() * 3600 * 24;
+                    this.state.graphConfig.timeFormat = "%b";
                     break;
                 case "day":
                     divider = 3600 * 24;
+                    this.state.graphConfig.timeFormat = "%x";
                     break;
                 case "hour":
                     divider = 3600;
+                    this.state.graphConfig.timeFormat = "%H";
                     break;
                 case "minute":
                     divider = 60;
+                    this.state.graphConfig.timeFormat = "%M";
+                    break;
+                case "second":
+                    this.state.graphConfig.timeFormat = "%S";
                     break;
             }
             e[labelMapper.noOfInvocation] = (e[labelMapper.noOfInvocation]) / divider;
         });
-
 
         // Build data for the graph
         let data = [];
@@ -193,7 +202,7 @@ class EIAnalyticsTPS extends Widget {
      */
     getEmptyRecordsText() {
         return (
-            <div class="status-message" style={{color: 'white', marginLeft: 'auto', marginRight: 'auto'}}>
+            <div class="status-message" style={{marginLeft: 'auto', marginRight: 'auto', padding: 5}}>
                 <div class="message message-info">
                     <h4><i class="icon fw fw-info"></i> No records found</h4>
                     <p>Please select a valid date range to view stats.</p>
@@ -201,7 +210,6 @@ class EIAnalyticsTPS extends Widget {
             </div>
         );
     };
-
 
     /**
      * Draw the graph with parameters from the widget state
