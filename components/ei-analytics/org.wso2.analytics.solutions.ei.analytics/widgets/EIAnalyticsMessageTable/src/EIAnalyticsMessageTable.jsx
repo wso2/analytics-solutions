@@ -162,7 +162,7 @@ class EIAnalyticsMessageTable extends Widget {
                 dataProviderConf.configs.config.queryData.query = query
                     .replace("{{timeFrom}}", this.state.timeFromParameter)
                     .replace("{{timeTo}}", this.state.timeToParameter)
-                    .replace("{{metaTenantId}}", TENANT_ID)
+                    .replace("{{metaTenantId}}", this.props.dashboard.properties.tenantId)
                     .replace("{{componentType}}", componentType)
                     .replace("{{componentIdentifier}}", componentIdentifier)
                     .replace("{{componentName}}", componentName);

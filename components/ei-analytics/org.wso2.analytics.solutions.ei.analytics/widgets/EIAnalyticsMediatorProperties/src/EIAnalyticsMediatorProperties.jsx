@@ -91,7 +91,7 @@ class EIAnalyticsMediatorProperties extends Widget {
                             const formattedQuery = query
                                 .replace('{{messageFlowId}}', messageFlowId)
                                 .replace('{{componentId}}', componentId)
-                                .replace('{{meta_tenantId}}', META_TENANT_ID);
+                                .replace('{{meta_tenantId}}', this.props.dashboard.properties.tenantId);
                             dataProviderConf.configs.config.queryData = {query: formattedQuery};
                             // Request data store with the modified query
                             super.getWidgetChannelManager()
@@ -125,7 +125,7 @@ class EIAnalyticsMediatorProperties extends Widget {
                         const formattedQuery = query
                             .replace('{{messageFlowId}}', messageFlowId)
                             .replace('{{componentIndex}}', childIndex)
-                            .replace('{{meta_tenantId}}', META_TENANT_ID);
+                            .replace('{{meta_tenantId}}', this.props.dashboard.properties.tenantId);
                         dataProviderConf.configs.config.queryData = {query: formattedQuery};
                         // Request data store with the modified query
                         super.getWidgetChannelManager()

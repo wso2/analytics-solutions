@@ -1179,7 +1179,7 @@ class EIAnalyticsMessageFlow extends Widget {
             let entry = super.getGlobalState(getKey("message", "id"));
             this.drawMessageFlowGraph(
                 entry,
-                DEFAULT_META_TENANT_ID
+                this.props.dashboard.properties.tenantId
             );
         }
     }

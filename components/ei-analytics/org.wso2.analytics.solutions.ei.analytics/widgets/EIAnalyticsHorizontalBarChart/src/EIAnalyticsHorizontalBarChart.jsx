@@ -134,7 +134,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
                 dataProviderConf.configs.config.queryData.query = query
                     .replace('{{aggregator}}', aggregator)
                     .replace('{{componentType}}', graphType)
-                    .replace('{{tenantId}}', TENANT_ID)
+                    .replace('{{tenantId}}', this.props.dashboard.properties.tenantId)
                     .replace('{{timeFrom}}', this.state.timeFromParameter)
                     .replace('{{timeTo}}', this.state.timeToParameter)
                     .replace('{{timeUnit}}', this.state.timeUnitParameter);
