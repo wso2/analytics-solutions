@@ -51,6 +51,7 @@ define stream AlertLongSessionsStreamTemp (
             duration long,
             avgDuration double);
 
+@Async(buffer.size='32768', workers='2', batch.size.max='1024')
 define stream AlertLongSessionsStream (
             timestamp long,
             meta_tenantId int,
@@ -60,12 +61,12 @@ define stream AlertLongSessionsStream (
             duration long,
             avgDuration double);
 
-define stream LastSevenDaysStream ( lastSeventimestamp long);
+define stream LastSevenDaysStream (lastSeventimestamp long);
 
 -- Defining Databases
 
 @primaryKey('meta_tenantId', 'sessionId')
-@Index('username','userstoreDomain','tenantDomain')
+@Index('username','userstoreDomain','tenantDomain','duration','rememberMeFlag','isActive','startTimestamp')
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
 define table SessionInformationTable(
             meta_tenantId int,
@@ -93,7 +94,7 @@ define table SessionInformationTable(
             timestamp long);
 
 @primaryKey('meta_tenantId', 'sessionId')
-@index('username')
+@index('username','timestamp')
 @store(type='rdbms', datasource='IS_ANALYTICS_DB')
 define table AlertLongSessionsTable(
             timestamp long,
@@ -118,6 +119,7 @@ define table SecurityAlertTypeTable(
             userReadableTime string);
 
 @primaryKey('meta_tenantId', 'username', 'userstoreDomain')
+@index('tenantDomain','avgDuration')
 define table AverageSession(
             meta_tenantId int,
             tenantDomain string,
@@ -136,8 +138,27 @@ from TriggerEveryThirtyMinutesStream
 select convert(time:dateSub(triggered_time,7,'DAY'), 'long') as lastSeventimestamp
 insert into LastSevenDaysStream;
 
+
+-- In a cluster, we filter out and drop trigger events generating from passive node.
+from LastSevenDaysStream
+select lastSeventimestamp, coordination:isLeader() as isLeader
+insert into LeaderAwareLastSevenDaysStream;
+
+from LeaderAwareLastSevenDaysStream[isLeader == true]
+select lastSeventimestamp
+insert into LeadersLastSevenDaysStream;
+
+from PeriodicalTriggerStream
+select triggered_time, coordination:isLeader() as isLeader
+insert into LeaderAwarePeriodicalTriggerStream;
+
+from LeaderAwarePeriodicalTriggerStream[isLeader == true]
+select triggered_time
+insert into LeadersPeriodicalTriggerStream;
+
+
 -- Filtering sessions longer than 15 minutes from the SessionInformationTable
-from        PeriodicalTriggerStream as P join SessionInformationTable as S
+from        LeadersPeriodicalTriggerStream as P join SessionInformationTable as S
 on          S.duration > 900000 and
             S.rememberMeFlag == false and
             S.isActive == true
@@ -155,7 +176,7 @@ select      meta_tenantId,
 insert into FilterLongSessionsStreams;
 
 -- Calculating average duration of users and storing in a  event table
-from        LastSevenDaysStream join SessionInformationTable
+from        LeadersLastSevenDaysStream join SessionInformationTable
 on          startTimestamp>= lastSeventimestamp
 select      meta_tenantId,
             tenantDomain,
@@ -238,6 +259,6 @@ on          AlertLongSessionsTable.meta_tenantId==meta_tenantId and
 -- Retain last one year data in AlertLongSessionsTable
 
 from    TablePurgingTriggerStream
-select  time:dateSub(triggered_time, 1, 'year') as purgingTime
+select  convert(time:dateSub(triggered_time, 1, 'year'), 'long') as purgingTime
 delete  AlertLongSessionsTable
 on      AlertLongSessionsTable.timestamp < purgingTime;
