@@ -22,7 +22,6 @@ import {Scrollbars} from 'react-custom-scrollbars';
 import {darkBaseTheme, getMuiTheme, MuiThemeProvider} from 'material-ui/styles';
 import moment from 'moment';
 
-const TENANT_ID = '-1234';
 const MESSAGE_PAGE = "message";
 
 class EIAnalyticsMessageTable extends Widget {

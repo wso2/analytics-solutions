@@ -25,7 +25,6 @@ const PAGE_PROXY = 'proxy';
 const PAGE_OVERVIEW = 'overview';
 const PAGE_API = 'api';
 const PAGE_SEQUENCE = 'sequence';
-const TENANT_ID = '-1234';
 const PAGE_ENDPOINT = 'endpoint';
 const PAGE_INBOUND_ENDPOINT = 'inbound';
 const PAGE_MEDIATOR = 'mediator';

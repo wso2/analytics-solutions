@@ -21,7 +21,6 @@ import VizG from 'react-vizgrammar';
 import moment from 'moment';
 
 var PUBLISHER_DATE_TIME_PICKER = 'granularity';
-var TENANT_ID = '-1234';
 
 class EIAnalyticsTPS extends Widget {
     constructor(props) {

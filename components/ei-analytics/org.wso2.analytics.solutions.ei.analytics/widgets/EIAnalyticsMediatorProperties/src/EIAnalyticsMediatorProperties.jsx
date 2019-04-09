@@ -34,7 +34,6 @@ import './codemirror.css';
 import './merge.css';
 import './nanoscroller.css';
 
-const META_TENANT_ID = '-1234';
 const centerDiv = {
     textAlign: 'center',
     verticalAlign: 'middle',

@@ -34,7 +34,6 @@ const TYPE_PROXY = "proxy";
 const TYPE_API = "api";
 const TYPE_INBOUND_ENDPOINT = "inbound";
 const TYPE_MESSAGE = "message";
-const DEFAULT_META_TENANT_ID = '-1234';
 
 let BASE_URL = getDashboardBaseUrl();
 

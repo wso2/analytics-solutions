@@ -25,7 +25,6 @@ const BAR_GRAPH_TYPE = 'Component Type Selection';
 const URL_PARAMETER_ID = 'id';
 const DIV_ID_GRAPH = 'graph';
 const PUBLISHER_DATE_TIME_PICKER = 'granularity';
-const TENANT_ID = '-1234';
 
 /**
  * Dashboard widget class for the EIAnalyticsHorizontalBarChart widget
