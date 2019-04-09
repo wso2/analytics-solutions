@@ -60,7 +60,7 @@ class EIAnalyticsMessageFlow extends Widget {
             timeTo: null,
             timeUnit: null,
             selectedComponantID: null,
-            meta_tenantId: '-1234',
+            meta_tenantId: props.dashboard.properties.tenantId,
             lastDrawnGraphData: null
         };
         this.handleRecievedMessage = this.handleMessage.bind(this);
@@ -1179,7 +1179,7 @@ class EIAnalyticsMessageFlow extends Widget {
             let entry = super.getGlobalState(getKey("message", "id"));
             this.drawMessageFlowGraph(
                 entry,
-                this.props.dashboard.properties.tenantId
+                this.parameters.meta_tenantId
             );
         }
     }
