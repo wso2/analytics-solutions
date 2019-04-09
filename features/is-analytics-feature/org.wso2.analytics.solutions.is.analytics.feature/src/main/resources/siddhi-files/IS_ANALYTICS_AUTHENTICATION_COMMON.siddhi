@@ -156,7 +156,7 @@ select
     authenticationStep,
     authStepSuccess,
     identityProvider,
-    identityProviderType,
+    ifThenElse(identityProviderType is NULL, "SSO", identityProviderType) as identityProviderType,
     isFirstLogin,
     ifThenElse(authenticationSuccess == true, 1, 0) as successValue,
     ifThenElse((authStepSuccess == false and eventType == 'step'), 1, 0) as failureValue,

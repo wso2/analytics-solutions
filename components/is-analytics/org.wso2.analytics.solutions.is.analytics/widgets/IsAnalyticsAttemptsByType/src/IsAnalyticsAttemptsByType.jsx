@@ -46,7 +46,7 @@ const dataPerPage = 10;
 const noOfPagesInPaginationNavigation = 5;
 
 const successMetadata = {
-    names: ['username', 'authStepSuccessCount'],
+    names: ['username', 'authSuccessCount'],
     types: ['ordinal', 'linear'],
 };
 
@@ -61,7 +61,7 @@ const chartConfigSuccess = {
         {
             type: 'bar',
             orientation: 'left',
-            y: 'authStepSuccessCount',
+            y: 'authSuccessCount',
             fill: colorGreen,
         },
     ],
@@ -165,7 +165,7 @@ class IsAnalyticsAttemptsByType extends Widget {
         successMetadataClone.names[0] = xAxisValue;
         failureMetadataClone.names[0] = xAxisValue;
 
-        if (this.state.options.widgetType === 'Local') {
+        if (this.state.options.widgetType === 'Overall') {
             const value = 'authSuccessCount';
             successMetadataClone.names[1] = value;
             chartConfigSuccessClone.charts[0].y = value;
@@ -327,7 +327,7 @@ class IsAnalyticsAttemptsByType extends Widget {
             doAdditionalFilter = true;
         }
 
-        if (this.state.options.widgetType === 'Local') {
+        if (this.state.options.widgetType === 'Overall') {
             countType = 'authSuccessCount';
         } else {
             countType = 'authStepSuccessCount';

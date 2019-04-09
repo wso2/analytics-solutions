@@ -111,7 +111,8 @@ group by
     region,
     token,
     userStoreDomain,
-    isFirstLogin
+    isFirstLogin,
+    identityProviderType
 aggregate by timestamp every second ... year;
 
 -- Authentication Stat Stream for Store everything
@@ -142,7 +143,8 @@ group by
     identityProvider,
     region,
     userStoreDomain,
-    isFirstLogin
+    isFirstLogin,
+    identityProviderType
 aggregate by timestamp every second ... year;
 
 from ProcessedAuthenticationDataStream#str:tokenize(rolesCommaSeparated, ',')
