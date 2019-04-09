@@ -17,7 +17,7 @@
  */
 
 @App:name("IS_ANALYTICS_AUTHENTICATION_COMMON")
-@App:description("Handle Event from IS and save data in a table for Overall Authentication")
+@App:description("Handle Event from IS and save data in a table for Common Authentication")
 
 -- Read data from IS
 @source(type = "wso2event", wso2.stream.id = "org.wso2.is.analytics.stream.OverallAuthentication:1.0.0", @map(type = 'wso2event'))
@@ -105,6 +105,7 @@ define stream OverallAuthenticationProcessedStream (
     timestamp long
 );
 
+@info(name = 'Passthrough query with option to enable geo-location')
 from SourceStreamFromIdentityServerWso2EventStream
 select
     meta_tenantId,
@@ -136,6 +137,7 @@ select
 insert into OverallAuthenticationProcessedStream;
 
 -- Adding commas to the start and the end of roles comma separated as to use 'contains' keyword on it.
+@info(name = 'Basic select ops on OverallAuthenticationProcessedStream and generates ProcessedAuthenticationDataStream')
 from OverallAuthenticationProcessedStream
 select
     meta_tenantId,

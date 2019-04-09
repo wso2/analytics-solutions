@@ -20,10 +20,11 @@
 @App:description("Receiving Streams from IS and executing and analyzing statistics for session")
 
 -- Receving streams from IS
---Defining Input Stream for receving streams from IS
+--Defining Input Stream for receiving streams from IS
 
 define trigger TablePurgingTriggerStream at '0 0 23 * * ?';
 
+@Async(buffer.size='32768', workers='1', batch.size.max='1024')
 @source(type = "wso2event", wso2.stream.id = "org.wso2.is.analytics.stream.OverallSession:1.0.0", @map(type = 'wso2event'))
 @source(type='inMemory',topic='IsAnalytics.Session.Common.Stream', @map(type='passThrough'))
 define stream OverallSessionStream (
@@ -67,6 +68,7 @@ define stream HandleSessionInformation (
         userStore string,
         timestamp long);
 
+-- this definition is not required, but no harm keeping it either.
 define stream CountingNewTerminatedSessionsStream (
         meta_tenantId int,
         newSessionCount long,
@@ -74,6 +76,7 @@ define stream CountingNewTerminatedSessionsStream (
         net long,
         timestamp long);
 
+@Async(buffer.size='32768', workers='2', batch.size.max='1024')
 define stream SessionStatisticsPerSecond (
         meta_tenantId int,
         activeSessionCount long,
@@ -252,25 +255,13 @@ update or insert into
 on      SessionInformationTable.meta_tenantId==meta_tenantId and
         SessionInformationTable.sessionId==sessionId;
 
--- Retain last one year data in the SessionInformationTable and active session table and delete the rest by sending trigger  every day
-
-from    TablePurgingTriggerStream
-select  time:dateSub(triggered_time, 1, 'year') as purgingTime
-delete  SessionInformationTable
-on      SessionInformationTable.timestamp < purgingTime;
-
-from    TablePurgingTriggerStream
-select  time:dateSub(triggered_time, 1, 'year') as purgingTime
-delete  ActiveSessionsTable
-on      ActiveSessionsTable.timestamp < purgingTime;
-
 -- Removing inactive sessions from 'ActiveSessionsTable'
 from    HandleSessionInformation[isActive == false]#window.timeBatch(1 sec)
 delete  ActiveSessionsTable
 on      ActiveSessionsTable.sessionId == sessionId AND
         ActiveSessionsTable.meta_tenantId == meta_tenantId;
 
---Counting new and termnated sessions every 1 second for each meta_tenantId
+--Counting new and terminated sessions every 1 second for each meta_tenantId
 from OverallSessionStream[action == 1 OR action == 0]#window.externalTimeBatch(_timestamp, 1 sec, 0, 2 sec)
 select  meta_tenantId,
         sum(action) as newSessionCount,
@@ -301,3 +292,16 @@ select  meta_tenantId,
 update or insert into
         ActiveSessionCountTable
 on      ActiveSessionCountTable.meta_tenantId==meta_tenantId;
+
+
+-- Retain last one year data in the SessionInformationTable and active session table and delete the rest by sending trigger  every day
+
+from    TablePurgingTriggerStream
+select  convert(time:dateSub(triggered_time, 1, 'year'), 'long') as purgingTime
+delete  SessionInformationTable
+on      SessionInformationTable.timestamp < purgingTime;
+
+from    TablePurgingTriggerStream
+select  convert(time:dateSub(triggered_time, 1, 'year'), 'long') as purgingTime
+delete  ActiveSessionsTable
+on      ActiveSessionsTable.timestamp < purgingTime;

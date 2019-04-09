@@ -48,6 +48,7 @@ define stream OverallAuthenticationStream (
         identityProviderType string,
         _timestamp long);
 
+@Async(buffer.size='32768', workers='2', batch.size.max='1024')
 define stream LoginAlertStreamSameUsername (
         meta_tenantId int,
         username string,
@@ -92,6 +93,7 @@ define table SecurityAlertTypeTable(
         userReadableTime string);
 
 -- Detecting events from same user. An alert is generated when we make more than five failure login attempts followed by a success
+@info(name = 'Pattern query to detect five failure login attempts followed by a success')
 from every
         (e1=OverallAuthenticationStream[
             authStepSuccess == false]) ->
@@ -121,6 +123,7 @@ output first every 1 min
 insert into LoginAlertStreamSameUsername;
 
 -- Sending multiple login failures to SuspiciousLoginAlertStream
+@info(name = 'simple passthrough query')
 from    LoginAlertStreamSameUsername
 select  meta_tenantId,
         username,
@@ -132,6 +135,7 @@ insert into
         SuspiciousLoginAlertStream;
 
 -- Sending alert type and storing in 'SecurityAlertTypeTable'
+@info(name = 'Enrich LoginAlertStreamSameUsername with alert messages and update or insert SecurityAlertTypeTable')
 from    LoginAlertStreamSameUsername
 select  meta_tenantId,
         UUID() as alertId,
@@ -146,6 +150,7 @@ on      SecurityAlertTypeTable.meta_tenantId == meta_tenantId and
         SecurityAlertTypeTable.alertId == alertId;
 
 -- Storing Multiple login failures in 'SuspiciousAlertTable'
+@info(name = 'Update SuspiciousAlertTable with suspicious login alerts')
 from SuspiciousLoginAlertStream
 select  meta_tenantId,
         username,
@@ -162,12 +167,14 @@ on      SuspiciousAlertTable.meta_tenantId==meta_tenantId and
 
 -- Retain last one year data in the SecurityAlertTypeTable and SuspiciousAlertTable
 
+@info(name = 'Everyday at 11 PM, purging last one year data from SecurityAlertTypeTable')
 from    TablePurgingTriggerStream
-select  time:dateSub(triggered_time, 1, 'year') as purgingTime
+select  convert(time:dateSub(triggered_time, 1, 'year'), 'long') as purgingTime
 delete  SecurityAlertTypeTable
 on      SecurityAlertTypeTable.alertTimestamp < purgingTime;
 
+@info(name = 'Everyday at 11 PM, purging last one year data from SuspiciousAlertTable')
 from    TablePurgingTriggerStream
-select  time:dateSub(triggered_time, 1, 'year') as purgingTime
+select  convert(time:dateSub(triggered_time, 1, 'year'), 'long') as purgingTime
 delete  SuspiciousAlertTable
 on      SuspiciousAlertTable.timestamp < purgingTime;

@@ -1,4 +1,4 @@
-@App:name("IS_ANALYTICS_AUTHENTICATION_AGGREGATIONS")/*
+/*
  * Copyright (c) 2018 WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
  * WSO2 Inc. licenses this file to you under the Apache License,
@@ -16,7 +16,7 @@
  * under the License.
  */
 
-
+@App:name("IS_ANALYTICS_AUTHENTICATION_AGGREGATIONS")
 @App:description("Handle Event from IS and save data in a table for Overall Authentication")
 
 -- STREAM DEFINITIONS
@@ -147,8 +147,5 @@ group by
     identityProviderType
 aggregate by timestamp every second ... year;
 
-from ProcessedAuthenticationDataStream#str:tokenize(rolesCommaSeparated, ',')
-insert into PerUserRolesDuplicateEventStreamNullCheck;
-
-from PerUserRolesDuplicateEventStreamNullCheck[token!=""]
+from ProcessedAuthenticationDataStream#str:tokenize(rolesCommaSeparated, ',')[token!=""]
 insert into PerUserRolesDuplicateEventStream;

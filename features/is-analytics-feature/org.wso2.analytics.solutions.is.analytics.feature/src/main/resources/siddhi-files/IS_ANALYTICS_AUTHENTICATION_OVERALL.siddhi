@@ -20,6 +20,7 @@
 @App:description("Handle Event from IS and save data in a table for Overall Authentication")
 
 -- Read data from OverallAuthenticationProcessedStream (Sinked from IsAnalytics_Auth_Common)
+@Async(buffer.size='32768', workers='2', batch.size.max='1024')
 @source(type='inMemory', topic='IsAnalytics.Authentication.Common.OutputSinkFromOverallAuthenticationProcessedStream', @map(type='passThrough'))
 define stream OverallAuthenticationProcessedStream (
     meta_tenantId int,
@@ -127,6 +128,6 @@ on
     and OverallAuthTable.eventId==eventId;
 
 from TablePurgingTriggerStream
-select time:dateSub(triggered_time, 1, 'year') as purgingTime
+select  convert(time:dateSub(triggered_time, 1, 'year'), 'long') as purgingTime
 delete OverallAuthTable
 on OverallAuthTable.timestamp < purgingTime;
