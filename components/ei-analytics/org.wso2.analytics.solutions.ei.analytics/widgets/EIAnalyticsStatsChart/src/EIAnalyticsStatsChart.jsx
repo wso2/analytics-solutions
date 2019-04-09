@@ -130,7 +130,7 @@ class EIAnalyticsStatsChart extends Widget {
                 /*
                 componentType, componentName, entryPoint, tenantId, aggregator
                  */
-                this.extractStatsData("ALL", "ALL", null, -1234, "ESBStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
+                this.extractStatsData("ALL", "ALL", null, this.props.dashboard.properties.tenantId, "ESBStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
             }
             else if (this.state.componentName != null) {
                 switch (pageName) {
