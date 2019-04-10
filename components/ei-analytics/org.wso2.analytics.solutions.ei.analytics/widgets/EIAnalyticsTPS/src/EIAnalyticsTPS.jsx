@@ -21,7 +21,6 @@ import VizG from 'react-vizgrammar';
 import moment from 'moment';
 
 var PUBLISHER_DATE_TIME_PICKER = 'granularity';
-var TENANT_ID = '-1234';
 
 class EIAnalyticsTPS extends Widget {
     constructor(props) {
@@ -112,7 +111,7 @@ class EIAnalyticsTPS extends Widget {
 
                 // Insert required parameters to the query string
                 let formattedQuery = query
-                    .replace("{{tenantId}}", TENANT_ID)
+                    .replace("{{tenantId}}", this.props.dashboard.properties.tenantId)
                     .replace("{{timeFrom}}", "\'" + this.state.timeFromParameter + "\'")
                     .replace("{{timeTo}}", "\'" + this.state.timeToParameter + "\'")
                     .replace("{{timeunit}}", "\'" + timeUnit + "\'")

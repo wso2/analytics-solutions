@@ -25,7 +25,6 @@ const BAR_GRAPH_TYPE = 'Component Type Selection';
 const URL_PARAMETER_ID = 'id';
 const DIV_ID_GRAPH = 'graph';
 const PUBLISHER_DATE_TIME_PICKER = 'granularity';
-const TENANT_ID = '-1234';
 
 /**
  * Dashboard widget class for the EIAnalyticsHorizontalBarChart widget
@@ -134,7 +133,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
                 dataProviderConf.configs.config.queryData.query = query
                     .replace('{{aggregator}}', aggregator)
                     .replace('{{componentType}}', graphType)
-                    .replace('{{tenantId}}', TENANT_ID)
+                    .replace('{{tenantId}}', this.props.dashboard.properties.tenantId)
                     .replace('{{timeFrom}}', this.state.timeFromParameter)
                     .replace('{{timeTo}}', this.state.timeToParameter)
                     .replace('{{timeUnit}}', this.state.timeUnitParameter);

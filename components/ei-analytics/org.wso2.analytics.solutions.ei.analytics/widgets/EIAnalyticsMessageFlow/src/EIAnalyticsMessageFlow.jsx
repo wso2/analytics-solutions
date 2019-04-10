@@ -34,7 +34,6 @@ const TYPE_PROXY = "proxy";
 const TYPE_API = "api";
 const TYPE_INBOUND_ENDPOINT = "inbound";
 const TYPE_MESSAGE = "message";
-const DEFAULT_META_TENANT_ID = '-1234';
 
 let BASE_URL = getDashboardBaseUrl();
 
@@ -60,7 +59,7 @@ class EIAnalyticsMessageFlow extends Widget {
             timeTo: null,
             timeUnit: null,
             selectedComponantID: null,
-            meta_tenantId: '-1234',
+            meta_tenantId: props.dashboard.properties.tenantId,
             lastDrawnGraphData: null
         };
         this.handleRecievedMessage = this.handleMessage.bind(this);
@@ -1179,7 +1178,7 @@ class EIAnalyticsMessageFlow extends Widget {
             let entry = super.getGlobalState(getKey("message", "id"));
             this.drawMessageFlowGraph(
                 entry,
-                DEFAULT_META_TENANT_ID
+                this.parameters.meta_tenantId
             );
         }
     }

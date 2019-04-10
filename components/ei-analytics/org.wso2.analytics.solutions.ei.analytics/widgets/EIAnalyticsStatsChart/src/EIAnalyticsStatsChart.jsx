@@ -25,7 +25,6 @@ const PAGE_PROXY = 'proxy';
 const PAGE_OVERVIEW = 'overview';
 const PAGE_API = 'api';
 const PAGE_SEQUENCE = 'sequence';
-const TENANT_ID = '-1234';
 const PAGE_ENDPOINT = 'endpoint';
 const PAGE_INBOUND_ENDPOINT = 'inbound';
 const PAGE_MEDIATOR = 'mediator';
@@ -131,33 +130,33 @@ class EIAnalyticsStatsChart extends Widget {
                 /*
                 componentType, componentName, entryPoint, tenantId, aggregator
                  */
-                this.extractStatsData("ALL", "ALL", null, -1234, "ESBStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
+                this.extractStatsData("ALL", "ALL", null, this.props.dashboard.properties.tenantId, "ESBStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
             }
             else if (this.state.componentName != null) {
                 switch (pageName) {
                     case PAGE_PROXY:
-                        this.extractStatsData(PAGE_PROXY, this.state.componentName, null, TENANT_ID, "ESBStatAgg",
+                        this.extractStatsData(PAGE_PROXY, this.state.componentName, null, this.props.dashboard.properties.tenantId, "ESBStatAgg",
                             this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                     case PAGE_API:
-                        this.extractStatsData(PAGE_API, this.state.componentName, null, TENANT_ID, "ESBStatAgg",
+                        this.extractStatsData(PAGE_API, this.state.componentName, null, this.props.dashboard.properties.tenantId, "ESBStatAgg",
                             this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                     case PAGE_SEQUENCE:
                         this.extractStatsData(PAGE_SEQUENCE, this.state.componentName,
-                            this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
+                            this.state.entryPoint, this.props.dashboard.properties.tenantId, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                     case PAGE_ENDPOINT:
                         this.extractStatsData(PAGE_ENDPOINT, this.state.componentName,
-                            this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
+                            this.state.entryPoint, this.props.dashboard.properties.tenantId, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                     case PAGE_INBOUND_ENDPOINT:
-                        this.extractStatsData(PAGE_INBOUND_ENDPOINT, this.state.componentName, null, TENANT_ID, "ESBStatAgg",
+                        this.extractStatsData(PAGE_INBOUND_ENDPOINT, this.state.componentName, null, this.props.dashboard.properties.tenantId, "ESBStatAgg",
                             this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                     case PAGE_MEDIATOR:
                         this.extractStatsData(PAGE_MEDIATOR, this.state.componentName,
-                            this.state.entryPoint, TENANT_ID, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
+                            this.state.entryPoint, this.props.dashboard.properties.tenantId, "MediatorStatAgg", this.state.timeFrom, this.state.timeTo, this.state.timeUnit);
                         break;
                 }
             }
