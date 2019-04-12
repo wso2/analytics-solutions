@@ -854,7 +854,7 @@
     </profiles>
 
     <properties>
-        <carbon.analytics-common.version>6.1.15</carbon.analytics-common.version>
+        <carbon.analytics-common.version>6.1.17</carbon.analytics-common.version>
         <carbon.analytics.version>2.0.515</carbon.analytics.version>
         <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
         <kryo.version>3.0.3</kryo.version>
@@ -866,7 +866,7 @@
         <open.tracing.version>0.31.0</open.tracing.version>
         <org.wso2.json.version>3.0.0.wso2v1</org.wso2.json.version>
 
-        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
         <commons.logging.version>1.2</commons.logging.version>
 
         <javax.servlet.version>3.1.0</javax.servlet.version>
