@@ -18,18 +18,10 @@
 @App:description("Identifies the API requests with abnormal backend time and add to AllAlertStream and AbnormalBackendTimeAlertStream")
 
 define trigger LoadInMemoryTable at 'start';
+define trigger PeriodicTrigger at every 5 minutes;
 
 @source(type = 'inMemory' , topic = 'APIM_REQUEST')
 define stream Request (meta_clientType string, applicationConsumerKey string, applicationName string, applicationId string, applicationOwner string, apiContext string, apiName string, apiVersion string, apiResourcePath string, apiResourceTemplate string, apiMethod string, apiCreator string, apiCreatorTenantDomain string, apiTier string, apiHostname string, username string, userTenantDomain string, userIp string, userAgent string, requestTimestamp long, throttledOut bool, responseTime long, serviceTime long, backendTime long, responseCacheHit bool, responseSize long, protocol string, responseCode int, destination string, securityLatency long, throttlingLatency long, requestMedLat long, responseMedLat long, backendLatency long, otherLatency long, gatewayType string, label string);
-
-@source(type = 'inMemory', topic = 'ApiCreatorAlertConfigurationStream' )
-define stream ApiCreatorAlertConfigurationStream (
- apiName string,
- apiVersion string,
- apiCreator string,
- apiCreatorTenantDomain string,
- thresholdResponseTime long,
- thresholdBackendTime long);
 
 define stream SuppressedAbnormalBackendTimeAlertStream(apiName string, apiVersion string, apiCreator string, apiCreatorTenantDomain string, apiResourceTemplate string, apiMethod string, backendTime long, thresholdBackendTime long);
 
@@ -51,7 +43,7 @@ select R.apiName, R.apiVersion, R.apiCreator, R.apiCreatorTenantDomain, R.apiRes
 insert into AbnormalBackendTimeAlertStreamTemp;
 
 @info(name = 'FilterForAlerting')
-from AbnormalBackendTimeAlertStreamTemp[ backendTime > thresholdBackendTime ]
+from AbnormalBackendTimeAlertStreamTemp[ thresholdBackendTime > 0 and backendTime > thresholdBackendTime ]
 select *
 insert into AbnormalBackendTimeAlertStreamTemp2;
 
@@ -67,27 +59,21 @@ from SuppressedAbnormalBackendTimeAlertStream
 select apiName, apiVersion, ifThenElse(apiCreatorTenantDomain == 'carbon.super', str:concat(apiCreator, "@carbon.super"), apiCreator) as apiCreator, apiCreatorTenantDomain, apiResourceTemplate, apiMethod, backendTime, thresholdBackendTime, 'Abnormal backend time detected.' as message, 3 as severity, (time:timestampInMilliseconds()) as alertTimestamp
 insert into AbnormalBackendTimeAlertStream;
 
+@info(name='Update IntermediateStream') 
+from LoadInMemoryTable 
+select triggered_time 
+insert into InMemoryTableJoinStream;
+
+@info(name='Update IntermediateStream periodically') 
+from PeriodicTrigger  
+select triggered_time 
+insert into InMemoryTableJoinStream;
+
 -- Update the AlertCreatorConfig Table @ start
 @info(name = 'Load ApiCreatorAlertConfigurationInMemoryTable')
-from LoadInMemoryTable join ApiCreatorAlertConfiguration
- 	on thresholdBackendTime > 0
+from InMemoryTableJoinStream join ApiCreatorAlertConfiguration
 select apiName, apiVersion, apiCreator, apiCreatorTenantDomain, thresholdBackendTime
 update or
 insert into ApiCreatorAlertConfigurationInMemoryTable
 set ApiCreatorAlertConfiguration.thresholdBackendTime = thresholdBackendTime
- 	on ApiCreatorAlertConfigurationInMemoryTable.apiName == apiName and ApiCreatorAlertConfigurationInMemoryTable.apiVersion == apiVersion and ApiCreatorAlertConfigurationInMemoryTable.apiCreator == apiCreator and ApiCreatorAlertConfigurationInMemoryTable.apiCreatorTenantDomain == apiCreatorTenantDomain;
-
--- Update AlertCreatorConfig table if receive event form APIM
-@info(name = 'Update ApiCreatorAlertConfigurationInMemoryTable')
-from ApiCreatorAlertConfigurationStream[thresholdBackendTime > 0]
-select apiName, apiVersion, apiCreator, apiCreatorTenantDomain, thresholdBackendTime
-update or
-insert into ApiCreatorAlertConfigurationInMemoryTable
-set ApiCreatorAlertConfiguration.thresholdBackendTime = thresholdBackendTime
- 	on ApiCreatorAlertConfigurationInMemoryTable.apiName == apiName and ApiCreatorAlertConfigurationInMemoryTable.apiVersion == apiVersion and ApiCreatorAlertConfigurationInMemoryTable.apiCreator == apiCreator and ApiCreatorAlertConfigurationInMemoryTable.apiCreatorTenantDomain == apiCreatorTenantDomain;
-
-@info(name='DeleteConfigurationif updated value is zero')
-from ApiCreatorAlertConfigurationStream[thresholdResponseTime == 0]
-select apiName, apiVersion, apiCreator, apiCreatorTenantDomain, thresholdResponseTime
-delete  ApiCreatorAlertConfigurationInMemoryTable
  	on ApiCreatorAlertConfigurationInMemoryTable.apiName == apiName and ApiCreatorAlertConfigurationInMemoryTable.apiVersion == apiVersion and ApiCreatorAlertConfigurationInMemoryTable.apiCreator == apiCreator and ApiCreatorAlertConfigurationInMemoryTable.apiCreatorTenantDomain == apiCreatorTenantDomain;
