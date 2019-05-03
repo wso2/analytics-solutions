@@ -147,5 +147,8 @@ group by
     identityProviderType
 aggregate by timestamp every second ... year;
 
-from ProcessedAuthenticationDataStream#str:tokenize(rolesCommaSeparated, ',')[token!=""]
+from ProcessedAuthenticationDataStream#str:tokenize(rolesCommaSeparated, ',')
+insert into PerUserRolesDuplicateEventStreamNullCheck;
+
+from PerUserRolesDuplicateEventStreamNullCheck[token!=""]
 insert into PerUserRolesDuplicateEventStream;
