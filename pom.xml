@@ -854,12 +854,12 @@
     </profiles>
 
     <properties>
-        <carbon.analytics-common.version>6.1.23</carbon.analytics-common.version>
-        <carbon.analytics.version>2.1.11</carbon.analytics.version>
+        <carbon.analytics-common.version>6.1.26</carbon.analytics-common.version>
+        <carbon.analytics.version>2.1.18</carbon.analytics.version>
         <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
         <kryo.version>3.0.3</kryo.version>
 
-        <siddhi.version>4.5.5</siddhi.version>
+        <siddhi.version>4.5.8</siddhi.version>
         <siddhi.map.wso2event.version>4.1.1</siddhi.map.wso2event.version>
         <siddhi.map.json.version>4.1.2</siddhi.map.json.version>
 
