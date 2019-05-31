@@ -427,8 +427,8 @@ class IsAnalyticsAttemptsByType extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div >
-                            <div >
+                        <div>
+                            <div>
                                 <VizG
                                     config={this.state.chartConfigFailure}
                                     metadata={this.state.failureMetadata}
@@ -438,8 +438,7 @@ class IsAnalyticsAttemptsByType extends Widget {
                                     width={width}
                                 />
                             </div>
-                            <div
-                            >
+                            <div>
                                 <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.failureData.length > dataPerPage
@@ -464,10 +463,8 @@ class IsAnalyticsAttemptsByType extends Widget {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div style={divSpacings}>
-                        <div
-                        >
-                            <div
-                            >
+                        <div>
+                            <div>
                                 <VizG
                                     config={this.state.chartConfigSuccess}
                                     metadata={this.state.successMetadata}
@@ -477,8 +474,7 @@ class IsAnalyticsAttemptsByType extends Widget {
                                     width={width}
                                 />
                             </div>
-                            <div
-                            >
+                            <div>
                                 <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.successData.length > dataPerPage
@@ -514,8 +510,7 @@ class IsAnalyticsAttemptsByType extends Widget {
                                     width={width}
                                 />
                             </div>
-                            <div
-                            >
+                            <div>
                                 <V0MuiThemeProvider muiTheme={this.props.muiTheme}>
                                     {
                                         this.state.successData.length > dataPerPage
