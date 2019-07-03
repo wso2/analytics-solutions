@@ -17,7 +17,7 @@
 import React from 'react';
 import Widget from '@wso2-dashboards/widget';
 import {MuiThemeProvider} from 'material-ui/styles/index';
-import {IconButton} from "material-ui";
+import IconButton from "material-ui/IconButton";
 import RefreshIcon from "material-ui/svg-icons/navigation/refresh";
 import Tweet from 'react-tweet-embed'
 import './resources/tweet.css';
