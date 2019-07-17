@@ -290,8 +290,8 @@ class EIAnalyticsSearchBox extends Widget {
 
         // remove sequences in the excludeSequences-array from the options
         else if (this.pageName == this.pgSequence) {
-            let excludeSequences = ["PROXY_INSEQ", "PROXY_OUTSEQ", "PROXY_FAULTSEQ", "API_OUTSEQ", "API_INSEQ",
-                "API_FAULTSEQ", "AnonymousSequence"];
+            let excludeSequences = ['PROXY_INSEQ', 'PROXY_OUTSEQ', 'PROXY_FAULTSEQ', 'API_OUTSEQ', 'API_INSEQ',
+                'API_FAULTSEQ', 'AnonymousSequence'];
             this.excludeComponets(componentNameArr, excludeSequences);
         }
 
