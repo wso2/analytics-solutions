@@ -130,7 +130,8 @@ class APIMTopApiCreatorsWidget extends Widget {
     }
 
     componentWillUnmount() {
-        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+        const { id } = this.props;
+        super.getWidgetChannelManager().unsubscribeWidget(id);
     }
 
     /**
@@ -153,10 +154,11 @@ class APIMTopApiCreatorsWidget extends Widget {
     assembleQuery() {
         const { providerConfig } = this.state;
         const queryParam = super.getGlobalState(queryParamKey);
-        let limit = 5;
+        let { limit } = queryParam;
+        const { id } = this.props;
 
-        if (queryParam.limit) {
-            limit = queryParam.limit;
+        if (!limit) {
+            limit = 5;
         }
 
         this.setState({ limit, creatorData: [] });
@@ -167,7 +169,7 @@ class APIMTopApiCreatorsWidget extends Widget {
         query = query
             .replace('{{limit}}', limit);
         dataProviderConfigs.configs.config.queryData.query = query;
-        super.getWidgetChannelManager().subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
+        super.getWidgetChannelManager().subscribeWidget(id, this.handleDataReceived, dataProviderConfigs);
     }
 
     /**
@@ -213,10 +215,11 @@ class APIMTopApiCreatorsWidget extends Widget {
     handleChange(event) {
         const queryParam = super.getGlobalState(queryParamKey);
         const { limit } = queryParam;
+        const { id } = this.props;
 
         this.setQueryParam(event.target.value);
         this.setState({ limit });
-        super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
+        super.getWidgetChannelManager().unsubscribeWidget(id);
         this.assembleQuery();
     }
 
@@ -230,7 +233,8 @@ class APIMTopApiCreatorsWidget extends Widget {
             localeMessages, faultyProviderConfig, height, limit, creatorData, legendData,
         } = this.state;
         const { loadingIcon, paper, paperWrapper } = this.styles;
-        const themeName = this.props.muiTheme.name;
+        const { muiTheme } = this.props;
+        const themeName = muiTheme.name;
         const apiCreatorsProps = {
             themeName, height, limit, creatorData, legendData,
         };
@@ -253,12 +257,16 @@ class APIMTopApiCreatorsWidget extends Widget {
                                     style={paper}
                                 >
                                     <Typography variant='h5' component='h3'>
-                                        <FormattedMessage id='config.error.heading' defaultMessage='Configuration Error !' />
+                                        <FormattedMessage
+                                            id='config.error.heading'
+                                            defaultMessage='Configuration Error !'
+                                        />
                                     </Typography>
                                     <Typography component='p'>
                                         <FormattedMessage
                                             id='config.error.body'
-                                            defaultMessage='Cannot fetch provider configuration for APIM Top Api Creators widget'
+                                            defaultMessage='Cannot fetch provider configuration for
+                                             APIM Top Api Creators widget'
                                         />
                                     </Typography>
                                 </Paper>

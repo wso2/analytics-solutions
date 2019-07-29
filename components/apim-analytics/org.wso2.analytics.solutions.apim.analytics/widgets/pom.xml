@@ -41,6 +41,23 @@
         <module>APIMTopAppCreators</module>
         <module>APIMTopSubscribers</module>
         <module>APIMOverallApiStats</module>
+        <module>APIMApiCreatedAnalytics</module>
+        <module>APIMAppCreatedAnalytics</module>
+        <module>APIMSubscriptionsAnalytics</module>
+        <module>APIMSignupsAnalytics</module>
+        <module>APIMTopApiUsers</module>
+        <module>APIMApiVersionUsageSummary</module>
+        <module>APIMApiResourceUsageSummary</module>
+        <module>APIMApiBackendUsageSummary</module>
+        <module>APIMApiLastAccessSummary</module>
+        <module>APIMApiResponseSummary</module>
+        <module>APIMOverallApiUsage</module>
+        <module>APIMTopFaultyApis</module>
+        <module>APIMTopThrottledOutApis</module>
+        <module>APIMTopUserAgents</module>
+        <module>APIMTopPlatforms</module>
+        <module>APIMApiLatencyTime</module>
+        <module>APIMGeoBasedInvocations</module>
     </modules>
 
 </project>

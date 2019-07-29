@@ -316,6 +316,142 @@
 
             <dependency>
                 <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.api.created.analytics
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.app.created.analytics
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.subscriptions.analytics
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.signups.analytics
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.api.users
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.api.version.usage.summary
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.api.resource.usage.summary
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.api.backend.usage.summary
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.api.last.access.summary
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.api.response.summary
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.overall.api.usage
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.faulty.apis
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.throttled.out.apis
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.user.agents
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.top.platforms
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.api.latency.time
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
+                <artifactId>org.wso2.analytics.solutions.apim.analytics.widgets.apim.geo.based.invocations
+                </artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wso2.analytics.solutions</groupId>
                 <artifactId>org.wso2.sp.extension.siddhi.io.mgwfile</artifactId>
                 <type>jar</type>
                 <version>${project.version}</version>

@@ -67,10 +67,10 @@ export default function APIMTopApiCreators(props) {
         },
         paper: {
             background: '#969696',
-            width:'75%',
+            width: '75%',
             padding: '4%',
             border: '1.5px solid #fff',
-            margin:'auto',
+            margin: 'auto',
             marginTop: '5%',
         },
         formWrapper: {
@@ -180,7 +180,8 @@ export default function APIMTopApiCreators(props) {
                                 data={creatorData}
                                 x={d => d.creator}
                                 y={d => d.apicount}
-                                labels={d => `${d.creator} : ${((d.apicount / (sumBy(creatorData, o => o.apicount))) * 100).toFixed(2)}%`}
+                                labels={d => `${d.creator} : ${((d.apicount
+                                    / (sumBy(creatorData, o => o.apicount))) * 100).toFixed(2)}%`}
                             />
                             <VictoryLegend
                                 standalone={false}
