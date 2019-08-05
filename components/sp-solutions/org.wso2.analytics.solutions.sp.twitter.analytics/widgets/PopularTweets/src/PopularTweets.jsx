@@ -100,7 +100,6 @@ class PopularTweets extends Widget {
         }
     }
 
-
     showUnreadTweets() {
         //refresh only if there are unread tweets
         if (this.state.unreadTweets.length > 0) {
