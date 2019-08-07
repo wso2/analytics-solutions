@@ -996,7 +996,7 @@
         <kryo.version>3.0.3</kryo.version>
 
         <siddhi.version>5.1.1</siddhi.version>
-        <siddhi.map.wso2event.version>5.0.0</siddhi.map.wso2event.version>
+        <siddhi.map.wso2event.version>5.0.1</siddhi.map.wso2event.version>
         <siddhi.map.json.version>5.0.3</siddhi.map.json.version>
 
         <open.tracing.version>0.31.0</open.tracing.version>
