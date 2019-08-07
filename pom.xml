@@ -143,7 +143,7 @@
 
             <!-- Siddhi -->
             <dependency>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-core</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
@@ -155,25 +155,25 @@
             </dependency>
 
             <dependency>
-                <groupId>org.wso2.extension.siddhi.map.json</groupId>
+                <groupId>io.siddhi.extension.map.json</groupId>
                 <artifactId>siddhi-map-json</artifactId>
                 <version>${siddhi.map.json.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-query-api</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-query-compiler</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-annotations</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
@@ -990,14 +990,14 @@
     </profiles>
 
     <properties>
-        <carbon.analytics-common.version>6.1.26</carbon.analytics-common.version>
-        <carbon.analytics.version>2.1.22</carbon.analytics.version>
+        <carbon.analytics-common.version>6.1.27</carbon.analytics-common.version>
+        <carbon.analytics.version>3.0.2</carbon.analytics.version>
         <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
         <kryo.version>3.0.3</kryo.version>
 
-        <siddhi.version>4.5.9</siddhi.version>
-        <siddhi.map.wso2event.version>4.1.1</siddhi.map.wso2event.version>
-        <siddhi.map.json.version>4.1.2</siddhi.map.json.version>
+        <siddhi.version>5.1.1</siddhi.version>
+        <siddhi.map.wso2event.version>5.0.0</siddhi.map.wso2event.version>
+        <siddhi.map.json.version>5.0.3</siddhi.map.json.version>
 
         <open.tracing.version>0.31.0</open.tracing.version>
         <org.wso2.json.version>3.0.0.wso2v1</org.wso2.json.version>
@@ -1007,8 +1007,8 @@
 
         <javax.servlet.version>3.1.0</javax.servlet.version>
         <io.swagger.version>1.5.22</io.swagger.version>
-        <msf4j.version>2.7.2</msf4j.version>
-        <javax.ws.rs-api.version>2.1.1</javax.ws.rs-api.version>
+        <msf4j.version>2.7.3</msf4j.version>
+        <javax.ws.rs-api.version>2.0</javax.ws.rs-api.version>
         <slf4j.version>1.7.5</slf4j.version>
         <com.fasterxml.jackson.core.version>2.8.9</com.fasterxml.jackson.core.version>
         <log4j.version>1.2.17.wso2v1</log4j.version>
