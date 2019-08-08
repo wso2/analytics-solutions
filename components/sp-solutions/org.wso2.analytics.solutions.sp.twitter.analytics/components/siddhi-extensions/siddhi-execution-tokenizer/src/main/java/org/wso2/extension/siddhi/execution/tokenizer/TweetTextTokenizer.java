@@ -19,16 +19,21 @@ import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
 import io.siddhi.annotation.util.DataType;
-import io.siddhi.core.config.SiddhiAppContext;
+import io.siddhi.core.config.SiddhiQueryContext;
 import io.siddhi.core.event.ComplexEventChunk;
+import io.siddhi.core.event.stream.MetaStreamEvent;
 import io.siddhi.core.event.stream.StreamEvent;
 import io.siddhi.core.event.stream.StreamEventCloner;
+import io.siddhi.core.event.stream.holder.StreamEventClonerHolder;
 import io.siddhi.core.event.stream.populater.ComplexEventPopulater;
 import io.siddhi.core.exception.SiddhiAppCreationException;
 import io.siddhi.core.executor.ExpressionExecutor;
+import io.siddhi.core.query.processor.ProcessingMode;
 import io.siddhi.core.query.processor.Processor;
 import io.siddhi.core.query.processor.stream.StreamProcessor;
 import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.AbstractDefinition;
 import io.siddhi.query.api.definition.Attribute;
 import org.apache.log4j.Logger;
@@ -41,7 +46,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,14 +71,16 @@ import java.util.regex.Pattern;
                 description = "This query performs tokenization for the given string.")
 )
 
-public class TweetTextTokenizer extends StreamProcessor {
+public class TweetTextTokenizer extends StreamProcessor<State> {
     private static final Logger log = Logger.getLogger(TweetTextTokenizer.class);
 
     private List<String> wordList = new ArrayList<>();
+    private List<Attribute> attributeList = new ArrayList<>();
 
     @Override
     protected void process(ComplexEventChunk<StreamEvent> streamEventChunk, Processor nextProcessor,
-                           StreamEventCloner streamEventCloner, ComplexEventPopulater complexEventPopulater) {
+                           StreamEventCloner streamEventCloner, ComplexEventPopulater complexEventPopulater,
+                           State state) {
         //Urls
         String urlPattern = "(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
         // Punctuation chars
@@ -109,12 +115,13 @@ public class TweetTextTokenizer extends StreamProcessor {
      *
      * @param attributeExpressionExecutors are the executors of each attributes in the Function
      * @param configReader                 this hold the {@link StreamProcessor} extensions configuration reader.
-     * @param siddhiAppContext             Siddhi app runtime context
+     * @param siddhiQueryContext           The context of the Siddhi query
      */
     @Override
-    protected List<Attribute> init(AbstractDefinition inputDefinition,
-                                   ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                                   SiddhiAppContext siddhiAppContext) {
+    protected StateFactory<State> init(MetaStreamEvent metaStreamEvent, AbstractDefinition inputDefinition,
+                                ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                                StreamEventClonerHolder streamEventClonerHolder, boolean outputExpectsExpiredEvents,
+                                boolean findToBeExecuted, SiddhiQueryContext siddhiQueryContext) {
         String line;
         if (attributeExpressionExecutors.length == 1) {
             if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
@@ -139,7 +146,8 @@ public class TweetTextTokenizer extends StreamProcessor {
         }
         List<Attribute> attributes = new ArrayList<>();
         attributes.add(new Attribute("token", Attribute.Type.STRING));
-        return attributes;
+        this.attributeList = attributes;
+        return null;
     }
 
     @Override
@@ -149,16 +157,6 @@ public class TweetTextTokenizer extends StreamProcessor {
 
     @Override
     public void stop() {
-        //Do Nothing
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> state) {
         //Do Nothing
     }
 
@@ -186,5 +184,15 @@ public class TweetTextTokenizer extends StreamProcessor {
         Matcher unicodeOutlierMatcher = unicodeOutliers.matcher(text);
         text = unicodeOutlierMatcher.replaceAll("");
         return  text;
+    }
+
+    @Override
+    public List<Attribute> getReturnAttributes() {
+        return this.attributeList;
+    }
+
+    @Override
+    public ProcessingMode getProcessingMode() {
+        return ProcessingMode.SLIDE;
     }
 }
