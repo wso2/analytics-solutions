@@ -18,27 +18,32 @@
 
 package org.wso2.extension.siddhi.execution.esbanalytics.decompress;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
 import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
-import io.siddhi.core.config.SiddhiAppContext;
+import io.siddhi.core.config.SiddhiQueryContext;
 import io.siddhi.core.event.ComplexEventChunk;
+import io.siddhi.core.event.stream.MetaStreamEvent;
 import io.siddhi.core.event.stream.StreamEvent;
 import io.siddhi.core.event.stream.StreamEventCloner;
+import io.siddhi.core.event.stream.holder.StreamEventClonerHolder;
 import io.siddhi.core.event.stream.populater.ComplexEventPopulater;
 import io.siddhi.core.exception.SiddhiAppCreationException;
 import io.siddhi.core.exception.SiddhiAppRuntimeException;
 import io.siddhi.core.executor.ExpressionExecutor;
 import io.siddhi.core.executor.VariableExpressionExecutor;
+import io.siddhi.core.query.processor.ProcessingMode;
 import io.siddhi.core.query.processor.Processor;
 import io.siddhi.core.query.processor.stream.StreamProcessor;
 import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.AbstractDefinition;
 import io.siddhi.query.api.definition.Attribute;
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.wso2.carbon.analytics.spark.core.util.AnalyticsConstants;
@@ -158,7 +163,7 @@ import static org.wso2.extension.siddhi.execution.esbanalytics.decompress.util.E
                 )
         }
 )
-public class DecompressStreamProcessorExtension extends StreamProcessor {
+public class DecompressStreamProcessorExtension extends StreamProcessor<State> {
 
     private static final ThreadLocal<Kryo> kryoTL = ThreadLocal.withInitial(() -> {
 
@@ -174,6 +179,7 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
     private Map<String, String> fields = new LinkedHashMap<>();
     private List<String> columns;
     private Map<String, VariableExpressionExecutor> compressedEventAttributes;
+    private List<Attribute> attributeList = new ArrayList<>();
 
     /**
      * Get the definitions of the output fields in the decompressed event
@@ -212,7 +218,8 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
      */
     @Override
     protected void process(ComplexEventChunk<StreamEvent> streamEventChunk, Processor nextProcessor,
-                           StreamEventCloner streamEventCloner, ComplexEventPopulater complexEventPopulater) {
+                           StreamEventCloner streamEventCloner, ComplexEventPopulater complexEventPopulater,
+                           State state) {
 
         ComplexEventChunk<StreamEvent> decompressedStreamEventChunk = new ComplexEventChunk<>(false);
         while (streamEventChunk.hasNext()) {
@@ -265,14 +272,16 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
      *
      * @param attributeExpressionExecutors Executors of each attributes in the Function
      * @param configReader                 this hold the {@link StreamProcessor} extensions configuration reader.
-     * @param siddhiAppContext             Siddhi app runtime context
+     * @param siddhiQueryContext           The context of the Siddhi query
      */
     @Override
-    protected List<Attribute> init(AbstractDefinition inputDefinition,
-                                   ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                                   SiddhiAppContext siddhiAppContext) {
+    protected StateFactory<State> init(MetaStreamEvent metaStreamEvent, AbstractDefinition inputDefinition,
+                                       ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                                       StreamEventClonerHolder streamEventClonerHolder,
+                                       boolean outputExpectsExpiredEvents, boolean findToBeExecuted,
+                                       SiddhiQueryContext siddhiQueryContext) {
 
-        this.siddhiAppName = siddhiAppContext.getName();
+        this.siddhiAppName = siddhiQueryContext.getSiddhiAppContext().getName();
         // Get attributes from the compressed event
         this.compressedEventAttributes = new HashMap<>();
         for (ExpressionExecutor expressionExecutor : attributeExpressionExecutors) {
@@ -335,7 +344,8 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
         }
         this.columns = new ArrayList<>(this.fields.keySet());
 
-        return outputAttributes;
+        this.attributeList = outputAttributes;
+        return null;
     }
 
     @Override
@@ -353,28 +363,14 @@ public class DecompressStreamProcessorExtension extends StreamProcessor {
 
     }
 
-    /**
-     * Used to collect the serializable state of the processing element, that need to be
-     * persisted for reconstructing the element to the same state on a different point of time
-     *
-     * @return stateful objects of the processing element as an map
-     */
     @Override
-    public Map<String, Object> currentState() {
-
-        return null;
+    public List<Attribute> getReturnAttributes() {
+        return this.attributeList;
     }
 
-    /**
-     * Used to restore serialized state of the processing element, for reconstructing
-     * the element to the same state as if was on a previous point of time.
-     *
-     * @param state the stateful objects of the processing element as a map.
-     *              This is the same map that is created upon calling currentState() method.
-     */
     @Override
-    public void restoreState(Map<String, Object> state) {
-
+    public ProcessingMode getProcessingMode() {
+        return ProcessingMode.SLIDE;
     }
 }
 
