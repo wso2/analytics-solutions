@@ -984,8 +984,8 @@
     </profiles>
 
     <properties>
-        <carbon.analytics-common.version>6.1.27</carbon.analytics-common.version>
-        <carbon.analytics.version>3.0.2</carbon.analytics.version>
+        <carbon.analytics-common.version>6.1.30</carbon.analytics-common.version>
+        <carbon.analytics.version>3.0.3</carbon.analytics.version>
         <carbon.analytics.spark.core.version>1.2.3</carbon.analytics.spark.core.version>
         <kryo.version>3.0.3</kryo.version>
 
