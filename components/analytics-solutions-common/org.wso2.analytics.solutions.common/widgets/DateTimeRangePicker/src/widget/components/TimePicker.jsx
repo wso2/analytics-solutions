@@ -79,7 +79,7 @@ export default class TimePicker extends React.Component {
         );
       }
     } else if (inputName === 'endTime') {
-      const { month : months, days } = this.state;
+      const { month : months, days: day } = this.state;
 
       if (moment(startTime).month() === months) {
         const startDate = moment(startTime).date();
@@ -88,7 +88,7 @@ export default class TimePicker extends React.Component {
             <MenuItem key={`$days-${i}`} value={i} children={i} />
           );
         }
-        if (days < startDate) {
+        if (day < startDate) {
           this.setState({ days: startDate + 1 });
           this.handleOnChange('days', startDate + 1);
         }
