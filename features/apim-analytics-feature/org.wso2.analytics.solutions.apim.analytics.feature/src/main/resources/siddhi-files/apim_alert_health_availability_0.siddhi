@@ -45,18 +45,21 @@ insert into RequestAlertInfoStream;
 
 partition with (apiContext of RequestAlertInfoStream)
 begin
- -- checks whether the response time is higher than the threshold response time continously for 5 times
+ -- checks whether the response time is higher than the threshold response time continuously for 5 times
  	@info(name = 'Abnormal response time pattern check')
  	from every e1 = RequestAlertInfoStream[thresholdResponseTime >0 and responseTime > thresholdResponseTime],e2 = RequestAlertInfoStream[thresholdResponseTime >0 and responseTime > thresholdResponseTime],e3 = RequestAlertInfoStream[thresholdResponseTime >0 and responseTime > thresholdResponseTime], e4 = RequestAlertInfoStream[thresholdResponseTime >0 and responseTime > thresholdResponseTime],e5 = RequestAlertInfoStream[thresholdResponseTime >0 and responseTime > thresholdResponseTime]
  	select e1.apiName, e1.apiVersion, e1.apiContext, e1.apiCreator, e1.apiCreatorTenantDomain, e1.thresholdResponseTime
  	insert into ResponseTimeAlertStream;
+end;
+
+partition with (apiContext of Request)
+begin
 
  --checks whether the response code is between 500 - 600 to identify a server error
  	@info(name = 'Abnormal response code pattern check')
  	from every e1 = Request[responseCode >= 500 and responseCode < 600],e2 = Request[responseCode >= 500 and responseCode < 600],e3 = Request[responseCode >= 500 and responseCode < 600], e4 = Request[responseCode >= 500 and responseCode < 600],e5 = Request[responseCode >= 500 and responseCode < 600]
  	select e1.apiName, e1.apiVersion, e1.apiContext, e1.apiCreator, e1.apiCreatorTenantDomain
  	insert into ResponseCodeAlertStream;
-
 end;
 
 @info(name = 'ResponseTime Alert Suppression')
