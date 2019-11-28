@@ -1193,8 +1193,8 @@ class EIAnalyticsMessageFlow extends Widget {
         }
 
         if ("granularity" in message) {
-            this.parameters.timeFrom = '\'' + moment(message.from).format("YYYY-MM-DD HH:mm:ss") + '\'';
-            this.parameters.timeTo = '\'' + moment(message.to).format("YYYY-MM-DD HH:mm:ss") + '\'';
+            this.parameters.timeFrom = message.from;
+            this.parameters.timeTo = message.to;
             this.parameters.timeUnit = '\'' + message.granularity + 's' + '\'';
         }
 

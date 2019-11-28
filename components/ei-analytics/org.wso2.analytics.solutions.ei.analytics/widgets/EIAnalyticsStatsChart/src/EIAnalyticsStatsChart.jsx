@@ -227,7 +227,6 @@ class EIAnalyticsStatsChart extends Widget {
                         .replace("{{timeUnit}}", "\'" + timeUnit + "\'");
                     dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
                 }
-                // console.log(JSON.stringify(dataProviderConf.configs.providerConfig));
                 super.getWidgetChannelManager()
                     .subscribeWidget(this.props.id, this.handleStats, dataProviderConf.configs.providerConfig);
             })
