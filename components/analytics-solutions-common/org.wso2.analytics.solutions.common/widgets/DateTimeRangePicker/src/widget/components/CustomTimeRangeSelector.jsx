@@ -18,7 +18,7 @@
  */
 
 import React from 'react';
-import Moment from 'moment';
+import moment from 'moment';
 import TimePicker from './TimePicker';
 import Button from '@material-ui/core/Button/Button';
 import Typography from '@material-ui/core/Typography/Typography';
@@ -38,7 +38,7 @@ export default class CustomTimeRangeSelector extends React.Component {
    */
   handleStartTimeChange = (startTime) => {
     const { endTime } = this.state;
-    if (Moment(startTime).isSameOrAfter(Moment(endTime))) {
+    if (moment(startTime).isSameOrAfter(moment(endTime))) {
       this.setState({
         invalidDateRange: true,
         applyButtonBackgroundColor: '#999'
@@ -58,7 +58,7 @@ export default class CustomTimeRangeSelector extends React.Component {
    */
   handleEndTimeChange = (endTime) => {
     const { startTime } = this.state;
-    if (Moment(startTime).isSameOrAfter(Moment(endTime))) {
+    if (moment(startTime).isSameOrAfter(moment(endTime))) {
       this.setState({
         invalidDateRange: true,
         applyButtonBackgroundColor: '#999'
@@ -95,7 +95,7 @@ export default class CustomTimeRangeSelector extends React.Component {
     const { startTime, endTime } = this.state;
     let invalidDateRange = false;
     let applyBtnColor = '#ef6c00';
-    if (Moment(startTime).isSameOrAfter(Moment(endTime), customGranularityValue)) {
+    if (moment(startTime).isSameOrAfter(moment(endTime), customGranularityValue)) {
       invalidDateRange = true;
       applyBtnColor = '#999';
     }
@@ -233,7 +233,7 @@ export default class CustomTimeRangeSelector extends React.Component {
               disableSelectedQuickRangeValue={disableSelectedQuickRangeValue}
               onChange={this.handleStartTimeChange}
               inputType={customRangeGranularityValue}
-              initTime={Moment(startTime)}
+              initTime={moment(startTime)}
               inputName="startTime"
               theme={theme}
             />
@@ -245,7 +245,7 @@ export default class CustomTimeRangeSelector extends React.Component {
               disableSelectedQuickRangeValue={disableSelectedQuickRangeValue}
               onChange={this.handleEndTimeChange}
               inputType={customRangeGranularityValue}
-              initTime={Moment(endTime)}
+              initTime={moment(endTime)}
               inputName="endTime"
               startTime={startTime}
               theme={theme}

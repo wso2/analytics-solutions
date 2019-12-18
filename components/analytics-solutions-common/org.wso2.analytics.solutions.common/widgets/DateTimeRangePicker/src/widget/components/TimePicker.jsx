@@ -79,14 +79,16 @@ export default class TimePicker extends React.Component {
         );
       }
     } else if (inputName === 'endTime') {
-      if (moment(startTime).month() === this.state.month) {
+      const { month : months, days: day } = this.state;
+
+      if (moment(startTime).month() === months) {
         const startDate = moment(startTime).date();
         for (let i = startDate; i <= days; i++) {
           dayComponents.push(
             <MenuItem key={`$days-${i}`} value={i} children={i} />
           );
         }
-        if (this.state.days < startDate) {
+        if (day < startDate) {
           this.setState({ days: startDate + 1 });
           this.handleOnChange('days', startDate + 1);
         }
@@ -108,7 +110,7 @@ export default class TimePicker extends React.Component {
    * @param(String,String)
    */
   generateMonths = (inputName, startTime) => {
-    const monthComponents = [];
+    let monthComponents = [];
     const monthArray = [
       'January',
       'February',
@@ -125,14 +127,14 @@ export default class TimePicker extends React.Component {
     ];
 
     if (inputName === 'startTime') {
-      for (let i = 0; i < monthArray.length; i++) {
-        monthComponents.push(
-          <MenuItem key={`month-${i}`} value={i} children={monthArray[i]} />
-        );
-      }
+      monthComponents  = monthArray. map((value, index) => {
+        return <MenuItem key={`month-${index}`} value={index} children={value} />
+      });
     } else if (inputName === 'endTime') {
       const start = moment(startTime);
-      const yearDiff = this.state.year - start.year();
+      const { year, month } = this.state;
+      const yearDiff = year - start.year();
+
       if (yearDiff <= 0) {
         const startMonth = start.month();
         for (let i = startMonth; i < monthArray.length; i++) {
@@ -140,16 +142,14 @@ export default class TimePicker extends React.Component {
             <MenuItem key={`month-${i}`} value={i} children={monthArray[i]} />
           );
         }
-        if (this.state.month < startMonth) {
+        if (month < startMonth) {
           this.setState({ month: startMonth });
           this.handleOnChange('month', startMonth);
         }
       } else if (yearDiff > 0) {
-        for (let i = 0; i < monthArray.length; i++) {
-          monthComponents.push(
-            <MenuItem key={`month-${i}`} value={i} children={monthArray[i]} />
-          );
-        }
+          monthComponents  = monthArray. map((value, index) => {
+              return <MenuItem key={`month-${index}`} value={index} children={value} />
+          });
       }
     }
 
@@ -170,14 +170,16 @@ export default class TimePicker extends React.Component {
         );
       }
     } else if (inputName === 'endTime') {
+      const { year } = this.state;
       const startYear = moment(startTime).year();
+
       for (let index = startYear; index <= 2099; index++) {
         yearArray.push(
           <MenuItem key={`year-${index}`} value={index} children={index} />
         );
       }
 
-      if (this.state.year < startYear) {
+      if (year < startYear) {
         this.setState({ year: startYear });
         this.handleOnChange('year', startYear);
       }
