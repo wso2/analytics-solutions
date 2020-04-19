@@ -19,7 +19,7 @@
     <parent>
         <artifactId>sp-solution-features</artifactId>
         <groupId>org.wso2.analytics.solutions</groupId>
-        <version>1.0.51-SNAPSHOT</version>
+        <version>1.0.51</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
