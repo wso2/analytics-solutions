@@ -359,9 +359,7 @@ class DateTimePicker extends Widget {
         if (granularity.length > 0) {
           this.clearRefreshInterval();
           granularity = granularity.toLowerCase();
-          const supportedGranularities = this.getSupportedGranularitiesForFixed(
-            timeRange
-          );
+          const supportedGranularities = this.getSupportedGranularitiesForFixed(timeRange).supportedGranularities;
           if (
             supportedGranularities.indexOf(
               this.capitalizeCaseFirstChar(granularity)
@@ -803,12 +801,8 @@ class DateTimePicker extends Widget {
       );
     }
     const { granularityMode } = this.state;
-    let defaultSelectedGranularity = this.getSupportedGranularitiesForFixed(
-      granularityMode
-    );
-    return defaultSelectedGranularity[
-      defaultSelectedGranularity.length - 2
-    ].toLowerCase();
+    let defaultSelectedGranularity = this.getSupportedGranularitiesForFixed(granularityMode);
+    return defaultSelectedGranularity.defaultGranularity.toLowerCase();
   }
 
   verifySelectedGranularityForCustom = (granularity) => {
@@ -956,37 +950,42 @@ class DateTimePicker extends Widget {
    */
   getSupportedGranularitiesForFixed = (granularityValue) => {
     let supportedGranularities = [];
+    let defaultGranularityIndex = 0;
     switch (granularityValue) {
       case '1 Min':
       case '15 Min':
         supportedGranularities = ['Second', 'Minute'];
+        defaultGranularityIndex = 0;
         break;
       case '1 Hour':
         supportedGranularities = ['Second', 'Minute', 'Hour'];
+        defaultGranularityIndex = 1;
         break;
       case '1 Day':
       case '7 Days':
         supportedGranularities = ['Second', 'Minute', 'Hour', 'Day'];
+        defaultGranularityIndex = 2;
         break;
       case '1 Month':
+        supportedGranularities = ['Second', 'Minute', 'Hour', 'Day'];
+        defaultGranularityIndex = 3;
+        break;
       case '3 Months':
       case '6 Months':
         supportedGranularities = ['Second', 'Minute', 'Hour', 'Day', 'Month'];
+        defaultGranularityIndex = 4;
         break;
       case '1 Year':
-        supportedGranularities = [
-          'Second',
-          'Minute',
-          'Hour',
-          'Day',
-          'Month',
-          'Year'
-        ];
+        supportedGranularities = ['Second', 'Minute', 'Hour', 'Day', 'Month', 'Year'];
+        defaultGranularityIndex = 4;
         break;
       default:
       // do nothing
     }
-    return supportedGranularities;
+    return {
+      supportedGranularities: supportedGranularities,
+      defaultGranularity: supportedGranularities[defaultGranularityIndex]
+    };
   };
 
   getSupportedGranularitiesForCustom = (startTime, endTime) => {

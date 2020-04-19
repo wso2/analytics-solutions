@@ -124,10 +124,12 @@ class IsAnalyticsTopLongestSession extends Widget {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
         let { query } = dataProviderConfigs.configs.config.queryData;
+        const tenantId = this.props.dashboard.properties.tenantId || -1234;
         query = query
             .replace('{{from}}', this.state.fromDate)
             .replace('{{to}}', this.state.toDate)
-            .replace('{{now}}', new Date().getTime());
+            .replace('{{now}}', new Date().getTime())
+            .replace('{{tenantId}}', tenantId);
         dataProviderConfigs.configs.config.queryData.query = query;
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);

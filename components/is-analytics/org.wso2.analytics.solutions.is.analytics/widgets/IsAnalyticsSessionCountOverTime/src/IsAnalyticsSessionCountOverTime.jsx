@@ -115,6 +115,7 @@ class IsAnalyticsSessionCountOverTime extends Widget {
                 default:
                     // This will never hit
             }
+            chartConfig.maxLength = (data.length > 0 ? data.length : 10);
             return { chartConfig };
         });
     }
@@ -132,10 +133,12 @@ class IsAnalyticsSessionCountOverTime extends Widget {
         super.getWidgetChannelManager().unsubscribeWidget(this.props.id);
         const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
         let { query } = dataProviderConfigs.configs.config.queryData;
+        const tenantId = this.props.dashboard.properties.tenantId || -1234;
         query = query
             .replace('{{per}}', this.state.per)
             .replace('{{from}}', this.state.fromDate)
-            .replace('{{to}}', this.state.toDate);
+            .replace('{{to}}', this.state.toDate)
+            .replace('{{tenantId}}', tenantId);
         dataProviderConfigs.configs.config.queryData.query = query;
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
