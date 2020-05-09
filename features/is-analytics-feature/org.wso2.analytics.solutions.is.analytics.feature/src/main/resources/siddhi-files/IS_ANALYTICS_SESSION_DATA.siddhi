@@ -68,6 +68,11 @@ define stream HandleSessionInformation (
         userStore string,
         timestamp long);
 
+define stream EligibleSessionFilterStream (
+        meta_tenantId int,
+        action int,
+        _timestamp long);
+
 -- this definition is not required, but no harm keeping it either.
 define stream CountingNewTerminatedSessionsStream (
         meta_tenantId int,
@@ -261,8 +266,25 @@ delete  ActiveSessionsTable
 on      ActiveSessionsTable.sessionId == sessionId AND
         ActiveSessionsTable.meta_tenantId == meta_tenantId;
 
+from OverallSessionStream as o join ActiveSessionsTable as a
+on      o.meta_tenantId == a.meta_tenantId
+        and o.sessionId == a.sessionId
+        and o.action == 0
+select  o.meta_tenantId as meta_tenantId,
+        o.action as action,
+        o._timestamp as _timestamp
+insert into
+        EligibleSessionFilterStream;
+
+from OverallSessionStream[action == 1]
+select  meta_tenantId,
+        action,
+        _timestamp
+insert into
+        EligibleSessionFilterStream;
+
 --Counting new and terminated sessions every 1 second for each meta_tenantId
-from OverallSessionStream[action == 1 OR action == 0]#window.externalTimeBatch(_timestamp, 1 sec, 0, 2 sec)
+from EligibleSessionFilterStream#window.externalTimeBatch(_timestamp, 1 sec, 0, 2 sec)
 select  meta_tenantId,
         sum(action) as newSessionCount,
         sum(1 - action) as terminatedSessionCount,
