@@ -121,7 +121,7 @@ class EIAnalyticsTPS extends Widget {
                 // Request datastore with the modified query
                 super.getWidgetChannelManager()
                     .subscribeWidget(
-                        this.props.id, this.handleStats, dataProviderConf
+                        this.props.id, "EIAnalyticsTPS", this.handleStats, dataProviderConf
                     );
             })
             .catch((error) => {

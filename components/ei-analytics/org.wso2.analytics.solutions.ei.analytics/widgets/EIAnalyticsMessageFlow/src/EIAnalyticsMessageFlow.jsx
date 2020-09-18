@@ -291,6 +291,7 @@ class EIAnalyticsMessageFlow extends Widget {
                 dataProviderConf.configs.providerConfig.configs.config.queryData = {query: formattedQuery};
                 super.getWidgetChannelManager().subscribeWidget(
                     this.props.id,
+                    "EIAnalyticsMessageFlow",
                     callBackFunction,
                     dataProviderConf.configs.providerConfig
                 );
@@ -316,6 +317,7 @@ class EIAnalyticsMessageFlow extends Widget {
                         dataProviderConf.configs.providerConfig.configs.config.queryData = {query: formattedQuery};
                         super.getWidgetChannelManager().subscribeWidget(
                             this.props.id,
+                            "EIAnalyticsMessageFlow",
                             (data) => this.handleAggregateData(configEntryData, entryName, data),
                             dataProviderConf.configs.providerConfig
                         );
@@ -510,6 +512,7 @@ class EIAnalyticsMessageFlow extends Widget {
                 super.getWidgetChannelManager()
                     .subscribeWidget(
                         this.props.id,
+                        "EIAnalyticsMessageFlow",
                         this.handleMessageFlowComponentsData(tenantId).bind(this),
                         dataProviderConf.configs.providerConfig
                     );
@@ -542,6 +545,7 @@ class EIAnalyticsMessageFlow extends Widget {
                     super.getWidgetChannelManager()
                         .subscribeWidget(
                             this.props.id,
+                            "EIAnalyticsMessageFlow",
                             this.handleMessageFlowSchema(parsedComponents, entryPoint, tenantId).bind(this),
                             formattedProviderConfig
                         );
@@ -581,6 +585,7 @@ class EIAnalyticsMessageFlow extends Widget {
                         super.getWidgetChannelManager()
                             .subscribeWidget(
                                 this.props.id,
+                                "EIAnalyticsMessageFlow",
                                 this.handleMessageFlowComponentSchemas(parsedComponents, entryPoint, parsedFlowScheme).bind(this),
                                 dataProviderConf.configs.providerConfig
                             );
@@ -824,6 +829,7 @@ class EIAnalyticsMessageFlow extends Widget {
                 dataProviderConf.configs.providerConfig.configs.config.queryData = {query: formattedQuery};
                 super.getWidgetChannelManager().subscribeWidget(
                     this.props.id,
+                    "EIAnalyticsMessageFlow",
                     handleConfigData,
                     dataProviderConf.configs.providerConfig
                 );
@@ -877,6 +883,7 @@ class EIAnalyticsMessageFlow extends Widget {
 
                         super.getWidgetChannelManager().subscribeWidget(
                             this.props.id,
+                            "EIAnalyticsMessageFlow",
                             this.handleSequenceMessageFlowAggregateData(schema).bind(this),
                             dataProviderConf.configs.providerConfig
                         );
@@ -1308,7 +1315,7 @@ class EIAnalyticsMessageFlow extends Widget {
 
 function getDashboardBaseUrl() {
     var currentUrl = window.parent.location.href;
-    var BaseUrlRegex = new RegExp(".*?(portal.*dashboards)");
+    var BaseUrlRegex = new RegExp(".*?(analytics-dashboard.*dashboards)");
     var tenantBaseUrl = BaseUrlRegex.exec(currentUrl)[1];
     return "/" + tenantBaseUrl + "/" + DASHBOARD_NAME + "/";
 }
