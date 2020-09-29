@@ -229,7 +229,7 @@ class EIAnalyticsStatsChart extends Widget {
                 }
                 // console.log(JSON.stringify(dataProviderConf.configs.providerConfig));
                 super.getWidgetChannelManager()
-                    .subscribeWidget(this.props.id, this.handleStats, dataProviderConf.configs.providerConfig);
+                    .subscribeWidget(this.props.id, "EIAnalyticsStatsChart", this.handleStats, dataProviderConf.configs.providerConfig);
             })
             .catch(() => {
                 console.error("Unable to load configurations of " + this.props.widgetID + " widget.");

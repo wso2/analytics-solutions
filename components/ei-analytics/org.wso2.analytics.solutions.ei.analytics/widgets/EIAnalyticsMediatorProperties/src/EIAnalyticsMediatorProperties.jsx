@@ -96,6 +96,7 @@ class EIAnalyticsMediatorProperties extends Widget {
                             super.getWidgetChannelManager()
                                 .subscribeWidget(
                                     this.props.id,
+                                    "EIAnalyticsMediatorProperties",
                                     this.handleComponentMessageFlowData(messageFlowId).bind(this),
                                     dataProviderConf,
                                 );
@@ -130,6 +131,7 @@ class EIAnalyticsMediatorProperties extends Widget {
                         super.getWidgetChannelManager()
                             .subscribeWidget(
                                 this.props.id,
+                                "EIAnalyticsMediatorProperties",
                                 this.handleChildMessageFlowData(messageInfoBefore).bind(this),
                                 dataProviderConf,
                             );

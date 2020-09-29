@@ -141,6 +141,7 @@ class EIAnalyticsHorizontalBarChart extends Widget {
                 super.getWidgetChannelManager()
                     .subscribeWidget(
                         this.props.id,
+                        "EIAnalyticsHorizontalBarChart",
                         this.handleStats,
                         dataProviderConf
                     );

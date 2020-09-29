@@ -256,8 +256,8 @@ class EIAnalyticsSearchBox extends Widget {
                 }
 
                 message.data.configs.providerConfig.configs.config.queryData.query =
-                    query.replace('{{paramComponentType}}', componentType)
-                super.getWidgetChannelManager().subscribeWidget(this.props.id,
+                    query.replace('{{paramComponentType}}', componentType);
+                super.getWidgetChannelManager().subscribeWidget(this.props.id, "EIAnalyticsSearchBox",
                     this.handleDataReceived, message.data.configs.providerConfig);
 
             })
