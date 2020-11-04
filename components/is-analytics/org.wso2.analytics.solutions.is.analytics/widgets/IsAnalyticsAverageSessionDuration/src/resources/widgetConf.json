@@ -14,7 +14,7 @@
         "config": {
           "siddhiApp": "@store(type='rdbms', datasource='IS_ANALYTICS_DB') @primaryKey('meta_tenantId', 'sessionId') @Index('username','userstoreDomain','tenantDomain') define table SessionInformationTable ( meta_tenantId int, sessionId string, startTime string, terminateTime string, endTime string, duration long, isActive bool, username string, userstoreDomain string, remoteIp string, region string, tenantDomain string, serviceProvider string, identityProviders string, rememberMeFlag bool, userAgent string, userStore string, currentTime string, startTimestamp long, renewTimestamp long, terminationTimestamp long, endTimestamp long, timestamp long);",
           "queryData": {
-            "query": "from SessionInformationTable on (startTimestamp >= 0 and startTimestamp <= {{to}}L) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive == true) and meta_tenantId == {{tenantId}} select userStore as username, avg(duration)/1000 as duration group by username order by duration desc"
+            "query": "from SessionInformationTable on (startTimestamp >= 0 and startTimestamp <= {{to}}L) and ((endTimestamp >= {{from}}L and endTimestamp <= {{now}}L) or isActive == true) and meta_tenantId == {{tenantId}} select userStore as username, avg(duration)/1000 as avgDuration group by userStore order by avgDuration desc"
           },
           "publishingInterval": 60
         }
