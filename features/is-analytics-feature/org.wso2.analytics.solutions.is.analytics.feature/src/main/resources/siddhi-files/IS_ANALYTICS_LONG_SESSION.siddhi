@@ -119,7 +119,6 @@ define table SecurityAlertTypeTable(
             userReadableTime string);
 
 @primaryKey('meta_tenantId', 'username', 'userstoreDomain')
-@index('tenantDomain','avgDuration')
 define table AverageSession(
             meta_tenantId int,
             tenantDomain string,
