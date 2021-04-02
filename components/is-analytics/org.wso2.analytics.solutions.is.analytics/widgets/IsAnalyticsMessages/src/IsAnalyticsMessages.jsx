@@ -268,6 +268,7 @@ const tableConfig = {
             },
         };
     },
+    hideTotalPageCount: true,
 };
 
 class IsAnalyticsMessages extends Widget {
@@ -302,7 +303,11 @@ class IsAnalyticsMessages extends Widget {
     componentDidMount() {
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
+                const tableConfigs = _.cloneDeep(this.state.tableConfig);
+                tableConfigs.hideTotalPageCount =
+                    message.data.configs.providerConfig.configs.config.isPaginationEnabled;
                 this.setState({
+                    tableConfig: tableConfigs,
                     dataProviderConf: message.data.configs.providerConfig,
                     isPaginationEnabled: message.data.configs.providerConfig.configs.config.isPaginationEnabled,
                     pageSize: message.data.configs.providerConfig.configs.config.pageSize,

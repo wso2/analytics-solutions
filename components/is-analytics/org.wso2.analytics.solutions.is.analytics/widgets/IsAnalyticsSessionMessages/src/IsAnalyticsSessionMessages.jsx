@@ -82,6 +82,7 @@ class IsAnalyticsSessionMessages extends Widget {
             pagination: true,
             filterable: true,
             append: false,
+            hideTotalPageCount: true,
         };
 
         this.metadata = {
@@ -120,7 +121,11 @@ class IsAnalyticsSessionMessages extends Widget {
             .then((message) => {
                 this.setState({
                     providerConfig: message.data.configs.providerConfig,
+                    isPaginationEnabled: message.data.configs.providerConfig.configs.config.isPaginationEnabled,
+                    pageSize: message.data.configs.providerConfig.configs.config.pageSize,
                 }, () => super.subscribe(this.handleUserSelection));
+                this.chartConfig.hideTotalPageCount =
+                    message.data.configs.providerConfig.configs.config.isPaginationEnabled;
             });
     }
 
