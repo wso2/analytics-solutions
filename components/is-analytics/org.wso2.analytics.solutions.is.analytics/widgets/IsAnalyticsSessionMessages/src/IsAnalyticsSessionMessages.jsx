@@ -124,8 +124,8 @@ class IsAnalyticsSessionMessages extends Widget {
                     isPaginationEnabled: message.data.configs.providerConfig.configs.config.isPaginationEnabled,
                     pageSize: message.data.configs.providerConfig.configs.config.pageSize,
                 }, () => super.subscribe(this.handleUserSelection));
-                this.chartConfig.hideTotalPageCount =
-                    message.data.configs.providerConfig.configs.config.isPaginationEnabled;
+                this.chartConfig.hideTotalPageCount = message.data.configs.providerConfig.configs.config
+                    .isPaginationEnabled;
             });
     }
 
