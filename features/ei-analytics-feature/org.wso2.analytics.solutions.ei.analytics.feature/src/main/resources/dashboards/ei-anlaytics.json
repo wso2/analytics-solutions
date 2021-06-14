@@ -1,8 +1,8 @@
 {
     "dashboard": {
-        "url": "eianalytics",
+        "url": "mianalytics",
         "owner": "admin",
-        "name": "Enterprise Integrator Analytics",
+        "name": "Micro Integrator Analytics",
         "description": "A dashboard to display Enterprise Integrator Analytics",
         "landingPage": "overview",
         "parentId": "0",
