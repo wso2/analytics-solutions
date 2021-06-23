@@ -47,7 +47,10 @@
           "purgingInterval": 60,
           "publishingLimit": 30,
           "purgingLimit": 60,
-          "isPurgingEnable": false
+          "isPurgingEnable": false,
+          "isPaginationEnabled": true,
+          "currentPage": 0,
+          "pageSize": 5
         }
       }
     }

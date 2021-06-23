@@ -16,7 +16,10 @@
           "queryData": {
             "query": "from SessionInformationTable select username, startTime, terminateTime, ifThenElse(endTime == 'January 01, 1970 05:29:59 AM IST', 'Live', endTime) as endTime, duration, ifThenElse(isActive, 'True', 'False') as isActive, userstoreDomain, tenantDomain, remoteIp, ifThenElse(rememberMeFlag, 'True', 'False') as rememberMeFlag, currentTime  having timestamp >= {{from}}L AND timestamp <= {{to}}L order by sessionId"
           },
-          "publishingInterval": 100
+          "publishingInterval": 100,
+          "isPaginationEnabled": true,
+          "currentPage": 0,
+          "pageSize": 5
         }
       }
     }
