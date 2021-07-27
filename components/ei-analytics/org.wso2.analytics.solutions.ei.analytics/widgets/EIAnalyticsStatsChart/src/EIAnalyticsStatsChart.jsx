@@ -174,8 +174,8 @@ class EIAnalyticsStatsChart extends Widget {
 
         if (PUBLISHER_DATE_TIME_PICKER in message) {
             this.setState({
-                timeFrom: moment(message.from).format("YYYY-MM-DD HH:mm:ss"),
-                timeTo: moment(message.to).format("YYYY-MM-DD HH:mm:ss"),
+                timeFrom: message.from,
+                timeTo: message.to,
                 timeUnit: message.granularity + 's',
                 totalCount: null,
                 faultCount: null
@@ -210,8 +210,8 @@ class EIAnalyticsStatsChart extends Widget {
                         .replace("{{componentIdentifier}}", (componentName == "ALL" ? 'true' : componentIdentifier))
                         .replace("{{componentName}}", ((componentName === "ALL") ? 'true' : "\'" + componentName + "\'"))
                         .replace("{{tenantId}}", tenantId)
-                        .replace("{{timeFrom}}", "\'" + timeFrom + "\'")
-                        .replace("{{timeTo}}", "\'" + timeTo + "\'")
+                        .replace("{{timeFrom}}", timeFrom)
+                        .replace("{{timeTo}}", timeTo)
                         .replace("{{timeUnit}}", "\'" + timeUnit + "\'");
                     dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
                 } else {
@@ -222,8 +222,8 @@ class EIAnalyticsStatsChart extends Widget {
                         .replace("{{componentIdentifier}}", (componentName == "ALL" ? 'true' : componentIdentifier))
                         .replace("{{componentName}}", ((componentName === "ALL") ? 'true' : "\'" + componentName + "\'"))
                         .replace("{{tenantId}}", tenantId)
-                        .replace("{{timeFrom}}", "\'" + timeFrom + "\'")
-                        .replace("{{timeTo}}", "\'" + timeTo + "\'")
+                        .replace("{{timeFrom}}", timeFrom)
+                        .replace("{{timeTo}}", timeTo)
                         .replace("{{timeUnit}}", "\'" + timeUnit + "\'");
                     dataProviderConf.configs.providerConfig.configs.config.queryData.query = formattedQuery;
                 }
