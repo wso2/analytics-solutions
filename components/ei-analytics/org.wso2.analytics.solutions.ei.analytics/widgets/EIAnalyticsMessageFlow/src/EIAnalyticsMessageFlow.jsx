@@ -841,7 +841,7 @@ class EIAnalyticsMessageFlow extends Widget {
             if (schemaData.data.length > 0) {
                 let parsedSchemaData = this.parseDatastoreMessage(schemaData)[0]; // Get latest schema data
 
-                let artifactFirstEntryTime = moment(parsedSchemaData._timestamp).format("YYYY-MM-DD HH:mm:ss");
+                let artifactFirstEntryTime = parsedSchemaData._timestamp;
                 let schema = JSON.parse(parsedSchemaData.configData);
                 let componentIdQuery = "(";
 
@@ -861,11 +861,8 @@ class EIAnalyticsMessageFlow extends Widget {
                 componentIdQuery += "false) "; // Fix final 'AND' in the query
                 // get components info from different tables
                 let dataFetchTime = artifactFirstEntryTime;
-                if (moment(timeFrom.replace(/'/g, '')).isBefore(artifactFirstEntryTime)) {
+                if (timeFrom < artifactFirstEntryTime) {
                     dataFetchTime = timeFrom;
-                }
-                else {
-                    dataFetchTime = "\'" + artifactFirstEntryTime + "\'";
                 }
 
                 super.getWidgetConfiguration(this.props.widgetID)
@@ -1200,8 +1197,8 @@ class EIAnalyticsMessageFlow extends Widget {
         }
 
         if ("granularity" in message) {
-            this.parameters.timeFrom = '\'' + moment(message.from).format("YYYY-MM-DD HH:mm:ss") + '\'';
-            this.parameters.timeTo = '\'' + moment(message.to).format("YYYY-MM-DD HH:mm:ss") + '\'';
+            this.parameters.timeFrom = message.from;
+            this.parameters.timeTo = message.to;
             this.parameters.timeUnit = '\'' + message.granularity + 's' + '\'';
         }
 
