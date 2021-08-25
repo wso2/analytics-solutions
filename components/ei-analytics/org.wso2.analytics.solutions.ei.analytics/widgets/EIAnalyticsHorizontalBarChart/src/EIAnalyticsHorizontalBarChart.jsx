@@ -105,10 +105,8 @@ class EIAnalyticsHorizontalBarChart extends Widget {
     handlePublisherParameters(message) {
         if (PUBLISHER_DATE_TIME_PICKER in message) {
             this.setState({
-                timeFromParameter: moment(message.from)
-                    .format('YYYY-MM-DD HH:mm:ss'),
-                timeToParameter: moment(message.to)
-                    .format('YYYY-MM-DD HH:mm:ss'),
+                timeFromParameter: message.from,
+                timeToParameter: message.to,
                 timeUnitParameter: message.granularity + 's',
                 isLoading: true,
             }, this.handleGraphUpdate);

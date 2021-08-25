@@ -88,8 +88,8 @@ class EIAnalyticsTPS extends Widget {
         if (PUBLISHER_DATE_TIME_PICKER in message) {
             // Update time parameters and clear existing graph
             this.setState({
-                timeFromParameter: moment(message.from).format("YYYY-MM-DD HH:mm:ss"),
-                timeToParameter: moment(message.to).format("YYYY-MM-DD HH:mm:ss"),
+                timeFromParameter: message.from,
+                timeToParameter: message.to,
                 timeUnitParameter: message.granularity,
                 clearGraph: true
             }, this.handleGraphUpdate);
@@ -112,8 +112,8 @@ class EIAnalyticsTPS extends Widget {
                 // Insert required parameters to the query string
                 let formattedQuery = query
                     .replace("{{tenantId}}", this.props.dashboard.properties.tenantId)
-                    .replace("{{timeFrom}}", "\'" + this.state.timeFromParameter + "\'")
-                    .replace("{{timeTo}}", "\'" + this.state.timeToParameter + "\'")
+                    .replace("{{timeFrom}}", this.state.timeFromParameter)
+                    .replace("{{timeTo}}", this.state.timeToParameter)
                     .replace("{{timeunit}}", "\'" + timeUnit + "\'")
 
                 dataProviderConf.configs.config.queryData.query = formattedQuery;
