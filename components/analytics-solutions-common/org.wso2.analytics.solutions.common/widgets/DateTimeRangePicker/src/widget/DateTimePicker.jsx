@@ -35,7 +35,7 @@ class DateTimePicker extends Widget {
     this.state = {
       width: this.props.width,
       granularityMode: null,
-      customRangeGranularityValue: 'day',
+      customRangeGranularityValue: 'month',
       quickRangeGranularityValue: '3 Months',
       granularityValue: '',
       options: this.props.configs ? this.props.configs.options : {},
@@ -80,17 +80,18 @@ class DateTimePicker extends Widget {
       granularity = this.verifyDefaultGranularityOfTimeRange(
         startTimeAndGranularity.granularity
       );
+      const endTime = this.getEndTime(mode);
       this.publishTimeRange({
         granularity,
         from: startTimeAndGranularity.startTime.getTime(),
-        to: new Date().getTime()
+        to: endTime.getTime()
       });
       this.setRefreshInterval();
       this.setState({
         granularityMode: mode,
         granularityValue: granularity,
         startTime: startTimeAndGranularity.startTime,
-        endTime: new Date()
+        endTime: endTime
       });
     }
   };
@@ -125,6 +126,62 @@ class DateTimePicker extends Widget {
     });
   };
 
+  getEndTime = (granularityValue) => {
+    let endTime = null;
+
+    switch (granularityValue) {
+      case '1 Min':
+        endTime = Moment()
+            .startOf('minute')
+            .toDate();
+        break;
+      case '15 Min':
+        endTime = Moment()
+            .startOf('minute')
+            .toDate();
+        break;
+      case '1 Hour':
+        endTime = Moment()
+            .startOf('hour')
+            .toDate();
+        break;
+      case '1 Day':
+        endTime = Moment()
+            .startOf('day')
+            .toDate();
+        break;
+      case '7 Days':
+        endTime = Moment()
+            .startOf('day')
+            .toDate();
+        break;
+      case '1 Month':
+        endTime = Moment()
+            .startOf('month')
+            .toDate();
+        break;
+      case '3 Months':
+        endTime = Moment()
+            .startOf('month')
+            .toDate();
+        break;
+      case '6 Months':
+        endTime = Moment()
+            .startOf('month')
+            .toDate();
+        break;
+      case '1 Year':
+        endTime = Moment()
+            .startOf('month')
+            .toDate();
+        break;
+      default:
+        // do nothing
+    }
+
+    return endTime;
+  };
+
   /**
    * Returning the start time and the granularity according to the timeMode
    * @param{String} time mode:'1 minute,15 minute etc
@@ -138,54 +195,64 @@ class DateTimePicker extends Widget {
       case '1 Min':
         startTime = Moment()
           .subtract(1, 'minutes')
+          .startOf('minute')
           .toDate();
-        granularity = 'minute';
+        granularity = 'second';
         break;
       case '15 Min':
         startTime = Moment()
           .subtract(15, 'minutes')
+          .startOf('minute')
           .toDate();
         granularity = 'minute';
         break;
       case '1 Hour':
         startTime = Moment()
           .subtract(1, 'hours')
+          .startOf('hour')
           .toDate();
         granularity = 'minute';
         break;
       case '1 Day':
         startTime = Moment()
           .subtract(1, 'days')
+          .startOf('day')
           .toDate();
         granularity = 'hour';
         break;
       case '7 Days':
         startTime = Moment()
           .subtract(7, 'days')
+          .startOf('day')
           .toDate();
         granularity = 'day';
         break;
       case '1 Month':
         startTime = Moment()
           .subtract(1, 'months')
+          .startOf('month')
           .toDate();
         granularity = 'day';
         break;
       case '3 Months':
         startTime = Moment()
           .subtract(3, 'months')
+          .startOf('month')
           .toDate();
         granularity = 'month';
         break;
       case '6 Months':
         startTime = Moment()
           .subtract(6, 'months')
+          .startOf('month')
           .toDate();
         granularity = 'month';
         break;
       case '1 Year':
         startTime = Moment()
+          .subtract(1, 'months')
           .subtract(1, 'years')
+          .startOf('month')
           .toDate();
         granularity = 'month';
         break;
@@ -381,16 +448,17 @@ class DateTimePicker extends Widget {
           const startTimeAndDefaultGranularity = this.getStartTimeAndGranularity(
             timeRange
           );
+          const endTime = this.getEndTime(timeRange);
           this.publishTimeRange({
             granularity,
             from: startTimeAndDefaultGranularity.startTime.getTime(),
-            to: new Date().getTime()
+            to: endTime.getTime()
           });
           this.setState({
             granularityMode: timeRange,
             granularityValue: granularity,
             startTime: startTimeAndDefaultGranularity.startTime,
-            endTime: new Date()
+            endTime: endTime
           });
           this.setRefreshInterval();
         } else {
@@ -733,56 +801,84 @@ class DateTimePicker extends Widget {
       case '1 Min':
         startTime = Moment()
           .subtract(1, 'minutes')
+          .startOf('minute')
           .format('YYYY-MMMM-DD hh:mm:ss A');
-        endTime = Moment().format('YYYY-MMMM-DD hh:mm:ss A');
+        endTime = Moment()
+          .startOf('minute')
+          .format('YYYY-MMMM-DD hh:mm:ss A');
         break;
       case '15 Min':
         startTime = Moment()
           .subtract(15, 'minutes')
+          .startOf('minute')
           .format('YYYY-MMMM-DD hh:mm:ss A');
-        endTime = Moment().format('YYYY-MMMM-DD hh:mm:ss A');
+        endTime = Moment()
+          .startOf('minute')
+          .format('YYYY-MMMM-DD hh:mm:ss A');
         break;
       case '1 Hour':
         startTime = Moment()
           .subtract(1, 'hours')
+          .startOf('hour')
           .format('YYYY-MMMM-DD hh:mm A');
-        endTime = Moment().format('YYYY-MMMM-DD hh:mm  A');
+        endTime = Moment()
+          .startOf('hour')
+          .format('YYYY-MMMM-DD hh:mm  A');
         break;
       case '1 Day':
         startTime = Moment()
           .subtract(1, 'days')
+          .startOf('day')
           .format('YYYY-MMMM-DD hh:00 A');
-        endTime = Moment().format('YYYY-MMMM-DD hh:00 A');
+        endTime = Moment()
+          .startOf('day')
+          .format('YYYY-MMMM-DD hh:00 A');
         break;
       case '7 Days':
         startTime = Moment()
           .subtract(7, 'days')
+          .startOf('day')
           .format('YYYY-MMMM-DD hh:00 A');
-        endTime = Moment().format('YYYY-MMMM-DD hh:00 A');
+        endTime = Moment()
+          .startOf('day')
+          .format('YYYY-MMMM-DD hh:00 A');
         break;
       case '1 Month':
         startTime = Moment()
           .subtract(1, 'months')
+          .startOf('month')
           .format('YYYY-MMMM-DD');
-        endTime = Moment().format('YYYY-MMMM-DD');
+        endTime = Moment()
+          .startOf('month')
+          .format('YYYY-MMMM-DD');
         break;
       case '3 Months':
         startTime = Moment()
           .subtract(3, 'months')
+          .startOf('month')
           .format('YYYY-MMMM-DD');
-        endTime = Moment().format('YYYY-MMMM-DD');
+        endTime = Moment()
+          .startOf('month')
+          .format('YYYY-MMMM-DD');
         break;
       case '6 Months':
         startTime = Moment()
           .subtract(6, 'months')
+          .startOf('month')
           .format('YYYY-MMMM-DD');
-        endTime = Moment().format('YYYY-MMMM-DD');
+        endTime = Moment()
+          .startOf('month')
+          .format('YYYY-MMMM-DD');
         break;
       case '1 Year':
         startTime = Moment()
+          .subtract(1, 'months')
           .subtract(1, 'years')
+          .startOf('month-MMMM')
           .format('YYYY');
-        endTime = Moment().format('YYYY');
+        endTime = Moment()
+          .startOf('month')
+          .format('YYYY-MMMM');
         break;
       default:
       // do nothing
@@ -800,9 +896,7 @@ class DateTimePicker extends Widget {
         this.state.granularityValue
       );
     }
-    const { granularityMode } = this.state;
-    let defaultSelectedGranularity = this.getSupportedGranularitiesForFixed(granularityMode);
-    return defaultSelectedGranularity.defaultGranularity.toLowerCase();
+    return this.verifyDefaultGranularityOfTimeRange(this.state.granularityValue);
   }
 
   verifySelectedGranularityForCustom = (granularity) => {
@@ -827,21 +921,21 @@ class DateTimePicker extends Widget {
     let customRangeGranularityValue = '';
     switch (granularityValue) {
       case '1 Min':
-      case '15 Min':
         customRangeGranularityValue = 'second';
         break;
+      case '15 Min':
       case '1 Hour':
         customRangeGranularityValue = 'minute';
         break;
       case '1 Day':
-      case '7 Days':
         customRangeGranularityValue = 'hour';
         break;
+      case '7 Days':
       case '1 Month':
-      case '3 Months':
-      case '6 Months':
         customRangeGranularityValue = 'day';
         break;
+      case '3 Months':
+      case '6 Months':
       case '1 Year':
         customRangeGranularityValue = 'month';
         break;
@@ -1041,12 +1135,18 @@ class DateTimePicker extends Widget {
       const refreshInterval =
         this.state.options.autoSyncInterval * 1000 || 10000;
       const refresh = () => {
-        const startTimeAndGranularity = this.getStartTimeAndGranularity(
-          this.state.granularityMode
-        );
+        let from;
+        if (this.state.granularityMode === GRANULARITY_MODE) {
+          from = this.state.startTime.getTime();
+        } else {
+          const startTimeAndGranularity = this.getStartTimeAndGranularity(
+              this.state.granularityMode
+          );
+          from = startTimeAndGranularity.startTime.getTime();
+        }
         this.publishTimeRange({
           granularity: this.state.granularityValue,
-          from: startTimeAndGranularity.startTime.getTime(),
+          from: from,
           to: new Date().getTime()
         });
       };
