@@ -27,7 +27,7 @@ export default class CustomTimeRangeSelector extends React.Component {
     invalidDateRange: false,
     customRangeGranularityValue: this.props.customRangeGranularityValue,
     startTime: this.props.startTime,
-    endTime: new Date(),
+    endTime: this.props.endTime,
     applyButtonBackgroundColor: '#ef6c00',
     cancelButtonBackgroundColor: '#999'
   };
