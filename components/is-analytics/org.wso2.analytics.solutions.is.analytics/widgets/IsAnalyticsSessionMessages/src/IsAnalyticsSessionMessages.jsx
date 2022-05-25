@@ -82,6 +82,7 @@ class IsAnalyticsSessionMessages extends Widget {
             pagination: true,
             filterable: true,
             append: false,
+            hideTotalPageCount: true,
         };
 
         this.metadata = {
@@ -97,6 +98,10 @@ class IsAnalyticsSessionMessages extends Widget {
             providerConfig: null,
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
+            query: null,
+            isPaginationEnabled: true,
+            totalPages: Infinity,
+            pageSize: null,
         };
 
         this.handleResize = this.handleResize.bind(this);
@@ -104,6 +109,7 @@ class IsAnalyticsSessionMessages extends Widget {
         this.handleDataReceived = this.handleDataReceived.bind(this);
         this.handleUserSelection = this.handleUserSelection.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     handleResize() {
@@ -115,7 +121,11 @@ class IsAnalyticsSessionMessages extends Widget {
             .then((message) => {
                 this.setState({
                     providerConfig: message.data.configs.providerConfig,
+                    isPaginationEnabled: message.data.configs.providerConfig.configs.config.isPaginationEnabled,
+                    pageSize: message.data.configs.providerConfig.configs.config.pageSize,
                 }, () => super.subscribe(this.handleUserSelection));
+                this.chartConfig.hideTotalPageCount = message.data.configs.providerConfig.configs.config
+                    .isPaginationEnabled;
             });
     }
 
@@ -128,6 +138,17 @@ class IsAnalyticsSessionMessages extends Widget {
             metadata: message.metadata,
             data: message.data,
         });
+        if (this.state.isPaginationEnabled) {
+            if (message.data.length <= 1) {
+                this.setState({
+                    totalPages: 1,
+                });
+            } else {
+                this.setState({
+                    totalPages: Infinity,
+                });
+            }
+        }
     }
 
     handleUserSelection(message) {
@@ -145,11 +166,49 @@ class IsAnalyticsSessionMessages extends Widget {
             .replace('{{from}}', this.state.fromDate)
             .replace('{{to}}', this.state.toDate);
         dataProviderConfigs.configs.config.queryData.query = query;
+        dataProviderConfigs.configs.config.pageSize = this.state.pageSize;
+        this.setState({
+            query,
+        });
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleDataReceived, dataProviderConfigs);
     }
 
+    getData(pageSize, currentPage) {
+        const dataProviderConfigs = _.cloneDeep(this.state.providerConfig);
+        if (dataProviderConfigs) {
+            dataProviderConfigs.configs.config.queryData.query = this.state.query;
+            dataProviderConfigs.configs.config.pageSize = pageSize;
+            dataProviderConfigs.configs.config.currentPage = currentPage;
+            this.setState({
+                pageSize,
+            });
+            super.getWidgetChannelManager().poll(this.props.id, this.handleDataReceived, dataProviderConfigs);
+        }
+    }
+
     render() {
+        if (this.state.isPaginationEnabled) {
+            return (
+                <MuiThemeProvider muiTheme={this.props.muiTheme}>
+                    <section style={{ paddingTop: 10 }}>
+                        <VizG
+                            config={this.chartConfig}
+                            metadata={this.state.metadata}
+                            data={this.state.data}
+                            height={this.state.height}
+                            width={this.state.width}
+                            theme={this.props.muiTheme.name}
+                            manual
+                            pages={this.state.totalPages}
+                            onFetchData={(state) => {
+                                this.getData(state.pageSize, state.page);
+                            }}
+                        />
+                    </section>
+                </MuiThemeProvider>
+            );
+        }
         return (
             <MuiThemeProvider muiTheme={this.props.muiTheme}>
                 <section style={{ paddingTop: 10 }}>

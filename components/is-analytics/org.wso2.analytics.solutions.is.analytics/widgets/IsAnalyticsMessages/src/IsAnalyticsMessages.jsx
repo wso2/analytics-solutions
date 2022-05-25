@@ -268,6 +268,7 @@ const tableConfig = {
             },
         };
     },
+    hideTotalPageCount: true,
 };
 
 class IsAnalyticsMessages extends Widget {
@@ -282,11 +283,16 @@ class IsAnalyticsMessages extends Widget {
             options: this.props.configs.options,
             width: this.props.glContainer.width,
             height: this.props.glContainer.height,
+            query: null,
+            isPaginationEnabled: true,
+            totalPages: Infinity,
+            pageSize: null,
         };
 
         this.handleReceivedData = this.handleReceivedData.bind(this);
         this.onReceivingMessage = this.onReceivingMessage.bind(this);
         this.assembleQuery = this.assembleQuery.bind(this);
+        this.getData = this.getData.bind(this);
 
         this.props.glContainer.on('resize', () => this.setState({
             width: this.props.glContainer.width,
@@ -297,8 +303,14 @@ class IsAnalyticsMessages extends Widget {
     componentDidMount() {
         super.getWidgetConfiguration(this.props.widgetID)
             .then((message) => {
+                const tableConfigs = _.cloneDeep(this.state.tableConfig);
+                tableConfigs.hideTotalPageCount =
+                    message.data.configs.providerConfig.configs.config.isPaginationEnabled;
                 this.setState({
+                    tableConfig: tableConfigs,
                     dataProviderConf: message.data.configs.providerConfig,
+                    isPaginationEnabled: message.data.configs.providerConfig.configs.config.isPaginationEnabled,
+                    pageSize: message.data.configs.providerConfig.configs.config.pageSize,
                 }, () => super.subscribe(this.onReceivingMessage));
             })
             .catch(() => {
@@ -333,6 +345,17 @@ class IsAnalyticsMessages extends Widget {
         this.setState({
             data: message.data,
         });
+        if (this.state.isPaginationEnabled) {
+            if (message.data.length <= 1) {
+                this.setState({
+                    totalPages: 1,
+                });
+            } else {
+                this.setState({
+                    totalPages: Infinity,
+                });
+            }
+        }
         window.dispatchEvent(new Event('resize'));
     }
 
@@ -407,9 +430,27 @@ class IsAnalyticsMessages extends Widget {
 
         updatedQuery = updatedQuery.replace('{{filterCondition}}', filterCondition);
         dataProviderConfigs.configs.config.queryData.query = updatedQuery;
-
+        dataProviderConfigs.configs.config.pageSize = this.state.pageSize;
+        this.setState({
+            query: updatedQuery,
+        });
         super.getWidgetChannelManager()
             .subscribeWidget(this.props.id, this.handleReceivedData, dataProviderConfigs);
+    }
+
+    getData(pageSize, currentPage) {
+        const dataProviderConfigs = _.cloneDeep(this.state.dataProviderConf);
+        if (dataProviderConfigs) {
+            dataProviderConfigs.configs.config.queryData.query = this.state.query;
+            dataProviderConfigs.configs.config.pageSize = pageSize;
+            dataProviderConfigs.configs.config.currentPage = currentPage;
+            this.setState({
+                pageSize,
+            });
+            super.getWidgetConfiguration(this.props.widgetID).then(() => {
+                super.getWidgetChannelManager().poll(this.props.id, this.handleReceivedData, dataProviderConfigs);
+            });
+        }
     }
 
     render() {
@@ -439,6 +480,29 @@ class IsAnalyticsMessages extends Widget {
                                     Unable to fetch data from Siddhi data provider,
                                     Please check the data provider configurations.
                                 </Typography>
+                            </div>
+                        </div>
+                    </Scrollbars>
+                </MuiThemeProvider>
+            );
+        } else if (this.state.isPaginationEnabled) {
+            return (
+                <MuiThemeProvider theme={theme}>
+                    <Scrollbars style={{ height, width }}>
+                        <div style={divSpacings}>
+                            <div style={{ height: height * 0.9, width: width * 0.96 }}>
+                                <VizG
+                                    config={this.state.tableConfig}
+                                    metadata={this.state.metadata}
+                                    data={this.state.data}
+                                    append={false}
+                                    theme={this.props.muiTheme.name}
+                                    manual
+                                    pages = {this.state.totalPages}
+                                    onFetchData = {(state) => {
+                                        this.getData(state.pageSize, state.page);
+                                    }}
+                                />
                             </div>
                         </div>
                     </Scrollbars>
