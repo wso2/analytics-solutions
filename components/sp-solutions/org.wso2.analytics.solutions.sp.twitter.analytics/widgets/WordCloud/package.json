@@ -22,7 +22,7 @@
     "babel-loader": "^7.1.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "copy-webpack-plugin": "^4.2.0",
+    "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^0.28.11",
     "rimraf": "^2.6.2",
     "sass-loader": "^6.0.6",
